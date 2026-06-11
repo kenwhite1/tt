@@ -1,0 +1,13 @@
+{
+  "name": "druzhok",
+  "private": true,
+  "engines": { "node": ">=22" },
+  "workspaces": ["server", "app"],
+  "scripts": {
+    "dev:server": "npm run dev -w server",
+    "dev:app": "npm run dev -w app",
+    "build": "npm run build -w app",
+    "start": "npm run start -w server",
+    "typecheck": "npm run typecheck -w server && npm run typecheck -w app"
+  }
+}

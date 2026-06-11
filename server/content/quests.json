@@ -1,0 +1,202 @@
+{
+  "daily_pool": [
+    {
+      "id": "pat_pet_head",
+      "ru": "Погладь меня по голове — я так ждал твоей ладошки!",
+      "type": "pat_pet",
+      "deeplink": "home",
+      "check": "pet_patted",
+      "reward": 25
+    },
+    {
+      "id": "pat_pet_ear",
+      "ru": "Почеши меня за ушком — это моё любимое место",
+      "type": "pat_pet",
+      "deeplink": "home",
+      "check": "pet_patted",
+      "reward": 25
+    },
+    {
+      "id": "complete_any_goal",
+      "ru": "Выполни любое дело из своего списка",
+      "type": "complete_goal",
+      "deeplink": "goals",
+      "check": "goal_completed",
+      "reward": 25
+    },
+    {
+      "id": "complete_tiny_goal",
+      "ru": "Отметь одно маленькое дело — даже самое крошечное считается",
+      "type": "complete_goal",
+      "deeplink": "goals",
+      "check": "goal_completed",
+      "reward": 25
+    },
+    {
+      "id": "send_walk",
+      "ru": "Собери энергию, чтобы я отправился на прогулку",
+      "type": "walk",
+      "deeplink": "home",
+      "check": "walk_started",
+      "reward": 25
+    },
+    {
+      "id": "repeat_affirmation",
+      "ru": "Повтори добрую фразу три раза — я послушаю с удовольствием",
+      "type": "affirmation",
+      "deeplink": "affirmation_exercise",
+      "check": "affirmation_completed",
+      "reward": 25
+    },
+    {
+      "id": "gratitude_note",
+      "ru": "Запиши, за что ты сегодня говоришь «спасибо»",
+      "type": "gratitude_reflection",
+      "deeplink": "gratitude_journal",
+      "check": "gratitude_saved",
+      "reward": 25
+    },
+    {
+      "id": "gratitude_warm_moment",
+      "ru": "Вспомни и запиши один тёплый момент этого дня",
+      "type": "gratitude_reflection",
+      "deeplink": "gratitude_journal",
+      "check": "gratitude_saved",
+      "reward": 25
+    },
+    {
+      "id": "name_your_emotion",
+      "ru": "Назови свою эмоцию — вместе разберёмся, что внутри",
+      "type": "name_emotion",
+      "deeplink": "emotion_check",
+      "check": "emotion_named",
+      "reward": 25
+    },
+    {
+      "id": "breathing_practice",
+      "ru": "Сделай дыхательную практику — я подышу рядом с тобой",
+      "type": "breathing",
+      "deeplink": "breathing_exercise",
+      "check": "breathing_completed",
+      "reward": 25
+    },
+    {
+      "id": "breathing_minute",
+      "ru": "Подыши глубоко одну минутку — этого правда хватит",
+      "type": "breathing",
+      "deeplink": "breathing_exercise",
+      "check": "breathing_completed",
+      "reward": 25
+    },
+    {
+      "id": "change_outfit",
+      "ru": "Подбери мне новый наряд — хочу покрасоваться!",
+      "type": "change_outfit",
+      "deeplink": "wardrobe",
+      "check": "outfit_changed",
+      "reward": 25
+    },
+    {
+      "id": "change_interior",
+      "ru": "Переставь что-нибудь в моём домике — люблю перемены",
+      "type": "change_interior",
+      "deeplink": "room_editor",
+      "check": "interior_changed",
+      "reward": 25
+    },
+    {
+      "id": "send_good_vibe",
+      "ru": "Отправь другу лучик тепла",
+      "type": "send_vibe",
+      "deeplink": "friends",
+      "check": "vibe_sent",
+      "reward": 25
+    },
+    {
+      "id": "answer_with_friends",
+      "ru": "Ответь на вопрос дня вместе с друзьями",
+      "type": "answer_friends",
+      "deeplink": "friends_quiz",
+      "check": "friends_question_answered",
+      "reward": 25
+    },
+    {
+      "id": "log_today_mood",
+      "ru": "Отметь, как ты себя сейчас чувствуешь",
+      "type": "log_mood",
+      "deeplink": "mood_log",
+      "check": "mood_logged",
+      "reward": 25
+    }
+  ],
+  "special_tracks": [
+    {
+      "id": "collect_clothing",
+      "ru_template": "Собери {n} предметов одежды для Дружка",
+      "metric": "clothing",
+      "tiers": [1, 5, 10, 20, 50, 75, 100, 150, 200, 300, 400, 500, 750, 1000]
+    },
+    {
+      "id": "collect_furniture",
+      "ru_template": "Обустрой домик: собери {n} предметов мебели",
+      "metric": "furniture",
+      "tiers": [1, 5, 10, 20, 50, 75, 100, 150, 200, 300, 400, 500, 750, 1000]
+    },
+    {
+      "id": "meet_micropets",
+      "ru_template": "Познакомься с {n} маленькими друзьями Дружка",
+      "metric": "micropets",
+      "tiers": [1, 3, 5, 8, 11, 15, 20, 40, 60]
+    },
+    {
+      "id": "visit_locations",
+      "ru_template": "Побывай с Дружком в {n} местах на карте",
+      "metric": "locations",
+      "tiers": [2, 3, 5, 7, 10, 13, 16, 20, 25, 27]
+    },
+    {
+      "id": "grow_stage",
+      "ru_template": "Соверши {n} прогулок, чтобы Дружок подрос",
+      "metric": "stage",
+      "tiers": [7, 22, 42, 67]
+    },
+    {
+      "id": "friendship_level",
+      "ru_template": "Достигни {n}-го уровня дружбы с Дружком",
+      "metric": "friendship",
+      "tiers": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    }
+  ],
+  "affirmations": [
+    "Я делаю достаточно.",
+    "Мне можно отдыхать.",
+    "Я заслуживаю заботы — в том числе своей собственной.",
+    "Маленькие шаги — это тоже шаги.",
+    "Я могу быть мягче к себе.",
+    "Сегодня я выбираю спокойствие.",
+    "Мои чувства важны.",
+    "Мне можно ошибаться.",
+    "Я расту в своём темпе.",
+    "Просить о помощи — это смелость.",
+    "Я дышу — и для начала этого уже достаточно.",
+    "Моя ценность не измеряется продуктивностью.",
+    "Я разрешаю себе паузу.",
+    "День не обязан быть продуктивным, чтобы быть хорошим.",
+    "Я учусь слышать себя.",
+    "Со мной всё в порядке.",
+    "Я могу справляться с трудностями постепенно.",
+    "Мне не нужно сравнивать себя с другими.",
+    "Я выбираю доброту к себе.",
+    "Каждый мой вдох — забота о себе.",
+    "Я имею право на свои границы.",
+    "Отдых — это не лень, а забота.",
+    "Я принимаю себя — без условий.",
+    "Трудный день не делает меня плохим человеком.",
+    "Я могу начать заново в любой момент.",
+    "Мои маленькие победы имеют значение.",
+    "Я там, где мне нужно быть.",
+    "Спешить некуда — я иду своим путём.",
+    "Я благодарю себя за то, что стараюсь.",
+    "Мне можно радоваться простым вещам."
+  ]
+}

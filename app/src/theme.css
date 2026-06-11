@@ -1,0 +1,122 @@
+:root {
+  --bg: #f3e2bc;
+  --bg-deep: #eed9a9;
+  --card: #fffaf0;
+  --card-shade: #f7ecd9;
+  --ink: #5c4326;
+  --ink-soft: #9b8466;
+  --brown: #8a5a33;
+  --brown-deep: #6f4322;
+  --accent: #f2a93b;
+  --accent-deep: #d98b1f;
+  --green: #7fb069;
+  --green-deep: #5e8e4a;
+  --red: #e2574c;
+  --gold: #f8d77e;
+  --radius: 18px;
+  --radius-lg: 26px;
+  --shadow-lip: 0 4px 0 rgba(122, 79, 42, 0.18);
+  --safe-top: var(--tg-content-safe-area-inset-top, 0px);
+  --safe-bottom: var(--tg-safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body, #root { height: 100%; margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Nunito', -apple-system, 'SF Pro Rounded', system-ui, sans-serif;
+  font-size: 16px;
+  overscroll-behavior: none;
+  user-select: none;
+}
+
+.screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(var(--safe-top) + 8px);
+}
+
+.scroll { flex: 1; overflow-y: auto; padding: 0 14px calc(86px + var(--safe-bottom)); }
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lip);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+h1, h2, h3 { margin: 0; font-weight: 800; color: var(--ink); }
+h1 { font-size: 22px; }
+h2 { font-size: 18px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--green); color: #fff; font-weight: 800; font-size: 16px;
+  border: none; border-radius: 999px; padding: 12px 22px;
+  box-shadow: 0 4px 0 var(--green-deep);
+  cursor: pointer; transition: transform 0.06s;
+}
+.btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--green-deep); }
+.btn.accent { background: var(--accent); box-shadow: 0 4px 0 var(--accent-deep); }
+.btn.ghost { background: var(--card); color: var(--brown); box-shadow: var(--shadow-lip); }
+.btn:disabled { opacity: 0.5; }
+
+.tabbar {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  display: flex; justify-content: space-around; align-items: flex-end;
+  background: var(--card);
+  border-radius: 22px 22px 0 0;
+  padding: 8px 4px calc(8px + var(--safe-bottom));
+  box-shadow: 0 -4px 18px rgba(122, 79, 42, 0.12);
+}
+.tab {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  font-size: 11px; font-weight: 800; color: var(--ink-soft);
+  background: none; border: none; padding: 6px 8px; border-radius: 14px; cursor: pointer;
+  min-width: 52px;
+}
+.tab.active { color: var(--brown-deep); background: var(--bg); }
+
+.goal-row {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card); border-radius: var(--radius);
+  box-shadow: var(--shadow-lip); padding: 12px 14px; margin-bottom: 10px;
+}
+.goal-check {
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  border: 3px solid var(--gold); background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; cursor: pointer; transition: background 0.15s;
+}
+.goal-check.done { background: var(--green); border-color: var(--green-deep); }
+
+.energy-track {
+  height: 18px; border-radius: 999px; background: var(--card-shade);
+  overflow: hidden; box-shadow: inset 0 2px 3px rgba(122, 79, 42, 0.15);
+}
+.energy-fill {
+  height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold), var(--accent));
+  transition: width 0.4s ease;
+}
+
+.toast {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  top: calc(var(--safe-top) + 54px);
+  background: var(--brown-deep); color: #fff; font-weight: 800;
+  padding: 10px 18px; border-radius: 999px; z-index: 50;
+  animation: toast-in 0.25s ease;
+}
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, -8px); } }
+
+@keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+@keyframes float-heart {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(-60px) scale(1.4); }
+}
+.heart-float { position: absolute; animation: float-heart 1s ease-out forwards; pointer-events: none; font-size: 22px; }
