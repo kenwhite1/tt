@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { useStore } from '../store'
 import { Puppy } from '../art/Puppy'
+import { WalkChat } from './travel/WalkChat'
 
 function WalkCountdown({ endsTs }: { endsTs: number }) {
   const [, force] = useState(0)
@@ -39,7 +40,7 @@ export function Home() {
   return (
     <>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 14px 8px' }}>
-        <button className="btn ghost" style={{ padding: '8px 12px' }}>☰</button>
+        <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={() => useStore.getState().setMenuOpen(true)}>☰</button>
         <h1>{pet.name}</h1>
         <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={() => setShowMood(true)}>
           {state.moodToday ? MOODS[state.moodToday - 1] : '🙂'}
@@ -51,6 +52,9 @@ export function Home() {
           <div ref={hearts} style={{ position: 'relative', display: 'inline-block' }} onPointerDown={onPat}>
             <Puppy state={walking ? 'happy' : 'idle'} />
           </div>
+          {walk && walk.completed && !walk.chatDone && (
+            <WalkChat walkId={walk.id} onDone={() => void useStore.getState().refresh()} />
+          )}
           {walking ? (
             <p style={{ fontWeight: 800, color: 'var(--brown-deep)' }}>
               🐾 {pet.name} гуляет — вернётся через <WalkCountdown endsTs={walk.endsTs} />

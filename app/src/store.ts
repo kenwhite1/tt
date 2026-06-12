@@ -12,6 +12,9 @@ interface Store {
   state: StateDto | null
   toast: string | null
   tgName: string
+  menuOpen: boolean
+  setMenuOpen(open: boolean): void
+  refresh(): Promise<void>
   setTab(tab: Tab): void
   boot(): Promise<void>
   finishOnboarding(data: { petName: string; pronouns: string; color: string; trait: string; userName: string }): Promise<void>
@@ -31,6 +34,14 @@ export const useStore = create<Store>((set, get) => ({
   state: null,
   toast: null,
   tgName: '',
+  menuOpen: false,
+
+  setMenuOpen: menuOpen => set({ menuOpen }),
+
+  async refresh() {
+    const { state } = await api.state()
+    set({ state })
+  },
 
   setTab: tab => { haptic('tap'); set({ tab }) },
 

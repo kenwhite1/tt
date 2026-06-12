@@ -8,6 +8,7 @@ import { Shop } from './screens/Shop'
 import { Friends } from './screens/Friends'
 import { Bag } from './screens/Bag'
 import { Pet } from './screens/Pet'
+import { Menu } from './screens/menu/Menu'
 import { Puppy } from './art/Puppy'
 
 const TABS: { key: Tab; ru: string }[] = [
@@ -20,7 +21,7 @@ const TABS: { key: Tab; ru: string }[] = [
 ]
 
 export function App() {
-  const { phase, tab, setTab, boot, toast } = useStore()
+  const { phase, tab, setTab, boot, toast, menuOpen, setMenuOpen } = useStore()
 
   useEffect(() => { void boot() }, [boot])
 
@@ -48,6 +49,7 @@ export function App() {
   return (
     <div className="screen">
       {toast && <div className="toast">{toast}</div>}
+      {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
       {tab === 'home' && <Home />}
       {tab === 'quests' && <Quests />}
       {tab === 'shop' && <Shop />}

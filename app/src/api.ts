@@ -3,7 +3,7 @@ import { getInitData } from './telegram'
 
 let token: string | null = sessionStorage.getItem('jwt')
 
-async function req<T>(path: string, body?: unknown): Promise<T> {
+export async function req<T>(path: string, body?: unknown): Promise<T> {
   const res = await fetch(`/api${path}`, {
     method: body === undefined ? 'GET' : 'POST',
     headers: {

@@ -2,11 +2,19 @@ import { Hono } from 'hono'
 import { z } from 'zod'
 import { validateInitData, issueToken, verifyToken } from './auth'
 import { addGoal, bootstrapUser, completeGoal, getState, getUser, logMood, patPet, startWalk } from './engine/core'
-import { content, starterGoals } from './content'
+import { starterGoals } from './content'
+import type { Env } from './env'
+import { activitiesRoutes } from './routes/activities'
+import { questsRoutes } from './routes/quests'
+import { shopRoutes } from './routes/shop'
+import { travelRoutes } from './routes/travel'
+import { micropetsRoutes } from './routes/micropets'
+import { socialRoutes } from './routes/social'
+import { eventsRoutes } from './routes/events'
+import { paymentsRoutes } from './routes/payments'
 import type { UserRow } from './engine/rows'
 import { db } from './db'
 
-type Env = { Variables: { user: UserRow } }
 export const api = new Hono<Env>()
 
 api.post('/auth', async c => {
@@ -104,3 +112,13 @@ api.post('/mood', async c => {
   logMood(c.get('user'), body.data.value, body.data.note, body.data.factors)
   return c.json({ state: getState(c.get('user')) })
 })
+
+// module routes (mounted after auth middleware — c.get('user') is available)
+api.route('/activities', activitiesRoutes)
+api.route('/quests', questsRoutes)
+api.route('/shop', shopRoutes)
+api.route('/travel', travelRoutes)
+api.route('/micropets', micropetsRoutes)
+api.route('/social', socialRoutes)
+api.route('/events', eventsRoutes)
+api.route('/payments', paymentsRoutes)
