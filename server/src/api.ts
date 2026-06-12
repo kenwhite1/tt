@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { z } from 'zod'
 import { validateInitData, issueToken, verifyToken } from './auth'
 import { addGoal, bootstrapUser, completeGoal, getState, getUser, logMood, patPet, startWalk } from './engine/core'
+import { content, starterGoals } from './content'
 import type { UserRow } from './engine/rows'
 import { db } from './db'
 
@@ -48,10 +49,7 @@ api.post('/onboard', async c => {
   if (!body.success) return c.json({ error: 'bad_request' }, 400)
   const { petName, pronouns, color, trait, userName, tz } = body.data
   const user = bootstrapUser(uid, userName, { petName, pronouns, color, trait, tz })
-  // starter goals (replaced by content library ids once loaded)
-  for (const [t, e] of [['Выпить стакан воды', '💧'], ['Сделать 3 глубоких вдоха', '🌬️'], ['Погладить щенка', '🐾'], ['Лечь спать вовремя', '🌙']] as const) {
-    addGoal(user.id, t, e, null)
-  }
+  for (const g of starterGoals()) addGoal(user.id, g.ru, g.emoji, g.sca)
   return c.json({ state: getState(user) })
 })
 
