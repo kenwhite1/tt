@@ -27,11 +27,16 @@ html, body, #root { height: 100%; margin: 0; }
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Comfortaa', 'SF Pro Rounded', 'Nunito', system-ui, sans-serif;
+  font-family: 'Nunito', 'SF Pro Rounded', system-ui, sans-serif;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   overscroll-behavior: none;
   user-select: none;
+}
+
+/* Form controls reset font in browsers — force them to use the app font everywhere. */
+button, input, textarea, select {
+  font-family: inherit;
 }
 
 .screen {
