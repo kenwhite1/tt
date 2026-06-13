@@ -1,11 +1,9 @@
 // Hamburger «Меню» — the hub that links the whole self-care suite + settings + pause.
-import { useEffect, useState } from 'react'
-import { req } from '../../api'
+import { useState } from 'react'
 import { useStore } from '../../store'
 import { haptic } from '../../telegram'
 import { PlusScreen } from '../plus/PlusScreen'
-import { Row, Sub, Toggle } from './ui'
-import type { SettingsDto } from './types'
+import { Row, Sub, useContent } from './ui'
 import { Reflections } from './Reflections'
 import { GoalIdeas } from './players/GoalIdeas'
 import { Breathing } from './players/Breathing'
@@ -21,16 +19,20 @@ import { MyGoals } from './screens/MyGoals'
 import { Scas } from './screens/Scas'
 import { Insights } from './screens/Insights'
 import { Papers } from './screens/Papers'
+import { History } from './screens/History'
+import { Settings } from './screens/Settings'
+import { Pause } from './screens/Pause'
 
 type View =
   | 'root' | 'activities' | 'settings' | 'pause' | 'plus'
   | 'reflections' | 'goalIdeas' | 'breathing' | 'movement' | 'timers' | 'grounding'
   | 'quizzes' | 'emotion' | 'gooddeed' | 'affirmations' | 'firstaid'
-  | 'myGoals' | 'scas' | 'insights' | 'papers'
+  | 'myGoals' | 'scas' | 'insights' | 'papers' | 'history'
 
 export function Menu({ onClose }: { onClose(): void }) {
   const [view, setView] = useState<View>('root')
   const state = useStore(s => s.state)
+  const content = useContent()
   const go = (v: View) => { haptic('tap'); setView(v) }
   const back = () => setView('root')
   const backActivities = () => setView('activities')
@@ -52,8 +54,9 @@ export function Menu({ onClose }: { onClose(): void }) {
   if (view === 'scas') return <Frame><Scas onBack={back} /></Frame>
   if (view === 'insights') return <Frame><Insights onBack={back} /></Frame>
   if (view === 'papers') return <Frame><Papers onBack={back} onPlus={() => setView('plus')} /></Frame>
-  if (view === 'settings') return <Frame><SettingsView onBack={back} /></Frame>
-  if (view === 'pause') return <Frame><PauseView onBack={back} /></Frame>
+  if (view === 'history') return <Frame><History onBack={back} /></Frame>
+  if (view === 'settings') return <Frame><Settings onBack={back} /></Frame>
+  if (view === 'pause') return <Frame><Pause onBack={back} /></Frame>
 
   if (view === 'activities') {
     return (
@@ -65,7 +68,7 @@ export function Menu({ onClose }: { onClose(): void }) {
           <Row emoji="🤸" title="Движение" sub="Лёгкая разминка" onClick={() => go('movement')} />
           <Row emoji="⏳" title="Таймеры" sub="Медитация и фокус" onClick={() => go('timers')} />
           <Row emoji="🌈" title="Заземление" sub="Вернуться в момент" onClick={() => go('grounding')} />
-          <Row emoji="📝" title="Викторины" sub="Прислушаться к себе" onClick={() => go('quizzes')} />
+          {content?.quizzesEnabled && <Row emoji="📝" title="Викторины" sub="Прислушаться к себе" onClick={() => go('quizzes')} />}
           <Row emoji="💛" title="Назови эмоцию" sub="Понять, что чувствуешь" onClick={() => go('emotion')} />
           <Row emoji="🤝" title="Доброе дело" sub="Тепло другим — тепло себе" onClick={() => go('gooddeed')} />
           <Row emoji="✨" title="Аффирмации" sub="Доброе слово себе" onClick={() => go('affirmations')} />
@@ -107,6 +110,7 @@ export function Menu({ onClose }: { onClose(): void }) {
         <Row emoji="🌿" title="Сферы заботы" onClick={() => go('scas')} />
         <Row emoji="📊" title="Инсайты" onClick={() => go('insights')} />
         <Row emoji="💌" title="Газеты" onClick={() => go('papers')} />
+        <Row emoji="📅" title="История" sub="Загляни в любой день" onClick={() => go('history')} />
         <Row emoji="⛑️" title="Аптечка" sub="Если сейчас тяжело" onClick={() => go('firstaid')} />
 
         <h2 style={{ margin: '16px 4px 8px' }}>Настройки</h2>
@@ -122,115 +126,5 @@ function Frame({ children }: { children: React.ReactNode }) {
     <div style={{ position: 'fixed', inset: 0, background: 'var(--bg)', zIndex: 60, display: 'flex', flexDirection: 'column', paddingTop: 'calc(var(--safe-top))' }}>
       {children}
     </div>
-  )
-}
-
-const NOTIF_LABELS: { key: keyof SettingsDto['settings']['notifications']; ru: string }[] = [
-  { key: 'morning', ru: 'Утреннее приветствие' },
-  { key: 'midday', ru: 'Тёплое слово днём' },
-  { key: 'evening', ru: 'Вечерний чек-ин' },
-  { key: 'bedtime', ru: 'Перед сном' },
-  { key: 'streak', ru: 'Спасатель серии' },
-  { key: 'walk', ru: 'Возвращение с прогулки' },
-  { key: 'mail', ru: 'Почта и газеты' },
-  { key: 'social', ru: 'Друзья и лучики' },
-]
-const fmtMin = (m: number) => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`
-
-function SettingsView({ onBack }: { onBack(): void }) {
-  const [s, setS] = useState<SettingsDto | null>(null)
-  useEffect(() => { void req<SettingsDto>('/activities/settings').then(setS) }, [])
-
-  async function patch(body: Record<string, unknown>) {
-    const r = await req<SettingsDto>('/activities/settings', body)
-    setS(r)
-    void useStore.getState().refresh()
-  }
-  function setNotif(key: string, val: boolean) {
-    if (!s) return
-    void patch({ settings: { notifications: { [key]: val } } })
-  }
-
-  if (!s) return <Sub title="Настройки" onBack={onBack}><p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Загружаю…</p></Sub>
-
-  return (
-    <Sub title="Настройки" onBack={onBack}>
-      <div className="card">
-        <h2 style={{ marginBottom: 8 }}>Режим дня</h2>
-        <TimeField label="Подъём" value={s.wakeMin} onChange={v => void patch({ wakeMin: v })} />
-        <TimeField label="Отбой" value={s.sleepMin} onChange={v => void patch({ sleepMin: v })} />
-        <p style={{ fontSize: 12, color: 'var(--ink-soft)', margin: '6px 0 0' }}>
-          Новый день начинается за 2 часа до подъёма ({fmtMin(((s.wakeMin - 120) % 1440 + 1440) % 1440)}).
-        </p>
-      </div>
-
-      <div className="card">
-        <h2 style={{ marginBottom: 4 }}>Уведомления</h2>
-        {NOTIF_LABELS.map(n => (
-          <Toggle key={n.key} label={n.ru} value={s.settings.notifications[n.key]} onChange={v => setNotif(n.key, v)} />
-        ))}
-      </div>
-
-      <div className="card">
-        <h2 style={{ marginBottom: 4 }}>Прочее</h2>
-        <Toggle label="Викторины" sub="Самопроверки в активностях" value={s.settings.quizzes} onChange={v => void patch({ settings: { quizzes: v } })} />
-        <Toggle label="Сезонные события" value={s.settings.seasonal} onChange={v => void patch({ settings: { seasonal: v } })} />
-      </div>
-    </Sub>
-  )
-}
-
-function TimeField({ label, value, onChange }: { label: string; value: number; onChange(v: number): void }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 0' }}>
-      <span style={{ fontWeight: 800 }}>{label}</span>
-      <input type="time" value={fmtMin(value)} onChange={e => {
-        const [h, m] = e.target.value.split(':').map(Number)
-        if (!Number.isNaN(h) && !Number.isNaN(m)) onChange(h * 60 + m)
-      }} style={{ border: '2px solid var(--gold)', borderRadius: 10, padding: '6px 10px', fontSize: 16, fontFamily: 'inherit' }} />
-    </div>
-  )
-}
-
-function PauseView({ onBack }: { onBack(): void }) {
-  const state = useStore(s => s.state)
-  const paused = state?.user.pausedUntil && state.user.pausedUntil >= (state.day ?? '')
-  const [days, setDays] = useState(3)
-  const showToast = useStore(s => s.showToast)
-
-  async function start() {
-    await req('/activities/pause', { days }).catch(() => {})
-    haptic('success'); showToast('Пауза включена 🌙'); void useStore.getState().refresh(); onBack()
-  }
-  async function end() {
-    await req('/activities/pause/end', {}).catch(() => {})
-    haptic('success'); showToast('С возвращением! 🐾'); void useStore.getState().refresh(); onBack()
-  }
-
-  return (
-    <Sub title="Пауза" onBack={onBack}>
-      <div className="card" style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: 48 }}>🌙</div>
-        {paused ? (
-          <>
-            <h2>Сейчас ты на паузе</h2>
-            <p style={{ color: 'var(--ink-soft)' }}>Серия заморожена и сохранится. Возвращайся, когда будешь готов(а).</p>
-            <p style={{ fontWeight: 800 }}>До {state?.user.pausedUntil}</p>
-            <button className="btn accent" style={{ width: '100%', marginTop: 10 }} onClick={() => void end()}>Вернуться сейчас</button>
-          </>
-        ) : (
-          <>
-            <h2>Нужна передышка?</h2>
-            <p style={{ color: 'var(--ink-soft)' }}>Пауза сохранит твою серию и приглушит напоминания. Аптечка остаётся доступной.</p>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, margin: '14px 0' }}>
-              <button className="btn ghost" onClick={() => setDays(d => Math.max(1, d - 1))}>−</button>
-              <b style={{ fontSize: 22 }}>{days} {days === 1 ? 'день' : days < 5 ? 'дня' : 'дней'}</b>
-              <button className="btn ghost" onClick={() => setDays(d => Math.min(7, d + 1))}>+</button>
-            </div>
-            <button className="btn accent" style={{ width: '100%' }} onClick={() => void start()}>Поставить на паузу</button>
-          </>
-        )}
-      </div>
-    </Sub>
   )
 }

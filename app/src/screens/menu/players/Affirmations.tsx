@@ -16,7 +16,10 @@ export function Affirmations({ onBack }: { onBack(): void }) {
 
   function shuffle() {
     haptic('tap')
-    setIdx(i => (i + 1 + Math.floor(Math.random() * (list.length - 1))) % Math.max(1, list.length) + i)
+    const n = list.length
+    if (n <= 1) return
+    // advance by a random non-zero step so we never repeat the current card
+    setIdx(i => i + 1 + Math.floor(Math.random() * (n - 1)))
   }
 
   async function keep() {
