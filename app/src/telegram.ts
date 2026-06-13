@@ -39,10 +39,9 @@ export function initTelegram() {
     tg.setHeaderColor('#F3E2BC')
     tg.setBackgroundColor('#F3E2BC')
     if (tg.isVersionAtLeast('7.7')) tg.disableVerticalSwipes?.()
-    if (tg.isVersionAtLeast('8.0')) {
-      tg.requestFullscreen?.()
-      tg.lockOrientation?.()
-    }
+    // NOTE: no requestFullscreen() — fullscreen makes the webview draw *under*
+    // Telegram's floating Close/⋯ controls, which then overlap the app header.
+    // Standard (expanded) mode keeps Telegram's header above the app — no collision.
   } catch { /* older clients */ }
 }
 
