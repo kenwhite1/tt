@@ -56,3 +56,20 @@ export function haptic(kind: 'tap' | 'success' | 'warn' = 'tap') {
 export function getInitData(): string {
   return tg?.initData ?? ''
 }
+
+// startapp deep-link payload (e.g. "ref_AB12CD34" from an invite link).
+export function getStartParam(): string | null {
+  return tg?.initDataUnsafe?.start_param ?? null
+}
+
+// Ask the user to allow the bot to DM them (reminders). Resolves true outside Telegram (dev).
+export function requestWriteAccess(): Promise<boolean> {
+  return new Promise(resolve => {
+    if (!tg?.requestWriteAccess) { resolve(true); return }
+    try { tg.requestWriteAccess(ok => resolve(!!ok)) } catch { resolve(false) }
+  })
+}
+
+export function addToHomeScreen(): void {
+  try { tg?.addToHomeScreen?.() } catch { /* unsupported client */ }
+}

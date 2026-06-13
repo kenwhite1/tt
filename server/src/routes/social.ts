@@ -762,3 +762,21 @@ socialRoutes.get('/referrals', c => {
  inviteeGift: `Твой друг сразу получит микропитомца ${speciesName(INVITEE_GIFT_SPECIES)} 🎁`,
  })
 })
+
+// Onboarding "тебя пригласили?" capture (also used for the ref_ deep link). Records a
+// pending referral timestamped at account creation so it passes the 48h window, then settles.
+socialRoutes.post('/referral', async c => {
+  const body = z.object({ code: z.string().min(1).max(20) }).safeParse(await c.req.json().catch(() => null))
+  if (!body.success) return c.json({ error: 'bad_request' }, 400)
+  const me = ensureFresh(c.get('user'))
+  if (me.referred_by) return c.json({ error: 'already_referred' }, 400)
+  const code = body.data.code.trim().toUpperCase().replace(/^REF_/, '')
+  const inviter = db.prepare('SELECT id, name FROM users WHERE friend_code=?').get(code) as { id: number; name: string } | undefined
+  if (!inviter) return c.json({ error: 'bad_code' }, 404)
+  if (inviter.id === me.id) return c.json({ error: 'self' }, 400)
+  db.prepare('INSERT OR REPLACE INTO pending_referrals (tg_id, inviter_id, ts) VALUES (?,?,?)')
+    .run(me.id, inviter.id, Date.parse(me.created_at) || Date.now())
+  settleReferrals(me)
+  const ok = !!getUser(me.id)?.referred_by
+  return c.json({ ok, inviterName: inviter.name })
+})

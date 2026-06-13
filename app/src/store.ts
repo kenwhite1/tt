@@ -18,6 +18,7 @@ interface Store {
   setTab(tab: Tab): void
   boot(): Promise<void>
   finishOnboarding(data: { petName: string; pronouns: string; color: string; trait: string; userName: string }): Promise<void>
+  enterApp(): void
   completeGoal(id: number): Promise<void>
   addGoal(title: string, emoji?: string): Promise<void>
   startWalk(): Promise<void>
@@ -64,11 +65,17 @@ export const useStore = create<Store>((set, get) => ({
     }
   },
 
+  // Creates the account/pet/starter-goals and stores state, but STAYS in onboarding
+  // so the post-creation beats (first goal, reminders, invite) can run. enterApp() finishes.
   async finishOnboarding(data) {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
     const { state } = await api.onboard({ ...data, tz })
     haptic('success')
-    set({ state, phase: 'ready' })
+    set({ state })
+  },
+
+  enterApp() {
+    set({ phase: 'ready' })
   },
 
   async completeGoal(id) {
