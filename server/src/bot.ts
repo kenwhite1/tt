@@ -43,7 +43,7 @@ if (bot) {
       : undefined
     const greeting = pickFrom(
       'onboarding_bot_greeting',
-      'Гав! 🐶 Я Дружок — твой щенок заботы о себе. Открывай приложение, я тебя жду!',
+      'Гав! 🐶 Я Дружок, твой щенок заботы о себе. Открывай приложение, я тебя жду!',
     )
       .replaceAll('{name}', ctx.from?.first_name || 'друг')
       .replaceAll('{pet}', pet?.name ?? 'Дружок')
