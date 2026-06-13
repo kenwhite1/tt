@@ -59,7 +59,7 @@ export function Pause({ onBack }: { onBack(): void }) {
  Серия и цели заморожены до {fmtDay(d.pausedUntil)}.
  {left > 0 ? ` Осталось ${left} ${left === 1 ? 'день' : left < 5 ? 'дня' : 'дней'}.` : ' Пауза заканчивается сегодня.'}
  </p>
- <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>Дружок подождёт тебя и не будет грустить. Отдыхай столько, сколько нужно.</p>
+ <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>Шарик подождёт тебя и не будет грустить. Отдыхай столько, сколько нужно.</p>
  <button className="btn" style={{ marginTop: 8 }} disabled={busy} onClick={() => void end()}>Вернуться сейчас</button>
  </div>
  </Sub>
@@ -72,7 +72,7 @@ export function Pause({ onBack }: { onBack(): void }) {
  <div style={{ fontSize: 40, textAlign: 'center' }}>🌙</div>
  <h2 style={{ textAlign: 'center' }}>Нужен отдых?</h2>
  <p style={{ color: 'var(--ink-soft)', textAlign: 'center', margin: '6px 0 14px' }}>
- На паузе серия не прерывается, цели не давят, а Дружок спокойно ждёт. Это забота, а не пропуск.
+ На паузе серия не прерывается, цели не давят, а Шарик спокойно ждёт. Это забота, а не пропуск.
  </p>
  <div style={{ textAlign: 'center', fontSize: 28, fontWeight: 800, color: 'var(--brown-deep)' }}>{days} {days === 1 ? 'день' : days < 5 ? 'дня' : 'дней'}</div>
  <input

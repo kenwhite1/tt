@@ -113,7 +113,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  </button>
  ) : (
  <div className="card" style={{ background: 'var(--card-shade)', fontSize: 14, color: 'var(--ink-soft)' }}>
- ⭐ С «Дружок Плюс» здесь была бы вещь со скидкой −50% и ещё 6 витрин ниже.
+ ⭐ С «Шарик Плюс» здесь была бы вещь со скидкой −50% и ещё 6 витрин ниже.
  </div>
  )}
 
@@ -126,7 +126,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
  {data.slots.map((l, i) => (
  <SlotCard key={i} l={l} onTap={() => {
- if (l.locked) { showToast('Эта витрина откроется с «Дружок Плюс» ⭐'); return }
+ if (l.locked) { showToast('Эта витрина откроется с «Шарик Плюс» ⭐'); return }
  setSheet({ listing: l, slot: i })
  }} />
  ))}

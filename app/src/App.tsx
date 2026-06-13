@@ -29,7 +29,7 @@ export function App() {
     return (
       <div className="screen" style={{ alignItems: 'center', justifyContent: 'center' }}>
         <Puppy state="happy" />
-        <h2 style={{ marginTop: 12 }}>Дружок просыпается…</h2>
+        <h2 style={{ marginTop: 12 }}>Шарик просыпается…</h2>
       </div>
     )
   }

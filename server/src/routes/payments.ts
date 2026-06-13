@@ -1,4 +1,4 @@
-// Telegram Stars payments for «Дружок Плюс», wired but DORMANT (PLUS_ENFORCED flag).
+// Telegram Stars payments for «Шарик Плюс», wired but DORMANT (PLUS_ENFORCED flag).
 // Month = 30-day Stars subscription (subscription_period 2592000); year = one-off 365-day SKU.
 import { Hono } from 'hono'
 import type { Bot } from 'grammy'
@@ -26,21 +26,21 @@ paymentsRoutes.post('/subscribe', async c => {
  try {
  const link = body.data.plan === 'month'
  ? await bot.api.raw.createInvoiceLink({
- title: 'Дружок Плюс, на месяц',
+ title: 'Шарик Плюс, на месяц',
  description: 'Подписка на 30 дней: больше слотов в магазинах, направлений и наград события.',
  payload: `plus_month:${user.id}`,
  provider_token: '',
  currency: 'XTR',
- prices: [{ label: 'Дружок Плюс, 30 дней', amount: C.PLUS_MONTH_STARS }],
+ prices: [{ label: 'Шарик Плюс, 30 дней', amount: C.PLUS_MONTH_STARS }],
  subscription_period: 2_592_000, // the only allowed value (30 days)
  })
  : await bot.api.raw.createInvoiceLink({
- title: 'Дружок Плюс, на год',
- description: 'Разовая оплата: 365 дней Дружка Плюс. Выгоднее, чем по месяцам!',
+ title: 'Шарик Плюс, на год',
+ description: 'Разовая оплата: 365 дней Шарика Плюс. Выгоднее, чем по месяцам!',
  payload: `plus_year:${user.id}`,
  provider_token: '',
  currency: 'XTR',
- prices: [{ label: 'Дружок Плюс, 365 дней', amount: C.PLUS_YEAR_STARS }],
+ prices: [{ label: 'Шарик Плюс, 365 дней', amount: C.PLUS_YEAR_STARS }],
  })
  return c.json({ link })
  } catch (e) {
@@ -103,6 +103,6 @@ export function registerPaymentHandlers(b: Bot) {
  ).run(ctx.from.id, sp.telegram_payment_charge_id, sp.total_amount, isYear ? 'sub_year' : 'sub_month', until, Date.now())
  db.prepare('UPDATE users SET plus_until=? WHERE id=?').run(until, ctx.from.id)
 
- await ctx.reply('Гав-гав! 💛 Дружок Плюс включён, спасибо, что заботишься о нас обоих!').catch(() => {})
+ await ctx.reply('Гав-гав! 💛 Шарик Плюс включён, спасибо, что заботишься о нас обоих!').catch(() => {})
  })
 }

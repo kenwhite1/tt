@@ -57,7 +57,7 @@ export function Papers({ onBack, onPlus }: { onBack(): void; onPlus(): void }) {
  {!data.plus && (
  <button className="card" style={{ width: '100%', textAlign: 'left', border: 'none', cursor: 'pointer', fontFamily: 'inherit', background: 'var(--card-shade)' }} onClick={onPlus}>
  <b>🔒 Весь архив и все 4 газеты в неделю</b>
- <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>Открой в Дружок Плюс, старые выпуски и больше рубрик.</div>
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>Открой в Шарик Плюс, старые выпуски и больше рубрик.</div>
  </button>
  )}
  </Sub>

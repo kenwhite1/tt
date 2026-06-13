@@ -44,7 +44,7 @@ function Running({ kind, minutes, onDone }: { kind: 'meditation' | 'focus'; minu
         <div className="energy-fill" style={{ width: `${pct}%` }} />
       </div>
       <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>
-        {kind === 'meditation' ? 'Дружок отдыхает рядом. Просто будь здесь.' : 'Дружок дремлет, пока ты в деле. Сосредоточься на одном.'}
+        {kind === 'meditation' ? 'Шарик отдыхает рядом. Просто будь здесь.' : 'Шарик дремлет, пока ты в деле. Сосредоточься на одном.'}
       </p>
       <button className="btn ghost" onClick={() => void finish()}>Закончить раньше</button>
     </div>
@@ -57,7 +57,7 @@ function Picker({ kind, cfg, plus, onPick }: { kind: 'meditation' | 'focus'; cfg
     <div className="card">
       <h2>{kind === 'meditation' ? '🧘 Медитация' : '🎯 Фокус'}</h2>
       <p style={{ color: 'var(--ink-soft)', fontSize: 14, margin: '4px 0 10px' }}>
-        {kind === 'meditation' ? 'Тихое время с Дружком.' : 'Помодоро-таймер: одно дело, без отвлечений.'}
+        {kind === 'meditation' ? 'Тихое время с Шариком.' : 'Помодоро-таймер: одно дело, без отвлечений.'}
       </p>
       <ChipRow>
         {all.map(m => {

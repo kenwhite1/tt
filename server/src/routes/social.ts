@@ -42,7 +42,7 @@ const REFERRAL_PLUSHIE = 'plyush_kot_loskutok'
 const REFERRAL_COW = 'pechenka_cow'
 const INVITEE_GIFT_SPECIES = 'plyushka_hamster' // oatmeal-analog: common cuddly species
 
-const BOT_USERNAME = process.env.BOT_USERNAME || 'druzhok_pet_bot'
+const BOT_USERNAME = process.env.BOT_USERNAME || 'sharikrubot'
 const STAGE_RU: Record<string, string> = {
  baby: 'малыш', toddler: 'карапуз', child: 'ребёнок', teen: 'подросток', adult: 'взрослый',
 }
@@ -444,7 +444,7 @@ socialRoutes.post('/add', async c => {
  db.prepare('INSERT OR REPLACE INTO friend_requests (from_id, to_id, ts, status) VALUES (?,?,?,?)')
  .run(me.id, target.id, Date.now(), 'pending')
  mailTo(target.id, 'friend_request', `${me.name} хочет дружить!`,
- `Щенок ${myPet?.name ?? 'Дружок'} машет хвостиком и ждёт ответа во вкладке «Друзья» 💛`,
+ `Щенок ${myPet?.name ?? 'Шарик'} машет хвостиком и ждёт ответа во вкладке «Друзья» 💛`,
  { fromId: me.id, name: me.name, petName: myPet?.name ?? '' })
  })()
  return c.json({ sent: true })

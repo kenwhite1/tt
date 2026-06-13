@@ -1,4 +1,4 @@
-// «Дружок Плюс», the premium tier. Built 1:1 but DORMANT at launch: when the server
+// «Шарик Плюс», the premium tier. Built 1:1 but DORMANT at launch: when the server
 // reports enforced=false, everything is already free and the buy buttons show that.
 import { useEffect, useState } from 'react'
 import { req } from '../../api'
@@ -33,7 +33,7 @@ export function PlusScreen({ onClose }: { onClose(): void }) {
  const r = await req<{ link?: string; dev?: boolean }>('/payments/subscribe', { plan })
  if (r.link && tg?.openInvoice) {
  tg.openInvoice(r.link, status => {
- if (status === 'paid') { showToast('Спасибо! Дружок Плюс активирован 💛'); void useStore.getState().refresh(); onClose() }
+ if (status === 'paid') { showToast('Спасибо! Шарик Плюс активирован 💛'); void useStore.getState().refresh(); onClose() }
  })
  } else {
  showToast('Оплата пока недоступна')
@@ -46,13 +46,13 @@ export function PlusScreen({ onClose }: { onClose(): void }) {
  <div style={{ position: 'fixed', inset: 0, background: 'var(--bg)', zIndex: 70, display: 'flex', flexDirection: 'column', paddingTop: 'calc(var(--safe-top) + 8px)' }}>
  <header style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 14px 8px' }}>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={onClose}>✕</button>
- <h1 style={{ flex: 1 }}>Дружок Плюс</h1>
+ <h1 style={{ flex: 1 }}>Шарик Плюс</h1>
  </header>
 
  <div className="scroll">
  <div className="card" style={{ textAlign: 'center', background: 'linear-gradient(135deg, #fbe3b2, #f8d77e)' }}>
  <div style={{ fontSize: 52 }}>💛</div>
- <h2>Поддержи Дружка и получи больше уюта</h2>
+ <h2>Поддержи Шарика и получи больше уюта</h2>
  <p style={{ color: 'var(--brown)', margin: '6px 0 0', fontSize: 14 }}>
  Все важные вещи заботы о себе всегда бесплатны. Плюс, это удобство и красота, а не стена.
  </p>

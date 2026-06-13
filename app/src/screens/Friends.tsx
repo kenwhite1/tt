@@ -150,7 +150,7 @@ export function Friends() {
  <div style={{ fontSize: 30, marginBottom: -14 }}>🪺</div>
  <PuppyMini stage={data.me.stage} color={data.me.color} size={96} state="idle" />
  <div style={{ fontSize: 12, fontWeight: 800, color: '#3d5c2e', background: 'rgba(255,255,255,0.8)', borderRadius: 999, padding: '1px 10px', display: 'inline-block' }}>
- {data.me.petName || 'Дружок'} (ты)
+ {data.me.petName || 'Шарик'} (ты)
  </div>
  </div>
  </div>

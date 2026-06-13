@@ -18,7 +18,7 @@ const CAT_RU: Record<string, string> = {
 }
 
 export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void }) {
- const petName = useStore(s => s.state?.pet.name ?? 'Дружок')
+ const petName = useStore(s => s.state?.pet.name ?? 'Шарик')
  const [open, setOpen] = useState(false)
  const [story, setStory] = useState<ChatStory | null>(null)
  const [customMode, setCustomMode] = useState(false)

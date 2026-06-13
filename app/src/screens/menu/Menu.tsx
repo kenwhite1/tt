@@ -91,7 +91,7 @@ export function Menu({ onClose }: { onClose(): void }) {
  </header>
  <div className="scroll">
  <div className="card">
- <div style={{ fontWeight: 800, fontSize: 18 }}>{state?.pet.name ?? 'Дружок'}</div>
+ <div style={{ fontWeight: 800, fontSize: 18 }}>{state?.pet.name ?? 'Шарик'}</div>
  <div style={{ fontSize: 14, color: 'var(--ink-soft)' }}>хозяин, {state?.user.name}</div>
  <button onClick={copyCode} style={{ marginTop: 8, background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left' }}>
  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent-deep)' }}>КОД ДРУГА</div>
@@ -100,7 +100,7 @@ export function Menu({ onClose }: { onClose(): void }) {
  </div>
 
  <button className="card" style={{ width: '100%', textAlign: 'left', border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg, #fbe3b2, #f8d77e)' }} onClick={() => go('plus')}>
- <b>💛 Дружок Плюс</b>
+ <b>💛 Шарик Плюс</b>
  <div style={{ fontSize: 13, color: 'var(--brown)' }}>Больше уюта и возможностей</div>
  </button>
 

@@ -132,7 +132,7 @@
  "special_tracks": [
  {
  "id": "collect_clothing",
- "ru_template": "Собери {n} предметов одежды для Дружка",
+ "ru_template": "Собери {n} предметов одежды для Шарика",
  "metric": "clothing",
  "tiers": [1, 5, 10, 20, 50, 75, 100, 150, 200, 300, 400, 500, 750, 1000]
  },
@@ -144,25 +144,25 @@
  },
  {
  "id": "meet_micropets",
- "ru_template": "Познакомься с {n} маленькими друзьями Дружка",
+ "ru_template": "Познакомься с {n} маленькими друзьями Шарика",
  "metric": "micropets",
  "tiers": [1, 3, 5, 8, 11, 15, 20, 40, 60]
  },
  {
  "id": "visit_locations",
- "ru_template": "Побывай с Дружком в {n} местах на карте",
+ "ru_template": "Побывай с Шариком в {n} местах на карте",
  "metric": "locations",
  "tiers": [2, 3, 5, 7, 10, 13, 16, 20, 25, 27]
  },
  {
  "id": "grow_stage",
- "ru_template": "Соверши {n} прогулок, чтобы Дружок подрос",
+ "ru_template": "Соверши {n} прогулок, чтобы Шарик подрос",
  "metric": "stage",
  "tiers": [7, 22, 42, 67]
  },
  {
  "id": "friendship_level",
- "ru_template": "Достигни {n}-го уровня дружбы с Дружком",
+ "ru_template": "Достигни {n}-го уровня дружбы с Шариком",
  "metric": "friendship",
  "tiers": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
  }

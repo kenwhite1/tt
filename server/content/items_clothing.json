@@ -234,7 +234,7 @@
     {"id": "knizhka_skazok", "ru_name": "Книжка сказок", "slot": "held", "price": 500, "everyday": false, "collection": "cozy_home"}
   ],
   "plushies": [
-    {"id": "plyush_druzhok", "ru_name": "Плюшевый Дружок", "price": 20000},
+    {"id": "plyush_druzhok", "ru_name": "Плюшевый Шарик", "price": 20000},
     {"id": "plyush_kot_loskutok", "ru_name": "Плюшевый кот Лоскуток", "price": 15000},
     {"id": "plyush_sova_palitra", "ru_name": "Плюшевая сова Палитра", "price": 15000},
     {"id": "plyush_barsuk_shurupchik", "ru_name": "Плюшевый барсук Шурупчик", "price": 15000},

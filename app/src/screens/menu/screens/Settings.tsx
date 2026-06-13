@@ -36,7 +36,7 @@ const NOTIF: { key: keyof AppSettings['notifications']; ru: string }[] = [
   { key: 'evening', ru: 'Вечерняя отметка' },
   { key: 'bedtime', ru: 'Перед сном' },
   { key: 'streak', ru: 'Спасти серию' },
-  { key: 'walk', ru: 'Дружок вернулся с прогулки' },
+  { key: 'walk', ru: 'Шарик вернулся с прогулки' },
   { key: 'mail', ru: 'Новая почта и газеты' },
   { key: 'social', ru: 'Друзья и лучики' },
 ]
@@ -88,7 +88,7 @@ export function Settings({ onBack }: { onBack(): void }) {
 
       {/* pet */}
       <div className="card">
-        <h2 style={{ marginBottom: 10 }}>Дружок</h2>
+        <h2 style={{ marginBottom: 10 }}>Шарик</h2>
         <label style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)' }}>Имя питомца</label>
         <input
           defaultValue={d.petName}
@@ -107,7 +107,7 @@ export function Settings({ onBack }: { onBack(): void }) {
       {/* day mode */}
       <div className="card">
         <h2 style={{ marginBottom: 6 }}>Режим дня</h2>
-        <p style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '0 0 4px' }}>День Дружка начинается за пару часов до пробуждения.</p>
+        <p style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '0 0 4px' }}>День Шарика начинается за пару часов до пробуждения.</p>
         <TimePicker label="🌅 Подъём" value={d.wakeMin} onChange={v => { setD({ ...d, wakeMin: v }); void save({ wakeMin: v }) }} />
         <TimePicker label="🌙 Отбой" value={d.sleepMin} onChange={v => { setD({ ...d, sleepMin: v }); void save({ sleepMin: v }) }} />
         <div style={{ fontSize: 13, color: 'var(--ink-soft)', marginTop: 4 }}>Сейчас: подъём {HH(d.wakeMin)}:{MM(d.wakeMin)}, отбой {HH(d.sleepMin)}:{MM(d.sleepMin)} · {d.tz}</div>

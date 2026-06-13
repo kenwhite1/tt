@@ -83,7 +83,7 @@ export function Movement({ onBack }: { onBack(): void }) {
 
  return (
  <Sub title="Движение" onBack={onBack}>
- <p style={{ color: 'var(--ink-soft)', margin: '0 4px 10px' }}>Мягко подвигаться вместе с Дружком, 30 секунд на каждое движение.</p>
+ <p style={{ color: 'var(--ink-soft)', margin: '0 4px 10px' }}>Мягко подвигаться вместе с Шариком, 30 секунд на каждое движение.</p>
  {kinds.map(k => (
  <div key={k}>
  <h2 style={{ margin: '6px 4px 8px' }}>{KIND_EMOJI[k] ?? '🤸'} {KIND_RU[k] ?? k}</h2>

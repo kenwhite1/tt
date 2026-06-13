@@ -35,7 +35,7 @@ type UserWithAccess = UserRow & { write_access: number }
 interface EligibleRow extends UserRow { pet_name: string | null; write_access: number }
 
 function fill(text: string, u: EligibleRow): string {
- return text.replaceAll('{name}', u.name || 'друг').replaceAll('{pet}', u.pet_name ?? 'Дружок')
+ return text.replaceAll('{name}', u.name || 'друг').replaceAll('{pet}', u.pet_name ?? 'Шарик')
 }
 
 // Per-type toggles live in users.settings JSON: notif_morning, notif_midday_support,
@@ -187,7 +187,7 @@ function insertNewsletter(u: EligibleRow, day: string) {
  : avgMood >= 3 ? 'настроение держалось ровно и спокойно 🌿'
  : 'неделя была непростой, я рядом и очень тобой горжусь 💛'
 
- const petName = u.pet_name ?? 'Дружок'
+ const petName = u.pet_name ?? 'Шарик'
  const body = [
  `Гав! Это «Недельный лай», наша с тобой газета. ${petName} собирал новости всю неделю 🗞🐶`,
  '',

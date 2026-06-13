@@ -8,7 +8,7 @@ export const bot = BOT_TOKEN ? new Bot(BOT_TOKEN) : null
 const APP_URL = process.env.APP_URL ?? ''
 
 const copy = content.botCopy
-const openLabel = typeof copy.open_button === 'string' ? copy.open_button : 'Открыть Дружка'
+const openLabel = typeof copy.open_button === 'string' ? copy.open_button : 'Открыть Шарика'
 
 function pickFrom(key: string, fallback: string): string {
  const p = copy[key]
@@ -43,10 +43,10 @@ if (bot) {
  : undefined
  const greeting = pickFrom(
  'onboarding_bot_greeting',
- 'Гав! 🐶 Я Дружок, твой щенок заботы о себе. Открывай приложение, я тебя жду!',
+ 'Гав! 🐶 Я Шарик, твой щенок заботы о себе. Открывай приложение, я тебя жду!',
  )
  .replaceAll('{name}', ctx.from?.first_name || 'друг')
- .replaceAll('{pet}', pet?.name ?? 'Дружок')
+ .replaceAll('{pet}', pet?.name ?? 'Шарик')
  await ctx.reply(greeting, { reply_markup: appKeyboard() })
  })
 
