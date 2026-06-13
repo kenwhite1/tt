@@ -50,6 +50,23 @@ if (bot) {
     await ctx.reply(greeting, { reply_markup: appKeyboard() })
   })
 
+  bot.command('app', async ctx => {
+    if (ctx.from) grantWriteAccess(ctx.from.id)
+    await ctx.reply('Вот я! Жми кнопку — и заходи в гости 🐾', { reply_markup: appKeyboard() })
+  })
+
+  bot.command('help', async ctx => {
+    if (ctx.from) grantWriteAccess(ctx.from.id)
+    await ctx.reply(
+      'Я Шарик 🐶 Я расту, когда ты заботишься о себе.\n\n' +
+        '• Отмечай маленькие цели — пьёшь воду, дышишь, гуляешь, ведёшь дневник\n' +
+        '• За заботу я набираюсь сил и ухожу на прогулки\n' +
+        '• Наряжай меня, собирай микропитомцев, зови друзей в Дворик\n\n' +
+        'Открывай приложение кнопкой ниже 💛',
+      { reply_markup: appKeyboard() },
+    )
+  })
+
   // Any message to the bot = explicit permission to DM (reminder engine relies on this).
   bot.on('message', ctx => {
     grantWriteAccess(ctx.from.id)
