@@ -1,7 +1,7 @@
 {
   "name": "druzhok",
   "private": true,
-  "engines": { "node": ">=22" },
+  "engines": { "node": "22.x" },
   "workspaces": ["server", "app"],
   "scripts": {
     "dev:server": "npm run dev -w server",
