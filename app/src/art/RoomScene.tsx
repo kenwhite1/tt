@@ -5,7 +5,7 @@ interface Props { children?: React.ReactNode }
 
 export function RoomScene({ children }: Props) {
   return (
-    <div style={{ position: 'relative', width: '100%', borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-lip)' }}>
+    <div style={{ position: 'relative', width: '100%', borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0', overflow: 'hidden' }}>
       <svg viewBox="0 0 320 250" width="100%" style={{ display: 'block' }}>
         {/* wall + floor */}
         <rect x="0" y="0" width="320" height="170" fill="#9DB4D2" />
