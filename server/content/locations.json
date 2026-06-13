@@ -1,539 +1,539 @@
 {
-  "locations": [
-    {
-      "id": "puppy_forest",
-      "ru_name": "Щенячий лес",
-      "region_ru": "Дом",
-      "is_start": true,
-      "palette": { "sky": "#D6EBD0", "ground": "#8FBF7F", "accent": "#E8A04C" },
-      "progress_per_walk": 1.5,
-      "exclusive_clothing": [
-        { "id": "forest_hedgehog_costume", "ru_name": "костюм ёжика", "price": 900 },
-        { "id": "forest_leaf_raincoat", "ru_name": "дождевик-листочек", "price": 500 },
-        { "id": "forest_daisy_wreath", "ru_name": "венок из ромашек", "price": 500 },
-        { "id": "forest_dandelion_scarf", "ru_name": "шарф из одуванчиков", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "forest_nest_bed", "ru_name": "кровать-гнёздышко", "price": 900 },
-        { "id": "forest_firefly_lantern", "ru_name": "фонарик со светлячками", "price": 500 },
-        { "id": "forest_moss_rug", "ru_name": "коврик из мягкого мха", "price": 500 },
-        { "id": "forest_stump_table", "ru_name": "пенёк-столик", "price": 300 }
-      ]
-    },
-    {
-      "id": "moscow",
-      "ru_name": "Москва",
-      "region_ru": "Россия",
-      "palette": { "sky": "#CBDCEF", "ground": "#EDF1F7", "accent": "#D4574E" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "moscow_boulevard_coat", "ru_name": "пальто для прогулок по бульварам", "price": 900 },
-        { "id": "moscow_ushanka_pompom", "ru_name": "ушанка с помпоном", "price": 500 },
-        { "id": "moscow_granny_plaid_scarf", "ru_name": "клетчатый шарф, как у бабушки", "price": 500 },
-        { "id": "moscow_bullfinch_mittens", "ru_name": "варежки со снегирями", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "moscow_samovar_bagels", "ru_name": "самовар с баранками", "price": 900 },
-        { "id": "moscow_old_flat_lamp", "ru_name": "торшер из старой квартиры", "price": 500 },
-        { "id": "moscow_wall_carpet", "ru_name": "ковёр со стены, как у бабушки", "price": 500 },
-        { "id": "moscow_tea_glass_holder", "ru_name": "подстаканник с чаем", "price": 300 }
-      ]
-    },
-    {
-      "id": "saint_petersburg",
-      "ru_name": "Санкт-Петербург",
-      "region_ru": "Россия",
-      "palette": { "sky": "#C7CFDB", "ground": "#9FA8B8", "accent": "#E3B23C" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "spb_rain_cloak", "ru_name": "плащ от питерского дождя", "price": 900 },
-        { "id": "spb_artist_beret", "ru_name": "берет художника с Невы", "price": 500 },
-        { "id": "spb_cane_umbrella", "ru_name": "зонтик-трость", "price": 500 },
-        { "id": "spb_sailor_shirt", "ru_name": "тельняшка", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "spb_drawbridge_mini", "ru_name": "разводной мостик", "price": 900 },
-        { "id": "spb_embankment_lantern", "ru_name": "фонарь с набережной", "price": 500 },
-        { "id": "spb_rooftop_window", "ru_name": "окно с видом на крыши", "price": 500 },
-        { "id": "spb_pyshka_plate", "ru_name": "пышка на тарелочке", "price": 300 }
-      ]
-    },
-    {
-      "id": "almaty",
-      "ru_name": "Алматы",
-      "region_ru": "Казахстан",
-      "palette": { "sky": "#BFE0EE", "ground": "#A8C686", "accent": "#D2553D" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "almaty_ornament_vest", "ru_name": "жилетка с казахским орнаментом", "price": 900 },
-        { "id": "almaty_tubeteika", "ru_name": "тюбетейка с узором", "price": 500 },
-        { "id": "almaty_apple_panama", "ru_name": "панамка-яблочко", "price": 500 },
-        { "id": "almaty_mountain_scarf", "ru_name": "шарфик цвета горных вершин", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "almaty_yurt_house", "ru_name": "юрта-домик для сна", "price": 900 },
-        { "id": "almaty_felt_carpet", "ru_name": "войлочный ковёр с узором", "price": 500 },
-        { "id": "almaty_aport_basket", "ru_name": "корзина апортовых яблок", "price": 500 },
-        { "id": "almaty_tea_bowl", "ru_name": "пиала с чаем", "price": 300 }
-      ]
-    },
-    {
-      "id": "tokyo",
-      "ru_name": "Токио",
-      "region_ru": "Япония",
-      "palette": { "sky": "#F6D7E0", "ground": "#9DB8A1", "accent": "#E26D7E" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "tokyo_carp_yukata", "ru_name": "юката с карпами", "price": 900 },
-        { "id": "tokyo_tanuki_kigurumi", "ru_name": "кигуруми тануки", "price": 900 },
-        { "id": "tokyo_ramen_tee", "ru_name": "футболка с рамэном", "price": 500 },
-        { "id": "tokyo_sakura_cap", "ru_name": "кепка с сакурой", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "tokyo_kotatsu_mandarins", "ru_name": "котацу с мандаринками", "price": 900 },
-        { "id": "tokyo_maneki_neko", "ru_name": "манэки-нэко", "price": 500 },
-        { "id": "tokyo_windowsill_bonsai", "ru_name": "бонсай на подоконнике", "price": 500 },
-        { "id": "tokyo_paper_lantern", "ru_name": "бумажный фонарик", "price": 300 }
-      ]
-    },
-    {
-      "id": "seoul",
-      "ru_name": "Сеул",
-      "region_ru": "Южная Корея",
-      "palette": { "sky": "#E5D9F2", "ground": "#B5C9A8", "accent": "#F08CA4" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "seoul_pink_hanbok", "ru_name": "нежно-розовый ханбок", "price": 900 },
-        { "id": "seoul_idol_sneakers", "ru_name": "кроссовки, как у айдола", "price": 900 },
-        { "id": "seoul_tteokbokki_sweatshirt", "ru_name": "свитшот с ттокпокки", "price": 500 },
-        { "id": "seoul_heart_hairpin", "ru_name": "заколочка-сердечко", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "seoul_neon_sign", "ru_name": "тёплая неоновая вывеска", "price": 900 },
-        { "id": "seoul_ramyun_table", "ru_name": "столик для рамёна", "price": 500 },
-        { "id": "seoul_han_river_moon_lamp", "ru_name": "лампа-луна с реки Хан", "price": 500 },
-        { "id": "seoul_kimchi_pot", "ru_name": "горшочек кимчи", "price": 300 }
-      ]
-    },
-    {
-      "id": "bangkok",
-      "ru_name": "Бангкок",
-      "region_ru": "Таиланд",
-      "palette": { "sky": "#FFE3B3", "ground": "#A9C27D", "accent": "#E8B33F" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "bangkok_elephant_sarong", "ru_name": "саронг со слониками", "price": 900 },
-        { "id": "bangkok_mango_shirt", "ru_name": "рубашка с манго", "price": 500 },
-        { "id": "bangkok_boatman_hat", "ru_name": "соломенная шляпа лодочника", "price": 500 },
-        { "id": "bangkok_jasmine_bracelet", "ru_name": "браслетик из жасмина", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "bangkok_floating_market_boat", "ru_name": "лодочка с плавучего рынка", "price": 900 },
-        { "id": "bangkok_canal_hammock", "ru_name": "гамак у канала", "price": 500 },
-        { "id": "bangkok_temple_bell", "ru_name": "золотой колокольчик храма", "price": 500 },
-        { "id": "bangkok_tom_yum_bowl", "ru_name": "миска том-яма", "price": 300 }
-      ]
-    },
-    {
-      "id": "bali",
-      "ru_name": "Бали",
-      "region_ru": "Индонезия",
-      "palette": { "sky": "#BCE3DB", "ground": "#7FBF8E", "accent": "#F2A65A" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "bali_batik_sarong", "ru_name": "саронг с батиком", "price": 900 },
-        { "id": "bali_palm_print_shirt", "ru_name": "рубашка с пальмовым принтом", "price": 500 },
-        { "id": "bali_palm_leaf_hat", "ru_name": "шляпа из пальмовых листьев", "price": 500 },
-        { "id": "bali_frangipani_flower", "ru_name": "цветок франжипани за ушком", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "bali_rice_terrace_swing", "ru_name": "качели над рисовыми террасами", "price": 900 },
-        { "id": "bali_sun_umbrella", "ru_name": "зонтик от солнца", "price": 500 },
-        { "id": "bali_smiling_frog_statue", "ru_name": "статуэтка улыбчивой лягушки", "price": 500 },
-        { "id": "bali_offering_basket", "ru_name": "корзинка с цветами для подношений", "price": 300 }
-      ]
-    },
-    {
-      "id": "delhi",
-      "ru_name": "Дели",
-      "region_ru": "Индия",
-      "palette": { "sky": "#FFD9A0", "ground": "#C99B6A", "accent": "#E2574C" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "delhi_embroidered_vest", "ru_name": "расшитая золотом жилетка", "price": 900 },
-        { "id": "delhi_paisley_scarf", "ru_name": "шарф с огурцами пейсли", "price": 500 },
-        { "id": "delhi_mango_turban", "ru_name": "тюрбан цвета спелого манго", "price": 500 },
-        { "id": "delhi_bell_bracelets", "ru_name": "браслеты-звоночки", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "delhi_mirror_canopy", "ru_name": "балдахин с зеркальцами", "price": 900 },
-        { "id": "delhi_floor_tea_cushions", "ru_name": "подушки для чаепития на полу", "price": 500 },
-        { "id": "delhi_painted_elephant", "ru_name": "расписной слоник", "price": 500 },
-        { "id": "delhi_diya_lamp", "ru_name": "масляная лампа дия", "price": 300 }
-      ]
-    },
-    {
-      "id": "samarkand",
-      "ru_name": "Самарканд",
-      "region_ru": "Узбекистан",
-      "palette": { "sky": "#F2E2C4", "ground": "#D9B98A", "accent": "#2E9CA8" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "samarkand_striped_chapan", "ru_name": "полосатый чапан", "price": 900 },
-        { "id": "samarkand_embroidered_tubeteika", "ru_name": "тюбетейка с вышивкой", "price": 500 },
-        { "id": "samarkand_curled_toe_slippers", "ru_name": "туфельки с загнутыми носами", "price": 500 },
-        { "id": "samarkand_sash_kerchief", "ru_name": "пояс-платок", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "samarkand_tile_arch", "ru_name": "изразцовая бирюзовая арка", "price": 900 },
-        { "id": "samarkand_grape_topchan", "ru_name": "топчан под виноградной лозой", "price": 900 },
-        { "id": "samarkand_blue_teapot", "ru_name": "чайник с синим узором", "price": 500 },
-        { "id": "samarkand_plov_dish", "ru_name": "ляган для плова", "price": 300 }
-      ]
-    },
-    {
-      "id": "tbilisi",
-      "ru_name": "Тбилиси",
-      "region_ru": "Грузия",
-      "palette": { "sky": "#F4D8C2", "ground": "#B98A5E", "accent": "#C75146" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "tbilisi_grapevine_sweater", "ru_name": "свитер с виноградными лозами", "price": 900 },
-        { "id": "tbilisi_felt_cap", "ru_name": "войлочная шапочка", "price": 500 },
-        { "id": "tbilisi_pomegranate_kerchief", "ru_name": "платок с гранатами", "price": 500 },
-        { "id": "tbilisi_mountain_flower_socks", "ru_name": "носочки с горными цветами", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "tbilisi_carved_balcony", "ru_name": "резной деревянный балкончик", "price": 900 },
-        { "id": "tbilisi_khachapuri_table", "ru_name": "столик с хачапури", "price": 500 },
-        { "id": "tbilisi_deer_carpet", "ru_name": "ковёр с оленями", "price": 500 },
-        { "id": "tbilisi_lemonade_jug", "ru_name": "кувшин грушевого лимонада", "price": 300 }
-      ]
-    },
-    {
-      "id": "istanbul",
-      "ru_name": "Стамбул",
-      "region_ru": "Турция",
-      "palette": { "sky": "#F7D9C4", "ground": "#C2A38B", "accent": "#3D8E9E" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "istanbul_iznik_cape", "ru_name": "накидка с изникским узором", "price": 900 },
-        { "id": "istanbul_tassel_fez", "ru_name": "феска с кисточкой", "price": 500 },
-        { "id": "istanbul_tulip_scarf", "ru_name": "шарф с тюльпанами", "price": 500 },
-        { "id": "istanbul_curled_slippers", "ru_name": "тапочки с загнутыми носками", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "istanbul_mosaic_lamp", "ru_name": "лампа-мозаика", "price": 900 },
-        { "id": "istanbul_flying_rug", "ru_name": "коврик-самолётик", "price": 900 },
-        { "id": "istanbul_lokum_plate", "ru_name": "блюдо с лукумом", "price": 500 },
-        { "id": "istanbul_armudu_glass", "ru_name": "стаканчик армуду для чая", "price": 300 }
-      ]
-    },
-    {
-      "id": "cairo",
-      "ru_name": "Каир",
-      "region_ru": "Египет",
-      "palette": { "sky": "#FFE1AD", "ground": "#E0C184", "accent": "#C8842C" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "cairo_pharaoh_costume", "ru_name": "костюм фараончика", "price": 900 },
-        { "id": "cairo_linen_tunic", "ru_name": "льняная туника", "price": 500 },
-        { "id": "cairo_scarab_bracelet", "ru_name": "браслет со скарабеем", "price": 500 },
-        { "id": "cairo_desert_sun_kerchief", "ru_name": "платок от солнца пустыни", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "cairo_mini_pyramid", "ru_name": "мини-пирамидка", "price": 900 },
-        { "id": "cairo_cat_papyrus", "ru_name": "папирус с котиками", "price": 500 },
-        { "id": "cairo_brass_lamp", "ru_name": "латунная лампа с пустынным узором", "price": 500 },
-        { "id": "cairo_caravan_pouf", "ru_name": "пуфик каравана", "price": 300 }
-      ]
-    },
-    {
-      "id": "marrakesh",
-      "ru_name": "Марракеш",
-      "region_ru": "Марокко",
-      "palette": { "sky": "#F9CBA7", "ground": "#D98E6A", "accent": "#2E7F86" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "marrakesh_hooded_djellaba", "ru_name": "джеллаба с капюшоном", "price": 900 },
-        { "id": "marrakesh_saffron_scarf", "ru_name": "платок цвета шафрана", "price": 500 },
-        { "id": "marrakesh_fringe_sun_hat", "ru_name": "шляпа от солнца с бахромой", "price": 500 },
-        { "id": "marrakesh_babouche_slippers", "ru_name": "шлёпанцы-бабуши", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "marrakesh_carved_lantern", "ru_name": "фонарь с резным узором", "price": 900 },
-        { "id": "marrakesh_leather_pouf", "ru_name": "пуф из мягкой кожи", "price": 500 },
-        { "id": "marrakesh_diamond_rug", "ru_name": "коврик с ромбами", "price": 500 },
-        { "id": "marrakesh_mint_teapot", "ru_name": "чайник для мятного чая", "price": 300 }
-      ]
-    },
-    {
-      "id": "serengeti",
-      "ru_name": "Серенгети",
-      "region_ru": "Танзания",
-      "palette": { "sky": "#FBD68F", "ground": "#D9A55F", "accent": "#6E8C3A" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "serengeti_traveler_vest", "ru_name": "жилет путешественника", "price": 900 },
-        { "id": "serengeti_safari_panama", "ru_name": "панама сафари", "price": 500 },
-        { "id": "serengeti_beaded_necklace", "ru_name": "яркие бусы из бисера", "price": 500 },
-        { "id": "serengeti_zebra_bandana", "ru_name": "бандана с зебровым принтом", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "serengeti_acacia_tent", "ru_name": "палатка под акацией", "price": 900 },
-        { "id": "serengeti_tripod_binoculars", "ru_name": "бинокль на штативе", "price": 500 },
-        { "id": "serengeti_djembe_drum", "ru_name": "барабанчик джембе", "price": 500 },
-        { "id": "serengeti_savanna_lantern", "ru_name": "фонарь для саванных ночей", "price": 300 }
-      ]
-    },
-    {
-      "id": "cape_town",
-      "ru_name": "Кейптаун",
-      "region_ru": "ЮАР",
-      "palette": { "sky": "#BFE0F2", "ground": "#9EBF8E", "accent": "#E07A8B" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "capetown_ocean_windbreaker", "ru_name": "ветровка цвета двух океанов", "price": 900 },
-        { "id": "capetown_penguin_cap", "ru_name": "кепка с пингвинёнком", "price": 500 },
-        { "id": "capetown_protea_scarf", "ru_name": "шарф с протеями", "price": 500 },
-        { "id": "capetown_beaded_bracelet", "ru_name": "браслет из бисера", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "capetown_lighthouse_nightlight", "ru_name": "маяк-ночник", "price": 900 },
-        { "id": "capetown_protea_pot", "ru_name": "кадка с протеей", "price": 500 },
-        { "id": "capetown_mountain_picnic_blanket", "ru_name": "плед для пикника на горе", "price": 500 },
-        { "id": "capetown_cape_seashell", "ru_name": "ракушка с мыса Доброй Надежды", "price": 300 }
-      ]
-    },
-    {
-      "id": "paris",
-      "ru_name": "Париж",
-      "region_ru": "Франция",
-      "palette": { "sky": "#E8D9EC", "ground": "#C9BFB2", "accent": "#D98CA6" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "paris_montmartre_sweater", "ru_name": "полосатый свитер с Монмартра", "price": 900 },
-        { "id": "paris_artist_beret", "ru_name": "берет художницы", "price": 500 },
-        { "id": "paris_silk_neckerchief", "ru_name": "шёлковый платочек на шею", "price": 500 },
-        { "id": "paris_croissant_brooch", "ru_name": "брошка-круассан", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "paris_cafe_table", "ru_name": "столик уличного кафе", "price": 900 },
-        { "id": "paris_sunset_easel", "ru_name": "мольберт с недописанным закатом", "price": 500 },
-        { "id": "paris_art_nouveau_lamp", "ru_name": "торшер в стиле ар-нуво", "price": 500 },
-        { "id": "paris_lavender_vase", "ru_name": "вазочка с лавандой", "price": 300 }
-      ]
-    },
-    {
-      "id": "london",
-      "ru_name": "Лондон",
-      "region_ru": "Англия",
-      "palette": { "sky": "#CFD6DE", "ground": "#A9B3A4", "accent": "#C44536" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "london_detective_coat", "ru_name": "пальто детектива", "price": 900 },
-        { "id": "london_plaid_flat_cap", "ru_name": "клетчатое кепи", "price": 500 },
-        { "id": "london_yellow_raincoat", "ru_name": "жёлтый дождевик", "price": 500 },
-        { "id": "london_student_scarf", "ru_name": "полосатый шарф студента", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "london_phone_booth", "ru_name": "красная телефонная будка", "price": 900 },
-        { "id": "london_five_oclock_tea_set", "ru_name": "сервиз для пятичасового чая", "price": 500 },
-        { "id": "london_green_shade_lamp", "ru_name": "лампа с зелёным абажуром", "price": 500 },
-        { "id": "london_umbrella_stand", "ru_name": "подставка для зонтов у двери", "price": 300 }
-      ]
-    },
-    {
-      "id": "rome",
-      "ru_name": "Рим",
-      "region_ru": "Италия",
-      "palette": { "sky": "#FBE3C0", "ground": "#D9B384", "accent": "#B85C38" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "rome_holiday_cape", "ru_name": "накидка римских каникул", "price": 900 },
-        { "id": "rome_laurel_wreath", "ru_name": "лавровый венок", "price": 500 },
-        { "id": "rome_legionnaire_sandals", "ru_name": "сандалии легионера", "price": 500 },
-        { "id": "rome_lemon_kerchief", "ru_name": "косынка с лимонами", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "rome_courtyard_fountain", "ru_name": "фонтанчик для дворика", "price": 900 },
-        { "id": "rome_pasta_table", "ru_name": "стол для пасты на двоих", "price": 500 },
-        { "id": "rome_olive_planter", "ru_name": "вазон с оливой", "price": 500 },
-        { "id": "rome_column_stand", "ru_name": "колонна-подставка", "price": 300 }
-      ]
-    },
-    {
-      "id": "lisbon",
-      "ru_name": "Лиссабон",
-      "region_ru": "Португалия",
-      "palette": { "sky": "#C7E4F2", "ground": "#E3CBA8", "accent": "#3E7CB1" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "lisbon_fisherman_sweater", "ru_name": "свитер рыбака", "price": 900 },
-        { "id": "lisbon_tram_driver_cap", "ru_name": "кепка вагоновожатого трамвая 28", "price": 500 },
-        { "id": "lisbon_azulejo_kerchief", "ru_name": "платок с плиткой азулежу", "price": 500 },
-        { "id": "lisbon_sardine_pin", "ru_name": "значок-сардинка", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "lisbon_yellow_tram", "ru_name": "жёлтый трамвайчик", "price": 900 },
-        { "id": "lisbon_azulejo_panel", "ru_name": "изразцовая панель азулежу", "price": 500 },
-        { "id": "lisbon_fado_guitar", "ru_name": "гитара фаду", "price": 500 },
-        { "id": "lisbon_pastel_basket", "ru_name": "корзинка паштел-де-ната", "price": 300 }
-      ]
-    },
-    {
-      "id": "prague",
-      "ru_name": "Прага",
-      "region_ru": "Чехия",
-      "palette": { "sky": "#D8CBE8", "ground": "#C2774E", "accent": "#E8B33F" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "prague_stargazer_hat", "ru_name": "колпак звездочёта", "price": 900 },
-        { "id": "prague_old_town_cloak", "ru_name": "плащ старого города", "price": 500 },
-        { "id": "prague_moon_star_scarf", "ru_name": "шарф со звёздами и луной", "price": 500 },
-        { "id": "prague_trdelnik_mittens", "ru_name": "варежки с трдельником", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "prague_astro_clock", "ru_name": "астрономические часики", "price": 900 },
-        { "id": "prague_bridge_lantern", "ru_name": "фонарь с Карлова моста", "price": 500 },
-        { "id": "prague_stained_glass_window", "ru_name": "витражное окошко", "price": 500 },
-        { "id": "prague_trdelnik_stand", "ru_name": "трдельник на подставке", "price": 300 }
-      ]
-    },
-    {
-      "id": "alps",
-      "ru_name": "Альпы",
-      "region_ru": "Европа",
-      "palette": { "sky": "#D2E8F5", "ground": "#EAF2F8", "accent": "#6FA866" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "alps_edelweiss_sweater", "ru_name": "свитер с эдельвейсами", "price": 900 },
-        { "id": "alps_puffer_jacket", "ru_name": "куртка-пуховичок", "price": 500 },
-        { "id": "alps_skier_socks", "ru_name": "тёплые гольфы лыжника", "price": 500 },
-        { "id": "alps_pompom_beanie", "ru_name": "вязаная шапка с помпоном", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "alps_chalet_fireplace", "ru_name": "камин из шале", "price": 900 },
-        { "id": "alps_sheep_wool_blanket", "ru_name": "плед из овечьей шерсти", "price": 500 },
-        { "id": "alps_cocoa_mug", "ru_name": "кружка какао с зефирками", "price": 500 },
-        { "id": "alps_cow_bell", "ru_name": "колокольчик альпийской коровы", "price": 300 }
-      ]
-    },
-    {
-      "id": "reykjavik",
-      "ru_name": "Рейкьявик",
-      "region_ru": "Исландия",
-      "palette": { "sky": "#3D4D6B", "ground": "#DDE7EE", "accent": "#6FD0A8" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "reykjavik_lopapeysa", "ru_name": "лопапейса — свитер с круговым узором", "price": 900 },
-        { "id": "reykjavik_aurora_beanie", "ru_name": "шапка с северным сиянием", "price": 500 },
-        { "id": "reykjavik_windproof_overalls", "ru_name": "непродуваемый комбинезончик", "price": 500 },
-        { "id": "reykjavik_wool_socks", "ru_name": "носки из исландской шерсти", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "reykjavik_aurora_nightlight", "ru_name": "ночник «северное сияние»", "price": 900 },
-        { "id": "reykjavik_warm_tub", "ru_name": "тёплая купель под звёздами", "price": 500 },
-        { "id": "reykjavik_mini_geyser", "ru_name": "мини-гейзер", "price": 500 },
-        { "id": "reykjavik_lava_pebble", "ru_name": "лавовый камушек", "price": 300 }
-      ]
-    },
-    {
-      "id": "new_york",
-      "ru_name": "Нью-Йорк",
-      "region_ru": "США",
-      "palette": { "sky": "#F2C9A0", "ground": "#9AA1AD", "accent": "#F2B33D" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "newyork_fifth_avenue_coat", "ru_name": "пальто с Пятой авеню", "price": 900 },
-        { "id": "newyork_taxi_hoodie", "ru_name": "худи с жёлтым такси", "price": 500 },
-        { "id": "newyork_central_park_scarf", "ru_name": "шарф для прогулок по Центральному парку", "price": 500 },
-        { "id": "newyork_city_cap", "ru_name": "бейсболка городского жителя", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "newyork_skyscraper_lamp", "ru_name": "лампа-небоскрёб", "price": 900 },
-        { "id": "newyork_park_bench", "ru_name": "скамейка из Центрального парка", "price": 500 },
-        { "id": "newyork_fire_escape_flowers", "ru_name": "пожарная лестница с цветами", "price": 500 },
-        { "id": "newyork_sesame_bagel", "ru_name": "бублик с кунжутом", "price": 300 }
-      ]
-    },
-    {
-      "id": "vancouver",
-      "ru_name": "Ванкувер",
-      "region_ru": "Канада",
-      "palette": { "sky": "#C5DDE8", "ground": "#5E8C6A", "accent": "#C97B4A" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "vancouver_flannel_shirt", "ru_name": "фланелевая рубашка в клетку", "price": 900 },
-        { "id": "vancouver_forest_boots", "ru_name": "ботиночки для лесных троп", "price": 500 },
-        { "id": "vancouver_fog_raincoat", "ru_name": "дождевик цвета тумана", "price": 500 },
-        { "id": "vancouver_maple_beanie", "ru_name": "шапочка с кленовым листом", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "vancouver_dock_kayak", "ru_name": "каяк у причала", "price": 900 },
-        { "id": "vancouver_bay_view_tent", "ru_name": "палатка с видом на залив", "price": 500 },
-        { "id": "vancouver_wooden_owl", "ru_name": "деревянная сова", "price": 500 },
-        { "id": "vancouver_maple_syrup_jar", "ru_name": "банка кленового сиропа", "price": 300 }
-      ]
-    },
-    {
-      "id": "rio_de_janeiro",
-      "ru_name": "Рио-де-Жанейро",
-      "region_ru": "Бразилия",
-      "palette": { "sky": "#AEE0F2", "ground": "#F2DFA7", "accent": "#36B37E" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "rio_carnival_feathers", "ru_name": "карнавальные пёрышки", "price": 900 },
-        { "id": "rio_fan_jersey", "ru_name": "майка футбольного болельщика", "price": 500 },
-        { "id": "rio_tropical_panama", "ru_name": "панама с тропическими листьями", "price": 500 },
-        { "id": "rio_beach_flipflops", "ru_name": "пляжные шлёпанцы", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "rio_mosaic_steps", "ru_name": "мозаичная лесенка", "price": 900 },
-        { "id": "rio_samba_drum", "ru_name": "барабанчик самбы", "price": 500 },
-        { "id": "rio_carnival_garland", "ru_name": "гирлянда карнавальных огоньков", "price": 500 },
-        { "id": "rio_coconut_straw", "ru_name": "кокос с трубочкой", "price": 300 }
-      ]
-    },
-    {
-      "id": "sydney",
-      "ru_name": "Сидней",
-      "region_ru": "Австралия",
-      "palette": { "sky": "#BFE5F5", "ground": "#F5DBA8", "accent": "#F08A5D" },
-      "progress_per_walk": 2,
-      "exclusive_clothing": [
-        { "id": "sydney_koala_costume", "ru_name": "костюм коалы", "price": 900 },
-        { "id": "sydney_surfer_panama", "ru_name": "панама сёрфера", "price": 500 },
-        { "id": "sydney_lifeguard_shorts", "ru_name": "шорты спасателя с Бонди", "price": 500 },
-        { "id": "sydney_shell_bracelet", "ru_name": "браслет из ракушек", "price": 300 }
-      ],
-      "exclusive_furniture": [
-        { "id": "sydney_surfboard", "ru_name": "доска для сёрфинга", "price": 900 },
-        { "id": "sydney_bondi_lounger", "ru_name": "шезлонг с Бонди-Бич", "price": 500 },
-        { "id": "sydney_eucalyptus_pot", "ru_name": "эвкалипт в кадке", "price": 500 },
-        { "id": "sydney_painted_boomerang", "ru_name": "расписной бумеранг", "price": 300 }
-      ]
-    }
-  ],
-  "seasonal_location": {
-    "id": "star_veranda",
-    "ru_name": "Звёздная веранда",
-    "days": 14,
-    "story_arc_ru": [
-      "На крыльцо упал лунный лучик — и оказался лесенкой, ведущей куда-то наверх.",
-      "Дружок поднялся и нашёл веранду среди облаков, всю в гирляндах из созвездий.",
-      "На перилах сидела маленькая звёздочка — она потускнела и не помнила почему.",
-      "Дружок заварил чай из лунного света, и они просто посидели рядом, молча.",
-      "Звёздочка призналась: она так старалась светить всем, что забыла светить себе.",
-      "Они укутались в плед из Млечного Пути и считали пролетающие мимо сны.",
-      "Дружок показал звёздочке, как дышать медленно: вдох на три счёта, выдох на четыре.",
-      "На веранде нашёлся старый граммофон, играющий колыбельные северного ветра.",
-      "Звёздочка чуть-чуть засветилась — на самом кончике одного лучика.",
-      "Они написали письма всем, кого любят, и отправили их с пролетающей кометой.",
-      "Ночью расцвёл звёздный цветок — он раскрывается только для тех, кто никуда не спешит.",
-      "Звёздочка впервые за долгое время крепко уснула, а Дружок сторожил её сон.",
-      "Утром она сияла так ярко, что облака порозовели: отдых вернул ей свет.",
-      "На прощание звёздочка зажгла над верандой новое созвездие — маленького пса, чтобы Дружок всегда находил дорогу обратно."
-    ]
-  }
+ "locations": [
+ {
+ "id": "puppy_forest",
+ "ru_name": "Щенячий лес",
+ "region_ru": "Дом",
+ "is_start": true,
+ "palette": { "sky": "#D6EBD0", "ground": "#8FBF7F", "accent": "#E8A04C" },
+ "progress_per_walk": 1.5,
+ "exclusive_clothing": [
+ { "id": "forest_hedgehog_costume", "ru_name": "костюм ёжика", "price": 900 },
+ { "id": "forest_leaf_raincoat", "ru_name": "дождевик-листочек", "price": 500 },
+ { "id": "forest_daisy_wreath", "ru_name": "венок из ромашек", "price": 500 },
+ { "id": "forest_dandelion_scarf", "ru_name": "шарф из одуванчиков", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "forest_nest_bed", "ru_name": "кровать-гнёздышко", "price": 900 },
+ { "id": "forest_firefly_lantern", "ru_name": "фонарик со светлячками", "price": 500 },
+ { "id": "forest_moss_rug", "ru_name": "коврик из мягкого мха", "price": 500 },
+ { "id": "forest_stump_table", "ru_name": "пенёк-столик", "price": 300 }
+ ]
+ },
+ {
+ "id": "moscow",
+ "ru_name": "Москва",
+ "region_ru": "Россия",
+ "palette": { "sky": "#CBDCEF", "ground": "#EDF1F7", "accent": "#D4574E" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "moscow_boulevard_coat", "ru_name": "пальто для прогулок по бульварам", "price": 900 },
+ { "id": "moscow_ushanka_pompom", "ru_name": "ушанка с помпоном", "price": 500 },
+ { "id": "moscow_granny_plaid_scarf", "ru_name": "клетчатый шарф, как у бабушки", "price": 500 },
+ { "id": "moscow_bullfinch_mittens", "ru_name": "варежки со снегирями", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "moscow_samovar_bagels", "ru_name": "самовар с баранками", "price": 900 },
+ { "id": "moscow_old_flat_lamp", "ru_name": "торшер из старой квартиры", "price": 500 },
+ { "id": "moscow_wall_carpet", "ru_name": "ковёр со стены, как у бабушки", "price": 500 },
+ { "id": "moscow_tea_glass_holder", "ru_name": "подстаканник с чаем", "price": 300 }
+ ]
+ },
+ {
+ "id": "saint_petersburg",
+ "ru_name": "Санкт-Петербург",
+ "region_ru": "Россия",
+ "palette": { "sky": "#C7CFDB", "ground": "#9FA8B8", "accent": "#E3B23C" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "spb_rain_cloak", "ru_name": "плащ от питерского дождя", "price": 900 },
+ { "id": "spb_artist_beret", "ru_name": "берет художника с Невы", "price": 500 },
+ { "id": "spb_cane_umbrella", "ru_name": "зонтик-трость", "price": 500 },
+ { "id": "spb_sailor_shirt", "ru_name": "тельняшка", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "spb_drawbridge_mini", "ru_name": "разводной мостик", "price": 900 },
+ { "id": "spb_embankment_lantern", "ru_name": "фонарь с набережной", "price": 500 },
+ { "id": "spb_rooftop_window", "ru_name": "окно с видом на крыши", "price": 500 },
+ { "id": "spb_pyshka_plate", "ru_name": "пышка на тарелочке", "price": 300 }
+ ]
+ },
+ {
+ "id": "almaty",
+ "ru_name": "Алматы",
+ "region_ru": "Казахстан",
+ "palette": { "sky": "#BFE0EE", "ground": "#A8C686", "accent": "#D2553D" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "almaty_ornament_vest", "ru_name": "жилетка с казахским орнаментом", "price": 900 },
+ { "id": "almaty_tubeteika", "ru_name": "тюбетейка с узором", "price": 500 },
+ { "id": "almaty_apple_panama", "ru_name": "панамка-яблочко", "price": 500 },
+ { "id": "almaty_mountain_scarf", "ru_name": "шарфик цвета горных вершин", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "almaty_yurt_house", "ru_name": "юрта-домик для сна", "price": 900 },
+ { "id": "almaty_felt_carpet", "ru_name": "войлочный ковёр с узором", "price": 500 },
+ { "id": "almaty_aport_basket", "ru_name": "корзина апортовых яблок", "price": 500 },
+ { "id": "almaty_tea_bowl", "ru_name": "пиала с чаем", "price": 300 }
+ ]
+ },
+ {
+ "id": "tokyo",
+ "ru_name": "Токио",
+ "region_ru": "Япония",
+ "palette": { "sky": "#F6D7E0", "ground": "#9DB8A1", "accent": "#E26D7E" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "tokyo_carp_yukata", "ru_name": "юката с карпами", "price": 900 },
+ { "id": "tokyo_tanuki_kigurumi", "ru_name": "кигуруми тануки", "price": 900 },
+ { "id": "tokyo_ramen_tee", "ru_name": "футболка с рамэном", "price": 500 },
+ { "id": "tokyo_sakura_cap", "ru_name": "кепка с сакурой", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "tokyo_kotatsu_mandarins", "ru_name": "котацу с мандаринками", "price": 900 },
+ { "id": "tokyo_maneki_neko", "ru_name": "манэки-нэко", "price": 500 },
+ { "id": "tokyo_windowsill_bonsai", "ru_name": "бонсай на подоконнике", "price": 500 },
+ { "id": "tokyo_paper_lantern", "ru_name": "бумажный фонарик", "price": 300 }
+ ]
+ },
+ {
+ "id": "seoul",
+ "ru_name": "Сеул",
+ "region_ru": "Южная Корея",
+ "palette": { "sky": "#E5D9F2", "ground": "#B5C9A8", "accent": "#F08CA4" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "seoul_pink_hanbok", "ru_name": "нежно-розовый ханбок", "price": 900 },
+ { "id": "seoul_idol_sneakers", "ru_name": "кроссовки, как у айдола", "price": 900 },
+ { "id": "seoul_tteokbokki_sweatshirt", "ru_name": "свитшот с ттокпокки", "price": 500 },
+ { "id": "seoul_heart_hairpin", "ru_name": "заколочка-сердечко", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "seoul_neon_sign", "ru_name": "тёплая неоновая вывеска", "price": 900 },
+ { "id": "seoul_ramyun_table", "ru_name": "столик для рамёна", "price": 500 },
+ { "id": "seoul_han_river_moon_lamp", "ru_name": "лампа-луна с реки Хан", "price": 500 },
+ { "id": "seoul_kimchi_pot", "ru_name": "горшочек кимчи", "price": 300 }
+ ]
+ },
+ {
+ "id": "bangkok",
+ "ru_name": "Бангкок",
+ "region_ru": "Таиланд",
+ "palette": { "sky": "#FFE3B3", "ground": "#A9C27D", "accent": "#E8B33F" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "bangkok_elephant_sarong", "ru_name": "саронг со слониками", "price": 900 },
+ { "id": "bangkok_mango_shirt", "ru_name": "рубашка с манго", "price": 500 },
+ { "id": "bangkok_boatman_hat", "ru_name": "соломенная шляпа лодочника", "price": 500 },
+ { "id": "bangkok_jasmine_bracelet", "ru_name": "браслетик из жасмина", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "bangkok_floating_market_boat", "ru_name": "лодочка с плавучего рынка", "price": 900 },
+ { "id": "bangkok_canal_hammock", "ru_name": "гамак у канала", "price": 500 },
+ { "id": "bangkok_temple_bell", "ru_name": "золотой колокольчик храма", "price": 500 },
+ { "id": "bangkok_tom_yum_bowl", "ru_name": "миска том-яма", "price": 300 }
+ ]
+ },
+ {
+ "id": "bali",
+ "ru_name": "Бали",
+ "region_ru": "Индонезия",
+ "palette": { "sky": "#BCE3DB", "ground": "#7FBF8E", "accent": "#F2A65A" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "bali_batik_sarong", "ru_name": "саронг с батиком", "price": 900 },
+ { "id": "bali_palm_print_shirt", "ru_name": "рубашка с пальмовым принтом", "price": 500 },
+ { "id": "bali_palm_leaf_hat", "ru_name": "шляпа из пальмовых листьев", "price": 500 },
+ { "id": "bali_frangipani_flower", "ru_name": "цветок франжипани за ушком", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "bali_rice_terrace_swing", "ru_name": "качели над рисовыми террасами", "price": 900 },
+ { "id": "bali_sun_umbrella", "ru_name": "зонтик от солнца", "price": 500 },
+ { "id": "bali_smiling_frog_statue", "ru_name": "статуэтка улыбчивой лягушки", "price": 500 },
+ { "id": "bali_offering_basket", "ru_name": "корзинка с цветами для подношений", "price": 300 }
+ ]
+ },
+ {
+ "id": "delhi",
+ "ru_name": "Дели",
+ "region_ru": "Индия",
+ "palette": { "sky": "#FFD9A0", "ground": "#C99B6A", "accent": "#E2574C" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "delhi_embroidered_vest", "ru_name": "расшитая золотом жилетка", "price": 900 },
+ { "id": "delhi_paisley_scarf", "ru_name": "шарф с огурцами пейсли", "price": 500 },
+ { "id": "delhi_mango_turban", "ru_name": "тюрбан цвета спелого манго", "price": 500 },
+ { "id": "delhi_bell_bracelets", "ru_name": "браслеты-звоночки", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "delhi_mirror_canopy", "ru_name": "балдахин с зеркальцами", "price": 900 },
+ { "id": "delhi_floor_tea_cushions", "ru_name": "подушки для чаепития на полу", "price": 500 },
+ { "id": "delhi_painted_elephant", "ru_name": "расписной слоник", "price": 500 },
+ { "id": "delhi_diya_lamp", "ru_name": "масляная лампа дия", "price": 300 }
+ ]
+ },
+ {
+ "id": "samarkand",
+ "ru_name": "Самарканд",
+ "region_ru": "Узбекистан",
+ "palette": { "sky": "#F2E2C4", "ground": "#D9B98A", "accent": "#2E9CA8" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "samarkand_striped_chapan", "ru_name": "полосатый чапан", "price": 900 },
+ { "id": "samarkand_embroidered_tubeteika", "ru_name": "тюбетейка с вышивкой", "price": 500 },
+ { "id": "samarkand_curled_toe_slippers", "ru_name": "туфельки с загнутыми носами", "price": 500 },
+ { "id": "samarkand_sash_kerchief", "ru_name": "пояс-платок", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "samarkand_tile_arch", "ru_name": "изразцовая бирюзовая арка", "price": 900 },
+ { "id": "samarkand_grape_topchan", "ru_name": "топчан под виноградной лозой", "price": 900 },
+ { "id": "samarkand_blue_teapot", "ru_name": "чайник с синим узором", "price": 500 },
+ { "id": "samarkand_plov_dish", "ru_name": "ляган для плова", "price": 300 }
+ ]
+ },
+ {
+ "id": "tbilisi",
+ "ru_name": "Тбилиси",
+ "region_ru": "Грузия",
+ "palette": { "sky": "#F4D8C2", "ground": "#B98A5E", "accent": "#C75146" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "tbilisi_grapevine_sweater", "ru_name": "свитер с виноградными лозами", "price": 900 },
+ { "id": "tbilisi_felt_cap", "ru_name": "войлочная шапочка", "price": 500 },
+ { "id": "tbilisi_pomegranate_kerchief", "ru_name": "платок с гранатами", "price": 500 },
+ { "id": "tbilisi_mountain_flower_socks", "ru_name": "носочки с горными цветами", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "tbilisi_carved_balcony", "ru_name": "резной деревянный балкончик", "price": 900 },
+ { "id": "tbilisi_khachapuri_table", "ru_name": "столик с хачапури", "price": 500 },
+ { "id": "tbilisi_deer_carpet", "ru_name": "ковёр с оленями", "price": 500 },
+ { "id": "tbilisi_lemonade_jug", "ru_name": "кувшин грушевого лимонада", "price": 300 }
+ ]
+ },
+ {
+ "id": "istanbul",
+ "ru_name": "Стамбул",
+ "region_ru": "Турция",
+ "palette": { "sky": "#F7D9C4", "ground": "#C2A38B", "accent": "#3D8E9E" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "istanbul_iznik_cape", "ru_name": "накидка с изникским узором", "price": 900 },
+ { "id": "istanbul_tassel_fez", "ru_name": "феска с кисточкой", "price": 500 },
+ { "id": "istanbul_tulip_scarf", "ru_name": "шарф с тюльпанами", "price": 500 },
+ { "id": "istanbul_curled_slippers", "ru_name": "тапочки с загнутыми носками", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "istanbul_mosaic_lamp", "ru_name": "лампа-мозаика", "price": 900 },
+ { "id": "istanbul_flying_rug", "ru_name": "коврик-самолётик", "price": 900 },
+ { "id": "istanbul_lokum_plate", "ru_name": "блюдо с лукумом", "price": 500 },
+ { "id": "istanbul_armudu_glass", "ru_name": "стаканчик армуду для чая", "price": 300 }
+ ]
+ },
+ {
+ "id": "cairo",
+ "ru_name": "Каир",
+ "region_ru": "Египет",
+ "palette": { "sky": "#FFE1AD", "ground": "#E0C184", "accent": "#C8842C" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "cairo_pharaoh_costume", "ru_name": "костюм фараончика", "price": 900 },
+ { "id": "cairo_linen_tunic", "ru_name": "льняная туника", "price": 500 },
+ { "id": "cairo_scarab_bracelet", "ru_name": "браслет со скарабеем", "price": 500 },
+ { "id": "cairo_desert_sun_kerchief", "ru_name": "платок от солнца пустыни", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "cairo_mini_pyramid", "ru_name": "мини-пирамидка", "price": 900 },
+ { "id": "cairo_cat_papyrus", "ru_name": "папирус с котиками", "price": 500 },
+ { "id": "cairo_brass_lamp", "ru_name": "латунная лампа с пустынным узором", "price": 500 },
+ { "id": "cairo_caravan_pouf", "ru_name": "пуфик каравана", "price": 300 }
+ ]
+ },
+ {
+ "id": "marrakesh",
+ "ru_name": "Марракеш",
+ "region_ru": "Марокко",
+ "palette": { "sky": "#F9CBA7", "ground": "#D98E6A", "accent": "#2E7F86" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "marrakesh_hooded_djellaba", "ru_name": "джеллаба с капюшоном", "price": 900 },
+ { "id": "marrakesh_saffron_scarf", "ru_name": "платок цвета шафрана", "price": 500 },
+ { "id": "marrakesh_fringe_sun_hat", "ru_name": "шляпа от солнца с бахромой", "price": 500 },
+ { "id": "marrakesh_babouche_slippers", "ru_name": "шлёпанцы-бабуши", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "marrakesh_carved_lantern", "ru_name": "фонарь с резным узором", "price": 900 },
+ { "id": "marrakesh_leather_pouf", "ru_name": "пуф из мягкой кожи", "price": 500 },
+ { "id": "marrakesh_diamond_rug", "ru_name": "коврик с ромбами", "price": 500 },
+ { "id": "marrakesh_mint_teapot", "ru_name": "чайник для мятного чая", "price": 300 }
+ ]
+ },
+ {
+ "id": "serengeti",
+ "ru_name": "Серенгети",
+ "region_ru": "Танзания",
+ "palette": { "sky": "#FBD68F", "ground": "#D9A55F", "accent": "#6E8C3A" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "serengeti_traveler_vest", "ru_name": "жилет путешественника", "price": 900 },
+ { "id": "serengeti_safari_panama", "ru_name": "панама сафари", "price": 500 },
+ { "id": "serengeti_beaded_necklace", "ru_name": "яркие бусы из бисера", "price": 500 },
+ { "id": "serengeti_zebra_bandana", "ru_name": "бандана с зебровым принтом", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "serengeti_acacia_tent", "ru_name": "палатка под акацией", "price": 900 },
+ { "id": "serengeti_tripod_binoculars", "ru_name": "бинокль на штативе", "price": 500 },
+ { "id": "serengeti_djembe_drum", "ru_name": "барабанчик джембе", "price": 500 },
+ { "id": "serengeti_savanna_lantern", "ru_name": "фонарь для саванных ночей", "price": 300 }
+ ]
+ },
+ {
+ "id": "cape_town",
+ "ru_name": "Кейптаун",
+ "region_ru": "ЮАР",
+ "palette": { "sky": "#BFE0F2", "ground": "#9EBF8E", "accent": "#E07A8B" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "capetown_ocean_windbreaker", "ru_name": "ветровка цвета двух океанов", "price": 900 },
+ { "id": "capetown_penguin_cap", "ru_name": "кепка с пингвинёнком", "price": 500 },
+ { "id": "capetown_protea_scarf", "ru_name": "шарф с протеями", "price": 500 },
+ { "id": "capetown_beaded_bracelet", "ru_name": "браслет из бисера", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "capetown_lighthouse_nightlight", "ru_name": "маяк-ночник", "price": 900 },
+ { "id": "capetown_protea_pot", "ru_name": "кадка с протеей", "price": 500 },
+ { "id": "capetown_mountain_picnic_blanket", "ru_name": "плед для пикника на горе", "price": 500 },
+ { "id": "capetown_cape_seashell", "ru_name": "ракушка с мыса Доброй Надежды", "price": 300 }
+ ]
+ },
+ {
+ "id": "paris",
+ "ru_name": "Париж",
+ "region_ru": "Франция",
+ "palette": { "sky": "#E8D9EC", "ground": "#C9BFB2", "accent": "#D98CA6" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "paris_montmartre_sweater", "ru_name": "полосатый свитер с Монмартра", "price": 900 },
+ { "id": "paris_artist_beret", "ru_name": "берет художницы", "price": 500 },
+ { "id": "paris_silk_neckerchief", "ru_name": "шёлковый платочек на шею", "price": 500 },
+ { "id": "paris_croissant_brooch", "ru_name": "брошка-круассан", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "paris_cafe_table", "ru_name": "столик уличного кафе", "price": 900 },
+ { "id": "paris_sunset_easel", "ru_name": "мольберт с недописанным закатом", "price": 500 },
+ { "id": "paris_art_nouveau_lamp", "ru_name": "торшер в стиле ар-нуво", "price": 500 },
+ { "id": "paris_lavender_vase", "ru_name": "вазочка с лавандой", "price": 300 }
+ ]
+ },
+ {
+ "id": "london",
+ "ru_name": "Лондон",
+ "region_ru": "Англия",
+ "palette": { "sky": "#CFD6DE", "ground": "#A9B3A4", "accent": "#C44536" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "london_detective_coat", "ru_name": "пальто детектива", "price": 900 },
+ { "id": "london_plaid_flat_cap", "ru_name": "клетчатое кепи", "price": 500 },
+ { "id": "london_yellow_raincoat", "ru_name": "жёлтый дождевик", "price": 500 },
+ { "id": "london_student_scarf", "ru_name": "полосатый шарф студента", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "london_phone_booth", "ru_name": "красная телефонная будка", "price": 900 },
+ { "id": "london_five_oclock_tea_set", "ru_name": "сервиз для пятичасового чая", "price": 500 },
+ { "id": "london_green_shade_lamp", "ru_name": "лампа с зелёным абажуром", "price": 500 },
+ { "id": "london_umbrella_stand", "ru_name": "подставка для зонтов у двери", "price": 300 }
+ ]
+ },
+ {
+ "id": "rome",
+ "ru_name": "Рим",
+ "region_ru": "Италия",
+ "palette": { "sky": "#FBE3C0", "ground": "#D9B384", "accent": "#B85C38" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "rome_holiday_cape", "ru_name": "накидка римских каникул", "price": 900 },
+ { "id": "rome_laurel_wreath", "ru_name": "лавровый венок", "price": 500 },
+ { "id": "rome_legionnaire_sandals", "ru_name": "сандалии легионера", "price": 500 },
+ { "id": "rome_lemon_kerchief", "ru_name": "косынка с лимонами", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "rome_courtyard_fountain", "ru_name": "фонтанчик для дворика", "price": 900 },
+ { "id": "rome_pasta_table", "ru_name": "стол для пасты на двоих", "price": 500 },
+ { "id": "rome_olive_planter", "ru_name": "вазон с оливой", "price": 500 },
+ { "id": "rome_column_stand", "ru_name": "колонна-подставка", "price": 300 }
+ ]
+ },
+ {
+ "id": "lisbon",
+ "ru_name": "Лиссабон",
+ "region_ru": "Португалия",
+ "palette": { "sky": "#C7E4F2", "ground": "#E3CBA8", "accent": "#3E7CB1" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "lisbon_fisherman_sweater", "ru_name": "свитер рыбака", "price": 900 },
+ { "id": "lisbon_tram_driver_cap", "ru_name": "кепка вагоновожатого трамвая 28", "price": 500 },
+ { "id": "lisbon_azulejo_kerchief", "ru_name": "платок с плиткой азулежу", "price": 500 },
+ { "id": "lisbon_sardine_pin", "ru_name": "значок-сардинка", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "lisbon_yellow_tram", "ru_name": "жёлтый трамвайчик", "price": 900 },
+ { "id": "lisbon_azulejo_panel", "ru_name": "изразцовая панель азулежу", "price": 500 },
+ { "id": "lisbon_fado_guitar", "ru_name": "гитара фаду", "price": 500 },
+ { "id": "lisbon_pastel_basket", "ru_name": "корзинка паштел-де-ната", "price": 300 }
+ ]
+ },
+ {
+ "id": "prague",
+ "ru_name": "Прага",
+ "region_ru": "Чехия",
+ "palette": { "sky": "#D8CBE8", "ground": "#C2774E", "accent": "#E8B33F" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "prague_stargazer_hat", "ru_name": "колпак звездочёта", "price": 900 },
+ { "id": "prague_old_town_cloak", "ru_name": "плащ старого города", "price": 500 },
+ { "id": "prague_moon_star_scarf", "ru_name": "шарф со звёздами и луной", "price": 500 },
+ { "id": "prague_trdelnik_mittens", "ru_name": "варежки с трдельником", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "prague_astro_clock", "ru_name": "астрономические часики", "price": 900 },
+ { "id": "prague_bridge_lantern", "ru_name": "фонарь с Карлова моста", "price": 500 },
+ { "id": "prague_stained_glass_window", "ru_name": "витражное окошко", "price": 500 },
+ { "id": "prague_trdelnik_stand", "ru_name": "трдельник на подставке", "price": 300 }
+ ]
+ },
+ {
+ "id": "alps",
+ "ru_name": "Альпы",
+ "region_ru": "Европа",
+ "palette": { "sky": "#D2E8F5", "ground": "#EAF2F8", "accent": "#6FA866" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "alps_edelweiss_sweater", "ru_name": "свитер с эдельвейсами", "price": 900 },
+ { "id": "alps_puffer_jacket", "ru_name": "куртка-пуховичок", "price": 500 },
+ { "id": "alps_skier_socks", "ru_name": "тёплые гольфы лыжника", "price": 500 },
+ { "id": "alps_pompom_beanie", "ru_name": "вязаная шапка с помпоном", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "alps_chalet_fireplace", "ru_name": "камин из шале", "price": 900 },
+ { "id": "alps_sheep_wool_blanket", "ru_name": "плед из овечьей шерсти", "price": 500 },
+ { "id": "alps_cocoa_mug", "ru_name": "кружка какао с зефирками", "price": 500 },
+ { "id": "alps_cow_bell", "ru_name": "колокольчик альпийской коровы", "price": 300 }
+ ]
+ },
+ {
+ "id": "reykjavik",
+ "ru_name": "Рейкьявик",
+ "region_ru": "Исландия",
+ "palette": { "sky": "#3D4D6B", "ground": "#DDE7EE", "accent": "#6FD0A8" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "reykjavik_lopapeysa", "ru_name": "лопапейса, свитер с круговым узором", "price": 900 },
+ { "id": "reykjavik_aurora_beanie", "ru_name": "шапка с северным сиянием", "price": 500 },
+ { "id": "reykjavik_windproof_overalls", "ru_name": "непродуваемый комбинезончик", "price": 500 },
+ { "id": "reykjavik_wool_socks", "ru_name": "носки из исландской шерсти", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "reykjavik_aurora_nightlight", "ru_name": "ночник «северное сияние»", "price": 900 },
+ { "id": "reykjavik_warm_tub", "ru_name": "тёплая купель под звёздами", "price": 500 },
+ { "id": "reykjavik_mini_geyser", "ru_name": "мини-гейзер", "price": 500 },
+ { "id": "reykjavik_lava_pebble", "ru_name": "лавовый камушек", "price": 300 }
+ ]
+ },
+ {
+ "id": "new_york",
+ "ru_name": "Нью-Йорк",
+ "region_ru": "США",
+ "palette": { "sky": "#F2C9A0", "ground": "#9AA1AD", "accent": "#F2B33D" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "newyork_fifth_avenue_coat", "ru_name": "пальто с Пятой авеню", "price": 900 },
+ { "id": "newyork_taxi_hoodie", "ru_name": "худи с жёлтым такси", "price": 500 },
+ { "id": "newyork_central_park_scarf", "ru_name": "шарф для прогулок по Центральному парку", "price": 500 },
+ { "id": "newyork_city_cap", "ru_name": "бейсболка городского жителя", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "newyork_skyscraper_lamp", "ru_name": "лампа-небоскрёб", "price": 900 },
+ { "id": "newyork_park_bench", "ru_name": "скамейка из Центрального парка", "price": 500 },
+ { "id": "newyork_fire_escape_flowers", "ru_name": "пожарная лестница с цветами", "price": 500 },
+ { "id": "newyork_sesame_bagel", "ru_name": "бублик с кунжутом", "price": 300 }
+ ]
+ },
+ {
+ "id": "vancouver",
+ "ru_name": "Ванкувер",
+ "region_ru": "Канада",
+ "palette": { "sky": "#C5DDE8", "ground": "#5E8C6A", "accent": "#C97B4A" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "vancouver_flannel_shirt", "ru_name": "фланелевая рубашка в клетку", "price": 900 },
+ { "id": "vancouver_forest_boots", "ru_name": "ботиночки для лесных троп", "price": 500 },
+ { "id": "vancouver_fog_raincoat", "ru_name": "дождевик цвета тумана", "price": 500 },
+ { "id": "vancouver_maple_beanie", "ru_name": "шапочка с кленовым листом", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "vancouver_dock_kayak", "ru_name": "каяк у причала", "price": 900 },
+ { "id": "vancouver_bay_view_tent", "ru_name": "палатка с видом на залив", "price": 500 },
+ { "id": "vancouver_wooden_owl", "ru_name": "деревянная сова", "price": 500 },
+ { "id": "vancouver_maple_syrup_jar", "ru_name": "банка кленового сиропа", "price": 300 }
+ ]
+ },
+ {
+ "id": "rio_de_janeiro",
+ "ru_name": "Рио-де-Жанейро",
+ "region_ru": "Бразилия",
+ "palette": { "sky": "#AEE0F2", "ground": "#F2DFA7", "accent": "#36B37E" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "rio_carnival_feathers", "ru_name": "карнавальные пёрышки", "price": 900 },
+ { "id": "rio_fan_jersey", "ru_name": "майка футбольного болельщика", "price": 500 },
+ { "id": "rio_tropical_panama", "ru_name": "панама с тропическими листьями", "price": 500 },
+ { "id": "rio_beach_flipflops", "ru_name": "пляжные шлёпанцы", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "rio_mosaic_steps", "ru_name": "мозаичная лесенка", "price": 900 },
+ { "id": "rio_samba_drum", "ru_name": "барабанчик самбы", "price": 500 },
+ { "id": "rio_carnival_garland", "ru_name": "гирлянда карнавальных огоньков", "price": 500 },
+ { "id": "rio_coconut_straw", "ru_name": "кокос с трубочкой", "price": 300 }
+ ]
+ },
+ {
+ "id": "sydney",
+ "ru_name": "Сидней",
+ "region_ru": "Австралия",
+ "palette": { "sky": "#BFE5F5", "ground": "#F5DBA8", "accent": "#F08A5D" },
+ "progress_per_walk": 2,
+ "exclusive_clothing": [
+ { "id": "sydney_koala_costume", "ru_name": "костюм коалы", "price": 900 },
+ { "id": "sydney_surfer_panama", "ru_name": "панама сёрфера", "price": 500 },
+ { "id": "sydney_lifeguard_shorts", "ru_name": "шорты спасателя с Бонди", "price": 500 },
+ { "id": "sydney_shell_bracelet", "ru_name": "браслет из ракушек", "price": 300 }
+ ],
+ "exclusive_furniture": [
+ { "id": "sydney_surfboard", "ru_name": "доска для сёрфинга", "price": 900 },
+ { "id": "sydney_bondi_lounger", "ru_name": "шезлонг с Бонди-Бич", "price": 500 },
+ { "id": "sydney_eucalyptus_pot", "ru_name": "эвкалипт в кадке", "price": 500 },
+ { "id": "sydney_painted_boomerang", "ru_name": "расписной бумеранг", "price": 300 }
+ ]
+ }
+ ],
+ "seasonal_location": {
+ "id": "star_veranda",
+ "ru_name": "Звёздная веранда",
+ "days": 14,
+ "story_arc_ru": [
+ "На крыльцо упал лунный лучик, и оказался лесенкой, ведущей куда-то наверх.",
+ "Дружок поднялся и нашёл веранду среди облаков, всю в гирляндах из созвездий.",
+ "На перилах сидела маленькая звёздочка, она потускнела и не помнила почему.",
+ "Дружок заварил чай из лунного света, и они просто посидели рядом, молча.",
+ "Звёздочка призналась: она так старалась светить всем, что забыла светить себе.",
+ "Они укутались в плед из Млечного Пути и считали пролетающие мимо сны.",
+ "Дружок показал звёздочке, как дышать медленно: вдох на три счёта, выдох на четыре.",
+ "На веранде нашёлся старый граммофон, играющий колыбельные северного ветра.",
+ "Звёздочка чуть-чуть засветилась, на самом кончике одного лучика.",
+ "Они написали письма всем, кого любят, и отправили их с пролетающей кометой.",
+ "Ночью расцвёл звёздный цветок, он раскрывается только для тех, кто никуда не спешит.",
+ "Звёздочка впервые за долгое время крепко уснула, а Дружок сторожил её сон.",
+ "Утром она сияла так ярко, что облака порозовели: отдых вернул ей свет.",
+ "На прощание звёздочка зажгла над верандой новое созвездие, маленького пса, чтобы Дружок всегда находил дорогу обратно."
+ ]
+ }
 }

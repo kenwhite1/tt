@@ -1,378 +1,378 @@
 {
-  "breathing_durations_min": { "free": [1, 3], "plus": [1, 3, 5, 10] },
-  "breathing": [
-    {
-      "id": "breath_clear_sky",
-      "ru_name": "Ясное небо",
-      "tabs": ["focus"],
-      "phases": [
-        { "label_ru": "вдох", "seconds": 4 },
-        { "label_ru": "задержка", "seconds": 4 },
-        { "label_ru": "выдох", "seconds": 4 },
-        { "label_ru": "пауза", "seconds": 4 }
-      ],
-      "cycles_per_min": 4,
-      "plus": false
-    },
-    {
-      "id": "breath_anchor",
-      "ru_name": "Якорь спокойствия",
-      "tabs": ["calm", "morning"],
-      "phases": [
-        { "label_ru": "вдох", "seconds": 4 },
-        { "label_ru": "задержка", "seconds": 4 },
-        { "label_ru": "выдох", "seconds": 6 }
-      ],
-      "cycles_per_min": 4,
-      "plus": false
-    },
-    {
-      "id": "breath_after_storm",
-      "ru_name": "Тише, шторм",
-      "tabs": ["calm"],
-      "phases": [
-        { "label_ru": "вдох", "seconds": 4 },
-        { "label_ru": "выдох", "seconds": 8 }
-      ],
-      "cycles_per_min": 5,
-      "plus": false
-    },
-    {
-      "id": "breath_sunbeam",
-      "ru_name": "Лучик бодрости",
-      "tabs": ["morning", "energize"],
-      "phases": [
-        { "label_ru": "вдох", "seconds": 4 },
-        { "label_ru": "задержка", "seconds": 2 },
-        { "label_ru": "выдох", "seconds": 4 }
-      ],
-      "cycles_per_min": 6,
-      "plus": false
-    },
-    {
-      "id": "breath_lullaby",
-      "ru_name": "Колыбельная для хвостика",
-      "tabs": ["night"],
-      "phases": [
-        { "label_ru": "вдох", "seconds": 4 },
-        { "label_ru": "задержка", "seconds": 7 },
-        { "label_ru": "выдох", "seconds": 8 }
-      ],
-      "cycles_per_min": 3,
-      "plus": false
-    },
-    {
-      "id": "breath_warm_blanket",
-      "ru_name": "Тёплый плед",
-      "tabs": ["calm", "night"],
-      "phases": [
-        { "label_ru": "вдох", "seconds": 4 },
-        { "label_ru": "задержка", "seconds": 2 },
-        { "label_ru": "выдох", "seconds": 6 },
-        { "label_ru": "пауза", "seconds": 2 }
-      ],
-      "cycles_per_min": 4,
-      "plus": true
-    },
-    {
-      "id": "breath_untangle",
-      "ru_name": "Размотай клубок",
-      "tabs": ["focus", "night"],
-      "phases": [
-        { "label_ru": "вдох", "seconds": 4 },
-        { "label_ru": "выдох", "seconds": 6 }
-      ],
-      "cycles_per_min": 6,
-      "plus": true
-    },
-    {
-      "id": "breath_drop_backpack",
-      "ru_name": "Сбрось рюкзак",
-      "tabs": ["focus", "energize"],
-      "phases": [
-        { "label_ru": "вдох", "seconds": 5 },
-        { "label_ru": "задержка", "seconds": 2 },
-        { "label_ru": "выдох", "seconds": 7 }
-      ],
-      "cycles_per_min": 4,
-      "plus": true
-    },
-    {
-      "id": "breath_fresh_stream",
-      "ru_name": "Свежий ручей",
-      "tabs": ["morning", "energize"],
-      "phases": [
-        { "label_ru": "вдох", "seconds": 3 },
-        { "label_ru": "задержка", "seconds": 3 },
-        { "label_ru": "выдох", "seconds": 3 }
-      ],
-      "cycles_per_min": 7,
-      "plus": true
-    },
-    {
-      "id": "breath_starry_ferry",
-      "ru_name": "Звёздный паром",
-      "tabs": ["night"],
-      "phases": [
-        { "label_ru": "вдох", "seconds": 4 },
-        { "label_ru": "задержка", "seconds": 4 },
-        { "label_ru": "выдох", "seconds": 8 }
-      ],
-      "cycles_per_min": 4,
-      "plus": true
-    }
-  ],
-  "grounding": [
-    {
-      "id": "ground_333",
-      "ru_name": "Три, три, три",
-      "steps": [
-        "Оглянись по сторонам и найди три вещи, которые видишь прямо сейчас. Назови их — вслух или про себя, не торопясь.",
-        "Теперь прислушайся и поймай три звука. Гудит чайник? Шумит улица? Слышно твоё дыхание?",
-        "Подвигай тремя частями тела: пошевели пальцами ног, покрути плечами, сожми и разожми ладони.",
-        "Если тревога ещё рядом — повтори круг ещё раз, медленнее. Я никуда не ухожу, я с тобой."
-      ]
-    },
-    {
-      "id": "ground_54321",
-      "ru_name": "Пять чувств: 5-4-3-2-1",
-      "steps": [
-        "Сделай медленный вдох. Сейчас мы пройдёмся по всем пяти чувствам — это помогает вернуться в «здесь и сейчас».",
-        "Найди глазами пять вещей вокруг. Называй их не спеша: лампа, чашка, плед…",
-        "Теперь четыре вещи, которые можно потрогать. Хотя бы одну потрогай по-настоящему: ткань, стол, собственные ладони.",
-        "Три звука, которые слышно прямо сейчас. Даже тишина в комнате — тоже звук.",
-        "Два запаха. Если рядом ничем не пахнет — вдохни запах своей одежды или кожи.",
-        "И один вкус. Глоток воды или чая подойдёт идеально.",
-        "Готово. Ты снова здесь — и я очень этому рад."
-      ]
-    },
-    {
-      "id": "ground_rainbow",
-      "ru_name": "Охота за радугой",
-      "steps": [
-        "Оглянись вокруг: мы идём на охоту за цветами радуги — прямо там, где ты сейчас находишься.",
-        "Найди что-нибудь красное. Рассмотри его пару секунд: какой это оттенок — яркий или приглушённый?",
-        "Теперь что-то оранжевое. Если не находится — подойдёт и рыжее. Например, я!",
-        "Дальше жёлтое. Может, обложка книги или огонёк на зарядке?",
-        "Что-то зелёное. Растения, бутылка, кусочек упаковки — всё считается.",
-        "Голубое или синее — сегодня оба цвета за один ход.",
-        "И наконец фиолетовое. Самый хитрый цвет, поищи внимательно.",
-        "Радуга собрана! Сделай спокойный выдох. Пока ты искал цвета, мысли успели замедлиться. Я рядом."
-      ]
-    },
-    {
-      "id": "ground_name_emotion",
-      "ru_name": "Чувство по имени",
-      "steps": [
-        "Притормози на минутку. Положи руку на грудь или на живот — как удобнее — и сделай спокойный вдох и выдох.",
-        "Спроси себя: то, что я сейчас чувствую, — скорее приятное, неприятное или нейтральное?",
-        "Попробуй подобрать слово поточнее. Не «нормально», а например: усталость, тревога, обида, радость, скука?",
-        "Если первое слово не подошло — поищи ещё. Чувств больше, чем пород собак, честное щенячье.",
-        "Скажи про себя или вслух: «Сейчас я чувствую…». Заметь: не «я — это чувство», а «я его чувствую». Оно гость, а не хозяин.",
-        "Прислушайся: когда у чувства появляется имя, оно часто становится чуть тише. Ты большой молодец, что замечаешь себя."
-      ]
-    },
-    {
-      "id": "ground_body_scan",
-      "ru_name": "Тёплый фонарик",
-      "steps": [
-        "Устройся поудобнее — сидя или лёжа. Глаза можно закрыть, а можно просто смотреть в одну точку.",
-        "Представь, что у тебя есть маленький тёплый фонарик внимания. Направь его лучик на макушку. Что там чувствуется?",
-        "Медленно опусти лучик на лицо: лоб, глаза, челюсть. Если что-то напряжено — разреши этому месту чуть-чуть смягчиться.",
-        "Посвети на плечи и руки, до самых кончиков пальцев. Тепло, прохлада, покалывание — любые ощущения подходят.",
-        "Пройдись лучиком по груди и животу. Почувствуй, как они тихонько поднимаются и опускаются вместе с дыханием.",
-        "Спустись по спине к пояснице. Ничего не нужно исправлять — просто замечай.",
-        "Посвети на ноги: бёдра, колени, голени, стопы. Поздоровайся с каждой частью по очереди.",
-        "Напоследок освети всё тело целиком. Глубокий вдох — медленный выдох. Пара минут наедине с собой — это настоящая забота, я тобой горжусь."
-      ]
-    }
-  ],
-  "movements": [
-    {
-      "id": "move_morning_stretch",
-      "ru_name": "Потягушки на рассвете",
-      "kind": "stretch",
-      "moves": [
-        { "ru_name": "Потянись к небу", "seconds": 30, "anim_key": "reach_sky" },
-        { "ru_name": "Наклоны головы", "seconds": 30, "anim_key": "neck_tilt" },
-        { "ru_name": "Круги плечами", "seconds": 30, "anim_key": "shoulder_rolls" },
-        { "ru_name": "Наклон в сторону", "seconds": 30, "anim_key": "side_bend" },
-        { "ru_name": "Замок за спиной", "seconds": 30, "anim_key": "hands_clasp_back" },
-        { "ru_name": "Мягкий наклон вперёд", "seconds": 30, "anim_key": "forward_fold" },
-        { "ru_name": "Потягивание кошечкой", "seconds": 30, "anim_key": "cat_stretch" },
-        { "ru_name": "Растяжка запястий", "seconds": 30, "anim_key": "wrist_stretch" }
-      ]
-    },
-    {
-      "id": "move_winddown_stretch",
-      "ru_name": "Вечерние потягушки",
-      "kind": "stretch",
-      "moves": [
-        { "ru_name": "Ухо к плечу", "seconds": 30, "anim_key": "ear_to_shoulder" },
-        { "ru_name": "Обними себя", "seconds": 30, "anim_key": "self_hug" },
-        { "ru_name": "Колени к груди", "seconds": 30, "anim_key": "knees_to_chest" },
-        { "ru_name": "Скрутка лёжа", "seconds": 30, "anim_key": "lying_twist" },
-        { "ru_name": "Бабочка сидя", "seconds": 30, "anim_key": "seated_butterfly" },
-        { "ru_name": "Наклон к ногам сидя", "seconds": 30, "anim_key": "seated_fold" },
-        { "ru_name": "Поза ребёнка", "seconds": 30, "anim_key": "child_pose" }
-      ]
-    },
-    {
-      "id": "move_standing_stretch",
-      "ru_name": "Растяжка, не сходя с места",
-      "kind": "stretch",
-      "moves": [
-        { "ru_name": "Растяжка икр у стены", "seconds": 30, "anim_key": "wall_calf_stretch" },
-        { "ru_name": "Растяжка бедра стоя", "seconds": 30, "anim_key": "standing_quad_stretch" },
-        { "ru_name": "Выпад с вытяжением", "seconds": 30, "anim_key": "standing_lunge_stretch" },
-        { "ru_name": "Наклон в сторону с рукой", "seconds": 30, "anim_key": "overhead_side_reach" },
-        { "ru_name": "Раскрытие груди", "seconds": 30, "anim_key": "chest_opener" },
-        { "ru_name": "Круги тазом", "seconds": 30, "anim_key": "hip_circles" },
-        { "ru_name": "Наклон вперёд стоя", "seconds": 30, "anim_key": "standing_forward_fold" }
-      ]
-    },
-    {
-      "id": "move_morning_yoga",
-      "ru_name": "Солнечная йога",
-      "kind": "yoga",
-      "moves": [
-        { "ru_name": "Поза горы", "seconds": 30, "anim_key": "mountain_pose" },
-        { "ru_name": "Руки к солнцу", "seconds": 30, "anim_key": "upward_salute" },
-        { "ru_name": "Наклон вперёд", "seconds": 30, "anim_key": "forward_fold" },
-        { "ru_name": "Кошка-корова", "seconds": 30, "anim_key": "cat_cow" },
-        { "ru_name": "Собака мордой вниз", "seconds": 30, "anim_key": "downward_dog" },
-        { "ru_name": "Кобра", "seconds": 30, "anim_key": "cobra_pose" },
-        { "ru_name": "Воин I", "seconds": 30, "anim_key": "warrior_one" },
-        { "ru_name": "Поза ребёнка", "seconds": 30, "anim_key": "child_pose" }
-      ]
-    },
-    {
-      "id": "move_winddown_yoga",
-      "ru_name": "Лунная йога",
-      "kind": "yoga",
-      "moves": [
-        { "ru_name": "Кошка-корова", "seconds": 30, "anim_key": "cat_cow" },
-        { "ru_name": "Скрутка сидя", "seconds": 30, "anim_key": "seated_twist" },
-        { "ru_name": "Ноги на стену", "seconds": 30, "anim_key": "legs_up_wall" },
-        { "ru_name": "Счастливый щенок", "seconds": 30, "anim_key": "happy_baby" },
-        { "ru_name": "Бабочка лёжа", "seconds": 30, "anim_key": "reclined_butterfly" },
-        { "ru_name": "Колени к груди", "seconds": 30, "anim_key": "knees_to_chest" },
-        { "ru_name": "Поза отдыха", "seconds": 30, "anim_key": "savasana" }
-      ]
-    },
-    {
-      "id": "move_standing_yoga",
-      "ru_name": "Йога на крепких лапках",
-      "kind": "yoga",
-      "moves": [
-        { "ru_name": "Поза горы", "seconds": 30, "anim_key": "mountain_pose" },
-        { "ru_name": "Дерево", "seconds": 30, "anim_key": "tree_pose" },
-        { "ru_name": "Стул", "seconds": 30, "anim_key": "chair_pose" },
-        { "ru_name": "Воин II", "seconds": 30, "anim_key": "warrior_two" },
-        { "ru_name": "Треугольник", "seconds": 30, "anim_key": "triangle_pose" },
-        { "ru_name": "Полумесяц стоя", "seconds": 30, "anim_key": "standing_crescent" },
-        { "ru_name": "Наклон вперёд", "seconds": 30, "anim_key": "standing_forward_fold" }
-      ]
-    },
-    {
-      "id": "move_chair_yoga",
-      "ru_name": "Йога, не вставая со стула",
-      "kind": "yoga",
-      "moves": [
-        { "ru_name": "Вытяжение к потолку сидя", "seconds": 30, "anim_key": "seated_reach_up" },
-        { "ru_name": "Кошка-корова на стуле", "seconds": 30, "anim_key": "seated_cat_cow" },
-        { "ru_name": "Скрутка на стуле", "seconds": 30, "anim_key": "seated_twist_chair" },
-        { "ru_name": "Наклон к ноге сидя", "seconds": 30, "anim_key": "seated_hamstring_fold" },
-        { "ru_name": "Руки-крылья", "seconds": 30, "anim_key": "eagle_arms" },
-        { "ru_name": "Голубь сидя", "seconds": 30, "anim_key": "seated_pigeon" }
-      ]
-    },
-    {
-      "id": "move_morning_exercise",
-      "ru_name": "Зарядка с хвостиком",
-      "kind": "exercise",
-      "moves": [
-        { "ru_name": "Марш на месте", "seconds": 30, "anim_key": "march_in_place" },
-        { "ru_name": "Приседания", "seconds": 30, "anim_key": "squat" },
-        { "ru_name": "Звёздочки", "seconds": 30, "anim_key": "jumping_jack" },
-        { "ru_name": "Выпады", "seconds": 30, "anim_key": "lunge" },
-        { "ru_name": "Высокие колени", "seconds": 30, "anim_key": "high_knees" },
-        { "ru_name": "Отжимания от стены", "seconds": 30, "anim_key": "wall_pushup" },
-        { "ru_name": "Ягодичный мостик", "seconds": 30, "anim_key": "glute_bridge" },
-        { "ru_name": "Планка", "seconds": 30, "anim_key": "plank" }
-      ]
-    },
-    {
-      "id": "move_couch_exercise",
-      "ru_name": "Тренировка на диване",
-      "kind": "exercise",
-      "moves": [
-        { "ru_name": "Встань-сядь", "seconds": 30, "anim_key": "sit_to_stand" },
-        { "ru_name": "Отжимания от дивана", "seconds": 30, "anim_key": "couch_dip" },
-        { "ru_name": "Подъём коленей сидя", "seconds": 30, "anim_key": "seated_knee_raise" },
-        { "ru_name": "Подъём ног сидя", "seconds": 30, "anim_key": "seated_leg_lift" },
-        { "ru_name": "Велосипед сидя", "seconds": 30, "anim_key": "seated_bicycle" },
-        { "ru_name": "Круги руками", "seconds": 30, "anim_key": "arm_circles" }
-      ]
-    },
-    {
-      "id": "move_floor_exercise",
-      "ru_name": "Тренировка на коврике",
-      "kind": "exercise",
-      "moves": [
-        { "ru_name": "Ягодичный мостик", "seconds": 30, "anim_key": "glute_bridge" },
-        { "ru_name": "Планка", "seconds": 30, "anim_key": "plank" },
-        { "ru_name": "Велосипед", "seconds": 30, "anim_key": "bicycle_crunch" },
-        { "ru_name": "Лодочка", "seconds": 30, "anim_key": "superman" },
-        { "ru_name": "Скручивания", "seconds": 30, "anim_key": "crunch" },
-        { "ru_name": "Подъём ног лёжа", "seconds": 30, "anim_key": "leg_raise" },
-        { "ru_name": "Боковая планка", "seconds": 30, "anim_key": "side_plank" },
-        { "ru_name": "Ракушка", "seconds": 30, "anim_key": "clamshell" }
-      ]
-    }
-  ],
-  "movement_energy_by_minutes": { "1": 6, "3": 18, "5": 30, "10": 60 },
-  "firstaid": {
-    "ru_name": "Аптечка для души",
-    "ru_note": "Всё в аптечке всегда бесплатно. Если тебе сейчас очень тяжело — пожалуйста, позвони: живой человек выслушает.",
-    "items": [
-      { "type": "grounding", "id": "ground_333" },
-      { "type": "grounding", "id": "ground_54321" },
-      { "type": "grounding", "id": "ground_rainbow" },
-      { "type": "grounding", "id": "ground_name_emotion" },
-      { "type": "grounding", "id": "ground_body_scan" },
-      { "type": "breathing", "id": "breath_anchor" },
-      { "type": "breathing", "id": "breath_after_storm" },
-      { "type": "reflection", "id": "refl_my_triggers" },
-      { "type": "reflection", "id": "refl_words_for_dear_one" },
-      { "type": "reflection", "id": "refl_step_to_healing" },
-      { "type": "reflection", "id": "refl_rant_zone" },
-      { "type": "reflection", "id": "refl_living_grief" },
-      { "type": "reflection", "id": "refl_regroup_time" },
-      { "type": "affirmation", "id": "affirmation_repeat" }
-    ],
-    "helplines": [
-      {
-        "ru_name": "Детский телефон доверия (для детей, подростков и родителей)",
-        "phone": "8-800-2000-122",
-        "hours": "круглосуточно, бесплатно, анонимно"
-      },
-      {
-        "ru_name": "Экстренная психологическая помощь МЧС России",
-        "phone": "+7-495-989-50-50",
-        "hours": "круглосуточно"
-      },
-      {
-        "ru_name": "Единый номер экстренных служб",
-        "phone": "112",
-        "hours": "круглосуточно"
-      },
-      {
-        "ru_name": "Подбор горячей линии в любой стране",
-        "phone": null,
-        "url": "https://findahelpline.com",
-        "hours": "круглосуточно"
-      }
-    ]
-  }
+ "breathing_durations_min": { "free": [1, 3], "plus": [1, 3, 5, 10] },
+ "breathing": [
+ {
+ "id": "breath_clear_sky",
+ "ru_name": "Ясное небо",
+ "tabs": ["focus"],
+ "phases": [
+ { "label_ru": "вдох", "seconds": 4 },
+ { "label_ru": "задержка", "seconds": 4 },
+ { "label_ru": "выдох", "seconds": 4 },
+ { "label_ru": "пауза", "seconds": 4 }
+ ],
+ "cycles_per_min": 4,
+ "plus": false
+ },
+ {
+ "id": "breath_anchor",
+ "ru_name": "Якорь спокойствия",
+ "tabs": ["calm", "morning"],
+ "phases": [
+ { "label_ru": "вдох", "seconds": 4 },
+ { "label_ru": "задержка", "seconds": 4 },
+ { "label_ru": "выдох", "seconds": 6 }
+ ],
+ "cycles_per_min": 4,
+ "plus": false
+ },
+ {
+ "id": "breath_after_storm",
+ "ru_name": "Тише, шторм",
+ "tabs": ["calm"],
+ "phases": [
+ { "label_ru": "вдох", "seconds": 4 },
+ { "label_ru": "выдох", "seconds": 8 }
+ ],
+ "cycles_per_min": 5,
+ "plus": false
+ },
+ {
+ "id": "breath_sunbeam",
+ "ru_name": "Лучик бодрости",
+ "tabs": ["morning", "energize"],
+ "phases": [
+ { "label_ru": "вдох", "seconds": 4 },
+ { "label_ru": "задержка", "seconds": 2 },
+ { "label_ru": "выдох", "seconds": 4 }
+ ],
+ "cycles_per_min": 6,
+ "plus": false
+ },
+ {
+ "id": "breath_lullaby",
+ "ru_name": "Колыбельная для хвостика",
+ "tabs": ["night"],
+ "phases": [
+ { "label_ru": "вдох", "seconds": 4 },
+ { "label_ru": "задержка", "seconds": 7 },
+ { "label_ru": "выдох", "seconds": 8 }
+ ],
+ "cycles_per_min": 3,
+ "plus": false
+ },
+ {
+ "id": "breath_warm_blanket",
+ "ru_name": "Тёплый плед",
+ "tabs": ["calm", "night"],
+ "phases": [
+ { "label_ru": "вдох", "seconds": 4 },
+ { "label_ru": "задержка", "seconds": 2 },
+ { "label_ru": "выдох", "seconds": 6 },
+ { "label_ru": "пауза", "seconds": 2 }
+ ],
+ "cycles_per_min": 4,
+ "plus": true
+ },
+ {
+ "id": "breath_untangle",
+ "ru_name": "Размотай клубок",
+ "tabs": ["focus", "night"],
+ "phases": [
+ { "label_ru": "вдох", "seconds": 4 },
+ { "label_ru": "выдох", "seconds": 6 }
+ ],
+ "cycles_per_min": 6,
+ "plus": true
+ },
+ {
+ "id": "breath_drop_backpack",
+ "ru_name": "Сбрось рюкзак",
+ "tabs": ["focus", "energize"],
+ "phases": [
+ { "label_ru": "вдох", "seconds": 5 },
+ { "label_ru": "задержка", "seconds": 2 },
+ { "label_ru": "выдох", "seconds": 7 }
+ ],
+ "cycles_per_min": 4,
+ "plus": true
+ },
+ {
+ "id": "breath_fresh_stream",
+ "ru_name": "Свежий ручей",
+ "tabs": ["morning", "energize"],
+ "phases": [
+ { "label_ru": "вдох", "seconds": 3 },
+ { "label_ru": "задержка", "seconds": 3 },
+ { "label_ru": "выдох", "seconds": 3 }
+ ],
+ "cycles_per_min": 7,
+ "plus": true
+ },
+ {
+ "id": "breath_starry_ferry",
+ "ru_name": "Звёздный паром",
+ "tabs": ["night"],
+ "phases": [
+ { "label_ru": "вдох", "seconds": 4 },
+ { "label_ru": "задержка", "seconds": 4 },
+ { "label_ru": "выдох", "seconds": 8 }
+ ],
+ "cycles_per_min": 4,
+ "plus": true
+ }
+ ],
+ "grounding": [
+ {
+ "id": "ground_333",
+ "ru_name": "Три, три, три",
+ "steps": [
+ "Оглянись по сторонам и найди три вещи, которые видишь прямо сейчас. Назови их, вслух или про себя, не торопясь.",
+ "Теперь прислушайся и поймай три звука. Гудит чайник? Шумит улица? Слышно твоё дыхание?",
+ "Подвигай тремя частями тела: пошевели пальцами ног, покрути плечами, сожми и разожми ладони.",
+ "Если тревога ещё рядом, повтори круг ещё раз, медленнее. Я никуда не ухожу, я с тобой."
+ ]
+ },
+ {
+ "id": "ground_54321",
+ "ru_name": "Пять чувств: 5-4-3-2-1",
+ "steps": [
+ "Сделай медленный вдох. Сейчас мы пройдёмся по всем пяти чувствам, это помогает вернуться в «здесь и сейчас».",
+ "Найди глазами пять вещей вокруг. Называй их не спеша: лампа, чашка, плед…",
+ "Теперь четыре вещи, которые можно потрогать. Хотя бы одну потрогай по-настоящему: ткань, стол, собственные ладони.",
+ "Три звука, которые слышно прямо сейчас. Даже тишина в комнате, тоже звук.",
+ "Два запаха. Если рядом ничем не пахнет, вдохни запах своей одежды или кожи.",
+ "И один вкус. Глоток воды или чая подойдёт идеально.",
+ "Готово. Ты снова здесь, и я очень этому рад."
+ ]
+ },
+ {
+ "id": "ground_rainbow",
+ "ru_name": "Охота за радугой",
+ "steps": [
+ "Оглянись вокруг: мы идём на охоту за цветами радуги, прямо там, где ты сейчас находишься.",
+ "Найди что-нибудь красное. Рассмотри его пару секунд: какой это оттенок, яркий или приглушённый?",
+ "Теперь что-то оранжевое. Если не находится, подойдёт и рыжее. Например, я!",
+ "Дальше жёлтое. Может, обложка книги или огонёк на зарядке?",
+ "Что-то зелёное. Растения, бутылка, кусочек упаковки, всё считается.",
+ "Голубое или синее, сегодня оба цвета за один ход.",
+ "И наконец фиолетовое. Самый хитрый цвет, поищи внимательно.",
+ "Радуга собрана! Сделай спокойный выдох. Пока ты искал цвета, мысли успели замедлиться. Я рядом."
+ ]
+ },
+ {
+ "id": "ground_name_emotion",
+ "ru_name": "Чувство по имени",
+ "steps": [
+ "Притормози на минутку. Положи руку на грудь или на живот, как удобнее, и сделай спокойный вдох и выдох.",
+ "Спроси себя: то, что я сейчас чувствую, скорее приятное, неприятное или нейтральное?",
+ "Попробуй подобрать слово поточнее. Не «нормально», а например: усталость, тревога, обида, радость, скука?",
+ "Если первое слово не подошло, поищи ещё. Чувств больше, чем пород собак, честное щенячье.",
+ "Скажи про себя или вслух: «Сейчас я чувствую…». Заметь: не «я, это чувство», а «я его чувствую». Оно гость, а не хозяин.",
+ "Прислушайся: когда у чувства появляется имя, оно часто становится чуть тише. Ты большой молодец, что замечаешь себя."
+ ]
+ },
+ {
+ "id": "ground_body_scan",
+ "ru_name": "Тёплый фонарик",
+ "steps": [
+ "Устройся поудобнее, сидя или лёжа. Глаза можно закрыть, а можно просто смотреть в одну точку.",
+ "Представь, что у тебя есть маленький тёплый фонарик внимания. Направь его лучик на макушку. Что там чувствуется?",
+ "Медленно опусти лучик на лицо: лоб, глаза, челюсть. Если что-то напряжено, разреши этому месту чуть-чуть смягчиться.",
+ "Посвети на плечи и руки, до самых кончиков пальцев. Тепло, прохлада, покалывание, любые ощущения подходят.",
+ "Пройдись лучиком по груди и животу. Почувствуй, как они тихонько поднимаются и опускаются вместе с дыханием.",
+ "Спустись по спине к пояснице. Ничего не нужно исправлять, просто замечай.",
+ "Посвети на ноги: бёдра, колени, голени, стопы. Поздоровайся с каждой частью по очереди.",
+ "Напоследок освети всё тело целиком. Глубокий вдох, медленный выдох. Пара минут наедине с собой, это настоящая забота, я тобой горжусь."
+ ]
+ }
+ ],
+ "movements": [
+ {
+ "id": "move_morning_stretch",
+ "ru_name": "Потягушки на рассвете",
+ "kind": "stretch",
+ "moves": [
+ { "ru_name": "Потянись к небу", "seconds": 30, "anim_key": "reach_sky" },
+ { "ru_name": "Наклоны головы", "seconds": 30, "anim_key": "neck_tilt" },
+ { "ru_name": "Круги плечами", "seconds": 30, "anim_key": "shoulder_rolls" },
+ { "ru_name": "Наклон в сторону", "seconds": 30, "anim_key": "side_bend" },
+ { "ru_name": "Замок за спиной", "seconds": 30, "anim_key": "hands_clasp_back" },
+ { "ru_name": "Мягкий наклон вперёд", "seconds": 30, "anim_key": "forward_fold" },
+ { "ru_name": "Потягивание кошечкой", "seconds": 30, "anim_key": "cat_stretch" },
+ { "ru_name": "Растяжка запястий", "seconds": 30, "anim_key": "wrist_stretch" }
+ ]
+ },
+ {
+ "id": "move_winddown_stretch",
+ "ru_name": "Вечерние потягушки",
+ "kind": "stretch",
+ "moves": [
+ { "ru_name": "Ухо к плечу", "seconds": 30, "anim_key": "ear_to_shoulder" },
+ { "ru_name": "Обними себя", "seconds": 30, "anim_key": "self_hug" },
+ { "ru_name": "Колени к груди", "seconds": 30, "anim_key": "knees_to_chest" },
+ { "ru_name": "Скрутка лёжа", "seconds": 30, "anim_key": "lying_twist" },
+ { "ru_name": "Бабочка сидя", "seconds": 30, "anim_key": "seated_butterfly" },
+ { "ru_name": "Наклон к ногам сидя", "seconds": 30, "anim_key": "seated_fold" },
+ { "ru_name": "Поза ребёнка", "seconds": 30, "anim_key": "child_pose" }
+ ]
+ },
+ {
+ "id": "move_standing_stretch",
+ "ru_name": "Растяжка, не сходя с места",
+ "kind": "stretch",
+ "moves": [
+ { "ru_name": "Растяжка икр у стены", "seconds": 30, "anim_key": "wall_calf_stretch" },
+ { "ru_name": "Растяжка бедра стоя", "seconds": 30, "anim_key": "standing_quad_stretch" },
+ { "ru_name": "Выпад с вытяжением", "seconds": 30, "anim_key": "standing_lunge_stretch" },
+ { "ru_name": "Наклон в сторону с рукой", "seconds": 30, "anim_key": "overhead_side_reach" },
+ { "ru_name": "Раскрытие груди", "seconds": 30, "anim_key": "chest_opener" },
+ { "ru_name": "Круги тазом", "seconds": 30, "anim_key": "hip_circles" },
+ { "ru_name": "Наклон вперёд стоя", "seconds": 30, "anim_key": "standing_forward_fold" }
+ ]
+ },
+ {
+ "id": "move_morning_yoga",
+ "ru_name": "Солнечная йога",
+ "kind": "yoga",
+ "moves": [
+ { "ru_name": "Поза горы", "seconds": 30, "anim_key": "mountain_pose" },
+ { "ru_name": "Руки к солнцу", "seconds": 30, "anim_key": "upward_salute" },
+ { "ru_name": "Наклон вперёд", "seconds": 30, "anim_key": "forward_fold" },
+ { "ru_name": "Кошка-корова", "seconds": 30, "anim_key": "cat_cow" },
+ { "ru_name": "Собака мордой вниз", "seconds": 30, "anim_key": "downward_dog" },
+ { "ru_name": "Кобра", "seconds": 30, "anim_key": "cobra_pose" },
+ { "ru_name": "Воин I", "seconds": 30, "anim_key": "warrior_one" },
+ { "ru_name": "Поза ребёнка", "seconds": 30, "anim_key": "child_pose" }
+ ]
+ },
+ {
+ "id": "move_winddown_yoga",
+ "ru_name": "Лунная йога",
+ "kind": "yoga",
+ "moves": [
+ { "ru_name": "Кошка-корова", "seconds": 30, "anim_key": "cat_cow" },
+ { "ru_name": "Скрутка сидя", "seconds": 30, "anim_key": "seated_twist" },
+ { "ru_name": "Ноги на стену", "seconds": 30, "anim_key": "legs_up_wall" },
+ { "ru_name": "Счастливый щенок", "seconds": 30, "anim_key": "happy_baby" },
+ { "ru_name": "Бабочка лёжа", "seconds": 30, "anim_key": "reclined_butterfly" },
+ { "ru_name": "Колени к груди", "seconds": 30, "anim_key": "knees_to_chest" },
+ { "ru_name": "Поза отдыха", "seconds": 30, "anim_key": "savasana" }
+ ]
+ },
+ {
+ "id": "move_standing_yoga",
+ "ru_name": "Йога на крепких лапках",
+ "kind": "yoga",
+ "moves": [
+ { "ru_name": "Поза горы", "seconds": 30, "anim_key": "mountain_pose" },
+ { "ru_name": "Дерево", "seconds": 30, "anim_key": "tree_pose" },
+ { "ru_name": "Стул", "seconds": 30, "anim_key": "chair_pose" },
+ { "ru_name": "Воин II", "seconds": 30, "anim_key": "warrior_two" },
+ { "ru_name": "Треугольник", "seconds": 30, "anim_key": "triangle_pose" },
+ { "ru_name": "Полумесяц стоя", "seconds": 30, "anim_key": "standing_crescent" },
+ { "ru_name": "Наклон вперёд", "seconds": 30, "anim_key": "standing_forward_fold" }
+ ]
+ },
+ {
+ "id": "move_chair_yoga",
+ "ru_name": "Йога, не вставая со стула",
+ "kind": "yoga",
+ "moves": [
+ { "ru_name": "Вытяжение к потолку сидя", "seconds": 30, "anim_key": "seated_reach_up" },
+ { "ru_name": "Кошка-корова на стуле", "seconds": 30, "anim_key": "seated_cat_cow" },
+ { "ru_name": "Скрутка на стуле", "seconds": 30, "anim_key": "seated_twist_chair" },
+ { "ru_name": "Наклон к ноге сидя", "seconds": 30, "anim_key": "seated_hamstring_fold" },
+ { "ru_name": "Руки-крылья", "seconds": 30, "anim_key": "eagle_arms" },
+ { "ru_name": "Голубь сидя", "seconds": 30, "anim_key": "seated_pigeon" }
+ ]
+ },
+ {
+ "id": "move_morning_exercise",
+ "ru_name": "Зарядка с хвостиком",
+ "kind": "exercise",
+ "moves": [
+ { "ru_name": "Марш на месте", "seconds": 30, "anim_key": "march_in_place" },
+ { "ru_name": "Приседания", "seconds": 30, "anim_key": "squat" },
+ { "ru_name": "Звёздочки", "seconds": 30, "anim_key": "jumping_jack" },
+ { "ru_name": "Выпады", "seconds": 30, "anim_key": "lunge" },
+ { "ru_name": "Высокие колени", "seconds": 30, "anim_key": "high_knees" },
+ { "ru_name": "Отжимания от стены", "seconds": 30, "anim_key": "wall_pushup" },
+ { "ru_name": "Ягодичный мостик", "seconds": 30, "anim_key": "glute_bridge" },
+ { "ru_name": "Планка", "seconds": 30, "anim_key": "plank" }
+ ]
+ },
+ {
+ "id": "move_couch_exercise",
+ "ru_name": "Тренировка на диване",
+ "kind": "exercise",
+ "moves": [
+ { "ru_name": "Встань-сядь", "seconds": 30, "anim_key": "sit_to_stand" },
+ { "ru_name": "Отжимания от дивана", "seconds": 30, "anim_key": "couch_dip" },
+ { "ru_name": "Подъём коленей сидя", "seconds": 30, "anim_key": "seated_knee_raise" },
+ { "ru_name": "Подъём ног сидя", "seconds": 30, "anim_key": "seated_leg_lift" },
+ { "ru_name": "Велосипед сидя", "seconds": 30, "anim_key": "seated_bicycle" },
+ { "ru_name": "Круги руками", "seconds": 30, "anim_key": "arm_circles" }
+ ]
+ },
+ {
+ "id": "move_floor_exercise",
+ "ru_name": "Тренировка на коврике",
+ "kind": "exercise",
+ "moves": [
+ { "ru_name": "Ягодичный мостик", "seconds": 30, "anim_key": "glute_bridge" },
+ { "ru_name": "Планка", "seconds": 30, "anim_key": "plank" },
+ { "ru_name": "Велосипед", "seconds": 30, "anim_key": "bicycle_crunch" },
+ { "ru_name": "Лодочка", "seconds": 30, "anim_key": "superman" },
+ { "ru_name": "Скручивания", "seconds": 30, "anim_key": "crunch" },
+ { "ru_name": "Подъём ног лёжа", "seconds": 30, "anim_key": "leg_raise" },
+ { "ru_name": "Боковая планка", "seconds": 30, "anim_key": "side_plank" },
+ { "ru_name": "Ракушка", "seconds": 30, "anim_key": "clamshell" }
+ ]
+ }
+ ],
+ "movement_energy_by_minutes": { "1": 6, "3": 18, "5": 30, "10": 60 },
+ "firstaid": {
+ "ru_name": "Аптечка для души",
+ "ru_note": "Всё в аптечке всегда бесплатно. Если тебе сейчас очень тяжело, пожалуйста, позвони: живой человек выслушает.",
+ "items": [
+ { "type": "grounding", "id": "ground_333" },
+ { "type": "grounding", "id": "ground_54321" },
+ { "type": "grounding", "id": "ground_rainbow" },
+ { "type": "grounding", "id": "ground_name_emotion" },
+ { "type": "grounding", "id": "ground_body_scan" },
+ { "type": "breathing", "id": "breath_anchor" },
+ { "type": "breathing", "id": "breath_after_storm" },
+ { "type": "reflection", "id": "refl_my_triggers" },
+ { "type": "reflection", "id": "refl_words_for_dear_one" },
+ { "type": "reflection", "id": "refl_step_to_healing" },
+ { "type": "reflection", "id": "refl_rant_zone" },
+ { "type": "reflection", "id": "refl_living_grief" },
+ { "type": "reflection", "id": "refl_regroup_time" },
+ { "type": "affirmation", "id": "affirmation_repeat" }
+ ],
+ "helplines": [
+ {
+ "ru_name": "Детский телефон доверия (для детей, подростков и родителей)",
+ "phone": "8-800-2000-122",
+ "hours": "круглосуточно, бесплатно, анонимно"
+ },
+ {
+ "ru_name": "Экстренная психологическая помощь МЧС России",
+ "phone": "+7-495-989-50-50",
+ "hours": "круглосуточно"
+ },
+ {
+ "ru_name": "Единый номер экстренных служб",
+ "phone": "112",
+ "hours": "круглосуточно"
+ },
+ {
+ "ru_name": "Подбор горячей линии в любой стране",
+ "phone": null,
+ "url": "https://findahelpline.com",
+ "hours": "круглосуточно"
+ }
+ ]
+ }
 }

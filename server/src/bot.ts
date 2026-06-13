@@ -11,68 +11,68 @@ const copy = content.botCopy
 const openLabel = typeof copy.open_button === 'string' ? copy.open_button : 'Открыть Дружка'
 
 function pickFrom(key: string, fallback: string): string {
-  const p = copy[key]
-  if (Array.isArray(p) && p.length) return p[Math.floor(Math.random() * p.length)]
-  return fallback
+ const p = copy[key]
+ if (Array.isArray(p) && p.length) return p[Math.floor(Math.random() * p.length)]
+ return fallback
 }
 
 export function appKeyboard() {
-  return APP_URL
-    ? { inline_keyboard: [[{ text: openLabel, web_app: { url: APP_URL } }]] }
-    : undefined
+ return APP_URL
+ ? { inline_keyboard: [[{ text: openLabel, web_app: { url: APP_URL } }]] }
+ : undefined
 }
 
 function grantWriteAccess(tgId: number) {
-  db.prepare('UPDATE users SET write_access=1 WHERE id=?').run(tgId)
+ db.prepare('UPDATE users SET write_access=1 WHERE id=?').run(tgId)
 }
 
 if (bot) {
-  bot.command('start', async ctx => {
-    const payload = ctx.match?.toString() ?? ''
-    if (payload.startsWith('ref_') && ctx.from) {
-      const code = payload.slice(4)
-      const inviter = db.prepare('SELECT id FROM users WHERE friend_code=?').get(code) as { id: number } | undefined
-      if (inviter && inviter.id !== ctx.from.id && !db.prepare('SELECT id FROM users WHERE id=?').get(ctx.from.id)) {
-        db.prepare('INSERT OR REPLACE INTO pending_referrals (tg_id, inviter_id, ts) VALUES (?,?,?)')
-          .run(ctx.from.id, inviter.id, Date.now())
-      }
-    }
-    if (ctx.from) grantWriteAccess(ctx.from.id)
-    const pet = ctx.from
-      ? (db.prepare('SELECT name FROM pets WHERE user_id=?').get(ctx.from.id) as { name: string } | undefined)
-      : undefined
-    const greeting = pickFrom(
-      'onboarding_bot_greeting',
-      'Гав! 🐶 Я Дружок, твой щенок заботы о себе. Открывай приложение, я тебя жду!',
-    )
-      .replaceAll('{name}', ctx.from?.first_name || 'друг')
-      .replaceAll('{pet}', pet?.name ?? 'Дружок')
-    await ctx.reply(greeting, { reply_markup: appKeyboard() })
-  })
+ bot.command('start', async ctx => {
+ const payload = ctx.match?.toString() ?? ''
+ if (payload.startsWith('ref_') && ctx.from) {
+ const code = payload.slice(4)
+ const inviter = db.prepare('SELECT id FROM users WHERE friend_code=?').get(code) as { id: number } | undefined
+ if (inviter && inviter.id !== ctx.from.id && !db.prepare('SELECT id FROM users WHERE id=?').get(ctx.from.id)) {
+ db.prepare('INSERT OR REPLACE INTO pending_referrals (tg_id, inviter_id, ts) VALUES (?,?,?)')
+ .run(ctx.from.id, inviter.id, Date.now())
+ }
+ }
+ if (ctx.from) grantWriteAccess(ctx.from.id)
+ const pet = ctx.from
+ ? (db.prepare('SELECT name FROM pets WHERE user_id=?').get(ctx.from.id) as { name: string } | undefined)
+ : undefined
+ const greeting = pickFrom(
+ 'onboarding_bot_greeting',
+ 'Гав! 🐶 Я Дружок, твой щенок заботы о себе. Открывай приложение, я тебя жду!',
+ )
+ .replaceAll('{name}', ctx.from?.first_name || 'друг')
+ .replaceAll('{pet}', pet?.name ?? 'Дружок')
+ await ctx.reply(greeting, { reply_markup: appKeyboard() })
+ })
 
-  bot.command('app', async ctx => {
-    if (ctx.from) grantWriteAccess(ctx.from.id)
-    await ctx.reply('Вот я! Жми кнопку — и заходи в гости 🐾', { reply_markup: appKeyboard() })
-  })
+ bot.command('app', async ctx => {
+ if (ctx.from) grantWriteAccess(ctx.from.id)
+ await ctx.reply('Вот я! Жми кнопку, и заходи в гости 🐾', { reply_markup: appKeyboard() })
+ })
 
-  bot.command('help', async ctx => {
-    if (ctx.from) grantWriteAccess(ctx.from.id)
-    await ctx.reply(
-      'Я Шарик 🐶 Я расту, когда ты заботишься о себе.\n\n' +
-        '• Отмечай маленькие цели — пьёшь воду, дышишь, гуляешь, ведёшь дневник\n' +
-        '• За заботу я набираюсь сил и ухожу на прогулки\n' +
-        '• Наряжай меня, собирай микропитомцев, зови друзей в Дворик\n\n' +
-        'Открывай приложение кнопкой ниже 💛',
-      { reply_markup: appKeyboard() },
-    )
-  })
+ bot.command('help', async ctx => {
+ if (ctx.from) grantWriteAccess(ctx.from.id)
+ await ctx.reply(
+ 'Я Шарик 🐶 Я расту, когда ты заботишься о себе.\n\n' +
+ '• Отмечай маленькие цели, пьёшь воду, дышишь, гуляешь, ведёшь дневник\n' +
+ '• За заботу я набираюсь сил и ухожу на прогулки\n' +
+ '• Наряжай меня, собирай микропитомцев, зови друзей в Дворик\n\n' +
+ 'Открывай приложение кнопкой ниже 💛',
+ { reply_markup: appKeyboard() },
+ )
+ })
 
-  // Any message to the bot = explicit permission to DM (reminder engine relies on this).
-  bot.on('message', ctx => {
-    grantWriteAccess(ctx.from.id)
-  })
+ // Any message to the bot = explicit permission to DM (reminder engine relies on this).
+ bot.on('message', ctx => {
+ grantWriteAccess(ctx.from.id)
+ })
 
-  registerPaymentHandlers(bot)
+ registerPaymentHandlers(bot)
 }
 
 export const botWebhook = bot ? webhookCallback(bot, 'hono') : null
