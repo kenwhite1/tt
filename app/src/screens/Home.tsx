@@ -43,10 +43,20 @@ export function Home() {
         {/* room hero with floating controls */}
         <div style={{ position: 'relative', marginBottom: 18 }}>
           <RoomScene>
-            <div ref={hearts} style={{ position: 'relative', display: 'inline-block', touchAction: 'none' }} onPointerDown={onPat}>
-              <Puppy state={walking ? 'happy' : 'idle'} size={150} stage={pet.stage as never} />
-            </div>
+            {!walking && (
+              <div ref={hearts} style={{ position: 'relative', display: 'inline-block', touchAction: 'none' }} onPointerDown={onPat}>
+                <Puppy state="idle" size={150} stage={pet.stage as never} />
+              </div>
+            )}
           </RoomScene>
+          {/* pet is away on a walk — empty room + a paw-print trail toward the door */}
+          {walking && (
+            <div aria-hidden style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+              <span style={{ position: 'absolute', left: '45%', top: '72%', fontSize: 20, opacity: 0.5 }}>🐾</span>
+              <span style={{ position: 'absolute', left: '57%', top: '63%', fontSize: 17, opacity: 0.35 }}>🐾</span>
+              <span style={{ position: 'absolute', left: '68%', top: '55%', fontSize: 14, opacity: 0.22 }}>🐾</span>
+            </div>
+          )}
           <button className="round-btn" style={{ position: 'absolute', top: 8, left: 10 }} onClick={() => useStore.getState().setMenuOpen(true)} aria-label="Меню">☰</button>
           <button className="round-btn" style={{ position: 'absolute', top: 8, right: 10 }} onClick={() => setShowMood(true)} aria-label="Настроение">
             {state.moodToday ? MOODS[state.moodToday - 1] : '🙂'}
