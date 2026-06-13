@@ -63,8 +63,8 @@ export function Home() {
           </button>
         </div>
 
-        {/* adventure / energy card */}
-        <div className="adv-card" style={{ marginTop: -34 }}>
+        {/* adventure / energy card — sits below the room */}
+        <div className="adv-card">
           <div className="adv-bolt">⚡</div>
           <div style={{ flex: 1 }}>
             <div style={{ fontWeight: 800, marginBottom: 6 }}>
