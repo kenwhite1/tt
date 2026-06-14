@@ -104,7 +104,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  style={{ width: '100%', display: 'flex', gap: 12, alignItems: 'center', border: '2px dashed var(--accent)', cursor: 'pointer', textAlign: 'left' }}
  onClick={() => setSheet({ listing: data.discount!, slot: 12 })}
  >
- <span style={{ width: 40, height: 40, borderRadius: 12, background: data.discount.hex, flexShrink: 0 }} />
+ <span className="swatch" style={{ width: 40, height: 40, borderRadius: 12, background: data.discount.hex, flexShrink: 0 }} />
  <div style={{ flex: 1 }}>
  <b>−50% сегодня: {data.discount.ru}</b>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{data.discount.colorRu}</div>
@@ -172,7 +172,8 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  {/* daily gift card from ёж Колюч */}
  {giftCard !== null && (
  <div style={{ position: 'fixed', inset: 0, background: 'rgba(60,40,20,0.45)', zIndex: 46, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => setGiftCard(null)}>
- <div className="card" style={{ width: '82%', textAlign: 'center' }} onClick={e => e.stopPropagation()}>
+ <div className="card gift-pop" style={{ width: '82%', textAlign: 'center', position: 'relative', overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
+ <span className="gift-burst" aria-hidden />
  <div style={{ fontSize: 52 }}>🦔</div>
  <h2>Подарочек от Колюча!</h2>
  <p style={{ color: 'var(--ink-soft)' }}>«Рад тебя видеть! Держи горсть косточек, заходи почаще.»</p>
@@ -187,7 +188,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  <div style={{ position: 'fixed', inset: 0, background: 'rgba(60,40,20,0.45)', zIndex: 44, display: 'flex', alignItems: 'flex-end' }} onClick={() => setSheet(null)}>
  <div className="card" style={{ width: '100%', borderRadius: '26px 26px 0 0', margin: 0, paddingBottom: 'calc(20px + var(--safe-bottom))' }} onClick={e => e.stopPropagation()}>
  <div style={{ textAlign: 'center' }}>
- <span style={{ display: 'inline-block', width: 64, height: 64, borderRadius: 18, background: sheet.listing.hex }} />
+ <span className="swatch" style={{ display: 'inline-block', width: 64, height: 64, borderRadius: 18, background: sheet.listing.hex }} />
  <h2 style={{ marginTop: 8 }}>{sheet.listing.ru}</h2>
  <p style={{ color: 'var(--ink-soft)', margin: '4px 0 2px' }}>
  {sheet.listing.colorRu}{sheet.listing.location ? ` · 📍 из локации «${data?.locationRu}»` : ''}
@@ -230,10 +231,10 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  {data.palette.map(p => {
  const ownedAlready = everydaySheet.ownedColors.includes(p.id)
  return (
- <button key={p.id} disabled={ownedAlready} onClick={() => setPickedColor(p.id)} aria-label={p.ru}
+ <button key={p.id} disabled={ownedAlready} onClick={() => setPickedColor(p.id)} aria-label={p.ru} className={'swatch' + (pickedColor === p.id ? ' sel' : '')}
  style={{
  width: 42, height: 42, borderRadius: '50%', background: p.hex, cursor: 'pointer', opacity: ownedAlready ? 0.25 : 1,
- border: pickedColor === p.id ? '3px solid var(--brown-deep)' : '3px solid rgba(0,0,0,0.08)',
+ border: 'none',
  }} />
  )
  })}
@@ -255,13 +256,13 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
 
 function SlotCard({ l, onTap }: { l: ListingDto; onTap(): void }) {
  return (
- <button className="card" onClick={onTap} style={{
+ <button className="card slot-card" onClick={onTap} style={{
  margin: 0, padding: 12, textAlign: 'center', cursor: 'pointer', border: 'none', position: 'relative',
  background: l.location ? '#eef6e3' : 'var(--card)', opacity: l.sold ? 0.6 : 1,
  }}>
- {l.location && <span style={{ position: 'absolute', top: 8, left: 8, fontSize: 14 }}>📍</span>}
- {l.locked && <span style={{ position: 'absolute', top: 8, right: 8, fontSize: 14 }}>🔒</span>}
- <span style={{ display: 'inline-block', width: 44, height: 44, borderRadius: 14, background: l.hex, filter: l.locked ? 'grayscale(0.7)' : undefined }} />
+ {l.location && <span className="slot-badge" style={{ top: 8, left: 8 }}>📍</span>}
+ {l.locked && <span className="slot-badge" style={{ top: 8, right: 8 }}>🔒</span>}
+ <span className="swatch" style={{ display: 'inline-block', width: 44, height: 44, borderRadius: 14, background: l.hex, filter: l.locked ? 'grayscale(0.7)' : undefined }} />
  <div style={{ fontWeight: 800, fontSize: 13, minHeight: 34, marginTop: 6 }}>{l.ru}</div>
  <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{l.colorRu}</div>
  <div style={{ fontWeight: 800, marginTop: 4 }}>
@@ -285,7 +286,7 @@ function SwatchGrid({ items, onBuy }: {
  width: 52, borderRadius: 12, border: 'none', background: 'var(--card)', boxShadow: 'var(--shadow-lip)',
  padding: 4, cursor: 'pointer', opacity: it.owned ? 0.35 : 1,
  }}>
- <span style={{ display: 'block', height: 36, borderRadius: 8, background: it.hex }} />
+ <span className="swatch" style={{ display: 'block', height: 36, borderRadius: 8, background: it.hex }} />
  {open === it.id && !it.owned && (
  <span className="btn accent" style={{ display: 'block', fontSize: 11, padding: '4px 2px', marginTop: 4 }}
  onClick={e => { e.stopPropagation(); onBuy(it.id); setOpen(null) }}>

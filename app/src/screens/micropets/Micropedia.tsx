@@ -74,7 +74,7 @@ export function Micropedia({ onBack }: { onBack(): void }) {
  {data?.species.map(s => (
  <button
  key={s.id}
- className="card"
+ className={'card collect-tile' + (s.known ? ' owned' : '')}
  onClick={() => {
  if (!s.known) return
  haptic('tap')
