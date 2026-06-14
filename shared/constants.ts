@@ -79,8 +79,9 @@ export const C = {
   MOOD_LOW_MAX: 2, // 1..5 scale; ≤2 = low-mood day
   SAVED_COMBOS_FREE: 2,
 
-  PLUS_MONTH_STARS: 350,
-  PLUS_YEAR_STARS: 2500,
+  // Finch prices halved → Telegram Stars: month $9.99/2≈$5→400★, year $69.99/2≈$35→2700★.
+  PLUS_MONTH_STARS: 400,
+  PLUS_YEAR_STARS: 2700,
 } as const
 
 export function stageForWalks(walks: number): Stage {

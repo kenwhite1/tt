@@ -61,6 +61,18 @@ api.post('/onboard', async c => {
  return c.json({ state: getState(user) })
 })
 
+// Persist onboarding survey answers (raw JSON, last-write-wins). Requires a registered user.
+api.post('/onboarding/survey', async c => {
+  const raw = await c.req.json().catch(() => null)
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return c.json({ error: 'bad_request' }, 400)
+  const data = JSON.stringify(raw).slice(0, 8000)
+  db.prepare(
+    'INSERT INTO onboarding_survey (user_id, data, ts) VALUES (?,?,?) ' +
+    'ON CONFLICT(user_id) DO UPDATE SET data=excluded.data, ts=excluded.ts',
+  ).run(c.get('user').id, data, Date.now())
+  return c.json({ ok: true })
+})
+
 api.get('/state', c => c.json({ state: getState(c.get('user')) }))
 
 api.post('/goals', async c => {

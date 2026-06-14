@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../store'
+import { api } from '../api'
 import { Puppy } from '../art/Puppy'
 import { haptic, requestWriteAccess, addToHomeScreen, tg } from '../telegram'
 
@@ -128,7 +129,7 @@ export function Onboarding() {
     let alive = true
     setBusy(true)
     finishOnboarding({ petName: petName.trim(), pronouns, color: egg, trait, userName: userName.trim() || 'Друг' })
-      .then(() => { if (alive) { haptic('success'); setStep('plan') } })
+      .then(() => { if (alive) { haptic('success'); void api.survey(buildSurvey()).catch(() => {}); setStep('plan') } })
       .catch(() => { if (alive) setStep('q:areas') })
       .finally(() => { if (alive) setBusy(false) })
     return () => { alive = false }
@@ -152,6 +153,31 @@ export function Onboarding() {
     setBusy(true)
     try { await requestWriteAccess() } catch { /* ignore */ }
     setBusy(false); next()
+  }
+
+  // collect the survey into a readable, self-describing blob for the backend
+  function buildSurvey(): Record<string, unknown> {
+    const out: Record<string, unknown> = { pronouns, trait, color: egg }
+    for (const qq of QUESTIONS) {
+      const v = ans[qq.id]
+      if (v == null) continue
+      out[qq.id] = Array.isArray(v)
+        ? v.map(idx => qq.opts[idx]?.lbl).filter(Boolean)
+        : v === -1 ? 'skipped' : qq.opts[v]?.lbl
+    }
+    if (typeof ans.hear === 'number') out.hear = HEAR[ans.hear]?.lbl
+    if (commit !== null) out.commitDays = COMMIT[commit].days
+    return out
+  }
+  function finish() { void api.survey(buildSurvey()).catch(() => {}); enterApp() }
+
+  // open the real Telegram Stars invoice; continue whatever the user decides
+  async function buyPlus(plan: 'month' | 'year') {
+    try {
+      const r = await api.subscribe(plan)
+      if (r.link && tg?.openInvoice) { tg.openInvoice(r.link, () => next()); return }
+    } catch { /* payments unavailable (dev / older client) */ }
+    next()
   }
 
   /* survey screens are data-driven */
@@ -385,7 +411,7 @@ export function Onboarding() {
       return (
         <Shell foot={
           <>
-            <button className="onb-btn" onClick={next}>Начать бесплатный период</button>
+            <button className="onb-btn" disabled={busy} onClick={() => void buyPlus('year')}>Оформить со скидкой −73%</button>
             <button className="onb-link muted" onClick={next}>Пропустить предложение</button>
           </>}>
           <p className="onb-sub"><span className="onb-accent" style={{ fontWeight: 800 }}>Разовое предложение!</span></p>
@@ -447,8 +473,8 @@ export function Onboarding() {
       return (
         <Shell foot={
           <>
-            <button className="onb-btn" disabled={busy} onClick={async () => { setBusy(true); try { addToHomeScreen() } catch { /* ignore */ } setBusy(false); enterApp() }}>Добавить на главный экран</button>
-            <button className="onb-btn sec" onClick={enterApp}>Не сейчас</button>
+            <button className="onb-btn" disabled={busy} onClick={async () => { setBusy(true); try { addToHomeScreen() } catch { /* ignore */ } setBusy(false); finish() }}>Добавить на главный экран</button>
+            <button className="onb-btn sec" onClick={finish}>Не сейчас</button>
           </>}>
           <h1 className="onb-h1">Закрепи свою привычку!</h1>
           <p className="onb-sub">С приложением на главном экране держать привычки <span className="onb-accent" style={{ fontWeight: 800 }}>в 4 раза проще.</span></p>

@@ -35,4 +35,6 @@ export const api = {
   startWalk: () => req<{ state: StateDto }>('/walk/start', {}),
   pat: (count: number) => req<{ pts: number }>('/pet/pat', { count }),
   mood: (value: number, note?: string) => req<{ state: StateDto }>('/mood', { value, note }),
+  survey: (data: Record<string, unknown>) => req<{ ok: boolean }>('/onboarding/survey', data),
+  subscribe: (plan: 'month' | 'year') => req<{ link?: string; dev?: boolean }>('/payments/subscribe', { plan }),
 }
