@@ -80,6 +80,9 @@ const HEAR = [
   { em: '🧑‍⚕️', lbl: 'Психолог / врач' },
 ]
 
+// survey "areas" option index → self-care area (sca); tailors the starter plan
+const AREA_SCA = ['productivity', 'calm', 'nutrition', 'self_kindness', 'hygiene', 'connection']
+
 const COMMIT = [
   { em: '🙌', days: 2, ru: '2 дня', end: 'Первые шаги' },
   { em: '💪', days: 5, ru: '5 дней', end: 'Хороший старт' },
@@ -128,7 +131,7 @@ export function Onboarding() {
     if (step !== 'creating') return
     let alive = true
     setBusy(true)
-    finishOnboarding({ petName: petName.trim(), pronouns, color: egg, trait, userName: userName.trim() || 'Друг' })
+    finishOnboarding({ petName: petName.trim(), pronouns, color: egg, trait, userName: userName.trim() || 'Друг', areas: selectedAreas() })
       .then(() => { if (alive) { haptic('success'); void api.survey(buildSurvey()).catch(() => {}); setStep('plan') } })
       .catch(() => { if (alive) setStep('q:areas') })
       .finally(() => { if (alive) setBusy(false) })
@@ -170,6 +173,16 @@ export function Onboarding() {
     return out
   }
   function finish() { void api.survey(buildSurvey()).catch(() => {}); enterApp() }
+
+  // self-care areas (+ sleep/activity nudges) the user picked → tailors the starter plan
+  function selectedAreas(): string[] {
+    const set = new Set<string>()
+    const a = ans['areas']
+    if (Array.isArray(a)) for (const idx of a) { const s = AREA_SCA[idx]; if (s) set.add(s) }
+    if (ans['sleep'] === 0 || ans['sleep'] === 1) set.add('sleep')
+    if (ans['active'] === 2) set.add('movement')
+    return [...set]
+  }
 
   // open the real Telegram Stars invoice; continue whatever the user decides
   async function buyPlus(plan: 'month' | 'year') {
