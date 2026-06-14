@@ -68,12 +68,14 @@ export function App() {
     <div className={`screen tab-${tab}`}>
       {toast && <div className="toast">{toast}</div>}
       {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
-      {tab === 'home' && <Home />}
-      {tab === 'quests' && <Quests />}
-      {tab === 'shop' && <Shop />}
-      {tab === 'friends' && <Friends />}
-      {tab === 'bag' && <Bag />}
-      {tab === 'pet' && <Pet />}
+      <div key={tab} className="tab-page">
+        {tab === 'home' && <Home />}
+        {tab === 'quests' && <Quests />}
+        {tab === 'shop' && <Shop />}
+        {tab === 'friends' && <Friends />}
+        {tab === 'bag' && <Bag />}
+        {tab === 'pet' && <Pet />}
+      </div>
       <nav className="tabbar">
         {TABS.map(t => (
           <button key={t.key} className={`tab ${tab === t.key ? 'active' : ''}`} onClick={() => setTab(t.key)}>

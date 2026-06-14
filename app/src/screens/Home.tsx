@@ -3,6 +3,7 @@ import { useStore } from '../store'
 import { Puppy } from '../art/Puppy'
 import { PetRug } from '../art/PetRug'
 import { RoomScene } from '../art/RoomScene'
+import { BoltIcon } from '../art/icons'
 import { WalkChat } from './travel/WalkChat'
 
 function WalkCountdown({ endsTs }: { endsTs: number }) {
@@ -28,6 +29,8 @@ export function Home() {
   if (!state) return null
   const { pet, energy, energyMax, walk, walkReady, goals } = state
   const walking = walk && !walk.completed
+  const hr = new Date().getHours()
+  const sleepy = !leaving && !react && (hr >= 21 || hr < 6) // dozes off at night, wakes on a pat
   const left = goals.filter(g => g.doneToday < g.timesPerDay).length
 
   function onPat(e: React.PointerEvent) {
@@ -76,7 +79,8 @@ export function Home() {
               <div ref={hearts} style={{ position: 'relative', display: 'inline-block', touchAction: 'none' }} onPointerDown={leaving ? undefined : onPat}>
                 <PetRug>
                   <div className={leaving ? 'walk-out' : 'pet-rock'}>
-                    <Puppy state={leaving ? 'walking' : react ? 'happy' : 'idle'} size={150} stage={pet.stage as never} />
+                    {sleepy && <span className="pet-zzz" aria-hidden>💤</span>}
+                    <Puppy state={leaving ? 'walking' : react ? 'happy' : sleepy ? 'sleeping' : 'idle'} size={150} stage={pet.stage as never} />
                   </div>
                 </PetRug>
               </div>
@@ -98,7 +102,7 @@ export function Home() {
 
         {/* adventure / energy card — sits below the room */}
         <div className="adv-card">
-          <div className="adv-bolt">⚡</div>
+          <div className="adv-bolt"><BoltIcon /></div>
           <div style={{ flex: 1 }}>
             <div style={{ fontWeight: 800, marginBottom: 6 }}>
               {walking ? `${pet.name} на прогулке` : '1-я прогулка'}

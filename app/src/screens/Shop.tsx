@@ -4,6 +4,7 @@ import { useStore } from '../store'
 import { haptic } from '../telegram'
 import { ShopFront, type ShopKind } from './shop/ShopFront'
 import { TravelAgency } from './travel/TravelAgency'
+import { BoneIcon } from '../art/icons'
 
 const SHOPS: { id: ShopKind; ru: string; emoji: string; npc: string }[] = [
  { id: 'outfit', ru: 'Одежда', emoji: '🦔', npc: 'Ёж Колюч' },
@@ -25,7 +26,7 @@ export function Shop() {
  <div className="scroll" style={{ paddingTop: 8 }}>
  <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
  <h1>Магазин</h1>
- <div className="card" style={{ margin: 0, padding: '8px 14px', fontWeight: 800 }}>🦴 {stones}</div>
+ <div className="card" style={{ margin: 0, padding: '8px 14px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: 6 }}><BoneIcon size={18} /> {stones}</div>
  </header>
  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
  {SHOPS.map(s => (

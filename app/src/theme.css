@@ -747,3 +747,21 @@ h2 { letter-spacing: -.005em; }
   .collect-tile.owned::after, .mp-portrait::before, .is-claimable.is-gold,
   .star-twinkle, .badge-earned, .heart-glow { animation: none !important; }
 }
+
+/* ============================================================
+   Motion choreography + mascot life
+   ============================================================ */
+/* smooth cross-fade between tabs (replaces the hard cut/flash) */
+.tab-page { flex: 1; min-height: 0; display: flex; flex-direction: column; animation: tab-in 0.22s ease both; }
+@keyframes tab-in { from { opacity: 0; } to { opacity: 1; } }
+/* sleepy Zzz drifting off the pet at night */
+.pet-zzz { position: absolute; top: 8px; right: 14px; z-index: 3; font-size: 20px; pointer-events: none;
+  animation: pet-zzz 3s ease-in-out infinite; }
+@keyframes pet-zzz {
+  0%   { opacity: 0; transform: translateY(6px) scale(0.8); }
+  35%  { opacity: 0.95; }
+  100% { opacity: 0; transform: translateY(-18px) scale(1.12); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab-page, .pet-zzz { animation: none !important; }
+}

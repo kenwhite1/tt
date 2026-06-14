@@ -10,6 +10,7 @@ import { SellScreen } from './SellScreen'
 import { GiftModal } from './GiftModal'
 import type { GiftMode } from './GiftModal'
 import { errRu } from './types'
+import { BoneIcon } from '../../art/icons'
 import type { EverydayDto, FloorDto, ListingDto, ShopDto, WallpaperDto } from './types'
 
 export type ShopKind = 'outfit' | 'furniture' | 'color'
@@ -81,7 +82,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  <h1 style={{ flex: 1 }}>{shop === 'outfit' ? 'Одежда' : shop === 'furniture' ? 'БУДКЕА' : 'Студия окраса'}</h1>
  <button className="btn ghost" style={{ padding: '8px 12px' }} title="Каталог" onClick={() => setSub('catalog')}>📖</button>
  <button className="btn ghost" style={{ padding: '8px 12px' }} title="Продать" onClick={() => setSub('sell')}>💰</button>
- <div className="card" style={{ margin: 0, padding: '8px 12px', fontWeight: 800 }}>🦴 {data?.stones ?? '…'}</div>
+ <div className="card" style={{ margin: 0, padding: '8px 12px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: 6 }}><BoneIcon size={18} /> {data?.stones ?? '…'}</div>
  </header>
 
  {/* NPC greeting */}

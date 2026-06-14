@@ -46,3 +46,24 @@ export const TabIcons = {
  </svg>
  ),
 }
+
+// Crisp custom economy glyphs (replace the inconsistent ⚡/🦴 system emoji).
+export function BoltIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden style={{ display: 'block' }}>
+      <path d="M13.5 2 L4.5 13.5 H10 L9 22 L19.5 9.5 H13 Z" fill="#FFD15A" stroke="#E0A42B" strokeWidth="1.1" strokeLinejoin="round" />
+      <path d="M12.6 4.5 L7 12 h3.4" fill="none" stroke="#FFF0C0" strokeWidth="1" strokeLinecap="round" opacity="0.7" />
+    </svg>
+  )
+}
+export function BoneIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden style={{ display: 'block' }}>
+      <g transform="rotate(-20 12 12)" fill="#D9B05A">
+        <circle cx="6.6" cy="9.4" r="3.2" /><circle cx="6.6" cy="14.6" r="3.2" />
+        <circle cx="17.4" cy="9.4" r="3.2" /><circle cx="17.4" cy="14.6" r="3.2" />
+        <rect x="6" y="9" width="12" height="6" rx="3" />
+      </g>
+    </svg>
+  )
+}
