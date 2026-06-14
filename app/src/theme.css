@@ -56,7 +56,7 @@ button, input, textarea, select {
   margin-bottom: 14px;
 }
 
-h1, h2, h3 { margin: 0; font-weight: 800; color: var(--ink); }
+h1, h2, h3 { margin: 0; font-weight: 800; color: inherit; }
 h1 { font-size: 22px; }
 h2 { font-size: 18px; }
 
@@ -166,3 +166,18 @@ h2 { font-size: 18px; }
   to { opacity: 0; transform: translateY(-60px) scale(1.4); }
 }
 .heart-float { position: absolute; animation: float-heart 1s ease-out forwards; pointer-events: none; font-size: 22px; }
+
+/* ===== per-tab page backgrounds (Finch-style coloured tabs) ===== */
+.screen { transition: background 0.2s ease; }
+.screen.tab-quests  { background: #6E5FC6; }
+.screen.tab-shop    { background: #3FA3DD; }
+.screen.tab-friends { background: #74B25C; }
+.screen.tab-bag     { background: #F0A02C; }
+.screen.tab-pet     { background: #ECDCB4; }
+
+/* white headers/labels on the dark-coloured tabs; light surfaces keep dark text */
+.tab-quests, .tab-shop, .tab-friends, .tab-bag { color: #fff; }
+.tab-quests .card, .tab-quests .goal-row, .tab-quests input, .tab-quests textarea, .tab-quests select,
+.tab-shop .card, .tab-shop .goal-row, .tab-shop input, .tab-shop textarea, .tab-shop select,
+.tab-friends .card, .tab-friends .goal-row, .tab-friends input, .tab-friends textarea, .tab-friends select,
+.tab-bag .card, .tab-bag .goal-row, .tab-bag input, .tab-bag textarea, .tab-bag select { color: var(--ink); }

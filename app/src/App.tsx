@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useStore, type Tab } from './store'
+import { tg } from './telegram'
 import { TabIcons } from './art/icons'
 import { Home } from './screens/Home'
 import { Onboarding } from './screens/Onboarding'
@@ -20,10 +21,27 @@ const TABS: { key: Tab; ru: string }[] = [
   { key: 'pet', ru: 'Щенок' },
 ]
 
+// per-tab page colour (drives the screen background + Telegram chrome)
+const TAB_BG: Record<Tab, string> = {
+  home: '#F3E2BC',
+  quests: '#6E5FC6',
+  shop: '#3FA3DD',
+  friends: '#74B25C',
+  bag: '#F0A02C',
+  pet: '#ECDCB4',
+}
+
 export function App() {
   const { phase, tab, setTab, boot, toast, menuOpen, setMenuOpen } = useStore()
 
   useEffect(() => { void boot() }, [boot])
+
+  // keep the Telegram header/background colour in sync with the active tab
+  useEffect(() => {
+    if (phase !== 'ready') return
+    const c = TAB_BG[tab]
+    try { tg?.setBackgroundColor(c); tg?.setHeaderColor(c) } catch { /* older clients */ }
+  }, [tab, phase])
 
   if (phase === 'loading') {
     return (
@@ -47,7 +65,7 @@ export function App() {
   if (phase === 'onboarding') return <Onboarding />
 
   return (
-    <div className="screen">
+    <div className={`screen tab-${tab}`}>
       {toast && <div className="toast">{toast}</div>}
       {menuOpen && <Menu onClose={() => setMenuOpen(false)} />}
       {tab === 'home' && <Home />}
