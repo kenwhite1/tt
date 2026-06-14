@@ -310,6 +310,7 @@ h2 { font-size: 18px; }
 .onb-foot { padding-top: 16px; display: flex; flex-direction: column; gap: 10px; }
 .onb-h1 { font-size: 25px; font-weight: 800; line-height: 1.22; margin: 0; }
 .onb-sub { font-size: 16.5px; font-weight: 700; color: var(--omute); line-height: 1.38; margin: 0; }
+.onb-fine { font-size: 11.5px; line-height: 1.45; font-weight: 600; color: var(--omute); text-align: center; margin: 6px 4px 0; opacity: .9; }
 .onb-eyebrow { font-size: 13px; font-weight: 800; letter-spacing: 1.2px; color: var(--omute); text-transform: uppercase; }
 .onb-accent { color: #f2992b; }
 

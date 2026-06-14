@@ -43,7 +43,7 @@ const SECTIONS = [
   { key: 'about', label: 'О ТЕБЕ', count: 3 },
   { key: 'energy', label: 'ЭНЕРГИЯ И АКТИВНОСТЬ', count: 3 },
   { key: 'life', label: 'КАК ЖИЗНЬ', count: 3 },
-  { key: 'support', label: 'ПОДДЕРЖКА', count: 2 },
+  { key: 'support', label: 'ПОДДЕРЖКА', count: 1 },
 ]
 
 type Q = {
@@ -69,8 +69,6 @@ const QUESTIONS: Q[] = [
     opts: [{ em: '🌳', lbl: '3 и больше' }, { em: '🌿', lbl: '2' }, { em: '🌱', lbl: '1' }, { em: '🍃', lbl: 'Только на себя' }] },
   { id: 'routine', sec: 2, q: 'Насколько ты доволен(на) своим распорядком?',
     opts: [{ em: '🥳', lbl: 'Полностью, забочусь о себе хорошо' }, { em: '😌', lbl: 'Немного, хочу кое-что улучшить' }, { em: '😮', lbl: 'Совсем нет, жду больших перемен' }] },
-  { id: 'mh', sec: 3, q: 'Сталкиваешься с чем-то из этого?', multi: true,
-    opts: ['Биполярное расстройство', 'ОКР', 'Тревожность', 'ПТСР', 'СДВГ', 'Депрессия'].map(lbl => ({ lbl })) },
   { id: 'areas', sec: 3, q: 'В каких сферах нужна поддержка?', multi: true,
     opts: [{ em: '🌱', lbl: 'Завести и держать распорядок' }, { em: '🏔️', lbl: 'Справляться со стрессом и тревогой' }, { em: '🍎', lbl: 'Здоровое питание' }, { em: '🌻', lbl: 'Принятие себя и уверенность' }, { em: '🪥', lbl: 'Свежесть и чистота' }, { em: '❤️', lbl: 'Социальные навыки и связи' }] },
 ]
@@ -94,7 +92,7 @@ const COMMIT = [
 
 const ORDER = [
   'welcome', 'egg', 'hatch', 'pronouns', 'name', 'trait', 'uname', 'whatcare', 'affirm', 'reminders', 'learnyou',
-  'q:age', 'q:gender', 'q:used', 'q:sleep', 'q:bed', 'q:active', 'q:overwhelm', 'q:support', 'q:routine', 'q:mh', 'q:areas',
+  'q:age', 'q:gender', 'q:used', 'q:sleep', 'q:bed', 'q:active', 'q:overwhelm', 'q:support', 'q:routine', 'q:areas',
   'creating', 'plan', 'plus1', 'plus2', 'plus3', 'hear', 'streak', 'commit', 'widget',
 ] as const
 type Step = typeof ORDER[number]
@@ -240,7 +238,11 @@ export function Onboarding() {
   switch (step) {
     case 'welcome':
       return (
-        <Shell foot={<button className="onb-btn" onClick={next}>Завести питомца</button>}>
+        <Shell foot={
+          <>
+            <button className="onb-btn" onClick={next}>Завести питомца</button>
+            <p className="onb-fine">Шарик — развлекательное приложение для заботы о себе в игровой форме. Это не медицинская или психологическая услуга, и оно не заменяет консультацию специалиста. Если тебе тяжело, пожалуйста, обратись за профессиональной помощью.</p>
+          </>}>
           <Pet size={150} state="happy" />
           <h1 className="onb-h1" style={{ fontSize: 34 }}>Шарик</h1>
           <p className="onb-sub">Твой новый друг для заботы о себе.</p>

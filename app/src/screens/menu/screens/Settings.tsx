@@ -158,6 +158,10 @@ export function Settings({ onBack }: { onBack(): void }) {
           ))}
         </div>
       </div>
+
+      <p style={{ fontSize: 11.5, lineHeight: 1.45, color: 'var(--ink-soft)', textAlign: 'center', margin: '6px 8px 4px' }}>
+        Шарик — развлекательное приложение для заботы о себе. Не является медицинской или психологической услугой и не заменяет консультацию специалиста.
+      </p>
     </Sub>
   )
 }
