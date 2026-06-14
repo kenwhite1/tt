@@ -17,5 +17,10 @@ interface Props {
 
 export function Puppy({ size = 180, state = 'idle' }: Props) {
   const cls = 'pet-img' + (state === 'happy' ? ' happy' : state === 'sleeping' ? ' sleep' : '')
-  return <img src="/pet.png" width={size} height={size} alt="" draggable={false} className={cls} />
+  return (
+    <picture>
+      <source srcSet="/pet.webp" type="image/webp" />
+      <img src="/pet.png" width={size} height={size} alt="" draggable={false} className={cls} />
+    </picture>
+  )
 }
