@@ -25,6 +25,7 @@ export interface UserRow {
 export interface PetRow {
   user_id: number
   name: string
+  species: string
   pronouns: 'he' | 'she' | 'they'
   color: string
   trait: string

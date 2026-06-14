@@ -17,6 +17,7 @@ export interface UserDto {
 
 export interface PetDto {
   name: string
+  species: string
   pronouns: 'he' | 'she' | 'they'
   stage: Stage
   walks: number

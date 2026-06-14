@@ -41,7 +41,7 @@ export interface Nudge { vibeId: number; fromId: number; name: string; type: str
 export interface Visit { friendId: number; name: string; until: number }
 
 export interface FriendsPayload {
-  me: { code: string; petName: string; stage: Stage; color: string }
+  me: { code: string; petName: string; stage: Stage; color: string; species: string }
   botUsername: string
   plus: boolean
   friends: Friend[]

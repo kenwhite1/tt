@@ -31,7 +31,7 @@ function genFriendCode(): string {
 }
 
 export function bootstrapUser(tgId: number, name: string, opts: {
-  petName: string; pronouns: string; color: string; trait: string; tz?: string
+  petName: string; pronouns: string; color: string; trait: string; species?: string; tz?: string
 }): UserRow {
   const now = new Date().toISOString()
   const tz = opts.tz ?? 'Europe/Moscow'
@@ -41,8 +41,8 @@ export function bootstrapUser(tgId: number, name: string, opts: {
   const user = getUser(tgId)!
   const day = gameDay(user)
   db.prepare(
-    `INSERT INTO pets (user_id, name, pronouns, color, trait, hatch_day) VALUES (?,?,?,?,?,?)`,
-  ).run(tgId, opts.petName, opts.pronouns, opts.color, opts.trait, day)
+    `INSERT INTO pets (user_id, name, species, pronouns, color, trait, hatch_day) VALUES (?,?,?,?,?,?,?)`,
+  ).run(tgId, opts.petName, opts.species ?? 'dog', opts.pronouns, opts.color, opts.trait, day)
   // Every new pup gets 7 days of Шарик Плюс free (honest "7 дней бесплатно", Finch-style).
   const trialUntil = new Date(Date.now() + 7 * 86_400_000).toISOString().slice(0, 10)
   db.prepare('UPDATE users SET plus_until=? WHERE id=?').run(trialUntil, tgId)
@@ -183,7 +183,7 @@ export function getState(userRaw: UserRow): StateDto {
       wakeMin: user.wake_min, sleepMin: user.sleep_min, tz: user.tz,
     },
     pet: {
-      name: pet.name, pronouns: pet.pronouns, stage, walks: pet.walks,
+      name: pet.name, species: pet.species, pronouns: pet.pronouns, stage, walks: pet.walks,
       friendshipPts: pet.friendship_pts, friendshipLevel: friendshipLevel(pet.friendship_pts),
       color: pet.color, trait: pet.trait, hatchDay: pet.hatch_day,
     },

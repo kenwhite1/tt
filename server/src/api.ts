@@ -34,6 +34,7 @@ const onboardingSchema = z.object({
  pronouns: z.enum(['he', 'she', 'they']),
  color: z.string().max(20),
  trait: z.string().max(30),
+ species: z.string().max(20).optional(),
  userName: z.string().min(1).max(40),
  tz: z.string().max(50).optional(),
  areas: z.array(z.string().max(30)).max(12).optional(),
@@ -56,8 +57,8 @@ api.post('/onboard', async c => {
  if (getUser(uid)) return c.json({ error: 'already_registered' }, 409)
  const body = onboardingSchema.safeParse(await c.req.json().catch(() => null))
  if (!body.success) return c.json({ error: 'bad_request' }, 400)
- const { petName, pronouns, color, trait, userName, tz, areas } = body.data
- const user = bootstrapUser(uid, userName, { petName, pronouns, color, trait, tz })
+ const { petName, pronouns, color, trait, species, userName, tz, areas } = body.data
+ const user = bootstrapUser(uid, userName, { petName, pronouns, color, trait, species, tz })
  for (const g of starterGoals(areas)) addGoal(user.id, g.ru, g.emoji, g.sca)
  return c.json({ state: getState(user) })
 })

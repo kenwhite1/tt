@@ -391,6 +391,7 @@ socialRoutes.get('/friends', c => {
  petName: myPet?.name ?? '',
  stage: myPet ? stageForWalks(myPet.walks) : 'baby',
  color: myPet?.color ?? '',
+ species: myPet?.species ?? 'dog',
  },
  botUsername: BOT_USERNAME,
  plus: hasPlus(me),

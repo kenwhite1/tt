@@ -7,7 +7,7 @@ import { useStore } from '../../store'
 import { haptic } from '../../telegram'
 import { playSfx } from '../../sound'
 import { Micropet } from '../../art/Micropet'
-import { Puppy } from '../../art/Puppy'
+import { Mascot } from '../../art/Mascot'
 import { Micropedia } from './Micropedia'
 
 export interface MicropetDto {
@@ -49,6 +49,7 @@ function EggBar({ egg }: { egg: EggDto }) {
 
 export function MicropetsSection({ onBack }: { onBack(): void }) {
  const goals = useStore(s => s.state?.goals ?? [])
+ const species = useStore(s => s.state?.pet.species ?? 'dog')
  const showToast = useStore(s => s.showToast)
  const [data, setData] = useState<MicropetsDto | null>(null)
  const [view, setView] = useState<'playland' | 'lab' | 'pedia'>('playland')
@@ -244,7 +245,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  }}
  >
  <div style={{ position: 'absolute', bottom: 8, left: '50%', transform: 'translateX(-50%)' }}>
- <Puppy size={70} />
+ <Mascot species={species} size={70} />
  </div>
  {roaming.map((p, i) => {
  const dist = 60 + ((p.id * 37) % 120)

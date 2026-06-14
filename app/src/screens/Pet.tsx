@@ -6,7 +6,7 @@ import { C } from '@shared/constants'
 import { req } from '../api'
 import { useStore } from '../store'
 import { haptic } from '../telegram'
-import { Puppy } from '../art/Puppy'
+import { Mascot } from '../art/Mascot'
 import { Micropet } from '../art/Micropet'
 import { Micropedia } from './micropets/Micropedia'
 import type { MicropetsDto } from './micropets/MicropetsSection'
@@ -174,7 +174,7 @@ export function Pet() {
  <div className="card">
  <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
  <div className="portrait-frame">
- <Puppy size={104} />
+ <Mascot species={pet.species} size={104} />
  </div>
  <div style={{ flex: 1 }}>
  <h1>{STAGE_RU[pet.stage]} {pet.name}</h1>

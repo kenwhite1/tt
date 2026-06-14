@@ -27,6 +27,12 @@ function grantWriteAccess(tgId: number) {
 }
 
 if (bot) {
+ // Keep the bot's profile blurb (what people read before pressing Start) in sync from content.
+ const description = typeof copy.description === 'string' ? copy.description : ''
+ const shortDescription = typeof copy.short_description === 'string' ? copy.short_description : ''
+ if (description) void bot.api.setMyDescription(description).catch(() => {})
+ if (shortDescription) void bot.api.setMyShortDescription(shortDescription).catch(() => {})
+
  bot.command('start', async ctx => {
  const payload = ctx.match?.toString() ?? ''
  if (payload.startsWith('ref_') && ctx.from) {
@@ -43,7 +49,7 @@ if (bot) {
  : undefined
  const greeting = pickFrom(
  'onboarding_bot_greeting',
- 'Гав! 🐶 Я Шарик, твой щенок заботы о себе. Открывай приложение, я тебя жду!',
+ 'Привет! Это Шарик 🐾 Игра про питомца, чуть похожая на тамагочи: заботишься о зверьке, а заодно и о себе. Жми кнопку ниже, я всё покажу!',
  )
  .replaceAll('{name}', ctx.from?.first_name || 'друг')
  .replaceAll('{pet}', pet?.name ?? 'Шарик')
@@ -58,11 +64,13 @@ if (bot) {
  bot.command('help', async ctx => {
  if (ctx.from) grantWriteAccess(ctx.from.id)
  await ctx.reply(
- 'Я Шарик 🐶 Я расту, когда ты заботишься о себе.\n\n' +
- '• Отмечай маленькие цели, пьёшь воду, дышишь, гуляешь, ведёшь дневник\n' +
- '• За заботу я набираюсь сил и ухожу на прогулки\n' +
- '• Наряжай меня, собирай микропитомцев, зови друзей в Дворик\n\n' +
- 'Открывай приложение кнопкой ниже 💛',
+ 'Это Шарик 🐾 Игра про питомца, немного как тамагочи.\n\n' +
+ 'Как всё устроено:\n' +
+ '• заводишь зверька и заботишься о нём\n' +
+ '• заботишься о себе: вода, прогулка, сон, дыхание, дневник, маленькие цели\n' +
+ '• за это питомец радуется, растёт и ходит на прогулки\n' +
+ '• можно наряжать питомца, собирать малышей-зверят и звать друзей в Дворик\n\n' +
+ 'Одно маленькое дело в день это уже хорошо. Открывай кнопкой ниже 💛',
  { reply_markup: appKeyboard() },
  )
  })

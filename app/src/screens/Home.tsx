@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useStore } from '../store'
-import { Puppy } from '../art/Puppy'
+import { Mascot } from '../art/Mascot'
 import { PetRug } from '../art/PetRug'
 import { RoomScene } from '../art/RoomScene'
 import { BoltIcon } from '../art/icons'
@@ -85,7 +85,7 @@ export function Home() {
                 <PetRug>
                   <div className={leaving ? 'walk-out' : 'pet-rock'}>
                     {sleepy && <span className="pet-zzz" aria-hidden>💤</span>}
-                    <Puppy state={leaving ? 'walking' : react ? 'happy' : sleepy ? 'sleeping' : 'idle'} size={150} stage={pet.stage as never} />
+                    <Mascot species={pet.species} state={leaving ? 'walking' : react ? 'happy' : sleepy ? 'sleeping' : 'idle'} size={150} />
                   </div>
                 </PetRug>
               </div>

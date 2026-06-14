@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { req } from '../api'
 import { haptic } from '../telegram'
 import { useStore } from '../store'
-import { Puppy } from '../art/Puppy'
+import { Mascot } from '../art/Mascot'
 import { MicropetsSection } from './micropets/MicropetsSection'
 import { errRu } from './shop/types'
 import type { BagDto, MailItemDto, OwnedItemDto } from './shop/types'
@@ -113,6 +113,7 @@ function DressView({ kind, onBack }: { kind: 'outfits' | 'furniture' | 'colors';
  const [bag, setBag] = useState<BagDto | null>(null)
  const [activeSlot, setActiveSlot] = useState<string | null>(null)
  const showToast = useStore(s => s.showToast)
+ const species = useStore(s => s.state?.pet.species ?? 'dog')
  const load = useCallback(() => { void req<BagDto>('/shop/bag').then(setBag) }, [])
  useEffect(load, [load])
 
@@ -144,13 +145,6 @@ function DressView({ kind, onBack }: { kind: 'outfits' | 'furniture' | 'colors';
  const equippedItem = (slotId: string): string | undefined =>
  kind === 'colors' ? bag.equipped.dyes[slotId] : (kind === 'outfits' ? bag.equipped.outfit[slotId] : bag.equipped.room[slotId])?.itemId
 
- // build puppy preview props from equipped
- const dyes: Record<string, string> = {}
- for (const [part, col] of Object.entries(bag.equipped.dyes)) if (col) {
- const o = bag.owned.dyes.find(d => d.itemId === part && d.colorId === col)
- if (o) dyes[part] = o.hex
- }
-
  return (
  <div className="scroll" style={{ paddingTop: 8 }}>
  <header style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
@@ -159,7 +153,7 @@ function DressView({ kind, onBack }: { kind: 'outfits' | 'furniture' | 'colors';
  </header>
 
  <div className="card" style={{ textAlign: 'center', background: 'linear-gradient(#cfe6f5, #e8f3d8)' }}>
- <Puppy size={150} dyes={dyes as never} stage={bag.petStage as never} />
+ <Mascot species={species} size={150} />
  </div>
 
  {slots.map(s => {

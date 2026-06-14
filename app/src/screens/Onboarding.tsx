@@ -3,7 +3,7 @@ import { C } from '@shared/constants'
 import { useStore } from '../store'
 import { api } from '../api'
 import { track } from '../analytics'
-import { Puppy } from '../art/Puppy'
+import { Mascot, MASCOTS, type Species } from '../art/Mascot'
 import { haptic, requestWriteAccess, addToHomeScreen, tg } from '../telegram'
 
 /* ── content ─────────────────────────────────────────────────────────── */
@@ -70,7 +70,7 @@ const QUESTIONS: Q[] = [
   { id: 'routine', sec: 2, q: 'Насколько ты доволен(на) своим распорядком?',
     opts: [{ em: '🥳', lbl: 'Полностью, забочусь о себе хорошо' }, { em: '😌', lbl: 'Немного, хочу кое-что улучшить' }, { em: '😮', lbl: 'Совсем нет, жду больших перемен' }] },
   { id: 'areas', sec: 3, q: 'В каких сферах нужна поддержка?', multi: true,
-    opts: [{ em: '🌱', lbl: 'Завести и держать распорядок' }, { em: '🏔️', lbl: 'Справляться со стрессом и тревогой' }, { em: '🍎', lbl: 'Здоровое питание' }, { em: '🌻', lbl: 'Принятие себя и уверенность' }, { em: '🪥', lbl: 'Свежесть и чистота' }, { em: '❤️', lbl: 'Социальные навыки и связи' }] },
+    opts: [{ em: '✨', lbl: 'У меня всё хорошо, помощь не нужна' }, { em: '🌱', lbl: 'Завести и держать распорядок' }, { em: '🏔️', lbl: 'Справляться со стрессом и тревогой' }, { em: '🍎', lbl: 'Здоровое питание' }, { em: '🌻', lbl: 'Принятие себя и уверенность' }, { em: '🪥', lbl: 'Свежесть и чистота' }, { em: '❤️', lbl: 'Социальные навыки и связи' }] },
 ]
 
 const HEAR = [
@@ -81,7 +81,8 @@ const HEAR = [
 ]
 
 // survey "areas" option index → self-care area (sca); tailors the starter plan
-const AREA_SCA = ['productivity', 'calm', 'nutrition', 'self_kindness', 'hygiene', 'connection']
+// index 0 = "всё хорошо, помощь не нужна" → maps to no self-care area
+const AREA_SCA = ['', 'productivity', 'calm', 'nutrition', 'self_kindness', 'hygiene', 'connection']
 
 const COMMIT = [
   { em: '🙌', days: 2, ru: '2 дня', end: 'Первые шаги' },
@@ -91,7 +92,7 @@ const COMMIT = [
 ]
 
 const ORDER = [
-  'welcome', 'egg', 'hatch', 'pronouns', 'name', 'trait', 'uname', 'whatcare', 'affirm', 'reminders', 'learnyou',
+  'welcome', 'species', 'egg', 'hatch', 'pronouns', 'name', 'trait', 'uname', 'whatcare', 'affirm', 'reminders', 'learnyou',
   'q:age', 'q:gender', 'q:used', 'q:sleep', 'q:bed', 'q:active', 'q:overwhelm', 'q:support', 'q:routine', 'q:areas',
   'creating', 'plan', 'plus1', 'plus2', 'plus3', 'hear', 'streak', 'commit', 'widget',
 ] as const
@@ -103,6 +104,7 @@ export function Onboarding() {
   const { finishOnboarding, enterApp, tgName } = useStore()
   const goals = useStore(s => s.state?.goals)
   const [step, setStep] = useState<Step>('welcome')
+  const [species, setSpecies] = useState<Species>('dog')
   const [egg, setEgg] = useState('')
   const [pronouns, setPronouns] = useState<'he' | 'she' | 'they'>('he')
   const [petName, setPetName] = useState(() => PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)])
@@ -113,7 +115,8 @@ export function Onboarding() {
   const [busy, setBusy] = useState(false)
   const advTimer = useRef<ReturnType<typeof setTimeout>>()
 
-  const name = petName.trim() || 'щенок'
+  const sp = MASCOTS.find(m => m.id === species) ?? MASCOTS[0]
+  const name = petName.trim() || 'малыш'
   const i = ORDER.indexOf(step)
   const go = (s: Step) => { haptic('tap'); setStep(s) }
   const next = () => go(ORDER[Math.min(ORDER.length - 1, i + 1)])
@@ -131,7 +134,7 @@ export function Onboarding() {
     if (step !== 'creating') return
     let alive = true
     setBusy(true)
-    finishOnboarding({ petName: petName.trim(), pronouns, color: egg, trait, userName: userName.trim() || 'Друг', areas: selectedAreas() })
+    finishOnboarding({ petName: petName.trim(), pronouns, color: egg, trait, species, userName: userName.trim() || 'Друг', areas: selectedAreas() })
       .then(() => { if (alive) { haptic('success'); void api.survey(buildSurvey()).catch(() => {}); setStep('plan') } })
       .catch(() => { if (alive) setStep('q:areas') })
       .finally(() => { if (alive) setBusy(false) })
@@ -150,7 +153,11 @@ export function Onboarding() {
     haptic('tap')
     setAns(a => {
       const cur = Array.isArray(a[qid]) ? (a[qid] as number[]) : []
-      return { ...a, [qid]: cur.includes(idx) ? cur.filter(x => x !== idx) : [...cur, idx] }
+      // 'areas' option 0 = "всё хорошо, помощь не нужна": a "none of the above"
+      // choice that's mutually exclusive with the actual support areas.
+      if (qid === 'areas' && idx === 0) return { ...a, [qid]: cur.includes(0) ? [] : [0] }
+      const base = qid === 'areas' ? cur.filter(x => x !== 0) : cur
+      return { ...a, [qid]: base.includes(idx) ? base.filter(x => x !== idx) : [...base, idx] }
     })
   }
   async function enableReminders() {
@@ -162,7 +169,7 @@ export function Onboarding() {
 
   // collect the survey into a readable, self-describing blob for the backend
   function buildSurvey(): Record<string, unknown> {
-    const out: Record<string, unknown> = { pronouns, trait, color: egg }
+    const out: Record<string, unknown> = { pronouns, trait, color: egg, species }
     for (const qq of QUESTIONS) {
       const v = ans[qq.id]
       if (v == null) continue
@@ -212,7 +219,7 @@ export function Onboarding() {
         foot={q.multi ? <button className="onb-btn" disabled={multiSel.length === 0} onClick={next}>Дальше</button> : undefined}
       >
         <span className="onb-eyebrow">{sec.label}</span>
-        <Pet size={120} badge="?" />
+        <Pet species={species} size={120} badge="?" />
         <h1 className="onb-h1">{q.q}</h1>
         {q.sub && <p className="onb-sub">{q.sub}</p>}
         <div className="onb-opts">
@@ -243,9 +250,27 @@ export function Onboarding() {
             <button className="onb-btn" onClick={next}>Завести питомца</button>
             <p className="onb-fine">Шарик — развлекательное приложение для заботы о себе в игровой форме. Это не медицинская или психологическая услуга, и оно не заменяет консультацию специалиста. Если тебе тяжело, пожалуйста, обратись за профессиональной помощью.</p>
           </>}>
-          <Pet size={150} state="happy" />
+          <Pet species={species} size={150} state="happy" />
           <h1 className="onb-h1" style={{ fontSize: 34 }}>Шарик</h1>
           <p className="onb-sub">Твой новый друг для заботы о себе.</p>
+        </Shell>
+      )
+
+    case 'species':
+      return (
+        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
+          <h1 className="onb-h1">Кто вылупится?</h1>
+          <p className="onb-sub">Выбери друга, который будет расти вместе с тобой.</p>
+          <div className="onb-species">
+            {MASCOTS.map(m => (
+              <button key={m.id} className={`onb-spec${species === m.id ? ' sel' : ''}`}
+                onClick={() => { haptic('tap'); setSpecies(m.id) }} aria-label={m.ru}>
+                <Mascot species={m.id} size={84} />
+                <span className="nm">{m.ru}</span>
+                {species === m.id && <span className="onb-spec-chk">✓</span>}
+              </button>
+            ))}
+          </div>
         </Shell>
       )
 
@@ -253,27 +278,27 @@ export function Onboarding() {
       return (
         <Shell foot={<button className="onb-btn" disabled={!egg} onClick={next}>Вылупить яйцо</button>}>
           <h1 className="onb-h1">Выбери своё яйцо!</h1>
-          <p className="onb-sub">Щенки тёплые, преданные и любопытные. Они приносят энергию и светлые дни.</p>
+          <p className="onb-sub">{sp.emoji} {sp.ru}: {sp.blurb}. Уже ждёт внутри!</p>
           <div className="onb-eggring">
             {EGGS.map((e, idx) => (
               <button key={e.id} className={`onb-egg${egg === e.id ? ' sel' : ''}`}
                 onClick={() => { haptic('tap'); setEgg(e.id) }}
                 style={{ left: EGG_POS[idx].x, top: EGG_POS[idx].y, background: eggBg(e.hex, e.spot) }} aria-label={e.id} />
             ))}
-            <div className="center"><Pet size={92} /></div>
+            <div className="center"><Pet species={species} size={92} /></div>
           </div>
         </Shell>
       )
 
     case 'hatch':
-      return <HatchReveal name={name} onNext={next} />
+      return <HatchReveal species={species} name={name} onNext={next} />
 
     case 'pronouns':
       return (
         <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
-          <Pet size={140} state="happy" />
-          <h1 className="onb-h1">У тебя вылупился щенок!</h1>
-          <p className="onb-sub" style={{ fontWeight: 800, color: 'var(--oink)' }}>Местоимения щенка</p>
+          <Pet species={species} size={140} state="happy" />
+          <h1 className="onb-h1">У тебя вылупился(ась) {name}!</h1>
+          <p className="onb-sub" style={{ fontWeight: 800, color: 'var(--oink)' }}>Местоимения питомца</p>
           <div className="onb-opts">
             {PRONOUNS.map(pn => {
               const on = pronouns === pn.id
@@ -296,8 +321,8 @@ export function Onboarding() {
             <button className="onb-btn sec" onClick={() => { haptic('tap'); setPetName(PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)]) }}>Перемешать</button>
             <button className="onb-btn" disabled={!petName.trim()} onClick={next}>Дальше</button>
           </div>}>
-          <Pet size={120} />
-          <h1 className="onb-h1">Как назовём твоего щенка?</h1>
+          <Pet species={species} size={120} />
+          <h1 className="onb-h1">Как назовём питомца?</h1>
           <p className="onb-sub">Это можно поменять позже.</p>
           <input className="onb-input" value={petName} onChange={e => setPetName(e.target.value)} maxLength={24} />
         </Shell>
@@ -306,7 +331,7 @@ export function Onboarding() {
     case 'trait':
       return (
         <Shell foot={<button className="onb-btn" disabled={!trait} onClick={next}>Дальше</button>}>
-          <Pet size={120} state="happy" />
+          <Pet species={species} size={120} state="happy" />
           <h1 className="onb-h1">Выбери черту для {name}</h1>
           <p className="onb-sub" style={{ fontWeight: 800, color: 'var(--oink)' }}>{name} ценит…</p>
           <div className="onb-opts">
@@ -327,8 +352,8 @@ export function Onboarding() {
     case 'uname':
       return (
         <Shell foot={<button className="onb-btn" disabled={!userName.trim()} onClick={next}>Дальше</button>}>
-          <div className="onb-bubble tail">Чик-чирик, спасибо, что вылупил(а) меня! Меня зовут {name}, а тебя как?</div>
-          <Pet size={120} />
+          <div className="onb-bubble tail">Привет! Спасибо, что вылупил(а) меня! Меня зовут {name}, а тебя как?</div>
+          <Pet species={species} size={120} />
           <input className="onb-input" value={userName} onChange={e => setUserName(e.target.value)} placeholder="Твоё имя" maxLength={32} />
         </Shell>
       )
@@ -337,7 +362,7 @@ export function Onboarding() {
       return (
         <Shell>
           <div className="onb-bubble tail">Приятно познакомиться, {userName.trim() || 'друг'}! Меня называют питомцем заботы о себе. А что такое забота о себе?</div>
-          <Pet size={120} badge="?" />
+          <Pet species={species} size={120} badge="?" />
           <div className="onb-opts" style={{ marginTop: 8 }}>
             <button className="onb-answer orange" onClick={next}>Забота о себе — это заботиться о теле, разуме и отношениях, и при этом радоваться жизни!</button>
             <button className="onb-answer pink" onClick={next}>Забота о себе — это делать, что можешь, даже когда тебе непросто.</button>
@@ -349,8 +374,8 @@ export function Onboarding() {
       const tr = TRAITS.find(t => t.id === trait) ?? TRAITS[0]
       return (
         <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
-          <div className="onb-bubble tail">Ух ты! Когда ты заботишься о себе — ты заботишься и обо мне! Давай вместе, чик-чирик!</div>
-          <Pet size={130} state="happy" hold="❤️" />
+          <div className="onb-bubble tail">Ух ты! Когда ты заботишься о себе — ты заботишься и обо мне! Давай вместе!</div>
+          <Pet species={species} size={130} state="happy" hold="❤️" />
           <div className="onb-stat">
             <span className="em">{tr.em}</span>
             <div><b>{name} получил(а)</b><span>+5.9 {tr.ru}</span></div>
@@ -368,21 +393,21 @@ export function Onboarding() {
           </>}>
           <h1 className="onb-h1">Напоминания от {name}</h1>
           <div className="onb-noti">
-            <img src="/pet.png" alt="" />
+            <span className="onb-noti-emoji" aria-hidden>{sp.emoji}</span>
             <div>
               <div className="nt">От {name}</div>
               <div className="nb">Не забудь попить воды!</div>
             </div>
             <span className="when">сейчас</span>
           </div>
-          <Pet size={140} state="walking" />
+          <Pet species={species} size={140} state="walking" />
         </Shell>
       )
 
     case 'learnyou':
       return (
         <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
-          <Pet size={130} />
+          <Pet species={species} size={130} />
           <h1 className="onb-h1">Давай узнаем тебя получше!</h1>
           <p className="onb-sub">{name} хочет понять, как расти вместе с тобой.</p>
         </Shell>
@@ -391,7 +416,7 @@ export function Onboarding() {
     case 'creating':
       return (
         <Shell>
-          <div className="onb-pop"><Pet size={150} state="happy" /></div>
+          <div className="onb-pop"><Pet species={species} size={150} state="happy" /></div>
           <h1 className="onb-h1">Готовлю ваш дом…</h1>
         </Shell>
       )
@@ -399,8 +424,8 @@ export function Onboarding() {
     case 'plan':
       return (
         <Shell foot={<button className="onb-btn" onClick={next}>Поехали!</button>}>
-          <div className="onb-bubble tail">У тебя всё получится, чик-чирик!</div>
-          <Pet size={110} />
+          <div className="onb-bubble tail">У тебя всё получится!</div>
+          <Pet species={species} size={110} />
           <div className="onb-pad">
             <div className="onb-pad-tabs">{Array.from({ length: 5 }).map((_, k) => <i key={k} />)}</div>
             <h3>Стартовый план {userName.trim() || ''}</h3>
@@ -417,7 +442,7 @@ export function Onboarding() {
         <Shell foot={<button className="onb-btn" onClick={next}>Получить предложение</button>}>
           <p className="onb-sub">Шарик бесплатный</p>
           <h1 className="onb-h1">Но попробуй Шарик Плюс — <span className="onb-accent">7 дней бесплатно!</span></h1>
-          <Pet size={160} state="happy" hold="❤️" />
+          <Pet species={species} size={160} state="happy" hold="❤️" />
         </Shell>
       )
 
@@ -426,7 +451,7 @@ export function Onboarding() {
         <Shell foot={<button className="onb-btn" onClick={next}>Получить предложение</button>}>
           <p className="onb-sub">Отменить можно в любой момент</p>
           <h1 className="onb-h1">Напомним <span className="onb-accent">за 2 дня</span> до конца пробного периода</h1>
-          <Pet size={150} badge="🔔" />
+          <Pet species={species} size={150} badge="🔔" />
         </Shell>
       )
 
@@ -440,7 +465,7 @@ export function Onboarding() {
           </>}>
           <p className="onb-sub"><span className="onb-accent" style={{ fontWeight: 800 }}>Лучшая цена</span></p>
           <h1 className="onb-h1">Шарик Плюс — на целый год</h1>
-          <Pet size={138} state="happy" badge="😎" />
+          <Pet species={species} size={138} state="happy" badge="😎" />
           <div className="onb-stat" style={{ background: '#f2a93b' }}>
             <span className="em">⭐</span>
             <div><b>{C.PLUS_YEAR_STARS} звёзд за весь год</b><span>≈ {perMonth} ⭐/мес вместо {C.PLUS_MONTH_STARS} ⭐/мес</span></div>
@@ -469,7 +494,7 @@ export function Onboarding() {
     case 'streak':
       return (
         <Shell blue foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
-          <div className="onb-float"><Pet size={150} state="happy" /></div>
+          <div className="onb-float"><Pet species={species} size={150} state="happy" /></div>
           <div className="onb-big">1</div>
           <div className="onb-streak-label">ДЕНЬ ПОДРЯД</div>
           <div className="onb-week">
@@ -485,7 +510,7 @@ export function Onboarding() {
         <Shell blue foot={<button className="onb-btn" disabled={commit === null} onClick={next}>Беру на себя!</button>}>
           <h1 className="onb-h1">Сколько дней подряд ты будешь заботиться о {name}?</h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <Pet size={84} badge="?" />
+            <Pet species={species} size={84} badge="?" />
             <div className="onb-bubble tail" style={{ fontSize: 15 }}>У тебя получится!</div>
           </div>
           <div className="onb-opts">
@@ -509,7 +534,7 @@ export function Onboarding() {
           <p className="onb-sub">С приложением на главном экране держать привычки <span className="onb-accent" style={{ fontWeight: 800 }}>в 4 раза проще.</span></p>
           <div className="onb-phone">
             <div className="scr">
-              <div className="wdg">🐶</div>
+              <div className="wdg">{sp.emoji}</div>
               {Array.from({ length: 8 }).map((_, k) => <div key={k} className="ic" />)}
             </div>
           </div>
@@ -533,10 +558,10 @@ function Shell({ children, foot, top, blue }: { children: React.ReactNode; foot?
   )
 }
 
-function Pet({ size, state, badge, hold }: { size: number; state?: 'idle' | 'happy' | 'walking' | 'sleeping'; badge?: string; hold?: string }) {
+function Pet({ species, size, state, badge, hold }: { species: Species; size: number; state?: 'idle' | 'happy' | 'walking' | 'sleeping'; badge?: string; hold?: string }) {
   return (
     <div className="onb-pet">
-      <Puppy size={size} state={state ?? 'idle'} />
+      <Mascot species={species} size={size} state={state ?? 'idle'} />
       {badge && <span className="badge">{badge}</span>}
       {hold && <span className="hold">{hold}</span>}
     </div>
@@ -556,7 +581,7 @@ function Progress({ sec, within, count }: { sec: number; within: number; count: 
 }
 
 // egg → wobble → puppy reveal with a sunburst
-function HatchReveal({ name, onNext }: { name: string; onNext: () => void }) {
+function HatchReveal({ species, name, onNext }: { species: Species; name: string; onNext: () => void }) {
   const [open, setOpen] = useState(false)
   const t = useRef<ReturnType<typeof setTimeout>>()
   useEffect(() => { t.current = setTimeout(() => { setOpen(true); haptic('success') }, 1400); return () => clearTimeout(t.current) }, [])
@@ -565,7 +590,7 @@ function HatchReveal({ name, onNext }: { name: string; onNext: () => void }) {
       <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 200 }}>
         {open && <div className="onb-rays light" style={{ inset: '-60%' }} />}
         {open
-          ? <div className="onb-pop"><Pet size={170} state="happy" /></div>
+          ? <div className="onb-pop"><Pet species={species} size={170} state="happy" /></div>
           : <div style={{ fontSize: 96, animation: 'breathe 0.5s ease-in-out infinite' }}>🥚</div>}
       </div>
       <h1 className="onb-h1">{open ? `Знакомься, это ${name}!` : 'Яйцо шевелится…'}</h1>

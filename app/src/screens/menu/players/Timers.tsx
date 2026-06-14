@@ -1,14 +1,16 @@
 // Таймеры: meditation + focus. Pick a duration, watch the Puppy rest, log on finish.
 import { useEffect, useState } from 'react'
 import { req } from '../../../api'
+import { useStore } from '../../../store'
 import { haptic } from '../../../telegram'
-import { Puppy } from '../../../art/Puppy'
+import { Mascot } from '../../../art/Mascot'
 import { Chip, ChipRow, Loading, Sub, applyReward, useContent } from '../ui'
 import type { Reward, TimerCfg } from '../types'
 
 function Running({ kind, minutes, onDone }: { kind: 'meditation' | 'focus'; minutes: number; onDone(): void }) {
   const [left, setLeft] = useState(minutes * 60)
   const [done, setDone] = useState(false)
+  const species = useStore(s => s.state?.pet.species ?? 'dog')
   const total = minutes * 60
 
   useEffect(() => {
@@ -38,7 +40,7 @@ function Running({ kind, minutes, onDone }: { kind: 'meditation' | 'focus'; minu
 
   return (
     <div className="card" style={{ textAlign: 'center', padding: '20px 16px' }}>
-      <Puppy state="sleeping" size={150} />
+      <Mascot species={species} state="sleeping" size={150} />
       <div style={{ fontSize: 44, fontWeight: 800, color: 'var(--brown-deep)', margin: '6px 0' }}>{mm}:{ss}</div>
       <div className="energy-track" style={{ margin: '8px 8px' }}>
         <div className="energy-fill" style={{ width: `${pct}%` }} />
