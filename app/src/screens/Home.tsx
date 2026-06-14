@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { useStore } from '../store'
 import { Puppy } from '../art/Puppy'
+import { PetRug } from '../art/PetRug'
 import { RoomScene } from '../art/RoomScene'
 import { WalkChat } from './travel/WalkChat'
 
@@ -72,8 +73,12 @@ export function Home() {
         <div style={{ position: 'relative', marginBottom: 18 }}>
           <RoomScene>
             {!walking && (
-              <div ref={hearts} className={leaving ? 'walk-out' : ''} style={{ position: 'relative', display: 'inline-block', touchAction: 'none' }} onPointerDown={leaving ? undefined : onPat}>
-                <Puppy state={leaving ? 'walking' : react ? 'happy' : 'idle'} size={150} stage={pet.stage as never} />
+              <div ref={hearts} style={{ position: 'relative', display: 'inline-block', touchAction: 'none' }} onPointerDown={leaving ? undefined : onPat}>
+                <PetRug>
+                  <div className={leaving ? 'walk-out' : 'pet-rock'}>
+                    <Puppy state={leaving ? 'walking' : react ? 'happy' : 'idle'} size={150} stage={pet.stage as never} />
+                  </div>
+                </PetRug>
               </div>
             )}
           </RoomScene>

@@ -44,12 +44,14 @@ export function RoomScene({ children }: Props) {
         <path d="M0 168 Q160 150 320 168 L320 178 Q160 160 0 178 Z" fill="#3E8A95" opacity="0.7" />
         <path d="M0 168 Q160 150 320 168 L320 174 Q160 156 0 174 Z" fill="#1F4d56" opacity="0.25" />
 
-        {/* hanging lamp */}
-        <line x1="178" y1="0" x2="178" y2="40" stroke="#6F4322" strokeWidth="2" />
-        <path d="M163 56 Q178 30 193 56 Z" fill="#8C9A57" />
-        <path d="M163 56 Q178 30 178 56 Z" fill="#A2B069" />
-        <ellipse cx="178" cy="56" rx="15" ry="4" fill="#AEBD74" />
-        <path d="M165 58 L150 122 L206 122 L191 58 Z" fill="#FCEFAF" opacity="0.3" />
+        {/* hanging lamp (gently sways) */}
+        <g className="rs-lamp">
+          <line x1="178" y1="0" x2="178" y2="40" stroke="#6F4322" strokeWidth="2" />
+          <path d="M163 56 Q178 30 193 56 Z" fill="#8C9A57" />
+          <path d="M163 56 Q178 30 178 56 Z" fill="#A2B069" />
+          <ellipse cx="178" cy="56" rx="15" ry="4" fill="#AEBD74" />
+          <path d="M165 58 L150 122 L206 122 L191 58 Z" fill="#FCEFAF" opacity="0.3" />
+        </g>
 
         {/* round moon window */}
         <circle cx="130" cy="92" r="51" fill="#CBD8EC" />
@@ -82,15 +84,9 @@ export function RoomScene({ children }: Props) {
         <circle cx="245" cy="120" r="3.5" fill="#5C3A1E" />
         <circle cx="244" cy="119" r="1.2" fill="#fff" opacity="0.5" />
 
-        {/* straw nest bed, bottom-left */}
-        <ellipse cx="52" cy="212" rx="54" ry="22" fill="#1F4d56" opacity="0.2" />
-        <ellipse cx="52" cy="206" rx="52" ry="22" fill="url(#rs-nest)" />
-        <ellipse cx="52" cy="202" rx="38" ry="14" fill="#8E7636" />
-        <ellipse cx="52" cy="200" rx="30" ry="10" fill="#6E5C2C" opacity="0.6" />
-        <path d="M8 204 q44 -16 88 0" stroke="#D8BE6A" strokeWidth="2" fill="none" opacity="0.6" />
       </svg>
-      {/* pet sits on the floor, centered toward the lower-middle */}
-      <div style={{ position: 'absolute', left: '50%', bottom: '4%', transform: 'translateX(-50%)' }}>
+      {/* pet rests in its bed, centered toward the lower-middle */}
+      <div style={{ position: 'absolute', left: '50%', bottom: '10%', transform: 'translateX(-50%)' }}>
         {children}
       </div>
     </div>
