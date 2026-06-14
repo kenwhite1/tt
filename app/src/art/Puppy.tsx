@@ -216,70 +216,69 @@ export function Puppy({ size = 180, state = 'idle', stage = 'child', dyes, outfi
 
         {/* head group (ears + face scale with stage) */}
         <g transform={`translate(100 ${hy}) scale(${s}) translate(-100 -78)`}>
-          <g transform={`translate(52 56) scale(1 ${g.ear}) translate(-52 -56)`}>
-            <path d="M52 56 q-14 34 8 50 q16 -6 14 -34 q-4 -16 -22 -16z" fill={f('ears')}>
-              {!sleeping && (
-                <animateTransform attributeName="transform" type="rotate" values="0 52 56; 0 52 56; -9 52 56; 0 52 56; 0 52 56" keyTimes="0; 0.86; 0.9; 0.94; 1" dur="5.6s" repeatCount="indefinite" />
-              )}
+          {/* long floppy ears framing the face (drawn behind the head) */}
+          <g transform={`translate(72 50) scale(1 ${g.ear}) translate(-72 -50)`}>
+            <path d="M74 48 C 44 42 26 82 40 116 C 50 138 78 132 79 104 C 80 78 88 54 74 48 Z" fill={f('ears')}>
+              {!sleeping && <animateTransform attributeName="transform" type="rotate" values="0 74 50; 3 74 50; 0 74 50; -2 74 50; 0 74 50" dur="6s" repeatCount="indefinite" />}
             </path>
+            <path d="M70 60 C 52 58 42 88 52 112 C 59 126 73 122 73 102 C 74 80 80 64 70 60 Z" fill={shade(ears, 0.82)} opacity="0.55" />
           </g>
-          <g transform={`translate(148 56) scale(1 ${g.ear}) translate(-148 -56)`}>
-            <path d="M148 56 q14 34 -8 50 q-16 -6 -14 -34 q4 -16 22 -16z" fill={f('ears')}>
-              {!sleeping && (
-                <animateTransform attributeName="transform" type="rotate" values="0 148 56; 0 148 56; 8 148 56; 0 148 56; 0 148 56" keyTimes="0; 0.45; 0.49; 0.53; 1" dur="7.3s" repeatCount="indefinite" />
-              )}
+          <g transform={`translate(128 50) scale(1 ${g.ear}) translate(-128 -50)`}>
+            <path d="M126 48 C 156 42 174 82 160 116 C 150 138 122 132 121 104 C 120 78 112 54 126 48 Z" fill={f('ears')}>
+              {!sleeping && <animateTransform attributeName="transform" type="rotate" values="0 126 50; -3 126 50; 0 126 50; 2 126 50; 0 126 50" dur="6.8s" repeatCount="indefinite" />}
             </path>
+            <path d="M130 60 C 148 58 158 88 148 112 C 141 126 127 122 127 102 C 126 80 120 64 130 60 Z" fill={shade(ears, 0.82)} opacity="0.55" />
           </g>
 
+          {/* head */}
           <circle cx="100" cy="78" r="52" fill={f('body')} />
-          {/* head highlight + tuft */}
-          <ellipse cx="80" cy="56" rx="20" ry="14" fill="#fff" opacity="0.18" />
-          <path d="M92 28 q8 -10 16 0 q-4 6 -8 6 q-4 0 -8 -6z" fill={tuft} />
+          <ellipse cx="82" cy="56" rx="21" ry="14" fill="#fff" opacity="0.16" />
+          <path d="M91 27 q9 -11 18 0 q-5 7 -9 7 q-4 0 -9 -7z" fill={tuft} />
 
-          {/* muzzle + nose + mouth */}
-          <ellipse cx="100" cy="94" rx="24" ry="18" fill={f('muzzle')} />
-          <ellipse cx="100" cy="86" rx="9" ry="7" fill="#6F4322" />
-          <ellipse cx="97" cy="83.5" rx="3" ry="2" fill="#fff" opacity="0.5" />
+          {/* soft little snout */}
+          <ellipse cx="100" cy="101" rx="19" ry="13.5" fill={f('muzzle')} />
+          <ellipse cx="100" cy="94" rx="6.8" ry="5.2" fill="#5C3A1E" />
+          <ellipse cx="97.5" cy="92" rx="2.3" ry="1.5" fill="#fff" opacity="0.55" />
           {sleeping ? (
-            <path d="M92 102 q8 4 16 0" stroke="#6F4322" strokeWidth="3" fill="none" strokeLinecap="round" />
+            <path d="M93 106 q7 4 14 0" stroke="#5C3A1E" strokeWidth="2.6" fill="none" strokeLinecap="round" />
           ) : state === 'happy' ? (
             <>
-              <path d="M88 99 q12 12 24 0" stroke="#6F4322" strokeWidth="3" fill="none" strokeLinecap="round" />
-              <path d="M96 102 q4 7 8 0 z" fill="#E2796B" />
+              <path d="M89 104 q11 11 22 0" stroke="#5C3A1E" strokeWidth="2.8" fill="none" strokeLinecap="round" />
+              <path d="M97 106 q3 6 6 0 z" fill="#E2796B" />
             </>
           ) : (
-            <path d="M90 100 q5 7 10 0 q5 7 10 0" stroke="#6F4322" strokeWidth="3" fill="none" strokeLinecap="round" />
+            <path d="M100 99 v5 M100 104 q-5 5 -9 1 M100 104 q5 5 9 1" stroke="#5C3A1E" strokeWidth="2.6" fill="none" strokeLinecap="round" />
           )}
 
-          {/* eyes */}
+          {/* big glossy eyes */}
           {sleeping ? (
             <>
-              <path d="M72 72 q8 6 16 0" stroke="#5C4326" strokeWidth="4" fill="none" strokeLinecap="round" />
-              <path d="M112 72 q8 6 16 0" stroke="#5C4326" strokeWidth="4" fill="none" strokeLinecap="round" />
+              <path d="M71 80 q9 6 18 0" stroke="#5C4326" strokeWidth="4" fill="none" strokeLinecap="round" />
+              <path d="M111 80 q9 6 18 0" stroke="#5C4326" strokeWidth="4" fill="none" strokeLinecap="round" />
             </>
           ) : state === 'happy' ? (
             <>
-              <path d="M72 74 q8 -8 16 0" stroke="#5C4326" strokeWidth="4" fill="none" strokeLinecap="round" />
-              <path d="M112 74 q8 -8 16 0" stroke="#5C4326" strokeWidth="4" fill="none" strokeLinecap="round" />
+              <path d="M71 82 q9 -9 18 0" stroke="#3E2B14" strokeWidth="4.4" fill="none" strokeLinecap="round" />
+              <path d="M111 82 q9 -9 18 0" stroke="#3E2B14" strokeWidth="4.4" fill="none" strokeLinecap="round" />
             </>
           ) : (
             <>
-              <ellipse cx="80" cy="72" rx="6.5" ry="6.5" fill="#3E2B14">
-                <animate attributeName="ry" values="6.5;6.5;0.8;6.5" keyTimes="0;0.9;0.95;1" dur="4.4s" repeatCount="indefinite" />
+              <ellipse cx="80" cy="80" rx="8.6" ry="9.2" fill="#3E2B14">
+                <animate attributeName="ry" values="9.2;9.2;1;9.2" keyTimes="0;0.9;0.95;1" dur="4.4s" repeatCount="indefinite" />
               </ellipse>
-              <ellipse cx="120" cy="72" rx="6.5" ry="6.5" fill="#3E2B14">
-                <animate attributeName="ry" values="6.5;6.5;0.8;6.5" keyTimes="0;0.9;0.95;1" dur="4.4s" repeatCount="indefinite" />
+              <ellipse cx="120" cy="80" rx="8.6" ry="9.2" fill="#3E2B14">
+                <animate attributeName="ry" values="9.2;9.2;1;9.2" keyTimes="0;0.9;0.95;1" dur="4.4s" repeatCount="indefinite" />
               </ellipse>
-              <circle cx="82.5" cy="69.5" r="2.4" fill="#fff" />
-              <circle cx="122.5" cy="69.5" r="2.4" fill="#fff" />
-              <circle cx="78" cy="74" r="1" fill="#fff" opacity="0.7" />
-              <circle cx="118" cy="74" r="1" fill="#fff" opacity="0.7" />
+              <circle cx="83.5" cy="76" r="3.4" fill="#fff" />
+              <circle cx="123.5" cy="76" r="3.4" fill="#fff" />
+              <circle cx="77" cy="83.5" r="1.6" fill="#fff" opacity="0.6" />
+              <circle cx="117" cy="83.5" r="1.6" fill="#fff" opacity="0.6" />
             </>
           )}
 
           {/* cheeks */}
-          <ellipse cx="64" cy="88" rx="8.5" ry="5.5" fill={cheeks} opacity="0.65" />
-          <ellipse cx="136" cy="88" rx="8.5" ry="5.5" fill={cheeks} opacity="0.65" />
+          <ellipse cx="66" cy="94" rx="9" ry="6" fill={cheeks} opacity="0.6" />
+          <ellipse cx="134" cy="94" rx="9" ry="6" fill={cheeks} opacity="0.6" />
 
           {faceItem}
         </g>
