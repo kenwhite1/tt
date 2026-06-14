@@ -249,3 +249,9 @@ h2 { font-size: 18px; }
   100% { transform: translateX(130px) translateY(-34px) scale(0.82); opacity: 0; }
 }
 .walk-out { animation: walk-out 0.85s cubic-bezier(0.4, 0, 0.7, 0.4) forwards; }
+
+/* the pet artwork (raster) */
+.pet-img { display: block; object-fit: contain; animation: breathe 3.4s ease-in-out infinite; }
+.pet-img.happy { animation: pet-hop 0.5s ease-in-out infinite; }
+@keyframes pet-hop { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(-9px); } }
+.pet-img.sleep { filter: saturate(0.82) brightness(0.94); animation: breathe 4.2s ease-in-out infinite; }
