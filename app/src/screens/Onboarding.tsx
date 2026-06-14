@@ -1,303 +1,526 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../store'
 import { Puppy } from '../art/Puppy'
-import { req } from '../api'
-import { haptic, getStartParam, requestWriteAccess, addToHomeScreen } from '../telegram'
+import { haptic, requestWriteAccess, addToHomeScreen, tg } from '../telegram'
+
+/* ── content ─────────────────────────────────────────────────────────── */
 
 const EGGS = [
- { id: 'blue', hex: '#9DC9E8' }, { id: 'orange', hex: '#F2B463' }, { id: 'pink', hex: '#F2A8C0' },
- { id: 'green', hex: '#A8D3A0' }, { id: 'purple', hex: '#C0A8E0' }, { id: 'gray', hex: '#C9C5BD' },
+  { id: 'blue', hex: '#9DC9E8', spot: '#6FA8CF' },
+  { id: 'orange', hex: '#F2B463', spot: '#DC9A45' },
+  { id: 'pink', hex: '#F2A8C0', spot: '#DD86A4' },
+  { id: 'green', hex: '#A8D3A0', spot: '#86BC7E' },
+  { id: 'purple', hex: '#C0A8E0', spot: '#A185CD' },
+  { id: 'gray', hex: '#C9C5BD', spot: '#A8A399' },
 ]
+// ring positions (cx 140, cy 150, Rx 110, Ry 120) — top, then clockwise
+const EGG_POS = [
+  { x: 140, y: 30 }, { x: 235, y: 90 }, { x: 235, y: 210 },
+  { x: 140, y: 270 }, { x: 45, y: 210 }, { x: 45, y: 90 },
+]
+
+const PRONOUNS = [
+  { id: 'he', heart: '💙', ru: 'Он' },
+  { id: 'she', heart: '💗', ru: 'Она' },
+  { id: 'they', heart: '💛', ru: 'Пусть будет тайной' },
+] as const
+
 const TRAITS = [
- { id: 'curiosity', ru: 'Любопытный' }, { id: 'confidence', ru: 'Смелый' },
- { id: 'compassion', ru: 'Добрый' }, { id: 'logic', ru: 'Рассудительный' },
- { id: 'resilience', ru: 'Стойкий' }, { id: 'security', ru: 'Спокойный' },
+  { id: 'curiosity', em: '🤔', ru: 'Любопытство' },
+  { id: 'resilience', em: '😎', ru: 'Стойкость' },
+  { id: 'compassion', em: '😍', ru: 'Доброта' },
+  { id: 'logic', em: '🧐', ru: 'Логика' },
+  { id: 'confidence', em: '🤠', ru: 'Уверенность' },
+  { id: 'security', em: '😌', ru: 'Спокойствие' },
 ]
-const PET_NAMES = ['Бублик', 'Тоша', 'Кнопа', 'Шуня', 'Барни', 'Соня', 'Пирожок', 'Луна']
 
-// the pet's first little question, answers are warm, each leans on a personality side
-const RESONATE = {
- q: 'Что тебе сейчас звучит теплее всего?',
- options: [
- 'Можно не торопиться',
- 'Я справлюсь, шаг за шагом',
- 'Я не один(а)',
- 'Сегодня я выбираю заботу о себе',
- ],
+const PET_NAMES = ['Бублик', 'Тоша', 'Кнопа', 'Шуня', 'Барни', 'Соня', 'Пирожок', 'Луна', 'Персик', 'Марс']
+
+const SECTIONS = [
+  { key: 'about', label: 'О ТЕБЕ', count: 3 },
+  { key: 'energy', label: 'ЭНЕРГИЯ И АКТИВНОСТЬ', count: 3 },
+  { key: 'life', label: 'КАК ЖИЗНЬ', count: 3 },
+  { key: 'support', label: 'ПОДДЕРЖКА', count: 2 },
+]
+
+type Q = {
+  id: string; sec: number; q: string; sub?: string; multi?: boolean
+  opts: { em?: string; lbl: string }[]; skip?: string
 }
-const HOW = [
- { emoji: '🐾', ru: 'Отмечай маленькие цели заботы о себе' },
- { emoji: '⚡', ru: 'Щенок наполняется энергией и уходит на прогулки' },
- { emoji: '💛', ru: 'Никакой гонки: маленький шаг это уже шаг' },
+const QUESTIONS: Q[] = [
+  { id: 'age', sec: 0, q: 'Сколько тебе лет?', sub: 'Это поможет настроить всё под тебя',
+    opts: ['До 18', '18–24', '25–34', '35–44', '45–54', '55–64', '65 и старше'].map(lbl => ({ lbl })) },
+  { id: 'gender', sec: 0, q: 'Какой у тебя пол?', skip: 'Не хочу отвечать',
+    opts: ['Мужской', 'Женский', 'Небинарный'].map(lbl => ({ lbl })) },
+  { id: 'used', sec: 0, q: 'Пользовался(ась) такими приложениями раньше?',
+    opts: [{ em: '🍼', lbl: 'Нет, это впервые!' }, { em: '🍵', lbl: 'Да, но начинаю заново' }] },
+  { id: 'sleep', sec: 1, q: 'Сколько обычно спишь ночью?',
+    opts: [{ em: '😴', lbl: 'Меньше 5 часов' }, { em: '🛏️', lbl: '5–7 часов' }, { em: '🌙', lbl: '7–9 часов' }, { em: '☀️', lbl: 'Больше 9 часов' }] },
+  { id: 'bed', sec: 1, q: 'Легко ли тебе вставать с кровати?',
+    opts: [{ em: '🐬', lbl: 'Очень легко, встаю быстро' }, { em: '🥒', lbl: 'Иногда легко, иногда тяжело' }, { em: '🧸', lbl: 'Тяжело, часто встаю с трудом' }] },
+  { id: 'active', sec: 1, q: 'Насколько ты активен(на) днём?',
+    opts: [{ em: '🏃', lbl: 'В движении почти весь день' }, { em: '🚶', lbl: 'Баланс покоя и движения' }, { em: '🪑', lbl: 'Мало двигаюсь, хочу больше' }, { em: '🌻', lbl: 'Есть ограничения по движению' }] },
+  { id: 'overwhelm', sec: 2, q: 'Как часто ты чувствуешь себя перегруженным(ой)?',
+    opts: [{ em: '😫', lbl: 'Несколько раз в неделю' }, { em: '🙁', lbl: 'Пара стрессовых дней в месяц' }, { em: '😌', lbl: 'Хорошо справляюсь со стрессом' }] },
+  { id: 'support', sec: 2, q: 'На скольких людей можешь опереться в трудный момент?',
+    opts: [{ em: '🌳', lbl: '3 и больше' }, { em: '🌿', lbl: '2' }, { em: '🌱', lbl: '1' }, { em: '🍃', lbl: 'Только на себя' }] },
+  { id: 'routine', sec: 2, q: 'Насколько ты доволен(на) своим распорядком?',
+    opts: [{ em: '🥳', lbl: 'Полностью, забочусь о себе хорошо' }, { em: '😌', lbl: 'Немного, хочу кое-что улучшить' }, { em: '😮', lbl: 'Совсем нет, жду больших перемен' }] },
+  { id: 'mh', sec: 3, q: 'Сталкиваешься с чем-то из этого?', multi: true,
+    opts: ['Биполярное расстройство', 'ОКР', 'Тревожность', 'ПТСР', 'СДВГ', 'Депрессия'].map(lbl => ({ lbl })) },
+  { id: 'areas', sec: 3, q: 'В каких сферах нужна поддержка?', multi: true,
+    opts: [{ em: '🌱', lbl: 'Завести и держать распорядок' }, { em: '🏔️', lbl: 'Справляться со стрессом и тревогой' }, { em: '🍎', lbl: 'Здоровое питание' }, { em: '🌻', lbl: 'Принятие себя и уверенность' }, { em: '🪥', lbl: 'Свежесть и чистота' }, { em: '❤️', lbl: 'Социальные навыки и связи' }] },
 ]
-const SURVEY = ['Впервые', 'Немного пробовал(а)', 'Да, не раз']
 
-type Step =
- | 'welcome' | 'egg' | 'hatch' | 'pronouns' | 'name' | 'trait' | 'you'
- | 'resonate' | 'how' | 'survey' | 'creating' | 'firstgoal' | 'reminder' | 'invite'
+const HEAR = [
+  { em: '🎬', lbl: 'YouTube' }, { em: '👨‍👩‍👧', lbl: 'Друзья / семья' }, { em: '✈️', lbl: 'Telegram' },
+  { em: '📰', lbl: 'Новости / блоги' }, { em: '🎧', lbl: 'Подкасты' }, { em: '📺', lbl: 'Телевидение' },
+  { em: '📷', lbl: 'Instagram / Facebook' }, { em: '🔍', lbl: 'Нашёл(ла) в Google' }, { em: '🎮', lbl: 'Игры' },
+  { em: '🧑‍⚕️', lbl: 'Психолог / врач' },
+]
+
+const COMMIT = [
+  { em: '🙌', days: 2, ru: '2 дня', end: 'Первые шаги' },
+  { em: '💪', days: 5, ru: '5 дней', end: 'Хороший старт' },
+  { em: '🎯', days: 7, ru: '7 дней', end: 'Серьёзный настрой' },
+  { em: '🔥', days: 14, ru: '14 дней', end: 'Несокрушимая серия' },
+]
+
+const ORDER = [
+  'welcome', 'egg', 'hatch', 'pronouns', 'name', 'trait', 'uname', 'whatcare', 'affirm', 'reminders', 'learnyou',
+  'q:age', 'q:gender', 'q:used', 'q:sleep', 'q:bed', 'q:active', 'q:overwhelm', 'q:support', 'q:routine', 'q:mh', 'q:areas',
+  'creating', 'plan', 'plus1', 'plus2', 'plus3', 'hear', 'streak', 'commit', 'widget',
+] as const
+type Step = typeof ORDER[number]
+
+/* ── component ───────────────────────────────────────────────────────── */
 
 export function Onboarding() {
- const { finishOnboarding, enterApp, tgName } = useStore()
- const goals = useStore(s => s.state?.goals) // stable ref; fallback applied in render (a `?? []` here loops)
- const [step, setStep] = useState<Step>('welcome')
- const [egg, setEgg] = useState('')
- const [pronouns, setPronouns] = useState<'he' | 'she' | 'they'>('he')
- const [petName, setPetName] = useState('')
- const [trait, setTrait] = useState('')
- const [userName, setUserName] = useState(tgName)
- const [resonate, setResonate] = useState<number | null>(null)
- const [survey, setSurvey] = useState<number | null>(null)
- const [inviteCode, setInviteCode] = useState('')
- const [inviteMsg, setInviteMsg] = useState('')
- const [busy, setBusy] = useState(false)
+  const { finishOnboarding, enterApp, tgName } = useStore()
+  const goals = useStore(s => s.state?.goals)
+  const [step, setStep] = useState<Step>('welcome')
+  const [egg, setEgg] = useState('')
+  const [pronouns, setPronouns] = useState<'he' | 'she' | 'they'>('he')
+  const [petName, setPetName] = useState(() => PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)])
+  const [trait, setTrait] = useState('')
+  const [userName, setUserName] = useState(tgName)
+  const [ans, setAns] = useState<Record<string, number | number[]>>({})
+  const [commit, setCommit] = useState<number | null>(null)
+  const [busy, setBusy] = useState(false)
+  const advTimer = useRef<ReturnType<typeof setTimeout>>()
 
- // pre-fill invite code from a ref_ deep link
- useEffect(() => {
- const p = getStartParam()
- if (p && p.startsWith('ref_')) setInviteCode(p.slice(4))
- }, [])
+  const name = petName.trim() || 'щенок'
+  const i = ORDER.indexOf(step)
+  const go = (s: Step) => { haptic('tap'); setStep(s) }
+  const next = () => go(ORDER[Math.min(ORDER.length - 1, i + 1)])
+  const back = () => go(ORDER[Math.max(0, i - 1)])
 
- const name = petName.trim() || 'щенок'
- const go = (s: Step) => { haptic('tap'); setStep(s) }
+  // tint Telegram chrome to match the current screen (white, or blue for celebration)
+  useEffect(() => {
+    const blue = step === 'streak' || step === 'commit'
+    const c = blue ? '#36a9e1' : '#ffffff'
+    try { tg?.setBackgroundColor(c); tg?.setHeaderColor(c) } catch { /* older clients */ }
+  }, [step])
 
- async function createAccount() {
- setBusy(true)
- setStep('creating')
- try {
- await finishOnboarding({ petName: petName.trim(), pronouns, color: egg, trait, userName: userName.trim() || 'Друг' })
- setStep('firstgoal')
- } catch {
- setStep('survey') // let them retry
- } finally {
- setBusy(false)
- }
- }
+  // create the pet/goals on the backend, then reveal the starter plan
+  useEffect(() => {
+    if (step !== 'creating') return
+    let alive = true
+    setBusy(true)
+    finishOnboarding({ petName: petName.trim(), pronouns, color: egg, trait, userName: userName.trim() || 'Друг' })
+      .then(() => { if (alive) { haptic('success'); setStep('plan') } })
+      .catch(() => { if (alive) setStep('q:areas') })
+      .finally(() => { if (alive) setBusy(false) })
+    return () => { alive = false }
+  }, [step]) // eslint-disable-line react-hooks/exhaustive-deps
 
- async function enableReminders() {
- setBusy(true)
- try { await requestWriteAccess(); addToHomeScreen() } catch { /* ignore */ }
- setBusy(false)
- go('invite')
- }
+  useEffect(() => () => clearTimeout(advTimer.current), [])
 
- async function applyInvite() {
- if (!inviteCode.trim() || busy) return
- setBusy(true)
- try {
- const r = await req<{ ok: boolean; inviterName?: string }>('/social/referral', { code: inviteCode.trim() })
- setInviteMsg(r.ok ? `Ура! ${r.inviterName ?? 'Друг'} пригласил(а) тебя, скоро прибежит подарок 🎁` : 'Такой код не нашёлся, но это не страшно 💛')
- } catch {
- setInviteMsg('Не получилось применить код, но это не страшно 💛')
- }
- haptic('success')
- setBusy(false)
- setTimeout(() => enterApp(), 1100)
- }
+  function pickSingle(qid: string, idx: number) {
+    haptic('tap'); setAns(a => ({ ...a, [qid]: idx }))
+    clearTimeout(advTimer.current)
+    advTimer.current = setTimeout(next, 200)
+  }
+  function toggleMulti(qid: string, idx: number) {
+    haptic('tap')
+    setAns(a => {
+      const cur = Array.isArray(a[qid]) ? (a[qid] as number[]) : []
+      return { ...a, [qid]: cur.includes(idx) ? cur.filter(x => x !== idx) : [...cur, idx] }
+    })
+  }
+  async function enableReminders() {
+    setBusy(true)
+    try { await requestWriteAccess() } catch { /* ignore */ }
+    setBusy(false); next()
+  }
 
- return (
- <div className="screen" style={{ padding: 'calc(var(--safe-top) + 24px) 22px calc(24px + var(--safe-bottom))', display: 'flex', flexDirection: 'column' }}>
- <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, textAlign: 'center' }}>
+  /* survey screens are data-driven */
+  if (step.startsWith('q:')) {
+    const q = QUESTIONS.find(x => 'q:' + x.id === step)!
+    const sec = SECTIONS[q.sec]
+    const within = QUESTIONS.filter(x => x.sec === q.sec).findIndex(x => x.id === q.id)
+    const selected = ans[q.id]
+    const multiSel = Array.isArray(selected) ? selected : []
+    return (
+      <Shell
+        top={<><button className="onb-chev" onClick={back} aria-label="Назад">‹</button><Progress sec={q.sec} within={within} count={sec.count} /></>}
+        foot={q.multi ? <button className="onb-btn" disabled={multiSel.length === 0} onClick={next}>Дальше</button> : undefined}
+      >
+        <span className="onb-eyebrow">{sec.label}</span>
+        <Pet size={120} badge="?" />
+        <h1 className="onb-h1">{q.q}</h1>
+        {q.sub && <p className="onb-sub">{q.sub}</p>}
+        <div className="onb-opts">
+          {q.opts.map((o, idx) => {
+            const on = q.multi ? multiSel.includes(idx) : selected === idx
+            return (
+              <button key={idx} className={`onb-opt${on ? ' sel' : ''}`}
+                onClick={() => (q.multi ? toggleMulti(q.id, idx) : pickSingle(q.id, idx))}>
+                {o.em && <span className="em">{o.em}</span>}
+                <span className="lbl">{o.lbl}</span>
+                {q.multi
+                  ? <span className="plus">{on ? '✓' : '+'}</span>
+                  : on && <span className="chk">✓</span>}
+              </button>
+            )
+          })}
+        </div>
+        {q.skip && <button className="onb-link muted" onClick={() => { setAns(a => ({ ...a, [q.id]: -1 })); next() }}>{q.skip}</button>}
+      </Shell>
+    )
+  }
 
- {step === 'welcome' && (<>
- <Puppy state="sleeping" size={150} />
- <h1>Привет! 🐶</h1>
- <p style={{ color: 'var(--ink-soft)', lineHeight: 1.5 }}>
- Сейчас у тебя появится маленький золотистый щенок. Он будет расти, когда ты заботишься о себе.
- Здесь нет гонки и оценок, только тёплые маленькие шаги в твоём темпе.
- </p>
- </>)}
+  switch (step) {
+    case 'welcome':
+      return (
+        <Shell foot={<button className="onb-btn" onClick={next}>Завести питомца</button>}>
+          <Pet size={150} state="happy" />
+          <h1 className="onb-h1" style={{ fontSize: 34 }}>Шарик</h1>
+          <p className="onb-sub">Твой новый друг для заботы о себе.</p>
+        </Shell>
+      )
 
- {step === 'egg' && (<>
- <h1>Из какого яйца вылупится твой щенок?</h1>
- <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
- {EGGS.map(e => (
- <button key={e.id} onClick={() => { haptic('tap'); setEgg(e.id) }}
- style={{
- width: 64, height: 80, borderRadius: '50% 50% 46% 46%', background: e.hex, cursor: 'pointer',
- border: egg === e.id ? '4px solid var(--brown-deep)' : '4px solid transparent', boxShadow: 'var(--shadow-lip)',
- }} />
- ))}
- </div>
- </>)}
+    case 'egg':
+      return (
+        <Shell foot={<button className="onb-btn" disabled={!egg} onClick={next}>Вылупить яйцо</button>}>
+          <h1 className="onb-h1">Выбери своё яйцо!</h1>
+          <p className="onb-sub">Щенки тёплые, преданные и любопытные. Они приносят энергию и светлые дни.</p>
+          <div className="onb-eggring">
+            {EGGS.map((e, idx) => (
+              <button key={e.id} className={`onb-egg${egg === e.id ? ' sel' : ''}`}
+                onClick={() => { haptic('tap'); setEgg(e.id) }}
+                style={{ left: EGG_POS[idx].x, top: EGG_POS[idx].y, background: eggBg(e.hex, e.spot) }} aria-label={e.id} />
+            ))}
+            <div className="center"><Pet size={92} /></div>
+          </div>
+        </Shell>
+      )
 
- {step === 'hatch' && <Hatch eggHex={EGGS.find(e => e.id === egg)?.hex ?? '#F2B463'} />}
+    case 'hatch':
+      return <HatchReveal name={name} onNext={next} />
 
- {step === 'pronouns' && (<>
- <Puppy state="happy" size={150} />
- <h1>Кто это у нас?</h1>
- <div style={{ display: 'flex', gap: 10 }}>
- {([['he', 'Мальчик'], ['she', 'Девочка'], ['they', 'Пусть будет тайной']] as const).map(([id, ru]) => (
- <button key={id} className={pronouns === id ? 'btn' : 'btn ghost'} onClick={() => { haptic('tap'); setPronouns(id) }}>{ru}</button>
- ))}
- </div>
- </>)}
+    case 'pronouns':
+      return (
+        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
+          <Pet size={140} state="happy" />
+          <h1 className="onb-h1">У тебя вылупился щенок!</h1>
+          <p className="onb-sub" style={{ fontWeight: 800, color: 'var(--oink)' }}>Местоимения щенка</p>
+          <div className="onb-opts">
+            {PRONOUNS.map(pn => {
+              const on = pronouns === pn.id
+              return (
+                <button key={pn.id} className={`onb-opt heart${on ? ' sel' : ''}`} onClick={() => { haptic('tap'); setPronouns(pn.id) }}>
+                  <span className="em">{on ? pn.heart : '🤍'}</span>
+                  <span className="lbl">{pn.ru}</span>
+                  {on && <span className="chk" style={{ background: 'var(--ob)' }}>✓</span>}
+                </button>
+              )
+            })}
+          </div>
+        </Shell>
+      )
 
- {step === 'name' && (<>
- <Puppy size={120} />
- <h1>Как назовёшь?</h1>
- <input value={petName} onChange={e => setPetName(e.target.value)} placeholder="Имя щенка" maxLength={30}
- style={inputStyle} />
- <button className="btn ghost" onClick={() => setPetName(PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)])}>🎲 Случайное имя</button>
- </>)}
+    case 'name':
+      return (
+        <Shell foot={
+          <div className="onb-inrow">
+            <button className="onb-btn sec" onClick={() => { haptic('tap'); setPetName(PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)]) }}>Перемешать</button>
+            <button className="onb-btn" disabled={!petName.trim()} onClick={next}>Дальше</button>
+          </div>}>
+          <Pet size={120} />
+          <h1 className="onb-h1">Как назовём твоего щенка?</h1>
+          <p className="onb-sub">Это можно поменять позже.</p>
+          <input className="onb-input" value={petName} onChange={e => setPetName(e.target.value)} maxLength={24} />
+        </Shell>
+      )
 
- {step === 'trait' && (<>
- <h1>Какой {name} по характеру?</h1>
- <p style={{ color: 'var(--ink-soft)' }}>Это даст небольшой бонус к развитию</p>
- <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
- {TRAITS.map(t => (
- <button key={t.id} className={trait === t.id ? 'btn' : 'btn ghost'} onClick={() => { haptic('tap'); setTrait(t.id) }}>{t.ru}</button>
- ))}
- </div>
- </>)}
+    case 'trait':
+      return (
+        <Shell foot={<button className="onb-btn" disabled={!trait} onClick={next}>Дальше</button>}>
+          <Pet size={120} state="happy" />
+          <h1 className="onb-h1">Выбери черту для {name}</h1>
+          <p className="onb-sub" style={{ fontWeight: 800, color: 'var(--oink)' }}>{name} ценит…</p>
+          <div className="onb-opts">
+            {TRAITS.map(t => {
+              const on = trait === t.id
+              return (
+                <button key={t.id} className={`onb-opt${on ? ' sel' : ''}`} onClick={() => { haptic('tap'); setTrait(t.id) }}>
+                  <span className="em">{t.em}</span>
+                  <span className="lbl">{t.ru}</span>
+                  {on && <span className="chk">✓</span>}
+                </button>
+              )
+            })}
+          </div>
+        </Shell>
+      )
 
- {step === 'you' && (<>
- <Puppy state="happy" size={120} />
- <h1>А тебя как зовут?</h1>
- <p style={{ color: 'var(--ink-soft)' }}>{name} будет обращаться к тебе по имени</p>
- <input value={userName} onChange={e => setUserName(e.target.value)} placeholder="Твоё имя" maxLength={40} style={inputStyle} />
- </>)}
+    case 'uname':
+      return (
+        <Shell foot={<button className="onb-btn" disabled={!userName.trim()} onClick={next}>Дальше</button>}>
+          <div className="onb-bubble tail">Чик-чирик, спасибо, что вылупил(а) меня! Меня зовут {name}, а тебя как?</div>
+          <Pet size={120} />
+          <input className="onb-input" value={userName} onChange={e => setUserName(e.target.value)} placeholder="Твоё имя" maxLength={32} />
+        </Shell>
+      )
 
- {step === 'resonate' && (<>
- <Puppy size={120} />
- <h1>{name} что-то хочет спросить…</h1>
- <p style={{ fontWeight: 800 }}>{RESONATE.q}</p>
- <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: '100%', maxWidth: 340 }}>
- {RESONATE.options.map((o, i) => (
- <button key={i} className={resonate === i ? 'btn' : 'btn ghost'} style={{ width: '100%' }} onClick={() => { haptic('tap'); setResonate(i) }}>{o}</button>
- ))}
- </div>
- {resonate !== null && <p style={{ color: 'var(--ink-soft)' }}>{name} прижался к тебе. Кажется, вы поняли друг друга 💛</p>}
- </>)}
+    case 'whatcare':
+      return (
+        <Shell>
+          <div className="onb-bubble tail">Приятно познакомиться, {userName.trim() || 'друг'}! Меня называют питомцем заботы о себе. А что такое забота о себе?</div>
+          <Pet size={120} badge="?" />
+          <div className="onb-opts" style={{ marginTop: 8 }}>
+            <button className="onb-answer orange" onClick={next}>Забота о себе — это заботиться о теле, разуме и отношениях, и при этом радоваться жизни!</button>
+            <button className="onb-answer pink" onClick={next}>Забота о себе — это делать, что можешь, даже когда тебе непросто.</button>
+          </div>
+        </Shell>
+      )
 
- {step === 'how' && (<>
- <h1>Как мы будем расти вместе</h1>
- <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%', maxWidth: 360 }}>
- {HOW.map((h, i) => (
- <div key={i} className="card" style={{ display: 'flex', gap: 12, alignItems: 'center', textAlign: 'left', margin: 0 }}>
- <span style={{ fontSize: 28 }}>{h.emoji}</span>
- <span style={{ fontWeight: 700 }}>{h.ru}</span>
- </div>
- ))}
- </div>
- </>)}
+    case 'affirm': {
+      const tr = TRAITS.find(t => t.id === trait) ?? TRAITS[0]
+      return (
+        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
+          <div className="onb-bubble tail">Ух ты! Когда ты заботишься о себе — ты заботишься и обо мне! Давай вместе, чик-чирик!</div>
+          <Pet size={130} state="happy" hold="❤️" />
+          <div className="onb-stat">
+            <span className="em">{tr.em}</span>
+            <div><b>{name} получил(а)</b><span>+5.9 {tr.ru}</span></div>
+          </div>
+        </Shell>
+      )
+    }
 
- {step === 'survey' && (<>
- <Puppy size={110} />
- <h1>Бывал(а) в приложениях для заботы о себе?</h1>
- <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: '100%', maxWidth: 340 }}>
- {SURVEY.map((o, i) => (
- <button key={i} className={survey === i ? 'btn' : 'btn ghost'} style={{ width: '100%' }} onClick={() => { haptic('tap'); setSurvey(i) }}>{o}</button>
- ))}
- </div>
- </>)}
+    case 'reminders':
+      return (
+        <Shell foot={
+          <>
+            <button className="onb-btn" disabled={busy} onClick={enableReminders}>Включить напоминания</button>
+            <button className="onb-btn sec" disabled={busy} onClick={next}>Может позже</button>
+          </>}>
+          <h1 className="onb-h1">Напоминания от {name}</h1>
+          <div className="onb-noti">
+            <img src="/pet.png" alt="" />
+            <div>
+              <div className="nt">От {name}</div>
+              <div className="nb">Не забудь попить воды!</div>
+            </div>
+            <span className="when">сейчас</span>
+          </div>
+          <Pet size={140} state="walking" />
+        </Shell>
+      )
 
- {step === 'creating' && (<>
- <Puppy state="happy" size={150} />
- <h1>Готовлю ваш дом… 🏡</h1>
- </>)}
+    case 'learnyou':
+      return (
+        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
+          <Pet size={130} />
+          <h1 className="onb-h1">Давай узнаем тебя получше!</h1>
+          <p className="onb-sub">{name} хочет понять, как расти вместе с тобой.</p>
+        </Shell>
+      )
 
- {step === 'firstgoal' && (<>
- <Puppy state="happy" size={120} />
- <h1>Вот твои первые цели</h1>
- <p style={{ color: 'var(--ink-soft)' }}>Отметь хотя бы одну, и {name} начнёт расти!</p>
- <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: '100%', maxWidth: 360 }}>
- {(goals ?? []).slice(0, 4).map(g => (
- <div key={g.id} className="goal-row" style={{ margin: 0 }}>
- <span className="goal-check">{g.emoji}</span>
- <span style={{ fontWeight: 800 }}>{g.title}</span>
- </div>
- ))}
- </div>
- </>)}
+    case 'creating':
+      return (
+        <Shell>
+          <div className="onb-pop"><Pet size={150} state="happy" /></div>
+          <h1 className="onb-h1">Готовлю ваш дом…</h1>
+        </Shell>
+      )
 
- {step === 'reminder' && (<>
- <Puppy size={120} />
- <h1>Можно я буду напоминать о себе?</h1>
- <p style={{ color: 'var(--ink-soft)', lineHeight: 1.5 }}>
- Я буду тихонько присылать тёплые слова утром и вечером и помогать не терять серию.
- Без спама, обещаю. Это можно выключить в любой момент.
- </p>
- </>)}
+    case 'plan':
+      return (
+        <Shell foot={<button className="onb-btn" onClick={next}>Поехали!</button>}>
+          <div className="onb-bubble tail">У тебя всё получится, чик-чирик!</div>
+          <Pet size={110} />
+          <div className="onb-pad">
+            <div className="onb-pad-tabs">{Array.from({ length: 5 }).map((_, k) => <i key={k} />)}</div>
+            <h3>Стартовый план {userName.trim() || ''}</h3>
+            <div className="cap">Попробуй эти простые цели с {name}!</div>
+            {(goals ?? []).slice(0, 7).map(g => (
+              <div key={g.id} className="row"><span className="em">{g.emoji}</span><span>{g.title}</span></div>
+            ))}
+          </div>
+        </Shell>
+      )
 
- {step === 'invite' && (<>
- <Puppy state="happy" size={110} />
- <h1>Тебя пригласил друг?</h1>
- <p style={{ color: 'var(--ink-soft)' }}>Введи его код, вы оба получите подарок 🎁</p>
- <input value={inviteCode} onChange={e => setInviteCode(e.target.value)} placeholder="Код друга" maxLength={20}
- style={{ ...inputStyle, textTransform: 'uppercase', letterSpacing: 2 }} />
- {inviteMsg && <p style={{ color: 'var(--brown)', fontWeight: 700 }}>{inviteMsg}</p>}
- </>)}
- </div>
+    case 'plus1':
+      return (
+        <Shell foot={<button className="onb-btn" onClick={next}>Получить предложение</button>}>
+          <p className="onb-sub">Шарик бесплатный</p>
+          <h1 className="onb-h1">Но попробуй Шарик Плюс — <span className="onb-accent">7 дней бесплатно!</span></h1>
+          <Pet size={160} state="happy" hold="❤️" />
+        </Shell>
+      )
 
- {/* footer */}
- <Footer
- step={step} busy={busy}
- egg={egg} pronouns={pronouns} petName={petName} trait={trait} userName={userName}
- resonate={resonate} survey={survey} inviteCode={inviteCode}
- go={go} createAccount={createAccount} enableReminders={enableReminders} applyInvite={applyInvite} enterApp={enterApp}
- />
- </div>
- )
+    case 'plus2':
+      return (
+        <Shell foot={<button className="onb-btn" onClick={next}>Получить предложение</button>}>
+          <p className="onb-sub">Отменить можно в любой момент</p>
+          <h1 className="onb-h1">Напомним <span className="onb-accent">за 2 дня</span> до конца пробного периода</h1>
+          <Pet size={150} badge="🔔" />
+        </Shell>
+      )
+
+    case 'plus3':
+      return (
+        <Shell foot={
+          <>
+            <button className="onb-btn" onClick={next}>Начать бесплатный период</button>
+            <button className="onb-link muted" onClick={next}>Пропустить предложение</button>
+          </>}>
+          <p className="onb-sub"><span className="onb-accent" style={{ fontWeight: 800 }}>Разовое предложение!</span></p>
+          <h1 className="onb-h1">−73% при старте пробного периода сейчас</h1>
+          <Pet size={150} state="happy" badge="😎" />
+          <p className="onb-sub">Самая большая скидка — только для тебя и {name}.</p>
+        </Shell>
+      )
+
+    case 'hear': {
+      const sel = ans['hear']
+      return (
+        <Shell foot={<button className="onb-btn" disabled={typeof sel !== 'number'} onClick={next}>Продолжить</button>}>
+          <h1 className="onb-h1">Откуда ты узнал(а) о нас?</h1>
+          <div className="onb-opts">
+            {HEAR.map((h, idx) => (
+              <button key={idx} className={`onb-opt${sel === idx ? ' sel' : ''}`} onClick={() => { haptic('tap'); setAns(a => ({ ...a, hear: idx })) }}>
+                <span className="em">{h.em}</span><span className="lbl">{h.lbl}</span>{sel === idx && <span className="chk">✓</span>}
+              </button>
+            ))}
+          </div>
+        </Shell>
+      )
+    }
+
+    case 'streak':
+      return (
+        <Shell blue foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
+          <div className="onb-float"><Pet size={150} state="happy" /></div>
+          <div className="onb-big">1</div>
+          <div className="onb-streak-label">ДЕНЬ ПОДРЯД</div>
+          <div className="onb-week">
+            {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d, k) => (
+              <div key={d} className="d"><span>{d}</span><span className={`dot${k === 0 ? ' on' : ''}`}>{k === 0 ? '✓' : ''}</span></div>
+            ))}
+          </div>
+        </Shell>
+      )
+
+    case 'commit':
+      return (
+        <Shell blue foot={<button className="onb-btn" disabled={commit === null} onClick={next}>Беру на себя!</button>}>
+          <h1 className="onb-h1">Сколько дней подряд ты будешь заботиться о {name}?</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Pet size={84} badge="?" />
+            <div className="onb-bubble tail" style={{ fontSize: 15 }}>У тебя получится!</div>
+          </div>
+          <div className="onb-opts">
+            {COMMIT.map((c, idx) => (
+              <button key={idx} className={`onb-opt${commit === idx ? ' sel' : ''}`} onClick={() => { haptic('tap'); setCommit(idx) }}>
+                <span className="em">{c.em}</span><span className="lbl">{c.ru}</span><span className="end">{c.end}</span>
+              </button>
+            ))}
+          </div>
+        </Shell>
+      )
+
+    case 'widget':
+      return (
+        <Shell foot={
+          <>
+            <button className="onb-btn" disabled={busy} onClick={async () => { setBusy(true); try { addToHomeScreen() } catch { /* ignore */ } setBusy(false); enterApp() }}>Добавить на главный экран</button>
+            <button className="onb-btn sec" onClick={enterApp}>Не сейчас</button>
+          </>}>
+          <h1 className="onb-h1">Закрепи свою привычку!</h1>
+          <p className="onb-sub">С приложением на главном экране держать привычки <span className="onb-accent" style={{ fontWeight: 800 }}>в 4 раза проще.</span></p>
+          <div className="onb-phone">
+            <div className="scr">
+              <div className="wdg">🐶</div>
+              {Array.from({ length: 8 }).map((_, k) => <div key={k} className="ic" />)}
+            </div>
+          </div>
+        </Shell>
+      )
+  }
 }
 
-const inputStyle: React.CSSProperties = {
- width: '100%', border: '3px solid var(--gold)', borderRadius: 14, padding: '12px 14px',
- fontSize: 18, textAlign: 'center', fontFamily: 'inherit',
+/* ── pieces ──────────────────────────────────────────────────────────── */
+
+function Shell({ children, foot, top, blue }: { children: React.ReactNode; foot?: React.ReactNode; top?: React.ReactNode; blue?: boolean }) {
+  return (
+    <div className={`onb${blue ? ' blue' : ''}`}>
+      {blue && <div className="onb-rays" />}
+      <div className="onb-scroll">
+        {top && <div className="onb-top">{top}</div>}
+        <div className="onb-body">{children}</div>
+        {foot && <div className="onb-foot">{foot}</div>}
+      </div>
+    </div>
+  )
 }
 
-// Egg → crack → puppy reveal (auto after a beat).
-function Hatch({ eggHex }: { eggHex: string }) {
- const [open, setOpen] = useState(false)
- const t = useRef<ReturnType<typeof setTimeout>>()
- useEffect(() => { t.current = setTimeout(() => { setOpen(true); haptic('success') }, 1300); return () => clearTimeout(t.current) }, [])
- return (
- <>
- {open ? <Puppy state="happy" size={160} /> : (
- <div style={{
- width: 110, height: 138, borderRadius: '50% 50% 46% 46%', background: eggHex,
- boxShadow: 'var(--shadow-lip)', animation: 'breathe 0.5s ease-in-out infinite',
- }} />
- )}
- <h1>{open ? 'Ура, он вылупился! 🎉' : 'Яйцо шевелится…'}</h1>
- </>
- )
+function Pet({ size, state, badge, hold }: { size: number; state?: 'idle' | 'happy' | 'walking' | 'sleeping'; badge?: string; hold?: string }) {
+  return (
+    <div className="onb-pet">
+      <Puppy size={size} state={state ?? 'idle'} />
+      {badge && <span className="badge">{badge}</span>}
+      {hold && <span className="hold">{hold}</span>}
+    </div>
+  )
 }
 
-interface FooterProps {
- step: Step; busy: boolean
- egg: string; pronouns: string; petName: string; trait: string; userName: string
- resonate: number | null; survey: number | null; inviteCode: string
- go: (s: Step) => void; createAccount: () => void; enableReminders: () => void; applyInvite: () => void; enterApp: () => void
+function Progress({ sec, within, count }: { sec: number; within: number; count: number }) {
+  return (
+    <div className="onb-prog">
+      {SECTIONS.map((_, idx) => {
+        const done = idx < sec
+        const w = idx === sec ? `${(within / count) * 100}%` : '0%'
+        return <div key={idx} className={`seg${done ? ' done' : ''}`}>{!done && <span className="fill" style={{ width: w }} />}</div>
+      })}
+    </div>
+  )
 }
 
-function Footer(p: FooterProps) {
- const btn = (label: string, ok: boolean, onClick: () => void) => (
- <button className="btn" style={{ width: '100%' }} disabled={!ok || p.busy} onClick={onClick}>{label}</button>
- )
- switch (p.step) {
- case 'welcome': return btn('Поехали! 🥚', true, () => p.go('egg'))
- case 'egg': return btn('Выбрать яйцо', !!p.egg, () => p.go('hatch'))
- case 'hatch': return btn('Познакомиться', true, () => p.go('pronouns'))
- case 'pronouns': return btn('Дальше', true, () => p.go('name'))
- case 'name': return btn('Дальше', p.petName.trim().length > 0, () => p.go('trait'))
- case 'trait': return btn('Дальше', !!p.trait, () => p.go('you'))
- case 'you': return btn('Дальше', p.userName.trim().length > 0, () => p.go('resonate'))
- case 'resonate': return btn('Дальше', p.resonate !== null, () => p.go('how'))
- case 'how': return btn('Понятно!', true, () => p.go('survey'))
- case 'survey': return btn('Создать щенка 🐾', p.survey !== null, p.createAccount)
- case 'creating': return <div style={{ height: 50 }} />
- case 'firstgoal': return btn('За дело! 🐾', true, () => p.go('reminder'))
- case 'reminder': return (
- <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
- <button className="btn" style={{ width: '100%' }} disabled={p.busy} onClick={p.enableReminders}>Да, напоминай 🔔</button>
- <button className="btn ghost" style={{ width: '100%' }} disabled={p.busy} onClick={() => p.go('invite')}>Не сейчас</button>
- </div>
- )
- case 'invite': return (
- <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
- <button className="btn" style={{ width: '100%' }} disabled={!p.inviteCode.trim() || p.busy} onClick={p.applyInvite}>Применить код</button>
- <button className="btn ghost" style={{ width: '100%' }} disabled={p.busy} onClick={p.enterApp}>Пропустить</button>
- </div>
- )
- }
+// egg → wobble → puppy reveal with a sunburst
+function HatchReveal({ name, onNext }: { name: string; onNext: () => void }) {
+  const [open, setOpen] = useState(false)
+  const t = useRef<ReturnType<typeof setTimeout>>()
+  useEffect(() => { t.current = setTimeout(() => { setOpen(true); haptic('success') }, 1400); return () => clearTimeout(t.current) }, [])
+  return (
+    <Shell foot={open ? <button className="onb-btn" onClick={onNext}>Познакомиться</button> : undefined}>
+      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 200 }}>
+        {open && <div className="onb-rays light" style={{ inset: '-60%' }} />}
+        {open
+          ? <div className="onb-pop"><Pet size={170} state="happy" /></div>
+          : <div style={{ fontSize: 96, animation: 'breathe 0.5s ease-in-out infinite' }}>🥚</div>}
+      </div>
+      <h1 className="onb-h1">{open ? `Знакомься, это ${name}!` : 'Яйцо шевелится…'}</h1>
+    </Shell>
+  )
+}
+
+function eggBg(hex: string, spot: string) {
+  return `radial-gradient(circle at 32% 30%, ${spot} 0 11%, transparent 12%),`
+    + `radial-gradient(circle at 62% 56%, ${spot} 0 9%, transparent 10%),`
+    + `radial-gradient(circle at 40% 78%, ${spot} 0 7%, transparent 8%),`
+    + hex
 }
