@@ -36,6 +36,21 @@ export function RoomScene({ children }: Props) {
             <stop offset="0%" stopColor="#C6A953" />
             <stop offset="100%" stopColor="#A98F44" />
           </radialGradient>
+          <clipPath id="rs-glass-clip"><circle cx="130" cy="92" r="44" /></clipPath>
+          <radialGradient id="rs-moonglow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#FBFCFF" stopOpacity="0.55" />
+            <stop offset="55%" stopColor="#D6E0EE" stopOpacity="0.16" />
+            <stop offset="100%" stopColor="#D6E0EE" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="rs-vignette" cx="50%" cy="46%" r="66%">
+            <stop offset="0%" stopColor="#102036" stopOpacity="0" />
+            <stop offset="72%" stopColor="#102036" stopOpacity="0" />
+            <stop offset="100%" stopColor="#102036" stopOpacity="0.24" />
+          </radialGradient>
+          <linearGradient id="rs-night" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#1B2747" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#10203A" stopOpacity="0.14" />
+          </linearGradient>
         </defs>
 
         {/* wall + floor */}
@@ -50,12 +65,24 @@ export function RoomScene({ children }: Props) {
           <path d="M163 56 Q178 30 193 56 Z" fill="#8C9A57" />
           <path d="M163 56 Q178 30 178 56 Z" fill="#A2B069" />
           <ellipse cx="178" cy="56" rx="15" ry="4" fill="#AEBD74" />
+          <ellipse cx="178" cy="57" rx="8" ry="4" fill="url(#rs-nest)" opacity="0.7" />
+          <circle cx="178" cy="57" r="3" fill="#FCEFAF" />
           <path d="M165 58 L150 122 L206 122 L191 58 Z" fill="#FCEFAF" opacity="0.3" />
         </g>
 
         {/* round moon window */}
         <circle cx="130" cy="92" r="51" fill="#CBD8EC" />
         <circle cx="130" cy="92" r="44" fill="url(#rs-glass)" />
+        <g className="rs-stars" clipPath="url(#rs-glass-clip)">
+          <circle cx="150" cy="78" r="1.1" fill="#EAF2FB" style={{ ['--td' as never]: '0s' }} />
+          <circle cx="160" cy="96" r="0.8" fill="#EAF2FB" style={{ ['--td' as never]: '1.4s' }} />
+          <circle cx="143" cy="110" r="0.7" fill="#D6E0EE" style={{ ['--td' as never]: '2.6s' }} />
+          <circle cx="165" cy="82" r="0.9" fill="#EAF2FB" style={{ ['--td' as never]: '3.3s' }} />
+          <circle cx="154" cy="118" r="0.6" fill="#D6E0EE" style={{ ['--td' as never]: '4.1s' }} />
+          <circle cx="168" cy="104" r="0.8" fill="#EAF2FB" style={{ ['--td' as never]: '5.0s' }} />
+          <circle cx="137" cy="71" r="0.7" fill="#D6E0EE" style={{ ['--td' as never]: '6.2s' }} />
+        </g>
+        <circle className="rs-moonglow" cx="113" cy="74" r="22" fill="url(#rs-moonglow)" clipPath="url(#rs-glass-clip)" />
         <circle cx="113" cy="74" r="13" fill="url(#rs-moon)" />
         <circle cx="118" cy="72" r="11" fill="#2A3856" opacity="0.3" />
         <ellipse cx="146" cy="108" rx="22" ry="16" fill="#445782" opacity="0.35" transform="rotate(-30 146 108)" />
@@ -66,7 +93,8 @@ export function RoomScene({ children }: Props) {
         <path d="M164 132 L210 200 L150 200 L140 132 Z" fill="#EAF2FB" opacity="0.1" />
 
         {/* dresser under window */}
-        <ellipse cx="131" cy="172" rx="40" ry="7" fill="#1F4d56" opacity="0.22" />
+        <ellipse cx="131" cy="172" rx="44" ry="9" fill="#102E34" opacity="0.16" />
+        <ellipse cx="131" cy="171" rx="34" ry="5" fill="#102E34" opacity="0.20" />
         <rect x="96" y="118" width="70" height="52" rx="7" fill="url(#rs-dresser)" />
         <rect x="101" y="124" width="60" height="13" rx="3.5" fill="#92ACCE" />
         <rect x="101" y="140" width="60" height="13" rx="3.5" fill="#92ACCE" />
@@ -84,6 +112,12 @@ export function RoomScene({ children }: Props) {
         <circle cx="245" cy="120" r="3.5" fill="#5C3A1E" />
         <circle cx="244" cy="119" r="1.2" fill="#fff" opacity="0.5" />
 
+        {/* door contact shadow */}
+        <ellipse cx="264" cy="172" rx="36" ry="7" fill="#102E34" opacity="0.20" />
+
+        {/* night-grade + corner vignette (render behind the absolute pet div) */}
+        <rect x="0" y="0" width="320" height="250" fill="url(#rs-night)" style={{ pointerEvents: 'none' }} />
+        <rect x="0" y="0" width="320" height="250" fill="url(#rs-vignette)" style={{ pointerEvents: 'none' }} />
       </svg>
       {/* pet rests in its bed, centered toward the lower-middle */}
       <div style={{ position: 'absolute', left: '50%', bottom: '10%', transform: 'translateX(-50%)' }}>

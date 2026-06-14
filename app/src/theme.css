@@ -452,3 +452,102 @@ h2 { font-size: 18px; }
 @media (prefers-reduced-motion: reduce) {
   .onb-body, .onb-pop, .onb-float { animation: none !important; }
 }
+
+/* ============================================================
+   Design glow-up: cinematic room lighting + premium UI chrome.
+   Appended as overrides (later source order wins). The pet PNG,
+   its pose, the rug placement and room layout are never touched.
+   ============================================================ */
+:root {
+  --shadow-color: 28 18 8; /* warm brown, used as rgb() with alpha */
+  --shadow-sm: 0 1px 2px rgb(var(--shadow-color) / .10), 0 1px 1px rgb(var(--shadow-color) / .06);
+  --shadow-md: 0 2px 5px rgb(var(--shadow-color) / .10), 0 6px 16px rgb(var(--shadow-color) / .12);
+  --shadow-lg: 0 4px 10px rgb(var(--shadow-color) / .14), 0 12px 28px rgb(var(--shadow-color) / .18);
+  --hairline: rgba(122, 79, 42, .10);
+  --highlight: rgba(255, 255, 255, .45);
+  --adv: #235a64;
+  --adv-deep: #2c6b75;
+}
+
+/* — room ambient: twinkling stars + breathing moon glow — */
+.rs-stars circle { opacity: 0.35; animation: rs-twinkle 7s ease-in-out infinite; animation-delay: var(--td, 0s); }
+@keyframes rs-twinkle { 0%, 100% { opacity: 0.18; } 50% { opacity: 0.9; } }
+.rs-moonglow { transform-box: fill-box; transform-origin: center; animation: rs-moonglow 8s ease-in-out infinite; }
+@keyframes rs-moonglow { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
+
+/* — warm hero glow strictly behind the pet (z0) + layered contact shadow — */
+.petrug-glow {
+  position: absolute; left: 50%; bottom: -4px; transform: translateX(-50%);
+  width: 150px; height: 110px; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 50% 50% at 54% 60%, rgba(252,239,175,0.20), rgba(252,239,175,0) 70%);
+  animation: petrug-glow 4.6s ease-in-out infinite;
+}
+@keyframes petrug-glow {
+  0%, 100% { opacity: 0.82; transform: translateX(-50%) scale(1); }
+  50%      { opacity: 1;    transform: translateX(-50%) scale(1.03); }
+}
+.petrug-shadow {
+  position: absolute; left: 50%; bottom: -15px; transform: translateX(-50%);
+  width: 162px; height: 28px; border-radius: 50%; z-index: 0;
+  background:
+    radial-gradient(ellipse 32% 60% at 52% 52%, rgba(40,30,20,0.32), rgba(40,30,20,0) 70%),
+    radial-gradient(ellipse 50% 50% at 52% 50%, rgba(16,46,52,0.22), rgba(16,46,52,0) 74%);
+  animation: petshadow-breathe 4.6s ease-in-out infinite;
+}
+@keyframes petshadow-breathe {
+  0%, 100% { transform: translateX(-50%) scale(1, 1); opacity: 1; }
+  50%      { transform: translateX(-50%) scale(0.965, 0.92); opacity: 0.94; }
+}
+
+/* — surfaces: top-light bevel + layered ambient shadow + hairline — */
+.card { box-shadow: inset 0 1px 0 var(--highlight), var(--shadow-md), 0 0 0 1px var(--hairline); }
+.tab-quests .card, .tab-shop .card, .tab-friends .card, .tab-bag .card {
+  box-shadow: inset 0 1px 0 var(--highlight), var(--shadow-md), 0 0 0 1px rgba(255,255,255,.12);
+}
+
+/* — buttons: top sheen + focus ring (the 0 4px 0 lip-press is preserved) — */
+.btn { position: relative; }
+.btn::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0) 46%);
+}
+.btn.ghost::before { background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 50%); }
+.btn.ghost { box-shadow: var(--shadow-lip), 0 0 0 1px var(--hairline); }
+.btn:focus-visible { outline: none; box-shadow: 0 4px 0 var(--green-deep), 0 0 0 3px rgba(242,169,59,.45); }
+.btn.accent:focus-visible { outline: none; box-shadow: 0 4px 0 var(--accent-deep), 0 0 0 3px rgba(242,169,59,.5); }
+
+/* — bottom-nav: tactile active pill + one-shot icon hop — */
+.tab { transition: color .18s ease, background .18s ease; position: relative; }
+.tab.active {
+  color: var(--brown-deep);
+  background: rgba(242, 169, 59, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(242,169,59,.22);
+}
+.tab.active > svg { animation: tab-pop .32s cubic-bezier(.2,.8,.3,1.5); }
+@keyframes tab-pop { 0% { transform: scale(1); } 45% { transform: scale(1.16) translateY(-1px); } 100% { transform: scale(1); } }
+
+/* — glossy progress bars (gloss layers under the existing shine sweep) — */
+.adv-track { box-shadow: inset 0 2px 4px rgba(0,0,0,.16), inset 0 0 0 1px rgba(0,0,0,.05); }
+.energy-track { box-shadow: inset 0 2px 4px rgba(122,79,42,.18), inset 0 0 0 1px var(--hairline); }
+.adv-fill, .energy-fill {
+  background: linear-gradient(90deg, var(--gold), var(--accent) 60%, var(--accent-deep));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 3px rgba(0,0,0,.10);
+}
+
+/* — goal tiles: bevels + tappable empty check + green done gradient — */
+.goal-icon, .goal-check { box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 0 0 1px var(--hairline); }
+.goal-check:not(.done) { box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 0 0 1.5px rgba(122,79,42,.18); }
+.goal-check.done { background: linear-gradient(180deg, #93c178, var(--green-deep)); box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
+
+/* — adventure card dimensional lift — */
+.adv-card { background: linear-gradient(180deg, var(--adv-deep), var(--adv)); box-shadow: inset 0 1px 0 rgba(255,255,255,.10), var(--shadow-lg); }
+.adv-bolt { background: radial-gradient(circle at 50% 38%, #4a98a3, #3a828d 70%); box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 10px rgba(255,210,120,.35); }
+
+/* — type rung — */
+.caption { font-size: 13px; font-weight: 700; color: var(--ink-soft); }
+h1 { letter-spacing: -.01em; }
+h2 { letter-spacing: -.005em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rs-stars circle, .rs-moonglow, .petrug-glow, .petrug-shadow, .tab.active > svg { animation: none !important; }
+}
