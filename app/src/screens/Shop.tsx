@@ -29,14 +29,14 @@ export function Shop() {
  </header>
  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
  {SHOPS.map(s => (
- <button key={s.id} className="card" style={{ margin: 0, textAlign: 'center', border: 'none', cursor: 'pointer' }} onClick={() => open(s.id)}>
- <div style={{ fontSize: 44 }}>{s.emoji}</div>
+ <button key={s.id} className="card shop-tile" style={{ margin: 0, textAlign: 'center', border: 'none', cursor: 'pointer' }} onClick={() => open(s.id)}>
+ <div style={{ marginBottom: 8 }}><span className="emoji-medallion">{s.emoji}</span></div>
  <h2>{s.ru}</h2>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{s.npc}</div>
  </button>
  ))}
- <button className="card" style={{ margin: 0, textAlign: 'center', border: 'none', cursor: 'pointer' }} onClick={() => open('travel')}>
- <div style={{ fontSize: 44 }}>✈️</div>
+ <button className="card shop-tile" style={{ margin: 0, textAlign: 'center', border: 'none', cursor: 'pointer' }} onClick={() => open('travel')}>
+ <div style={{ marginBottom: 8 }}><span className="emoji-medallion">✈️</span></div>
  <h2>Путешествия</h2>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>Хвост-трэвел · Сасси</div>
  </button>

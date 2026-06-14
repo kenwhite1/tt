@@ -111,7 +111,7 @@ export function Friends() {
  </header>
 
  {/* tree scene */}
- <div className="card" style={{ position: 'relative', overflow: 'hidden', padding: 0, background: 'linear-gradient(180deg, #cde6c2 0%, #a9d693 55%, #8fc878 100%)', minHeight: 360 }}>
+ <div className="card yard-scene" style={{ position: 'relative', overflow: 'hidden', padding: 0, background: 'linear-gradient(180deg, #cde6c2 0%, #a9d693 55%, #8fc878 100%)', minHeight: 360 }}>
  {/* big tree */}
  <div style={{ position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)', fontSize: 96, opacity: 0.9, pointerEvents: 'none' }}>🌳</div>
 
@@ -146,7 +146,7 @@ export function Friends() {
  })}
 
  {/* own puppy in the nest, center */}
- <div style={{ position: 'absolute', left: '50%', top: '52%', transform: 'translate(-50%,-50%)', textAlign: 'center' }}>
+ <div className="yard-me" style={{ position: 'absolute', left: '50%', top: '52%', transform: 'translate(-50%,-50%)', textAlign: 'center' }}>
  <div style={{ fontSize: 30, marginBottom: -14 }}>🪺</div>
  <PuppyMini stage={data.me.stage} color={data.me.color} size={96} state="idle" />
  <div style={{ fontSize: 12, fontWeight: 800, color: '#3d5c2e', background: 'rgba(255,255,255,0.8)', borderRadius: 999, padding: '1px 10px', display: 'inline-block' }}>
@@ -187,7 +187,7 @@ export function Friends() {
  <button
  onClick={() => setOpen('referral')}
  className="card"
- style={{ width: '100%', textAlign: 'left', border: 'none', cursor: 'pointer', background: '#3d5c2e', color: '#fff', display: 'flex', alignItems: 'center', gap: 12 }}
+ style={{ width: '100%', textAlign: 'left', border: 'none', cursor: 'pointer', background: 'linear-gradient(160deg, #4d7339, #33502a)', color: '#fff', display: 'flex', alignItems: 'center', gap: 12 }}
  >
  <span style={{ fontSize: 34 }}>🐮</span>
  <div style={{ flex: 1 }}>

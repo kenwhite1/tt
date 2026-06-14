@@ -37,9 +37,9 @@ function BagMenu({ onOpen }: { onOpen(v: View): void }) {
  <h1 style={{ textAlign: 'center', marginBottom: 16 }}>Сумка щенка</h1>
  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
  {SECTIONS.map(s => (
- <button key={s.id} className="card" onClick={() => onOpen(s.id)}
+ <button key={s.id} className="card shop-tile" onClick={() => onOpen(s.id)}
  style={{ margin: 0, textAlign: 'center', border: 'none', cursor: 'pointer', gridColumn: s.full ? '1 / -1' : undefined, position: 'relative' }}>
- <div style={{ fontSize: 40 }}>{s.emoji}</div>
+ <div style={{ marginBottom: 8 }}><span className="emoji-medallion">{s.emoji}</span></div>
  <h2>{s.ru}</h2>
  {s.id === 'mail' && unread > 0 && (
  <span style={{ position: 'absolute', top: 12, right: 16, background: 'var(--red)', color: '#fff', borderRadius: 999, padding: '2px 9px', fontWeight: 800, fontSize: 13 }}>{unread}</span>

@@ -173,7 +173,7 @@ export function Pet() {
  {/* profile card */}
  <div className="card">
  <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
- <div style={{ background: 'var(--card-shade)', borderRadius: 18, padding: 6 }}>
+ <div className="portrait-frame">
  <Puppy size={104} />
  </div>
  <div style={{ flex: 1 }}>
@@ -181,7 +181,7 @@ export function Pet() {
  <div style={{ color: 'var(--ink-soft)', fontWeight: 700 }}>{PRONOUN_RU[pet.pronouns]}</div>
  <button onClick={copyCode} style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left' }}>
  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent-deep)', marginTop: 8 }}>КОД ДРУГА</div>
- <div style={{ fontWeight: 800, letterSpacing: 1.5, color: 'var(--accent-deep)' }}>{user.friendCode} ⧉</div>
+ <div className="copy-chip">{user.friendCode} ⧉</div>
  </button>
  </div>
  </div>
@@ -231,7 +231,7 @@ export function Pet() {
  {/* streak card */}
  <div className="card">
  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
- <span style={{ fontSize: 34 }}>🌞</span>
+ <span className="stat-orb">🌞</span>
  <div style={{ flex: 1 }}>
  <b style={{ fontSize: 20 }}>{user.streak} </b>
  {plural(user.streak, ['день подряд', 'дня подряд', 'дней подряд'])}
@@ -258,7 +258,7 @@ export function Pet() {
  {[0, 1, 2].map(i => {
  const p = previewPets[i]
  return (
- <div key={i} style={{ background: 'var(--card-shade)', borderRadius: 14, height: 84, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 30, opacity: p ? 1 : 0.5 }}>
+ <div key={i} className={'slot' + (p ? '' : ' locked')} style={{ fontSize: 30 }}>
  {p ? <Micropet speciesId={p.speciesId} variantHex={p.variantHex} adult={p.adult} size={56} /> : '❓'}
  </div>
  )
@@ -273,12 +273,12 @@ export function Pet() {
  <div className="card">
  <h2 style={{ marginBottom: 10 }}>Локации</h2>
  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
- <div style={{ background: 'linear-gradient(#9fcf8a, #6da653)', borderRadius: 14, height: 84, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontSize: 26 }}>
+ <div className="slot-live" style={{ fontSize: 26 }}>
  🌲
  <span style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>{logbook?.firstPct ?? 1}%</span>
  </div>
  {[0, 1].map(i => (
- <div key={i} style={{ background: 'var(--card-shade)', borderRadius: 14, height: 84, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 30, opacity: 0.5 }}>❓</div>
+ <div key={i} className="slot locked" style={{ fontSize: 30 }}>❓</div>
  ))}
  </div>
  <div style={{ fontSize: 13, textAlign: 'center', marginTop: 6, fontWeight: 700 }}>
@@ -309,7 +309,7 @@ export function Pet() {
  <div style={{ display: 'flex', gap: 10, overflowX: 'auto' }}>
  {badges.map(b => (
  <div key={b.id} style={{ textAlign: 'center', minWidth: 64 }}>
- <div style={{ fontSize: 34 }}>🏅</div>
+ <div className="badge-orb">🏅</div>
  <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--ink-soft)' }}>{b.id}</div>
  </div>
  ))}

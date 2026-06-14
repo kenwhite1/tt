@@ -45,7 +45,7 @@ export function WeeklyStars({ weekly, onClaim }: Props) {
  <button
  key={tier}
  disabled={isClaimed || !reachable}
- onClick={() => onClaim(w.sca, tier)}
+ onClick={() => onClaim(w.sca, tier)} className={reachable && !isClaimed ? 'star-tier' : undefined}
  style={{
  flex: 1, border: 'none', borderRadius: 14, padding: '8px 4px', cursor: reachable && !isClaimed ? 'pointer' : 'default',
  background: isClaimed ? 'var(--card-shade)' : reachable ? 'var(--gold)' : 'var(--card-shade)',
