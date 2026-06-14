@@ -101,7 +101,7 @@ export function Friends() {
  <button className="btn ghost" style={{ padding: '8px 12px', position: 'relative' }} onClick={() => setOpen('inbox')}>
  ❤️
  {data.unreadVibesTotal > 0 && (
- <span style={{ position: 'absolute', top: -4, right: -4, background: 'var(--red)', color: '#fff', borderRadius: 999, fontSize: 11, fontWeight: 800, minWidth: 18, height: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 4px' }}>
+ <span className="vibe-badge" style={{ position: 'absolute', top: -4, right: -4, background: 'var(--red)', color: '#fff', borderRadius: 999, fontSize: 11, fontWeight: 800, minWidth: 18, height: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 4px' }}>
  {data.unreadVibesTotal}
  </span>
  )}
@@ -129,16 +129,16 @@ export function Friends() {
  return (
  <button
  key={f.id}
- onClick={() => { haptic('tap'); setActive(f) }}
+ onClick={() => { haptic('tap'); setActive(f) }} className="yard-buddy"
  style={{ position: 'absolute', left: `${s.x}%`, top: `${s.y}%`, transform: 'translate(-50%,-50%)', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
  >
  <div style={{ position: 'relative' }}>
  <PuppyMini stage={f.stage} color={f.color} dyes={f.dyes} size={62} />
  {f.unreadVibes > 0 && (
- <span style={{ position: 'absolute', top: -2, right: -2, background: 'var(--red)', color: '#fff', borderRadius: 999, fontSize: 10, fontWeight: 800, minWidth: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{f.unreadVibes}</span>
+ <span className="vibe-badge" style={{ position: 'absolute', top: -2, right: -2, background: 'var(--red)', color: '#fff', borderRadius: 999, fontSize: 10, fontWeight: 800, minWidth: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{f.unreadVibes}</span>
  )}
  </div>
- <span style={{ fontSize: 12, fontWeight: 800, color: '#3d5c2e', background: 'rgba(255,255,255,0.7)', borderRadius: 999, padding: '1px 8px', marginTop: 2, maxWidth: 84, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+ <span className="yard-chip" style={{ fontSize: 12, fontWeight: 800, color: '#3d5c2e', background: 'rgba(255,255,255,0.7)', borderRadius: 999, padding: '1px 8px', marginTop: 2, maxWidth: 84, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
  {f.emoji ? `${f.emoji} ` : ''}{f.name}
  </span>
  </button>

@@ -162,10 +162,15 @@ export function EventCalendar() {
  60% { transform: scale(1.15); }
  to { transform: scale(1); opacity: 1; }
  }
+        .ev-banner { position: relative; overflow: hidden; }
+        .ev-banner::before { content: ''; position: absolute; inset: -40%; pointer-events: none; z-index: 0; background: radial-gradient(closest-side, rgba(255,255,255,.55), rgba(255,255,255,0) 70%); mix-blend-mode: soft-light; animation: banner-sheen 7s ease-in-out infinite; }
+        .ev-banner > * { position: relative; z-index: 1; }
+        @keyframes banner-sheen { 0%, 100% { transform: translate(-22%, -12%); opacity: .5; } 50% { transform: translate(24%, 10%); opacity: .9; } }
+        @media (prefers-reduced-motion: reduce) { .ev-banner::before { animation: none; } }
  `}</style>
 
  <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
- <div onClick={() => { haptic('tap'); setExpanded(x => !x) }} style={{ cursor: 'pointer' }}>
+ <div className="ev-banner" onClick={() => { haptic('tap'); setExpanded(x => !x) }} style={{ cursor: 'pointer' }}>
  <LocationScene sky="#ffe9b8" ground="#cdeaa5">
  <div style={{ fontSize: 34 }}>🌞🍉⛱️</div>
  <h2 style={{ margin: '4px 0' }}>{event.name}</h2>

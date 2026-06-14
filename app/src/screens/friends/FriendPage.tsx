@@ -103,7 +103,7 @@ export function FriendPage({ data, friend, onBack, reload }:
  <span style={{ color: 'var(--ink-soft)' }}>ур. {friend.level}</span>
  </div>
  <div className="energy-track" style={{ height: 14 }}>
- <div className="energy-fill" style={{ width: `${Math.round(lvl.ratio * 100)}%`, background: 'linear-gradient(90deg,#f5a3b6,#e2574c)' }} />
+ <div className="energy-fill love" style={{ width: `${Math.round(lvl.ratio * 100)}%` }} />
  </div>
  {lvl.next != null && (
  <div style={{ fontSize: 12, color: 'var(--ink-soft)', marginTop: 4 }}>{Math.floor(friend.pts)} / {lvl.next} очков дружбы</div>

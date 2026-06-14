@@ -183,7 +183,7 @@ function DressView({ kind, onBack }: { kind: 'outfits' | 'furniture' | 'colors';
  const on = kind === 'colors' ? equippedColor(s.id) === it.colorId : equippedItem(s.id) === it.itemId && equippedColor(s.id) === it.colorId
  return (
  <button key={`${it.itemId}:${it.colorId}`} title={it.ru} onClick={() => void equip(s.id, kind === 'colors' ? s.id : it.itemId, it.colorId)}
- style={{ width: 52, height: 52, borderRadius: 12, background: it.hex, cursor: 'pointer', border: on ? '3px solid var(--brown-deep)' : '3px solid rgba(0,0,0,0.08)' }} />
+ className={'swatch' + (on ? ' sel' : '')} style={{ width: 52, height: 52, borderRadius: 12, background: it.hex, cursor: 'pointer' }} />
  )
  })}
  </div>

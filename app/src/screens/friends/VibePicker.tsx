@@ -16,7 +16,7 @@ export function VibePicker({ vibes, plus, onPick, title = 'Пошли тёплы
  return (
  <button
  key={v.id}
- onClick={() => onPick(v)}
+ onClick={() => onPick(v)} className="ray-tile"
  style={{
  position: 'relative', border: 'none', cursor: 'pointer',
  background: v.color, borderRadius: 18, padding: '12px 6px',

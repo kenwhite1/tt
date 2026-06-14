@@ -25,7 +25,7 @@ export function ChallengeSection({ challenges, onJoin, onCheck }: Props) {
  style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer' }}
  onClick={() => { haptic('tap'); setOpen(expanded ? null : ch.id) }}
  >
- <span style={{ fontSize: 30 }}>{ch.badge}</span>
+ <span style={{ fontSize: 30 }} className={ch.completed ? 'badge-earned' : undefined}>{ch.badge}</span>
  <div style={{ flex: 1 }}>
  <div style={{ fontWeight: 800 }}>{ch.name}</div>
  {ch.completed ? (

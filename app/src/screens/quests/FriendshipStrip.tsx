@@ -15,7 +15,7 @@ export function FriendshipStrip() {
  return (
  <div className="card" style={{ background: 'linear-gradient(135deg, #fff3d6, #ffe5ec)', padding: '14px 16px' }}>
  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
- <span style={{ fontSize: 24 }}>💛</span>
+ <span style={{ fontSize: 24 }} className="heart-glow">💛</span>
  <div style={{ flex: 1 }}>
  <div style={{ fontWeight: 800 }}>Дружба с {pet.name}</div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>

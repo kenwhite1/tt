@@ -157,7 +157,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  </div>
 
  <div className="card" style={{ textAlign: 'center' }}>
- <div style={{ fontSize: 64 }}>🥚</div>
+ <div className={'egg-pop' + (egg.canHatch ? ' ready' : '')} style={{ fontSize: 64 }}>🥚</div>
  {egg.goalId != null ? (
  <>
  <div style={{ fontWeight: 800, margin: '6px 0' }}>
@@ -235,7 +235,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  </div>
 
  <div
- className="card"
+ className="card mp-meadow"
  style={{
  position: 'relative', height: 180, overflow: 'hidden', padding: 0,
  background: 'linear-gradient(#cfe6f5 0%, #d9ecc2 55%, #b9d99b 100%)',
@@ -329,7 +329,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  onClick={e => e.stopPropagation()}
  >
  <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
- <Micropet speciesId={selected.speciesId} variantHex={selected.variantHex} adult={selected.adult} size={84} />
+ <span className="mp-portrait"><Micropet speciesId={selected.speciesId} variantHex={selected.variantHex} adult={selected.adult} size={84} /></span>
  <div style={{ flex: 1 }}>
  <h2>{selected.name} {selected.emoji}</h2>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', fontWeight: 700 }}>
@@ -404,10 +404,11 @@ function HatchReveal({ pet, onClose }: { pet: MicropetDto; onClose(): void }) {
  style={{ position: 'fixed', inset: 0, background: 'rgba(60,40,20,0.55)', zIndex: 60, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}
  onClick={onClose}
  >
- <div className="card" style={{ width: '100%', textAlign: 'center', margin: 0 }} onClick={e => e.stopPropagation()}>
+ <div className="card" style={{ width: '100%', textAlign: 'center', margin: 0, position: 'relative', overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
+ <div className="confetti" aria-hidden>{Array.from({ length: 11 }).map((_, i) => (<i key={i} style={{ left: `${6 + i * 8}%`, ['--cd' as never]: `${(i % 5) * 0.08}s`, background: ['var(--gold)', 'var(--accent)', 'var(--green)', 'var(--red)', 'var(--accent-deep)'][i % 5] }} />))}</div>
  <div style={{ fontSize: 40 }}>🥚✨</div>
  <h2 style={{ margin: '8px 0' }}>Кто-то вылупился!</h2>
- <Micropet speciesId={pet.speciesId} variantHex={pet.variantHex} size={96} />
+ <span className="mp-portrait"><Micropet speciesId={pet.speciesId} variantHex={pet.variantHex} size={96} /></span>
  <h1 style={{ margin: '8px 0 2px' }}>{pet.name} {pet.emoji}</h1>
  <div style={{ fontWeight: 700, color: 'var(--ink-soft)' }}>
  {pet.speciesRu} · {pet.variantColor} · характер: {pet.nature}

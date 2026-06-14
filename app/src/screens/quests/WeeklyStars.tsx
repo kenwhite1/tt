@@ -45,7 +45,7 @@ export function WeeklyStars({ weekly, onClaim }: Props) {
  <button
  key={tier}
  disabled={isClaimed || !reachable}
- onClick={() => onClaim(w.sca, tier)} className={reachable && !isClaimed ? 'star-tier' : undefined}
+ onClick={() => onClaim(w.sca, tier)} className={reachable && !isClaimed ? 'is-claimable is-gold star-tier' : undefined}
  style={{
  flex: 1, border: 'none', borderRadius: 14, padding: '8px 4px', cursor: reachable && !isClaimed ? 'pointer' : 'default',
  background: isClaimed ? 'var(--card-shade)' : reachable ? 'var(--gold)' : 'var(--card-shade)',
@@ -53,7 +53,7 @@ export function WeeklyStars({ weekly, onClaim }: Props) {
  opacity: isClaimed ? 0.65 : 1, fontFamily: 'inherit',
  }}
  >
- <div style={{ fontSize: 20 }}>{isClaimed || reachable ? '⭐' : '☆'}</div>
+ <div style={{ fontSize: 20 }} className={reachable && !isClaimed ? 'star-twinkle' : undefined}>{isClaimed || reachable ? '⭐' : '☆'}</div>
  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--ink)' }}>
  {isClaimed ? 'Получено' : reachable ? `Забрать ${m.stones} 🦴` : `${m.days} дн. → ${m.stones} 🦴`}
  </div>
