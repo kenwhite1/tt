@@ -46,7 +46,7 @@ export function App() {
   if (phase === 'loading') {
     return (
       <div className="screen" style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <Puppy state="happy" />
+        <div className="puppy-bob"><Puppy state="happy" /></div>
         <h2 style={{ marginTop: 12 }}>Шарик просыпается…</h2>
       </div>
     )

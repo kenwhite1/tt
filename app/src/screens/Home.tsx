@@ -20,6 +20,9 @@ export function Home() {
   const [showMood, setShowMood] = useState(false)
   const [adding, setAdding] = useState(false)
   const [title, setTitle] = useState('')
+  const [react, setReact] = useState(false)
+  const [leaving, setLeaving] = useState(false)
+  const reactTimer = useRef<ReturnType<typeof setTimeout>>()
   const hearts = useRef<HTMLDivElement>(null)
   if (!state) return null
   const { pet, energy, energyMax, walk, walkReady, goals } = state
@@ -37,6 +40,31 @@ export function Home() {
     setTimeout(() => el.remove(), 1000)
   }
 
+  async function onComplete(e: React.MouseEvent<HTMLButtonElement>, id: number) {
+    const r = e.currentTarget.getBoundingClientRect()
+    const reward = await completeGoal(id)
+    const bits: string[] = []
+    if (reward.walkMinutesReduced) bits.push(`🚶 −${reward.walkMinutesReduced} мин`)
+    else { if (reward.energy) bits.push(`+${reward.energy}⚡`); if (reward.stones) bits.push(`+${reward.stones}🦴`) }
+    const el = document.createElement('div')
+    el.className = 'reward-pop'
+    el.textContent = bits.join('  ') || '✓'
+    el.style.left = `${r.left + r.width / 2}px`
+    el.style.top = `${r.top - 4}px`
+    document.body.appendChild(el)
+    setTimeout(() => el.remove(), 1200)
+    setReact(true)
+    clearTimeout(reactTimer.current)
+    reactTimer.current = setTimeout(() => setReact(false), 1300)
+  }
+
+  async function onWalk() {
+    setLeaving(true) // play the trot-out, then start the walk (room empties)
+    await new Promise(r => setTimeout(r, 820))
+    await startWalk()
+    setLeaving(false)
+  }
+
   return (
     <>
       <div className="scroll" style={{ paddingTop: 'calc(var(--safe-top) + 4px)' }}>
@@ -44,8 +72,8 @@ export function Home() {
         <div style={{ position: 'relative', marginBottom: 18 }}>
           <RoomScene>
             {!walking && (
-              <div ref={hearts} style={{ position: 'relative', display: 'inline-block', touchAction: 'none' }} onPointerDown={onPat}>
-                <Puppy state="idle" size={150} stage={pet.stage as never} />
+              <div ref={hearts} className={leaving ? 'walk-out' : ''} style={{ position: 'relative', display: 'inline-block', touchAction: 'none' }} onPointerDown={leaving ? undefined : onPat}>
+                <Puppy state={leaving ? 'walking' : react ? 'happy' : 'idle'} size={150} stage={pet.stage as never} />
               </div>
             )}
           </RoomScene>
@@ -82,7 +110,7 @@ export function Home() {
         </div>
 
         {walkReady && (
-          <button className="btn accent" style={{ width: '100%', marginBottom: 14 }} onClick={() => void startWalk()}>🐾 На прогулку!</button>
+          <button className="btn accent" style={{ width: '100%', marginBottom: 14 }} onClick={() => void onWalk()}>🐾 На прогулку!</button>
         )}
 
         {state.lowMoodDay && (
@@ -118,7 +146,7 @@ export function Home() {
                 {g.timesPerDay > 1 && <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{g.doneToday} / {g.timesPerDay}</div>}
               </div>
               <span className="goal-reward">5⚡</span>
-              <button className={`goal-check ${done ? 'done' : ''}`} disabled={done} onClick={() => void completeGoal(g.id)}>
+              <button className={`goal-check ${done ? 'done' : ''}`} disabled={done} onClick={e => void onComplete(e, g.id)}>
                 {done ? '✓' : ''}
               </button>
             </div>
@@ -144,7 +172,7 @@ export function Home() {
           style={{ position: 'fixed', inset: 0, background: 'rgba(60,40,20,0.45)', zIndex: 40, display: 'flex', alignItems: 'flex-end' }}
           onClick={() => setShowMood(false)}
         >
-          <div className="card" style={{ width: '100%', borderRadius: '26px 26px 0 0', margin: 0, paddingBottom: 'calc(20px + var(--safe-bottom))' }} onClick={e => e.stopPropagation()}>
+          <div className="card sheet" style={{ width: '100%', borderRadius: '26px 26px 0 0', margin: 0, paddingBottom: 'calc(20px + var(--safe-bottom))' }} onClick={e => e.stopPropagation()}>
             <h2 style={{ textAlign: 'center', marginBottom: 14 }}>Как ты сейчас?</h2>
             <div style={{ display: 'flex', justifyContent: 'space-around' }}>
               {MOODS.map((m, i) => (

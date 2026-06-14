@@ -181,3 +181,71 @@ h2 { font-size: 18px; }
 .tab-shop .card, .tab-shop .goal-row, .tab-shop input, .tab-shop textarea, .tab-shop select,
 .tab-friends .card, .tab-friends .goal-row, .tab-friends input, .tab-friends textarea, .tab-friends select,
 .tab-bag .card, .tab-bag .goal-row, .tab-bag input, .tab-bag textarea, .tab-bag select { color: var(--ink); }
+
+/* ===== motion & micro-interactions ===== */
+.btn { transition: transform 0.09s ease, box-shadow 0.09s ease; }
+.btn:active { transform: translateY(2px) scale(0.975); }
+.round-btn { transition: transform 0.1s ease; }
+.round-btn:active { transform: scale(0.9); }
+.card, .goal-row { transition: transform 0.12s ease, box-shadow 0.12s ease; }
+
+/* screen entrance: gentle staggered rise of the scroll's children */
+@keyframes rise-in { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: none; } }
+.scroll > * { animation: rise-in 0.34s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.scroll > *:nth-child(1) { animation-delay: 0.01s; }
+.scroll > *:nth-child(2) { animation-delay: 0.05s; }
+.scroll > *:nth-child(3) { animation-delay: 0.09s; }
+.scroll > *:nth-child(4) { animation-delay: 0.13s; }
+.scroll > *:nth-child(5) { animation-delay: 0.17s; }
+.scroll > *:nth-child(6) { animation-delay: 0.21s; }
+.scroll > *:nth-child(n + 7) { animation-delay: 0.24s; }
+
+/* goal check: satisfying pop when completed */
+@keyframes check-pop { 0% { transform: scale(0.5); } 55% { transform: scale(1.28); } 100% { transform: scale(1); } }
+.goal-check.done { animation: check-pop 0.34s cubic-bezier(0.2, 0.8, 0.3, 1.5); }
+.goal-check:active { transform: scale(0.9); }
+
+/* floating reward chip that rises from the tap point */
+@keyframes reward-rise {
+  0% { opacity: 0; transform: translate(-50%, 6px) scale(0.8); }
+  16% { opacity: 1; transform: translate(-50%, -8px) scale(1.06); }
+  100% { opacity: 0; transform: translate(-50%, -58px) scale(1); }
+}
+.reward-pop {
+  position: fixed; z-index: 55; pointer-events: none; white-space: nowrap;
+  font-weight: 800; font-size: 17px; color: var(--brown-deep);
+  background: #fffaf0; padding: 5px 13px; border-radius: 999px; box-shadow: var(--shadow-lip);
+  animation: reward-rise 1.15s ease-out forwards;
+}
+
+/* shimmer sweep across progress fills */
+.adv-fill, .energy-fill { position: relative; overflow: hidden; }
+.adv-fill::after, .energy-fill::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 32%, rgba(255, 255, 255, 0.55) 50%, transparent 68%);
+  transform: translateX(-120%); animation: shine 2.6s ease-in-out infinite;
+}
+@keyframes shine { 0% { transform: translateX(-120%); } 55%, 100% { transform: translateX(240%); } }
+
+/* adventure bolt gentle pulse */
+.adv-bolt { animation: bolt-pulse 2.2s ease-in-out infinite; }
+@keyframes bolt-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.09); } }
+
+/* bottom-sheet & loading */
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.sheet { animation: sheet-up 0.32s cubic-bezier(0.2, 0.8, 0.3, 1.05); }
+@keyframes puppy-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+.puppy-bob { animation: puppy-bob 1.1s ease-in-out infinite; }
+@keyframes dots { 0% { content: ''; } 25% { content: '.'; } 50% { content: '..'; } 75% { content: '...'; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll > *, .goal-check.done, .adv-fill::after, .energy-fill::after, .adv-bolt, .puppy-bob, .sheet { animation: none !important; }
+}
+
+/* puppy trots out to the door when a walk begins */
+@keyframes walk-out {
+  0%   { transform: translateX(0) translateY(0); opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translateX(130px) translateY(-34px) scale(0.82); opacity: 0; }
+}
+.walk-out { animation: walk-out 0.85s cubic-bezier(0.4, 0, 0.7, 0.4) forwards; }

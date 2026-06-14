@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { StateDto } from '@shared/types'
+import type { StateDto, RewardDto } from '@shared/types'
 import { api } from './api'
 import { haptic } from './telegram'
 
@@ -19,7 +19,7 @@ interface Store {
   boot(): Promise<void>
   finishOnboarding(data: { petName: string; pronouns: string; color: string; trait: string; userName: string }): Promise<void>
   enterApp(): void
-  completeGoal(id: number): Promise<void>
+  completeGoal(id: number): Promise<RewardDto>
   addGoal(title: string, emoji?: string): Promise<void>
   startWalk(): Promise<void>
   logMood(value: number, note?: string): Promise<void>
@@ -81,12 +81,8 @@ export const useStore = create<Store>((set, get) => ({
   async completeGoal(id) {
     const { reward, state } = await api.completeGoal(id)
     haptic('success')
-    const bits = []
-    if (reward.energy) bits.push(`+${reward.energy}⚡`)
-    if (reward.stones) bits.push(`+${reward.stones}🦴`)
-    if (reward.walkMinutesReduced) bits.push(`прогулка −${reward.walkMinutesReduced} мин`)
-    get().showToast(bits.join('  ') || 'Готово!')
     set({ state })
+    return reward // Home floats the exact reward from the tap point
   },
 
   async addGoal(title, emoji) {
