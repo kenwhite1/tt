@@ -181,6 +181,9 @@ export function Onboarding() {
     if (Array.isArray(a)) for (const idx of a) { const s = AREA_SCA[idx]; if (s) set.add(s) }
     if (ans['sleep'] === 0 || ans['sleep'] === 1) set.add('sleep')
     if (ans['active'] === 2) set.add('movement')
+    if (ans['overwhelm'] === 0 || ans['overwhelm'] === 1) set.add('calm')
+    if (ans['support'] === 3) { set.add('connection'); set.add('self_kindness') }
+    if (ans['routine'] === 2) set.add('productivity')
     return [...set]
   }
 

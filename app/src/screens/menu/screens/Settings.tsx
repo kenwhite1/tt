@@ -6,6 +6,10 @@ import { haptic } from '../../../telegram'
 import { Loading, Sub, Toggle } from '../ui'
 import { invalidateContent } from '../ui'
 import type { AppSettings, SettingsDto } from '../types'
+import { isSoundOn, setSoundOn, playSfx } from '../../../sound'
+import { getThemePref, setThemePref, type ThemePref } from '../../../themeMode'
+
+const THEMES: [ThemePref, string][] = [['auto', 'Авто'], ['light', 'Светлая'], ['dark', 'Тёмная']]
 
 const HH = (min: number) => String(Math.floor(min / 60)).padStart(2, '0')
 const MM = (min: number) => String(min % 60).padStart(2, '0')
@@ -46,6 +50,8 @@ const PRONOUNS: { v: 'he' | 'she' | 'they'; ru: string }[] = [
 
 export function Settings({ onBack }: { onBack(): void }) {
   const [d, setD] = useState<SettingsDto | null>(null)
+  const [soundOn, setSoundOnState] = useState(isSoundOn())
+  const [themePref, setThemePrefState] = useState(getThemePref())
 
   useEffect(() => { req<SettingsDto>('/activities/settings').then(setD).catch(() => {}) }, [])
 
@@ -136,6 +142,19 @@ export function Settings({ onBack }: { onBack(): void }) {
         <div style={{ display: 'flex', gap: 6 }}>
           <button onClick={() => patchSettings({ celebration: 'cheers' })} style={pillStyle(s.celebration === 'cheers')}>🎉 Радоваться</button>
           <button onClick={() => patchSettings({ celebration: 'reflect' })} style={pillStyle(s.celebration === 'reflect')}>🌿 Спокойно</button>
+        </div>
+      </div>
+
+      {/* sound + theme (client-side, stored locally) */}
+      <div className="card">
+        <h2 style={{ marginBottom: 6 }}>Звук и тема</h2>
+        <Toggle label="Звуки" sub="Тихие звуки заботы о Шарике" value={soundOn}
+          onChange={v => { setSoundOn(v); setSoundOnState(v); if (v) playSfx('complete') }} />
+        <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)', margin: '10px 2px 6px' }}>Тема оформления</div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {THEMES.map(([v, ru]) => (
+            <button key={v} onClick={() => { haptic('tap'); setThemePref(v); setThemePrefState(v) }} style={pillStyle(themePref === v)}>{ru}</button>
+          ))}
         </div>
       </div>
     </Sub>

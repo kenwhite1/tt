@@ -4,6 +4,7 @@ import { Puppy } from '../art/Puppy'
 import { PetRug } from '../art/PetRug'
 import { RoomScene } from '../art/RoomScene'
 import { BoltIcon } from '../art/icons'
+import { playSfx } from '../sound'
 import { WalkChat } from './travel/WalkChat'
 
 function WalkCountdown({ endsTs }: { endsTs: number }) {
@@ -35,6 +36,7 @@ export function Home() {
 
   function onPat(e: React.PointerEvent) {
     useStore.getState().pat(1)
+    playSfx('pat')
     const el = document.createElement('div')
     el.className = 'heart-float'
     el.textContent = '💛'
@@ -57,6 +59,7 @@ export function Home() {
     el.style.top = `${r.top - 4}px`
     document.body.appendChild(el)
     setTimeout(() => el.remove(), 1200)
+    playSfx('complete')
     setReact(true)
     clearTimeout(reactTimer.current)
     reactTimer.current = setTimeout(() => setReact(false), 1300)

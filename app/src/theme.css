@@ -169,10 +169,10 @@ h2 { font-size: 18px; }
 
 /* ===== per-tab page backgrounds (Finch-style coloured tabs) ===== */
 .screen { transition: background 0.2s ease; }
-.screen.tab-quests  { background: #6E5FC6; }
-.screen.tab-shop    { background: #3FA3DD; }
-.screen.tab-friends { background: #74B25C; }
-.screen.tab-bag     { background: #F0A02C; }
+.screen.tab-quests  { background: #5F51B5; }
+.screen.tab-shop    { background: #2E8FC6; }
+.screen.tab-friends { background: #5E9A48; }
+.screen.tab-bag     { background: #C2781C; }
 .screen.tab-pet     { background: #ECDCB4; }
 
 /* white headers/labels on the dark-coloured tabs; light surfaces keep dark text */
@@ -764,4 +764,38 @@ h2 { letter-spacing: -.005em; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tab-page, .pet-zzz { animation: none !important; }
+}
+
+/* ============================================================
+   Accessibility + dark mode
+   ============================================================ */
+/* legibility aid for white headings on the saturated tabs */
+.tab-quests h1, .tab-quests h2, .tab-shop h1, .tab-shop h2,
+.tab-friends h1, .tab-friends h2, .tab-bag h1, .tab-bag h2 { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22); }
+/* comfortable tap targets */
+.goal-check { width: 42px; height: 42px; }
+.round-btn { width: 44px; height: 44px; }
+
+/* dark theme — follows the Telegram colour scheme; override in Settings */
+html[data-theme="dark"] {
+  --bg: #18130f; --bg-deep: #110d0a;
+  --card: #271f1a; --card-shade: #1f1813;
+  --ink: #f1e7d8; --ink-soft: #ad9a85;
+  --hairline: rgba(255, 255, 255, 0.09); --highlight: rgba(255, 255, 255, 0.05);
+  --shadow-color: 0 0 0;
+}
+html[data-theme="dark"] .screen.tab-pet { background: var(--bg); }
+/* saturated tabs keep their vivid bg, but their cards stay cream w/ dark ink
+   (dark ink on a dark card would otherwise vanish) */
+html[data-theme="dark"] .tab-quests .card, html[data-theme="dark"] .tab-shop .card,
+html[data-theme="dark"] .tab-friends .card, html[data-theme="dark"] .tab-bag .card,
+html[data-theme="dark"] .tab-quests .goal-row, html[data-theme="dark"] .tab-shop .goal-row,
+html[data-theme="dark"] .tab-friends .goal-row, html[data-theme="dark"] .tab-bag .goal-row {
+  background: #fffaf0; color: #5c4326;
+  /* re-pin surface tokens to light so nested medallions/icons don't go muddy */
+  --card: #fffaf0; --card-shade: #f7ecd9; --hairline: rgba(122, 79, 42, 0.10); --highlight: rgba(255, 255, 255, 0.45);
+}
+/* form controls on dark neutral surfaces */
+html[data-theme="dark"] .scroll input, html[data-theme="dark"] .scroll textarea, html[data-theme="dark"] .scroll select {
+  background: var(--card-shade); color: var(--ink); border-color: rgba(255, 255, 255, 0.14);
 }

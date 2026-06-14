@@ -5,6 +5,7 @@ import { C } from '@shared/constants'
 import { req } from '../../api'
 import { useStore } from '../../store'
 import { haptic } from '../../telegram'
+import { playSfx } from '../../sound'
 import { Micropet } from '../../art/Micropet'
 import { Puppy } from '../../art/Puppy'
 import { Micropedia } from './Micropedia'
@@ -118,6 +119,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  async function hatch() {
  const r = await req<{ pet: MicropetDto; egg: EggDto }>('/micropets/egg/hatch', {})
  haptic('success')
+ playSfx('hatch')
  setHatched(r.pet)
  reload()
  }

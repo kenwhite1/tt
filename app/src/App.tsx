@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useStore, type Tab } from './store'
 import { tg } from './telegram'
+import { resolveTheme } from './themeMode'
 import { TabIcons } from './art/icons'
 import { Home } from './screens/Home'
 import { Onboarding } from './screens/Onboarding'
@@ -22,12 +23,13 @@ const TABS: { key: Tab; ru: string }[] = [
 ]
 
 // per-tab page colour (drives the screen background + Telegram chrome)
+// Deepened saturated colours so white headings clear the contrast bar (a11y).
 const TAB_BG: Record<Tab, string> = {
   home: '#F3E2BC',
-  quests: '#6E5FC6',
-  shop: '#3FA3DD',
-  friends: '#74B25C',
-  bag: '#F0A02C',
+  quests: '#5F51B5',
+  shop: '#2E8FC6',
+  friends: '#5E9A48',
+  bag: '#C2781C',
   pet: '#ECDCB4',
 }
 
@@ -39,7 +41,9 @@ export function App() {
   // keep the Telegram header/background colour in sync with the active tab
   useEffect(() => {
     if (phase !== 'ready') return
-    const c = TAB_BG[tab]
+    const dark = resolveTheme() === 'dark'
+    const neutral = tab === 'home' || tab === 'pet'
+    const c = dark && neutral ? '#18130f' : TAB_BG[tab]
     try { tg?.setBackgroundColor(c); tg?.setHeaderColor(c) } catch { /* older clients */ }
   }, [tab, phase])
 
