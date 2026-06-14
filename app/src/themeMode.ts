@@ -6,7 +6,8 @@ export type ThemePref = 'auto' | 'light' | 'dark'
 
 export function getThemePref(): ThemePref {
   const v = localStorage.getItem('themePref')
-  return v === 'light' || v === 'dark' ? v : 'auto'
+  // light is the default; 'auto' (follow Telegram) is opt-in via Settings
+  return v === 'auto' || v === 'light' || v === 'dark' ? v : 'light'
 }
 
 export function resolveTheme(pref: ThemePref = getThemePref()): 'light' | 'dark' {

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useStore, type Tab } from './store'
 import { tg } from './telegram'
 import { resolveTheme } from './themeMode'
+import { track } from './analytics'
 import { TabIcons } from './art/icons'
 import { Home } from './screens/Home'
 import { Onboarding } from './screens/Onboarding'
@@ -37,6 +38,7 @@ export function App() {
   const { phase, tab, setTab, boot, toast, menuOpen, setMenuOpen } = useStore()
 
   useEffect(() => { void boot() }, [boot])
+  useEffect(() => { if (phase === 'ready') track('app_open') }, [phase])
 
   // keep the Telegram header/background colour in sync with the active tab
   useEffect(() => {

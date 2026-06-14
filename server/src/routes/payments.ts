@@ -102,6 +102,8 @@ export function registerPaymentHandlers(b: Bot) {
  'INSERT INTO payments (user_id, charge_id, stars, kind, sub_until, ts) VALUES (?,?,?,?,?,?)',
  ).run(ctx.from.id, sp.telegram_payment_charge_id, sp.total_amount, isYear ? 'sub_year' : 'sub_month', until, Date.now())
  db.prepare('UPDATE users SET plus_until=? WHERE id=?').run(until, ctx.from.id)
+ db.prepare('INSERT INTO events (user_id, name, props, ts) VALUES (?,?,?,?)')
+ .run(ctx.from.id, 'plus_purchased', JSON.stringify({ kind: isYear ? 'year' : 'month', stars: sp.total_amount }), Date.now())
 
  await ctx.reply('Гав-гав! 💛 Шарик Плюс включён, спасибо, что заботишься о нас обоих!').catch(() => {})
  })

@@ -5,6 +5,7 @@ import { PetRug } from '../art/PetRug'
 import { RoomScene } from '../art/RoomScene'
 import { BoltIcon } from '../art/icons'
 import { playSfx } from '../sound'
+import { track } from '../analytics'
 import { WalkChat } from './travel/WalkChat'
 
 function WalkCountdown({ endsTs }: { endsTs: number }) {
@@ -60,6 +61,7 @@ export function Home() {
     document.body.appendChild(el)
     setTimeout(() => el.remove(), 1200)
     playSfx('complete')
+    track('goal_complete')
     setReact(true)
     clearTimeout(reactTimer.current)
     reactTimer.current = setTimeout(() => setReact(false), 1300)

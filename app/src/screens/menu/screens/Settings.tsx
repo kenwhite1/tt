@@ -125,6 +125,7 @@ export function Settings({ onBack }: { onBack(): void }) {
         <Toggle label="Все уведомления" value={allOn} onChange={v => {
           const next = Object.fromEntries(NOTIF.map(n => [n.key, v])) as AppSettings['notifications']
           setD({ ...d, settings: { ...s, notifications: next } }); void save({ settings: { notifications: next } })
+          if (v) void req('/notifications/enable', {}).catch(() => {}) // ensure the bot may DM
         }} />
         <div style={{ height: 1, background: 'var(--card-shade)', margin: '6px 0' }} />
         {NOTIF.map(n => (

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
+import { C } from '@shared/constants'
 import { useStore } from '../store'
 import { api } from '../api'
+import { track } from '../analytics'
 import { Puppy } from '../art/Puppy'
 import { haptic, requestWriteAccess, addToHomeScreen, tg } from '../telegram'
 
@@ -138,6 +140,7 @@ export function Onboarding() {
     return () => { alive = false }
   }, [step]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => { track('onboard_start') }, [])
   useEffect(() => () => clearTimeout(advTimer.current), [])
 
   function pickSingle(qid: string, idx: number) {
@@ -154,7 +157,8 @@ export function Onboarding() {
   }
   async function enableReminders() {
     setBusy(true)
-    try { await requestWriteAccess() } catch { /* ignore */ }
+    // the Telegram grant alone never reaches the server — tell it explicitly so DMs start
+    try { if (await requestWriteAccess()) await api.enableNotifications().catch(() => {}) } catch { /* ignore */ }
     setBusy(false); next()
   }
 
@@ -172,7 +176,7 @@ export function Onboarding() {
     if (commit !== null) out.commitDays = COMMIT[commit].days
     return out
   }
-  function finish() { void api.survey(buildSurvey()).catch(() => {}); enterApp() }
+  function finish() { track('onboard_complete'); void api.survey(buildSurvey()).catch(() => {}); enterApp() }
 
   // self-care areas (+ sleep/activity nudges) the user picked → tailors the starter plan
   function selectedAreas(): string[] {
@@ -189,6 +193,7 @@ export function Onboarding() {
 
   // open the real Telegram Stars invoice; continue whatever the user decides
   async function buyPlus(plan: 'month' | 'year') {
+    track('plus_invoice_open', { plan, from: 'onboarding' })
     try {
       const r = await api.subscribe(plan)
       if (r.link && tg?.openInvoice) { tg.openInvoice(r.link, () => next()); return }
@@ -423,19 +428,25 @@ export function Onboarding() {
         </Shell>
       )
 
-    case 'plus3':
+    case 'plus3': {
+      const perMonth = Math.round(C.PLUS_YEAR_STARS / 12)
       return (
         <Shell foot={
           <>
-            <button className="onb-btn" disabled={busy} onClick={() => void buyPlus('year')}>Оформить со скидкой −73%</button>
-            <button className="onb-link muted" onClick={next}>Пропустить предложение</button>
+            <button className="onb-btn" disabled={busy} onClick={() => void buyPlus('year')}>Оформить за {C.PLUS_YEAR_STARS} ⭐ на год</button>
+            <button className="onb-link muted" onClick={next}>Пропустить</button>
           </>}>
-          <p className="onb-sub"><span className="onb-accent" style={{ fontWeight: 800 }}>Разовое предложение!</span></p>
-          <h1 className="onb-h1">−73% при старте пробного периода сейчас</h1>
-          <Pet size={150} state="happy" badge="😎" />
-          <p className="onb-sub">Самая большая скидка — только для тебя и {name}.</p>
+          <p className="onb-sub"><span className="onb-accent" style={{ fontWeight: 800 }}>Лучшая цена</span></p>
+          <h1 className="onb-h1">Шарик Плюс — на целый год</h1>
+          <Pet size={138} state="happy" badge="😎" />
+          <div className="onb-stat" style={{ background: '#f2a93b' }}>
+            <span className="em">⭐</span>
+            <div><b>{C.PLUS_YEAR_STARS} звёзд за весь год</b><span>≈ {perMonth} ⭐/мес вместо {C.PLUS_MONTH_STARS} ⭐/мес</span></div>
+          </div>
+          <p className="onb-sub">Это разовая оплата за 365 дней — не ежемесячно. Отменять ничего не нужно.</p>
         </Shell>
       )
+    }
 
     case 'hear': {
       const sel = ans['hear']

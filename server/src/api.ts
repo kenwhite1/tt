@@ -40,12 +40,12 @@ const onboardingSchema = z.object({
 })
 
 api.use('/*', async (c, next) => {
- if (c.req.path.endsWith('/auth') || c.req.path.endsWith('/health')) return next()
+ if (c.req.path.endsWith('/auth') || c.req.path.endsWith('/health') || c.req.path.endsWith('/events/summary')) return next()
  const token = c.req.header('authorization')?.replace(/^Bearer /, '')
  const uid = token ? await verifyToken(token) : null
  if (!uid) return c.json({ error: 'unauthorized' }, 401)
  const user = getUser(uid)
- if (!user && !c.req.path.endsWith('/onboard')) return c.json({ error: 'not_registered' }, 403)
+ if (!user && !c.req.path.endsWith('/onboard') && !c.req.path.endsWith('/events')) return c.json({ error: 'not_registered' }, 403)
  if (user) c.set('user', user)
  ;(c as unknown as { uid: number }).uid = uid
  return next()
@@ -75,6 +75,38 @@ api.post('/onboarding/survey', async c => {
 })
 
 api.get('/state', c => c.json({ state: getState(c.get('user')) }))
+
+// allow the bot to DM this user (reminders) — called after the Telegram
+// write-access grant, since that grant alone never reaches the server.
+api.post('/notifications/enable', c => {
+ db.prepare('UPDATE users SET write_access=1 WHERE id=?').run(c.get('user').id)
+ return c.json({ ok: true })
+})
+
+// first-party analytics: log a funnel/error event (uid optional → works mid-onboarding)
+api.post('/events', async c => {
+ const body = z.object({ name: z.string().min(1).max(60), props: z.record(z.unknown()).optional() })
+ .safeParse(await c.req.json().catch(() => null))
+ if (!body.success) return c.json({ error: 'bad_request' }, 400)
+ const uid = (c as unknown as { uid: number }).uid ?? null
+ const props = body.data.props ? JSON.stringify(body.data.props).slice(0, 2000) : null
+ db.prepare('INSERT INTO events (user_id, name, props, ts) VALUES (?,?,?,?)').run(uid, body.data.name, props, Date.now())
+ return c.json({ ok: true })
+})
+
+// owner funnel summary (guarded by ADMIN_KEY; exempt from auth above)
+api.get('/events/summary', c => {
+ const key = process.env.ADMIN_KEY
+ if (!key || c.req.header('x-admin-key') !== key) return c.json({ error: 'forbidden' }, 403)
+ const days = Math.min(90, Math.max(1, Number(c.req.query('days')) || 30))
+ const since = Date.now() - days * 86_400_000
+ const byName = db.prepare(
+ 'SELECT name, COUNT(*) n, COUNT(DISTINCT user_id) users FROM events WHERE ts > ? GROUP BY name ORDER BY n DESC',
+ ).all(since)
+ const activeUsers = (db.prepare('SELECT COUNT(DISTINCT user_id) n FROM events WHERE ts > ?').get(since) as { n: number }).n
+ const accounts = (db.prepare('SELECT COUNT(*) n FROM users').get() as { n: number }).n
+ return c.json({ days, accounts, activeUsers, byName })
+})
 
 api.post('/goals', async c => {
  const body = z.object({

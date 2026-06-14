@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { req } from '../../api'
 import { tg } from '../../telegram'
 import { useStore } from '../../store'
+import { track } from '../../analytics'
 
 interface ConfigDto { enforced: boolean; monthStars: number; yearStars: number }
 
@@ -28,6 +29,7 @@ export function PlusScreen({ onClose }: { onClose(): void }) {
 
  async function subscribe(plan: 'month' | 'year') {
  if (busy || !cfg?.enforced) return
+ track('plus_invoice_open', { plan, from: 'plus_screen' })
  setBusy(true)
  try {
  const r = await req<{ link?: string; dev?: boolean }>('/payments/subscribe', { plan })
