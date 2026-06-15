@@ -63,6 +63,19 @@ api.post('/onboard', async c => {
  return c.json({ state: getState(user) })
 })
 
+// Retake the onboarding quiz (Settings → «Пройти знакомство заново»). Updates the
+// existing pet/profile in place; keeps stones, streak, goals, micropets, friends.
+api.post('/onboard/retake', async c => {
+ const user = c.get('user') // middleware guarantees a registered user here
+ const body = onboardingSchema.safeParse(await c.req.json().catch(() => null))
+ if (!body.success) return c.json({ error: 'bad_request' }, 400)
+ const { petName, pronouns, color, trait, species, userName } = body.data
+ db.prepare('UPDATE users SET name=? WHERE id=?').run(userName, user.id)
+ db.prepare('UPDATE pets SET name=?, pronouns=?, color=?, trait=?, species=? WHERE user_id=?')
+  .run(petName, pronouns, color, trait, species ?? 'dog', user.id)
+ return c.json({ state: getState(getUser(user.id)!) })
+})
+
 // Persist onboarding survey answers (raw JSON, last-write-wins). Requires a registered user.
 api.post('/onboarding/survey', async c => {
   const raw = await c.req.json().catch(() => null)

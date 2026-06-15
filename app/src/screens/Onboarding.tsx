@@ -105,13 +105,17 @@ type Step = typeof ORDER[number]
 export function Onboarding() {
   const { finishOnboarding, enterApp, tgName } = useStore()
   const goals = useStore(s => s.state?.goals)
+  // When retaking from Settings the user is already registered — prefill the
+  // current pet so tapping straight through changes nothing by accident.
+  const pet = useStore(s => s.state?.pet)
+  const meName = useStore(s => s.state?.user.name)
   const [step, setStep] = useState<Step>('welcome')
-  const [species, setSpecies] = useState<Species>('dog')
-  const [boxColor, setBoxColor] = useState('')
-  const [pronouns, setPronouns] = useState<'he' | 'she' | 'they'>('he')
-  const [petName, setPetName] = useState(() => PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)])
-  const [trait, setTrait] = useState('')
-  const [userName, setUserName] = useState(tgName)
+  const [species, setSpecies] = useState<Species>((pet?.species as Species) || 'dog')
+  const [boxColor, setBoxColor] = useState(pet?.color ?? '')
+  const [pronouns, setPronouns] = useState<'he' | 'she' | 'they'>(pet?.pronouns ?? 'he')
+  const [petName, setPetName] = useState(() => pet?.name || PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)])
+  const [trait, setTrait] = useState(pet?.trait ?? '')
+  const [userName, setUserName] = useState(meName || tgName)
   const [ans, setAns] = useState<Record<string, number | number[]>>({})
   const [commit, setCommit] = useState<number | null>(null)
   const [busy, setBusy] = useState(false)

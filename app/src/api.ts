@@ -28,6 +28,9 @@ export const api = {
   },
   onboard: (data: { petName: string; pronouns: string; color: string; trait: string; species?: string; userName: string; tz?: string; areas?: string[] }) =>
     req<{ state: StateDto }>('/onboard', data),
+  // Retake from Settings: update the existing pet/profile instead of creating one.
+  onboardRetake: (data: { petName: string; pronouns: string; color: string; trait: string; species?: string; userName: string; tz?: string; areas?: string[] }) =>
+    req<{ state: StateDto }>('/onboard/retake', data),
   state: () => req<{ state: StateDto }>('/state'),
   addGoal: (data: { title: string; emoji?: string }) => req<{ state: StateDto }>('/goals', data),
   completeGoal: (id: number) => req<{ reward: RewardDto; state: StateDto }>(`/goals/${id}/complete`, {}),

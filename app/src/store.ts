@@ -13,11 +13,13 @@ interface Store {
   toast: string | null
   tgName: string
   menuOpen: boolean
+  retaking: boolean
   setMenuOpen(open: boolean): void
   refresh(): Promise<void>
   setTab(tab: Tab): void
   boot(): Promise<void>
   finishOnboarding(data: { petName: string; pronouns: string; color: string; trait: string; species?: string; userName: string; areas?: string[] }): Promise<void>
+  restartOnboarding(): void
   enterApp(): void
   completeGoal(id: number): Promise<RewardDto>
   addGoal(title: string, emoji?: string): Promise<void>
@@ -36,6 +38,7 @@ export const useStore = create<Store>((set, get) => ({
   toast: null,
   tgName: '',
   menuOpen: false,
+  retaking: false,
 
   setMenuOpen: menuOpen => set({ menuOpen }),
 
@@ -69,13 +72,22 @@ export const useStore = create<Store>((set, get) => ({
   // so the post-creation beats (first goal, reminders, invite) can run. enterApp() finishes.
   async finishOnboarding(data) {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-    const { state } = await api.onboard({ ...data, tz })
+    // Retake (already registered) updates the existing pet; first run creates it.
+    const { state } = get().retaking
+      ? await api.onboardRetake({ ...data, tz })
+      : await api.onboard({ ...data, tz })
     haptic('success')
     set({ state })
   },
 
+  // Re-run the onboarding quiz from Settings (keeps all progress).
+  restartOnboarding() {
+    haptic('tap')
+    set({ phase: 'onboarding', retaking: true, menuOpen: false })
+  },
+
   enterApp() {
-    set({ phase: 'ready' })
+    set({ phase: 'ready', retaking: false })
   },
 
   async completeGoal(id) {
