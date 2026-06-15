@@ -1,0 +1,25 @@
+{
+  "_doc": "«Лучик от друга» preset compliments. PRESET-ONLY, positivity-only — never free text (kills the NGL abuse vector). Delivered by the puppy in a sweet card. id is stable; ru is the message; emoji decorates the card. A non-coder can add lines.",
+  "compliments": [
+    { "id": "kinder", "ru": "ты добрее, чем думаешь о себе", "emoji": "💛" },
+    { "id": "coping", "ru": "ты справляешься, даже когда трудно", "emoji": "🌿" },
+    { "id": "warm", "ru": "рядом с тобой становится тепло", "emoji": "🔆" },
+    { "id": "enough", "ru": "ты уже достаточно хорош(а), правда", "emoji": "🫶" },
+    { "id": "brave", "ru": "то, что ты делаешь, — это смело", "emoji": "🦁" },
+    { "id": "proud", "ru": "я горжусь тем, как ты стараешься", "emoji": "🌟" },
+    { "id": "calm", "ru": "с тобой спокойно, как дома", "emoji": "🏡" },
+    { "id": "light", "ru": "ты приносишь свет, даже не замечая", "emoji": "✨" },
+    { "id": "matter", "ru": "ты очень важен(на), и это не просто слова", "emoji": "💗" },
+    { "id": "listen", "ru": "ты умеешь слушать так, что легчает", "emoji": "👂" },
+    { "id": "smile", "ru": "от твоей улыбки день становится мягче", "emoji": "🙂" },
+    { "id": "strong", "ru": "ты сильнее, чем кажется со стороны", "emoji": "💪" },
+    { "id": "grow", "ru": "ты так классно растёшь над собой", "emoji": "🌱" },
+    { "id": "rest", "ru": "ты заслуживаешь отдохнуть без вины", "emoji": "☁️" },
+    { "id": "funny", "ru": "с тобой по-настоящему весело", "emoji": "😄" },
+    { "id": "trust", "ru": "тебе хочется доверять, и это редкость", "emoji": "🤝" },
+    { "id": "patient", "ru": "спасибо, что ты такой(ая) терпеливый(ая)", "emoji": "🍵" },
+    { "id": "notice", "ru": "ты замечаешь то, что другие пропускают", "emoji": "🔍" },
+    { "id": "gentle", "ru": "будь к себе таким(ой) же добрым(ой), как к другим", "emoji": "🌸" },
+    { "id": "here", "ru": "хорошо, что ты есть", "emoji": "💛" }
+  ]
+}

@@ -17,6 +17,21 @@ export const MASCOTS: { id: Species; ru: string; emoji: string; blurb: string }[
 
 const IMG_SPECIES = new Set(['cat', 'owl', 'turtle', 'elephant', 'alpaca'])
 
+// Warm the browser cache for every image-based mascot so the onboarding species
+// picker paints instantly instead of fetching ~25KB webps the moment it mounts.
+// Idempotent; safe to call repeatedly. `index.html` already preloads the dog.
+let mascotsPreloaded = false
+export function preloadMascots(): void {
+  if (mascotsPreloaded || typeof Image === 'undefined') return
+  mascotsPreloaded = true
+  const supportsWebp = document.createElement('canvas').toDataURL('image/webp').startsWith('data:image/webp')
+  for (const id of IMG_SPECIES) {
+    const img = new Image()
+    img.decoding = 'async'
+    img.src = `/mascots/${id}.${supportsWebp ? 'webp' : 'png'}`
+  }
+}
+
 // Accepts any string (pet.species from the DB) and falls back to the dog for
 // unknown values, so legacy/garbage data never renders a blank pet.
 export function Mascot({ species = 'dog', size = 180, state = 'idle' }: { species?: string; size?: number; state?: PuppyState }) {

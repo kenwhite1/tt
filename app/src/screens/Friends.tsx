@@ -14,6 +14,8 @@ import { FriendPage } from './friends/FriendPage'
 import { InboxSheet } from './friends/InboxSheet'
 import { ReferralSheet } from './friends/ReferralSheet'
 import { SettingsSheet } from './friends/SettingsSheet'
+import { CoopSection } from './friends/coop/CoopSection'
+import { EveningCard } from './friends/EveningCard'
 
 // fixed slots around the central nest (percentages within the scene box)
 const SLOTS = [
@@ -183,6 +185,12 @@ export function Friends() {
  )}
 
  <button className="btn" style={{ width: '100%', marginBottom: 12 }} onClick={() => setOpen('add')}>＋ Добавить друга</button>
+
+ {/* «Содружок» / our shared puppy */}
+ <CoopSection friends={d.friends} mySpecies={d.me.species} />
+
+ {/* «Вечерний сбор» — gentle wind-down */}
+ <EveningCard />
 
  {/* referral banner */}
  <button

@@ -3,7 +3,7 @@ import { C } from '@shared/constants'
 import { useStore } from '../store'
 import { api } from '../api'
 import { track } from '../analytics'
-import { Mascot, MASCOTS, type Species } from '../art/Mascot'
+import { Mascot, MASCOTS, preloadMascots, type Species } from '../art/Mascot'
 import { declineName } from '../ru'
 import { haptic, requestWriteAccess, addToHomeScreen, tg } from '../telegram'
 
@@ -131,7 +131,8 @@ export function Onboarding() {
     return () => { alive = false }
   }, [step]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => { track('onboard_start') }, [])
+  // Fetch all mascot art during the 'welcome' beat so the species picker (next beat) is instant.
+  useEffect(() => { track('onboard_start'); preloadMascots() }, [])
   useEffect(() => () => clearTimeout(advTimer.current), [])
 
   function pickSingle(qid: string, idx: number) {

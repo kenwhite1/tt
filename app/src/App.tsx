@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useStore, type Tab } from './store'
-import { tg } from './telegram'
+import { tg, getStartParam } from './telegram'
+import { coop } from './screens/friends/api'
 import { resolveTheme } from './themeMode'
 import { track } from './analytics'
 import { TabIcons } from './art/icons'
@@ -34,11 +35,24 @@ const TAB_BG: Record<Tab, string> = {
   pet: '#ECDCB4',
 }
 
+let coopHandled = false
+
 export function App() {
   const { phase, tab, setTab, boot, toast, menuOpen, setMenuOpen } = useStore()
 
   useEffect(() => { void boot() }, [boot])
   useEffect(() => { if (phase === 'ready') track('app_open') }, [phase])
+
+  // co-op deep link: t.me/<bot>?startapp=coop_<code> → accept the bond, land on Дворик
+  useEffect(() => {
+    if (phase !== 'ready' || coopHandled) return
+    const sp = getStartParam()
+    if (!sp || !sp.startsWith('coop_')) return
+    coopHandled = true
+    coop.accept(sp.slice(5)).then(r => {
+      if (r.coop) { setTab('friends'); useStore.getState().showToast('Щенок вылупился! 🐣') }
+    }).catch(() => { /* invite gone / already member */ })
+  }, [phase, setTab])
 
   // keep the Telegram header/background colour in sync with the active tab
   useEffect(() => {

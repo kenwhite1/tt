@@ -12,8 +12,13 @@ import { micropetsRoutes } from './routes/micropets'
 import { socialRoutes } from './routes/social'
 import { eventsRoutes } from './routes/events'
 import { paymentsRoutes } from './routes/payments'
+import { coopRoutes } from './routes/coop'
+import { dailyRoutes } from './routes/daily'
+import { shareRoutes } from './routes/share'
+import { eveningRoutes } from './routes/evening'
 import type { UserRow } from './engine/rows'
 import { db } from './db'
+import { logEvent, logFirst } from './engine/analytics'
 
 export const api = new Hono<Env>()
 
@@ -84,6 +89,9 @@ api.post('/onboarding/survey', async c => {
     'INSERT INTO onboarding_survey (user_id, data, ts) VALUES (?,?,?) ' +
     'ON CONFLICT(user_id) DO UPDATE SET data=excluded.data, ts=excluded.ts',
   ).run(c.get('user').id, data, Date.now())
+  // Deliberate age stance: self-declared under-18 → harden social defaults (see 008_safety.sql).
+  const minor = (raw as { age?: unknown }).age === 'До 18' ? 1 : 0
+  if (minor) db.prepare('UPDATE users SET minor=1 WHERE id=?').run(c.get('user').id)
   return c.json({ ok: true })
 })
 
@@ -150,6 +158,8 @@ api.post('/goals/:id/star', c => {
 api.post('/walk/start', c => {
  const r = startWalk(c.get('user'))
  if ('error' in r) return c.json(r, 400)
+ const uid = c.get('user').id
+ logEvent(uid, 'walk_start'); logFirst(uid, 'first_walk')
  return c.json({ state: getState(c.get('user')) })
 })
 
@@ -180,3 +190,7 @@ api.route('/micropets', micropetsRoutes)
 api.route('/social', socialRoutes)
 api.route('/events', eventsRoutes)
 api.route('/payments', paymentsRoutes)
+api.route('/coop', coopRoutes)
+api.route('/daily', dailyRoutes)
+api.route('/share', shareRoutes)
+api.route('/evening', eveningRoutes)

@@ -66,3 +66,53 @@ export interface RewardDto {
   stones: number
   walkMinutesReduced?: number
 }
+
+// ─── «Содружок» / co-op puppy ───
+export interface CoopMemberDto {
+  userId: number
+  name: string
+  species: string
+  contrib: number          // 0..COOP_CONTRIB_PER_MEMBER for their own game-day
+  isMe: boolean
+  role: 'founder' | 'member'
+  showedUp: boolean        // contrib >= COOP_CONTRIB_PER_MEMBER
+}
+export interface CoopDto {
+  id: number
+  name: string
+  pronouns: string
+  species: string
+  color: string
+  dyes: Record<string, string>
+  stage: Stage
+  walks: number
+  status: 'pending' | 'active' | 'dormant'
+  bar: number              // derived Σ contrib
+  barFull: number          // COOP_CONTRIB_PER_MEMBER × memberCount
+  myContrib: number
+  members: CoopMemberDto[]
+  walk: { startedTs: number; endsTs: number; completed: boolean } | null
+  walkReady: boolean
+  walkClaimable: boolean
+  streak: number
+  friendshipPts: number
+  friendshipLevel: number
+  shareCode: string        // for invite / story deep-link
+}
+
+// ─── «Косточка дня» daily dig ───
+export interface DigResultDto {
+  tier: number             // 0 common · 1 uncommon · 2 rare
+  kind: string             // stones|discovery|dye|egg
+  ref: string
+  stones: number
+  ru: string               // human label of what was dug up
+  emoji: string
+}
+export interface DailyDigDto {
+  day: string
+  dug: boolean
+  result: DigResultDto | null
+  shared: boolean
+  streak: number           // gentle "N days digging" counter (separate from main streak)
+}

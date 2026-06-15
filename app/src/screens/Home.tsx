@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { C } from '@shared/constants'
 import { useStore } from '../store'
 import { Mascot } from '../art/Mascot'
 import { PetRug } from '../art/PetRug'
@@ -7,6 +8,7 @@ import { BoltIcon } from '../art/icons'
 import { playSfx } from '../sound'
 import { track } from '../analytics'
 import { WalkChat } from './travel/WalkChat'
+import { DailyDig } from './home/DailyDig'
 
 function WalkCountdown({ endsTs }: { endsTs: number }) {
   const [, force] = useState(0)
@@ -30,6 +32,7 @@ export function Home() {
   const hearts = useRef<HTMLDivElement>(null)
   if (!state) return null
   const { pet, energy, energyMax, walk, walkReady, goals } = state
+  const goalEnergy = state.lowMoodDay ? C.GOAL_ENERGY_LOW_MOOD : C.GOAL_ENERGY
   const walking = walk && !walk.completed
   const hr = new Date().getHours()
   const sleepy = !leaving && !react && (hr >= 21 || hr < 6) // dozes off at night, wakes on a pat
@@ -129,6 +132,9 @@ export function Home() {
           </div>
         )}
 
+        {/* «Косточка дня» — daily dig */}
+        <div style={{ marginBottom: 14 }}><DailyDig /></div>
+
         {/* goals header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '4px 4px 12px' }}>
           <span style={{ fontSize: 20 }}>🗓️</span>
@@ -151,7 +157,7 @@ export function Home() {
                 </div>
                 {g.timesPerDay > 1 && <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{g.doneToday} / {g.timesPerDay}</div>}
               </div>
-              <span className="goal-reward">5⚡</span>
+              <span className="goal-reward">{goalEnergy}⚡</span>
               <button className={`goal-check ${done ? 'done' : ''}`} disabled={done} onClick={e => void onComplete(e, g.id)}>
                 {done ? '✓' : ''}
               </button>

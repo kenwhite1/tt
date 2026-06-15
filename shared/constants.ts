@@ -82,6 +82,44 @@ export const C = {
   // Telegram Stars pricing (owner-set).
   PLUS_MONTH_STARS: 299,
   PLUS_YEAR_STARS: 1999,
+
+  // ─── «Содружок» / co-op puppy (docs/SPEC-COOP-PUPPY.md §8) ───
+  COOP_MAX_ACTIVE: 3,            // concurrent bonds per user
+  COOP_CONTRIB_PER_MEMBER: 5,   // daily goals each must complete to fill their half
+  COOP_WALK_STONES: 12,         // 🦴 paid to EACH member on a co-op walk
+  COOP_DORMANT_DAYS: 10,        // inactivity → cosmetic 'dormant'
+  COOP_STREAK_NUDGE_HOUR: 19,   // local hour to DM the not-yet-contributed partner
+  // derived, not stored: COOP_ENERGY_BAR = COOP_CONTRIB_PER_MEMBER * memberCount
+
+  // ─── Viral growth layer (docs/SPEC-VIRAL-FEATURES.md §7/§constants) ───
+  // 1 «Витрина» share cards
+  SHARE_REWARD_STONES: 5,       // once per distinct milestone (share_events uniqueness)
+  // 2 «Косточка дня» daily dig
+  DAILY_DIG_WEIGHTS: [70, 25, 5],     // [common, uncommon, rare] tier odds
+  DAILY_DIG_STONES: [3, 8, 20],       // 🦴 by tier
+  DIG_SHARE_REWARD: 5,
+  // 3 «Косточка-спасалочка» giftable streak-freeze (reuses users.repairs + gifts table)
+  STREAK_FREEZE_GIFT_STONES: 150,
+  FREEZE_GIFTS_PER_FRIEND_PER_DAY: 1,
+  REPAIRS_GIFT_OVERCAP: 3,            // claiming a gifted freeze may exceed STREAK_REPAIR_MAX up to this
+  // 4 «Лучик от друга» compliments (extends vibes)
+  COMPLIMENT_REWARD_STONES: 2,        // first/friend/day, mirrors a vibe
+  COMPLIMENTS_FREE: 14,
+  COMPLIMENTS_PLUS: 18,
+  COMPLIMENT_ANON_ALLOWED: true,
+  // 5B collectible puppy items
+  COLLECTIBLE_GIFT_FEE: 200,
+  COLLECTIBLE_DROPS: [
+    { id: 'col_summer_kerchief', ru: 'Летняя бандана', cap: 5000, season: 'summer' },
+    { id: 'col_amber_collar', ru: 'Янтарный ошейник', cap: 3000, season: 'summer' },
+    { id: 'col_acorn_charm', ru: 'Жёлудь-талисман', cap: 2000, season: 'autumn' },
+  ],
+  // 6 «Вечерний сбор»
+  EVENING_DEFAULT_HOUR: 20,
+  EVENING_WINDOW_MIN: 90,
+
+  // ─── Safety ───
+  REPORTS_PER_DAY: 10,                 // soft anti-spam cap on reports per reporter per day
 } as const
 
 export function stageForWalks(walks: number): Stage {

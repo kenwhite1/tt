@@ -6,8 +6,13 @@ import { C, friendshipLevel, stageForWalks } from '../../../shared/constants'
 import { content } from '../content'
 import { db } from '../db'
 import { addGoal, addStones, getUser } from '../engine/core'
-import { ensureFresh } from '../engine/day'
+import { ensureFresh, gameDay } from '../engine/day'
+import { logEvent, logFirst } from '../engine/analytics'
+import { sendDM } from '../jobs'
 import { hasPlus } from '../env'
+import { readFileSync } from 'node:fs'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import type { Env } from '../env'
 import type { GoalRow, PetRow, UserRow, WalkRow } from '../engine/rows'
 
@@ -233,7 +238,7 @@ function settleOne(p: PendingRef) {
  })()
 }
 
-function settleReferrals(me: UserRow) {
+export function settleReferrals(me: UserRow) {
  const mine = db.prepare('SELECT * FROM pending_referrals WHERE tg_id=?').get(me.id) as PendingRef | undefined
  if (mine) settleOne(mine)
  const asInviter = db.prepare(
@@ -258,14 +263,16 @@ socialRoutes.get('/friends', c => {
 
  const rows = db.prepare(
  `SELECT f.friend_id, f.nickname, f.emoji, f.muted, f.pts, f.created_ts,
- u.name, u.last_day AS f_day, p.name AS pet_name, p.walks, p.color, p.dyes
+ u.name, u.last_day AS f_day, u.streak AS f_streak, u.tz AS f_tz, u.wake_min AS f_wake,
+ p.name AS pet_name, p.walks, p.color, p.dyes
  FROM friendships f
  JOIN users u ON u.id=f.friend_id
  JOIN pets p ON p.user_id=f.friend_id
  WHERE f.user_id=? ORDER BY f.created_ts, f.friend_id`,
  ).all(me.id) as {
  friend_id: number; nickname: string | null; emoji: string | null; muted: number; pts: number
- created_ts: number; name: string; f_day: string | null; pet_name: string; walks: number; color: string; dyes: string
+ created_ts: number; name: string; f_day: string | null; f_streak: number; f_tz: string; f_wake: number
+ pet_name: string; walks: number; color: string; dyes: string
  }[]
 
  const unreadQ = db.prepare('SELECT COUNT(*) n FROM vibes WHERE to_id=? AND from_id=? AND read=0')
@@ -332,6 +339,7 @@ socialRoutes.get('/friends', c => {
  level: friendshipLevel(Math.floor(r.pts)),
  unreadVibes: (unreadQ.get(me.id, r.friend_id) as { n: number }).n,
  hugToday: !!hugQ.get(r.friend_id, day, yesterday),
+ atRisk: r.f_streak > 0 && r.f_day !== gameDay({ tz: r.f_tz, wake_min: r.f_wake }),
  sharedGoals,
  feed: feed.slice(0, 4),
  }
@@ -613,6 +621,9 @@ socialRoutes.post('/gifts/:id/claim', c => {
  db.prepare('UPDATE gifts SET claimed=1 WHERE id=?').run(gift.id)
  if (gift.kind === 'micropet') {
  grantMicropet(me.id, gift.item_id, me.last_day ?? isoToday())
+ } else if (gift.kind === 'freeze') {
+ // banked streak-freeze (Feature 3): only ever PREVENTS loss; may temporarily exceed the normal cap
+ db.prepare('UPDATE users SET repairs=MIN(?, repairs+1) WHERE id=?').run(C.REPAIRS_GIFT_OVERCAP, me.id)
  } else {
  db.prepare('INSERT OR IGNORE INTO items_owned (user_id, kind, item_id, color_id, acquired_ts) VALUES (?,?,?,?,?)')
  .run(me.id, gift.kind, gift.item_id, gift.color_id, Date.now())
@@ -780,4 +791,139 @@ socialRoutes.post('/referral', async c => {
   settleReferrals(me)
   const ok = !!getUser(me.id)?.referred_by
   return c.json({ ok, inviterName: inviter.name })
+})
+
+// =====================================================================
+// Viral additions — giftable streak-freeze (F3), compliments (F4), reports (safety)
+// =====================================================================
+
+const compliments = JSON.parse(
+  readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'content', 'compliments.json'), 'utf8'),
+) as { compliments: { id: string; ru: string; emoji: string }[] }
+
+const isMinor = (u: UserRow): boolean => (u as unknown as { minor?: number }).minor === 1
+
+// ----- «Косточка-спасалочка»: gift a streak-freeze to a friend (F3) -----
+socialRoutes.post('/gift-freeze', async c => {
+ const me = ensureFresh(c.get('user'))
+ const body = z.object({ friendId: z.number().int(), buy: z.boolean().optional() })
+ .safeParse(await c.req.json().catch(() => null))
+ if (!body.success) return c.json({ error: 'bad_request' }, 400)
+ const friendId = body.data.friendId
+ if (!areFriends(me.id, friendId)) return c.json({ error: 'not_friends' }, 404)
+ const day = me.last_day!
+ const sentToday = db.prepare("SELECT COUNT(*) n FROM gifts WHERE from_id=? AND to_id=? AND kind='freeze' AND day=?")
+ .get(me.id, friendId, day) as { n: number }
+ if (sentToday.n >= C.FREEZE_GIFTS_PER_FRIEND_PER_DAY) return c.json({ error: 'sent_today' }, 409)
+
+ const fresh = getUser(me.id)!
+ const useBanked = !body.data.buy && fresh.repairs > 0
+ if (!useBanked && fresh.stones < C.STREAK_FREEZE_GIFT_STONES) return c.json({ error: 'not_enough_stones' }, 400)
+ db.transaction(() => {
+ if (useBanked) db.prepare('UPDATE users SET repairs=repairs-1 WHERE id=?').run(me.id)
+ else addStones(me.id, -C.STREAK_FREEZE_GIFT_STONES, 'freeze_gift_buy')
+ db.prepare("INSERT INTO gifts (from_id, to_id, kind, item_id, day, ts, claimed) VALUES (?,?,?,?,?,?,0)")
+ .run(me.id, friendId, 'freeze', 'streak_freeze', day, Date.now())
+ mailTo(friendId, 'gift', `${me.name} подарил(а) тебе косточку-спасалочку 🦴`,
+ 'Это спасёт твою серию, если вдруг пропустишь день. Загляни в Почту, чтобы забрать 💛', { freeze: true, fromId: me.id })
+ })()
+ sendDM(friendId, `${me.name} подарил(а) тебе косточку-спасалочку 🦴 Она сбережёт твою серию. Загляни в Шарика 💛`)
+ logEvent(me.id, 'gift_freeze', { friendId })
+ return c.json({ ok: true, usedBanked: useBanked })
+})
+
+// ----- «Лучик от друга»: preset compliment, optionally anonymous-within-friends (F4) -----
+socialRoutes.get('/compliments', c => {
+ const me = c.get('user')
+ return c.json({ compliments: compliments.compliments, anonAllowed: C.COMPLIMENT_ANON_ALLOWED && !isMinor(me), isMinor: isMinor(me) })
+})
+
+socialRoutes.post('/compliment', async c => {
+ const me = ensureFresh(c.get('user'))
+ const body = z.object({
+ friendId: z.number().int().optional(),
+ external: z.boolean().optional(),
+ messageId: z.string().max(40),
+ anon: z.boolean().optional(),
+ }).safeParse(await c.req.json().catch(() => null))
+ if (!body.success) return c.json({ error: 'bad_request' }, 400)
+ const msg = compliments.compliments.find(m => m.id === body.data.messageId)
+ if (!msg) return c.json({ error: 'bad_message' }, 400)
+ // minors: never anonymous, never to non-users (preset-only + young users handled on purpose)
+ const anon = !!body.data.anon && C.COMPLIMENT_ANON_ALLOWED && !isMinor(me)
+
+ // warmth-as-acquisition: a compliment to a non-user friend becomes a referral link
+ if (body.data.external) {
+ if (isMinor(me)) return c.json({ error: 'minor_no_external' }, 403)
+ const link = `https://t.me/${BOT_USERNAME}?startapp=ref_${me.friend_code}`
+ logEvent(me.id, 'compliment_external')
+ return c.json({ external: true, link, text: `Тебе прислали тёплый лучик: «${msg.ru}» ${msg.emoji} Открой, чтобы получить 💛` })
+ }
+
+ const friendId = body.data.friendId
+ if (!friendId || !areFriends(me.id, friendId)) return c.json({ error: 'not_friends' }, 404)
+ const day = me.last_day!
+ // daily compliment budget (mirrors the vibe catalog gating)
+ const sentToday = (db.prepare("SELECT COUNT(*) n FROM vibes WHERE from_id=? AND day=? AND type='compliment'")
+ .get(me.id, day) as { n: number }).n
+ const cap = hasPlus(me) ? C.COMPLIMENTS_PLUS : C.COMPLIMENTS_FREE
+ if (sentToday >= cap) return c.json({ error: 'limit_reached' }, 429)
+
+ const first = !db.prepare("SELECT 1 FROM vibes WHERE from_id=? AND to_id=? AND day=? AND type='compliment' LIMIT 1")
+ .get(me.id, friendId, day)
+ const muted = (db.prepare('SELECT muted FROM friendships WHERE user_id=? AND friend_id=?')
+ .get(friendId, me.id) as { muted: number } | undefined)?.muted ? 1 : 0
+
+ let reward: { energy: number; stones: number; walkMinutesReduced?: number } = { energy: 0, stones: 0 }
+ db.transaction(() => {
+ db.prepare('INSERT INTO vibes (from_id, to_id, type, day, ts, read, answered, anon, message_id) VALUES (?,?,?,?,?,?,0,?,?)')
+ .run(me.id, friendId, 'compliment', day, Date.now(), muted, anon ? 1 : 0, msg.id)
+ db.prepare('UPDATE friendships SET pts=pts+0.5 WHERE user_id=? AND friend_id=?').run(me.id, friendId)
+ db.prepare('UPDATE friendships SET pts=pts+0.5 WHERE user_id=? AND friend_id=?').run(friendId, me.id)
+ if (first) {
+ const e = awardEnergy(me, C.VIBE_FIRST_ENERGY)
+ addStones(me.id, C.COMPLIMENT_REWARD_STONES, 'compliment_first')
+ reward = { energy: e.energy, stones: C.COMPLIMENT_REWARD_STONES, walkMinutesReduced: e.walkMinutesReduced }
+ }
+ const fromLabel = anon ? 'Тайный лучик ✨' : `${me.name} шлёт тебе лучик ✨`
+ mailTo(friendId, 'system', fromLabel,
+ `${msg.emoji} «${msg.ru}»${anon ? '\n\n(это кто-то из твоих друзей)' : ''}`, { compliment: true, anon })
+ })()
+ logEvent(me.id, 'compliment_send', { anon }); logFirst(me.id, 'first_compliment')
+ return c.json({ ok: true, first, reward })
+})
+
+socialRoutes.get('/appreciation/week', c => {
+ const me = ensureFresh(c.get('user'))
+ const since = Date.now() - 7 * 86_400_000
+ const rows = db.prepare(
+ `SELECT v.message_id, v.anon, v.ts, u.name FROM vibes v JOIN users u ON u.id=v.from_id
+ WHERE v.to_id=? AND v.type='compliment' AND v.ts>? ORDER BY v.ts DESC LIMIT 50`,
+ ).all(me.id, since) as { message_id: string | null; anon: number; ts: number; name: string }[]
+ const items = rows.map(r => {
+ const m = compliments.compliments.find(x => x.id === r.message_id)
+ return { ru: m?.ru ?? '', emoji: m?.emoji ?? '💛', from: r.anon ? null : r.name, ts: r.ts }
+ }).filter(x => x.ru)
+ return c.json({ count: items.length, items })
+})
+
+// ----- safety: report a user / content (complements mute + block) -----
+socialRoutes.post('/report', async c => {
+ const me = ensureFresh(c.get('user'))
+ const body = z.object({
+ targetId: z.number().int().optional(),
+ kind: z.enum(['user', 'vibe', 'message', 'coop', 'other']),
+ ref: z.string().max(40).optional(),
+ reason: z.string().min(1).max(40),
+ note: z.string().max(500).optional(),
+ }).safeParse(await c.req.json().catch(() => null))
+ if (!body.success) return c.json({ error: 'bad_request' }, 400)
+ const since = Date.now() - 86_400_000
+ const today = (db.prepare('SELECT COUNT(*) n FROM reports WHERE reporter_id=? AND ts>?')
+ .get(me.id, since) as { n: number }).n
+ if (today >= C.REPORTS_PER_DAY) return c.json({ error: 'too_many' }, 429)
+ db.prepare('INSERT INTO reports (reporter_id, target_id, kind, ref, reason, note, ts) VALUES (?,?,?,?,?,?,?)')
+ .run(me.id, body.data.targetId ?? null, body.data.kind, body.data.ref ?? null, body.data.reason, (body.data.note ?? '').slice(0, 500), Date.now())
+ logEvent(me.id, 'report', { kind: body.data.kind })
+ return c.json({ ok: true })
 })

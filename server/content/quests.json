@@ -127,6 +127,118 @@
  "deeplink": "mood_log",
  "check": "mood_logged",
  "reward": 25
+ },
+ {
+ "id": "pat_pet_belly",
+ "ru": "Почеши мне животик, я тут же перевернусь лапками вверх!",
+ "type": "pat_pet",
+ "deeplink": "home",
+ "check": "pet_patted",
+ "reward": 25
+ },
+ {
+ "id": "pat_pet_cheeks",
+ "ru": "Потрепи меня за щёчки, обожаю это больше всего 💛",
+ "type": "pat_pet",
+ "deeplink": "home",
+ "check": "pet_patted",
+ "reward": 25
+ },
+ {
+ "id": "complete_one_more",
+ "ru": "Закрой ещё одно дело, даже самое крошечное считается",
+ "type": "complete_goal",
+ "deeplink": "goals",
+ "check": "goal_completed",
+ "reward": 25
+ },
+ {
+ "id": "complete_self_care",
+ "ru": "Сделай сегодня одно дело для себя",
+ "type": "complete_goal",
+ "deeplink": "goals",
+ "check": "goal_completed",
+ "reward": 25
+ },
+ {
+ "id": "breathe_with_me",
+ "ru": "Подыши со мной минутку: вдох… и медленный выдох",
+ "type": "breathing",
+ "deeplink": "breathing_exercise",
+ "check": "breathing_completed",
+ "reward": 25
+ },
+ {
+ "id": "breathe_calm",
+ "ru": "Пара спокойных вдохов вместе, и станет легче",
+ "type": "breathing",
+ "deeplink": "breathing_exercise",
+ "check": "breathing_completed",
+ "reward": 25
+ },
+ {
+ "id": "gratitude_warm",
+ "ru": "Вспомни один тёплый момент сегодняшнего дня",
+ "type": "gratitude_reflection",
+ "deeplink": "gratitude_journal",
+ "check": "gratitude_saved",
+ "reward": 25
+ },
+ {
+ "id": "gratitude_thanks",
+ "ru": "Запиши, за что ты сегодня скажешь спасибо",
+ "type": "gratitude_reflection",
+ "deeplink": "gratitude_journal",
+ "check": "gratitude_saved",
+ "reward": 25
+ },
+ {
+ "id": "affirm_kind",
+ "ru": "Скажи себе доброе слово, я послушаю рядом",
+ "type": "affirmation",
+ "deeplink": "affirmation_exercise",
+ "check": "affirmation_completed",
+ "reward": 25
+ },
+ {
+ "id": "mood_evening",
+ "ru": "Отметь настроение, чтобы я знал, как ты",
+ "type": "log_mood",
+ "deeplink": "mood_log",
+ "check": "mood_logged",
+ "reward": 25
+ },
+ {
+ "id": "name_feeling",
+ "ru": "Назови чувство, которое с тобой прямо сейчас",
+ "type": "name_emotion",
+ "deeplink": "emotion_check",
+ "check": "emotion_named",
+ "reward": 25
+ },
+ {
+ "id": "vibe_a_friend",
+ "ru": "Пошли тёплый лучик другу во Дворике",
+ "type": "send_vibe",
+ "deeplink": "friends",
+ "check": "vibe_sent",
+ "reward": 25
+ },
+ {
+ "id": "dress_me_new",
+ "ru": "Наряди меня во что-нибудь новенькое сегодня",
+ "type": "change_outfit",
+ "deeplink": "wardrobe",
+ "check": "outfit_changed",
+ "reward": 25
+ },
+ {
+ "id": "redecorate_room",
+ "ru": "Переставь что-нибудь в нашей уютной комнате",
+ "type": "change_interior",
+ "deeplink": "room_editor",
+ "check": "interior_changed",
+ "reward": 25
  }
  ],
  "special_tracks": [
@@ -197,6 +309,30 @@
  "Я там, где мне нужно быть.",
  "Спешить некуда, я иду своим путём.",
  "Я благодарю себя за то, что стараюсь.",
- "Мне можно радоваться простым вещам."
+ "Мне можно радоваться простым вещам.",
+ "Я учусь быть к себе добрее с каждым днём.",
+ "Достаточно сделать один маленький шаг.",
+ "Я заслуживаю отдыха без чувства вины.",
+ "Мои чувства важны, и им можно быть.",
+ "Я справлялся раньше, справлюсь и теперь.",
+ "Сегодня я выбираю мягкость к себе.",
+ "Я могу попросить о помощи, и это сила.",
+ "Я не обязан быть идеальным, чтобы быть хорошим.",
+ "Каждый вдох возвращает меня в спокойствие.",
+ "Я расту в своём темпе, и это правильно.",
+ "Трудные дни проходят, я остаюсь с собой.",
+ "Я горжусь тем, что не сдаюсь.",
+ "Мне хватает сил на этот день.",
+ "Я достоин тепла и заботы, как и все.",
+ "Маленькая забота о себе тоже считается.",
+ "Я разрешаю себе радоваться без причины.",
+ "Я слушаю своё тело и даю ему отдых.",
+ "Ошибаться, это часть пути, а не провал.",
+ "Я делаю что могу, и этого достаточно.",
+ "Спокойствие живёт во мне, стоит только вдохнуть.",
+ "Я бережно отношусь к своим границам.",
+ "Сегодня я на своей стороне.",
+ "Я выбираю замечать хорошее вокруг.",
+ "Я заслуживаю доброты, особенно от себя."
  ]
 }

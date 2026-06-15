@@ -236,14 +236,10 @@ activitiesRoutes.post('/reflect', async c => {
  // free-form: the more you write, the more energy (4-8⚡)
  energy = Math.max(4, Math.min(8, 4 + Math.floor(body.data.text.length / 200)))
  }
- const mood = db.prepare('SELECT value FROM moods WHERE user_id=? AND day=? ORDER BY ts DESC LIMIT 1').get(user.id, day) as { value: number } | undefined
- const lowMood = !!mood && mood.value <= C.MOOD_LOW_MAX
- const stones = lowMood ? C.GOAL_STONES_LOW_MOOD : C.GOAL_STONES
  const r = db.prepare('INSERT INTO reflections (user_id, day, prompt_id, text, valence, ts) VALUES (?,?,?,?,?,?)')
  .run(user.id, day, promptId, body.data.text, body.data.valence ?? null, Date.now())
+ // Reflections are energy-only (Finch parity) — they no longer also pay 🦴.
  const reward = awardEnergy(user, energy)
- addStones(user.id, stones, 'reflection')
- reward.stones = stones
  logActivity(user.id, day, 'reflection', promptId, energy)
  return c.json({ id: Number(r.lastInsertRowid), reward })
 })

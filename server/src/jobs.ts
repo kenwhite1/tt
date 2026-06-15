@@ -7,6 +7,7 @@ import { db } from './db'
 import { bot, appKeyboard } from './bot'
 import { content } from './content'
 import { gameDay, localNow } from './engine/day'
+import { C } from '../../shared/constants'
 import type { UserRow } from './engine/rows'
 
 const copy = content.botCopy
@@ -53,6 +54,15 @@ function notifOn(u: UserRow, kind: string): boolean {
 
 function isPaused(u: UserRow, day: string): boolean {
  return !!u.paused_until && u.paused_until >= day
+}
+
+// «Вечерний сбор» opt-in: returns the user's chosen evening hour, or null if they haven't opted in.
+function eveningHourOf(u: UserRow): number | null {
+ try {
+ const s = JSON.parse(u.settings || '{}') as Record<string, unknown>
+ const h = s.evening_hour
+ return typeof h === 'number' && h >= 0 && h <= 23 ? h : null
+ } catch { return null }
 }
 
 // ---- low-level delivery (403 → unreachable, 429 → wait retry_after & retry once) ----
@@ -137,6 +147,37 @@ function collectDue(): { userId: number; text: string }[] {
  if (within(MAIL_MIN) && new Date(`${local.date}T12:00:00Z`).getUTCDay() === 1) {
  if (queue(u, 'mail', day, pick(pool('mail')))) insertNewsletter(u, day)
  }
+ // «Вечерний сбор», только для тех, кто сам выбрал час (opt-in, без серий и таймеров)
+ const eh = eveningHourOf(u)
+ if (eh != null && within(eh * 60))
+ queue(u, 'evening_collect', day, pick(pool('evening_collect')) || 'Вечер тихонько наступает 🌙 Загляни — уложим щенков вместе и выдохнем.')
+ }
+
+ // «Содружок»: DM the partner who hasn't shown up yet today, when the other one has.
+ // From the puppy, gentle (encouragement to nudge — never a loss). Toggle: notif_coop_nudge.
+ const coopBonds = db.prepare("SELECT id, name FROM coop_pets WHERE status='active'").all() as { id: number; name: string }[]
+ for (const b of coopBonds) {
+ const mems = db.prepare('SELECT user_id FROM coop_members WHERE coop_id=?').all(b.id) as { user_id: number }[]
+ if (mems.length !== 2) continue
+ const info = mems.map(m => {
+ const mu = db.prepare('SELECT * FROM users WHERE id=?').get(m.user_id) as UserRow | undefined
+ if (!mu) return null
+ const d = gameDay(mu)
+ const n = (db.prepare('SELECT COUNT(*) c FROM goal_completions WHERE user_id=? AND day=?').get(mu.id, d) as { c: number }).c
+ return { u: mu, day: d, contrib: Math.min(C.COOP_CONTRIB_PER_MEMBER, n) }
+ })
+ if (info.some(x => !x)) continue
+ const pair = info as { u: UserRow; day: string; contrib: number }[]
+ const shown = pair.filter(m => m.contrib >= C.COOP_CONTRIB_PER_MEMBER)
+ const notShown = pair.filter(m => m.contrib < C.COOP_CONTRIB_PER_MEMBER)
+ if (shown.length !== 1 || notShown.length !== 1) continue
+ const target = notShown[0], partner = shown[0]
+ const tu = byId.get(target.u.id) // only write_access=1 users are reachable
+ if (!tu || isPaused(tu, target.day) || !notifOn(tu, 'coop_nudge')) continue
+ const tl = localNow(tu.tz)
+ if (Math.abs(tl.minutes - C.COOP_STREAK_NUDGE_HOUR * 60) > 1) continue
+ if (logInsert.run(tu.id, 'coop_nudge', target.day).changes === 0) continue
+ sends.push({ userId: tu.id, text: `${partner.u.name || 'Друг'} уже позаботился о нашем щенке ${b.name} 🐾 Остался только ты — забеги на минутку, и мы подрастём вместе 💛` })
  }
 
  // Возвращение с прогулки: прогулка кончилась, разговор ещё не состоялся

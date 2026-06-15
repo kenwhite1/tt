@@ -1,6 +1,6 @@
 // Seasonal event «Летний дворик», reward calendar banner + 30-day two-column track.
 // Rendered at the top of the Quests tab. Chest opening = reveal → 4/10-color choice.
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { req } from '../../api'
 import { useStore } from '../../store'
 import { haptic } from '../../telegram'
@@ -86,6 +86,9 @@ export function EventCalendar() {
  | { phase: 'pet'; pet: { name: string; species: string; variant: { id: string; ru: string; hex: string }; emoji: string } }
  | null
  >(null)
+ // chest "shake → reveal" timer, tracked so it can't fire after unmount or overlap a new claim
+ const chestTimer = useRef<ReturnType<typeof setTimeout>>()
+ useEffect(() => () => clearTimeout(chestTimer.current), [])
 
  const load = useCallback(async (m?: string) => {
  try {
@@ -122,7 +125,7 @@ export function EventCalendar() {
  } else {
  // item + colors: let the chest shake a moment, then reveal
  const show = () => setModal({ phase: 'choose', day, column, item: r.item, colors: r.colors })
- if (isChest && state !== 'pending') setTimeout(show, 900)
+ if (isChest && state !== 'pending') { clearTimeout(chestTimer.current); chestTimer.current = setTimeout(show, 900) }
  else show()
  }
  } catch (e) {

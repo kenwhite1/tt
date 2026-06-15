@@ -2,6 +2,7 @@
 // Mirrors the JSON shapes returned by server/src/routes/social.ts.
 import { req } from '../../api'
 import type { Stage } from '@shared/constants'
+import type { CoopDto, DailyDigDto, DigResultDto } from '@shared/types'
 
 export type Vibe = { id: string; ru: string; emoji: string; color: string; plus: boolean }
 
@@ -31,6 +32,7 @@ export interface Friend {
   level: number
   unreadVibes: number
   hugToday: boolean
+  atRisk: boolean
   sharedGoals: SharedGoalStrip[]
   feed: FeedEvent[]
 }
@@ -103,4 +105,68 @@ export const social = {
   buddyDecline: (mailId: number) => req<{ ok: boolean }>('/social/buddy/decline', { mailId }),
   kudos: (goalId: number, ownerId: number) =>
     req<{ ok: boolean }>(`/social/goals/${goalId}/kudos`, { ownerId }),
+  // Feature 3 — giftable streak-freeze
+  giftFreeze: (friendId: number, buy?: boolean) =>
+    req<{ ok: boolean; usedBanked: boolean }>('/social/gift-freeze', { friendId, buy }),
+  // Feature 4 — compliments
+  compliments: () => req<{ compliments: Compliment[]; anonAllowed: boolean; isMinor: boolean }>('/social/compliments'),
+  compliment: (body: { friendId?: number; external?: boolean; messageId: string; anon?: boolean }) =>
+    req<{ ok?: boolean; first?: boolean; reward?: VibeReward; external?: boolean; link?: string; text?: string }>('/social/compliment', body),
+  appreciationWeek: () =>
+    req<{ count: number; items: { ru: string; emoji: string; from: string | null; ts: number }[] }>('/social/appreciation/week'),
+  // safety — report
+  report: (body: { targetId?: number; kind: 'user' | 'vibe' | 'message' | 'coop' | 'other'; ref?: string; reason: string; note?: string }) =>
+    req<{ ok: boolean }>('/social/report', body),
+}
+
+export interface Compliment { id: string; ru: string; emoji: string }
+
+// ─── «Содружок» / co-op puppy ───
+export interface CoopInvite { inviteId: number; coopId: number; fromId: number; fromName: string; name: string; code: string }
+export interface CoopListPayload {
+  bonds: CoopDto[]
+  invites: CoopInvite[]
+  maxActive: number
+  canCreate: boolean
+  botUsername: string
+  eggColors: { id: string; ru: string; hex: string }[]
+  contribPerMember: number
+}
+export const coop = {
+  list: () => req<CoopListPayload>('/coop/list'),
+  create: (body: { friendId?: number; name?: string; species?: string; color?: string }) =>
+    req<{ coop: CoopDto; code: string; link: string }>('/coop/create', body),
+  accept: (code?: string) => req<{ coop?: CoopDto; error?: string }>('/coop/accept', { code }),
+  walkStart: (coopId: number) => req<{ coop: CoopDto }>('/coop/walk/start', { coopId }),
+  walkClaim: (coopId: number) =>
+    req<{ coop: CoopDto; claimed: boolean; reward: { stones: number } | null; story: string | null; leveledTo: Stage | null; discovery: { ru: string; emoji: string } | null }>('/coop/walk/claim', { coopId }),
+  pet: (coopId: number) => req<{ ok: boolean }>('/coop/pet', { coopId }),
+  rename: (coopId: number, name: string, confirm?: boolean) =>
+    req<{ ok: boolean; applied: boolean; pending?: boolean }>('/coop/rename', { coopId, name, confirm }),
+  pause: (coopId: number, pause: boolean) => req<{ coop: CoopDto }>('/coop/pause', { coopId, pause }),
+  leave: (coopId: number) => req<{ ok: boolean }>('/coop/leave', { coopId }),
+  invite: (coopId: number, friendId?: number) =>
+    req<{ ok: boolean; code: string; link: string }>('/coop/invite', { coopId, friendId }),
+}
+
+// ─── «Косточка дня» daily dig ───
+export const daily = {
+  today: () => req<DailyDigDto>('/daily/today'),
+  dig: () => req<{ result: DigResultDto; alreadyDug: boolean; streak: number }>('/daily/dig', {}),
+  friends: () => req<{ digs: { name: string; emoji: string; ru: string; tier: number }[] }>('/daily/friends'),
+  markShared: () => req<{ ok: boolean }>('/daily/shared', {}),
+}
+
+// ─── «Вечерний сбор» evening ───
+export const evening = {
+  now: () => req<{ inWindow: boolean; hour: number; windowMin: number; checkedIn: boolean; present: { name: string; petName: string; species: string }[] }>('/evening/now'),
+  checkin: () => req<{ ok: boolean }>('/evening/checkin', {}),
+  setHour: (hour: number) => req<{ ok: boolean; hour: number }>('/evening/settings', { hour }),
+}
+
+// ─── «Витрина» share cards ───
+export const shareApi = {
+  card: (body: { kind: string; ref?: string; png: string; text?: string }) =>
+    req<{ url: string; preparedId: string | null; link: string; rewarded: number }>('/share/card', body),
+  log: (body: { kind: string; ref?: string; surface: string }) => req<{ ok: boolean }>('/share/log', body),
 }

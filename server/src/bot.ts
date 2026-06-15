@@ -35,12 +35,23 @@ if (bot) {
 
  bot.command('start', async ctx => {
  const payload = ctx.match?.toString() ?? ''
+ const isNewUser = ctx.from ? !db.prepare('SELECT id FROM users WHERE id=?').get(ctx.from.id) : false
  if (payload.startsWith('ref_') && ctx.from) {
  const code = payload.slice(4)
  const inviter = db.prepare('SELECT id FROM users WHERE friend_code=?').get(code) as { id: number } | undefined
- if (inviter && inviter.id !== ctx.from.id && !db.prepare('SELECT id FROM users WHERE id=?').get(ctx.from.id)) {
+ if (inviter && inviter.id !== ctx.from.id && isNewUser) {
  db.prepare('INSERT OR REPLACE INTO pending_referrals (tg_id, inviter_id, ts) VALUES (?,?,?)')
  .run(ctx.from.id, inviter.id, Date.now())
+ }
+ }
+ // co-op invite link: a brand-new opener also counts as a referral for the bond's founder
+ if (payload.startsWith('coop_') && ctx.from && isNewUser) {
+ const code = payload.slice(5).toUpperCase()
+ const inv = db.prepare("SELECT from_id FROM coop_invites WHERE code=? AND status='pending' ORDER BY id DESC LIMIT 1")
+ .get(code) as { from_id: number } | undefined
+ if (inv && inv.from_id !== ctx.from.id) {
+ db.prepare('INSERT OR REPLACE INTO pending_referrals (tg_id, inviter_id, ts) VALUES (?,?,?)')
+ .run(ctx.from.id, inv.from_id, Date.now())
  }
  }
  if (ctx.from) grantWriteAccess(ctx.from.id)

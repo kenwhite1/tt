@@ -15,6 +15,9 @@ interface TgWebApp {
   setBackgroundColor(c: string): void
   requestWriteAccess?(cb?: (ok: boolean) => void): void
   addToHomeScreen?(): void
+  openTelegramLink?(url: string): void
+  shareToStory?(mediaUrl: string, params?: { text?: string; widget_link?: { url: string; name?: string } }): void
+  shareMessage?(msgId: string, cb?: (sent: boolean) => void): void
   HapticFeedback?: {
     impactOccurred(style: 'light' | 'medium' | 'heavy' | 'rigid' | 'soft'): void
     notificationOccurred(type: 'error' | 'success' | 'warning'): void
@@ -72,4 +75,39 @@ export function requestWriteAccess(): Promise<boolean> {
 
 export function addToHomeScreen(): void {
   try { tg?.addToHomeScreen?.() } catch { /* unsupported client */ }
+}
+
+// ─── Share surfaces (Feature 1 «Витрина») ───────────────────────────────
+// Open a t.me/share/url forward dialog — the universal fallback that works on every client.
+export function shareLink(url: string, text: string): void {
+  const u = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`
+  try {
+    if (tg?.openTelegramLink) tg.openTelegramLink(u)
+    else window.open(u, '_blank')
+  } catch { /* ignore */ }
+}
+
+// Post a milestone card to the user's Telegram Story (Bot API 7.8+), with the app
+// deep-link baked in as a tappable widget. Falls back to a forwardable link.
+export function shareStory(mediaUrl: string, text: string, link: { url: string; name?: string }): boolean {
+  if (tg?.shareToStory && tg.isVersionAtLeast('7.8')) {
+    try { tg.shareToStory(mediaUrl, { text, widget_link: link }); return true } catch { /* fall through */ }
+  }
+  shareLink(link.url, text)
+  return false
+}
+
+// Forward a server-prepared inline message into a chat (Bot API 8.0+).
+export function shareCard(preparedId: string, fallbackUrl: string, fallbackText: string): Promise<boolean> {
+  return new Promise(resolve => {
+    if (tg?.shareMessage && tg.isVersionAtLeast('8.0')) {
+      try { tg.shareMessage(preparedId, ok => resolve(!!ok)); return } catch { /* fall through */ }
+    }
+    shareLink(fallbackUrl, fallbackText)
+    resolve(false)
+  })
+}
+
+export function tgVersionAtLeast(v: string): boolean {
+  try { return !!tg?.isVersionAtLeast(v) } catch { return false }
 }

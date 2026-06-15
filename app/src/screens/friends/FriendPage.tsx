@@ -1,14 +1,20 @@
 // Friend page (sub-view): their puppy in their room, ❤ friendship level, Send Good Vibes,
 // shared-goal streak strips, last-4-events feed, buddy/share goal, ⋯ menu.
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useStore } from '../../store'
 import { haptic } from '../../telegram'
-import type { Friend, FriendsPayload, Vibe } from './api'
+import type { Friend, FriendsPayload, Vibe, Compliment } from './api'
 import { social } from './api'
 import { PuppyMini, Sheet, levelName, levelProgress } from './ui'
 import { VibePicker } from './VibePicker'
 
 const EMOJI_CHOICES = ['🐶', '🐱', '🐰', '🦊', '🐻', '🐼', '🦄', '🌸', '⭐', '💛', '🌳', '🍀']
+const REPORT_REASONS = [
+ { id: 'spam', ru: 'Спам или реклама' },
+ { id: 'rude', ru: 'Грубость или травля' },
+ { id: 'inappropriate', ru: 'Неприемлемое поведение' },
+ { id: 'other', ru: 'Другое' },
+]
 
 export function FriendPage({ data, friend, onBack, reload }:
  { data: FriendsPayload; friend: Friend; onBack: () => void; reload: () => void }) {
@@ -20,8 +26,28 @@ export function FriendPage({ data, friend, onBack, reload }:
  const [shareOpen, setShareOpen] = useState<'share' | 'buddy' | null>(null)
  const [nick, setNick] = useState(friend.name)
  const [busy, setBusy] = useState(false)
+ const [freezeBusy, setFreezeBusy] = useState(false)
+ const [complimentOpen, setComplimentOpen] = useState(false)
+ const [reportOpen, setReportOpen] = useState(false)
 
  const lvl = levelProgress(friend.pts, friend.level)
+
+ async function giftFreeze() {
+ if (freezeBusy) return
+ setFreezeBusy(true)
+ try {
+ const r = await social.giftFreeze(friend.id)
+ haptic('success')
+ useStore.getState().showToast(r.usedBanked ? `Подарил(а) ${friend.name} косточку-спасалочку 🦴` : `Купил(а) и подарил(а) спасалочку 🦴`)
+ if (!r.usedBanked) void useStore.getState().refresh()
+ reload()
+ } catch (e) {
+ haptic('warn')
+ const er = (e as { data?: { error?: string } })?.data?.error
+ useStore.getState().showToast(er === 'not_enough_stones' ? 'Не хватает 🦴' : er === 'sent_today' ? 'Сегодня уже дарил(а)' : 'Не вышло')
+ }
+ setFreezeBusy(false)
+ }
 
  async function sendVibe(v: Vibe) {
  setVibeOpen(false)
@@ -111,9 +137,23 @@ export function FriendPage({ data, friend, onBack, reload }:
  </div>
  </div>
 
- <button className="btn accent" style={{ width: '100%', marginBottom: 12 }} onClick={() => setVibeOpen(true)}>
+ {/* gentle streak-freeze surfacing (care, never nag) */}
+ {friend.atRisk && (
+ <div className="card" style={{ background: '#eaf4ff', display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+ <span style={{ fontSize: 24 }}>🦴</span>
+ <div style={{ flex: 1, fontSize: 14 }}>У <b>{friend.name}</b> серия под угрозой. Подаришь косточку-спасалочку?</div>
+ <button className="btn accent" style={{ padding: '8px 12px' }} disabled={freezeBusy} onClick={() => void giftFreeze()}>Подарить</button>
+ </div>
+ )}
+
+ <button className="btn accent" style={{ width: '100%', marginBottom: 10 }} onClick={() => setVibeOpen(true)}>
  🌟 Послать тёплый лучик
  </button>
+
+ <div style={{ display: 'flex', gap: 10, marginBottom: 10 }}>
+ <button className="btn ghost" style={{ flex: 1 }} onClick={() => setComplimentOpen(true)}>💌 Комплимент</button>
+ <button className="btn ghost" style={{ flex: 1 }} disabled={freezeBusy} onClick={() => void giftFreeze()}>🦴 Спасалочка</button>
+ </div>
 
  <div style={{ display: 'flex', gap: 10, marginBottom: 14 }}>
  <button className="btn ghost" style={{ flex: 1 }} onClick={() => setShareOpen('share')}>⭐ Поделиться целью</button>
@@ -188,6 +228,7 @@ export function FriendPage({ data, friend, onBack, reload }:
  <button className="btn ghost" style={{ width: '100%', marginBottom: 10 }} onClick={() => { setMenuOpen(false); setNick(friend.name); setRenaming(true) }}>✏️ Переименовать</button>
  <button className="btn ghost" style={{ width: '100%', marginBottom: 10 }} onClick={() => { setMenuOpen(false); setEmojiOpen(true) }}>😊 Значок-эмодзи</button>
  <button className="btn ghost" style={{ width: '100%', marginBottom: 10 }} onClick={() => void toggleMute()}>{friend.muted ? '🔔 Включить лучики' : '🔕 Приглушить лучики'}</button>
+ <button className="btn ghost" style={{ width: '100%', marginBottom: 10 }} onClick={() => { setMenuOpen(false); setReportOpen(true) }}>🚩 Пожаловаться</button>
  <button className="btn" style={{ width: '100%', marginBottom: 10, background: 'var(--ink-soft)', boxShadow: 'none' }} onClick={() => void doUnfriend(false)}>Удалить из друзей</button>
  <button className="btn" style={{ width: '100%', background: 'var(--red)', boxShadow: 'none' }} onClick={() => void doUnfriend(true)}>🚫 Заблокировать</button>
  </Sheet>
@@ -216,6 +257,63 @@ export function FriendPage({ data, friend, onBack, reload }:
  <button className="btn ghost" style={{ width: '100%', marginTop: 12 }} onClick={() => void setEmoji(null)}>Без значка</button>
  </Sheet>
  )}
+
+ {complimentOpen && (
+ <ComplimentSheet friendId={friend.id} friendName={friend.name} onClose={() => setComplimentOpen(false)} reload={reload} />
+ )}
+
+ {reportOpen && (
+ <Sheet onClose={() => setReportOpen(false)}>
+ <h2 style={{ textAlign: 'center', marginBottom: 4 }}>Пожаловаться</h2>
+ <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 14px' }}>Мы посмотрим. Ещё можно приглушить или заблокировать.</p>
+ {REPORT_REASONS.map(r => (
+ <button key={r.id} className="btn ghost" style={{ width: '100%', marginBottom: 8 }} onClick={async () => {
+ try { await social.report({ targetId: friend.id, kind: 'user', reason: r.id }); haptic('success'); useStore.getState().showToast('Спасибо, мы посмотрим 🙏') }
+ catch { haptic('warn') }
+ setReportOpen(false)
+ }}>{r.ru}</button>
+ ))}
+ </Sheet>
+ )}
  </div>
+ )
+}
+
+// «Лучик от друга» — preset compliment, optionally anonymous-within-friends.
+function ComplimentSheet({ friendId, friendName, onClose, reload }:
+ { friendId: number; friendName: string; onClose: () => void; reload: () => void }) {
+ const [list, setList] = useState<Compliment[]>([])
+ const [anonAllowed, setAnonAllowed] = useState(false)
+ const [anon, setAnon] = useState(false)
+ useEffect(() => { social.compliments().then(r => { setList(r.compliments); setAnonAllowed(r.anonAllowed) }).catch(() => { /* ignore */ }) }, [])
+
+ async function send(id: string) {
+ try {
+ const r = await social.compliment({ friendId, messageId: id, anon })
+ haptic('success'); useStore.getState().showToast(`Лучик-комплимент полетел к ${friendName} ✨`)
+ if (r.reward && (r.reward.energy || r.reward.stones)) void useStore.getState().refresh()
+ reload(); onClose()
+ } catch { haptic('warn'); useStore.getState().showToast('Не вышло отправить') }
+ }
+
+ return (
+ <Sheet onClose={onClose}>
+ <h2 style={{ textAlign: 'center', marginBottom: 4 }}>Лучик-комплимент</h2>
+ <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 12px' }}>Тёплые слова, которые щенок доставит лично 💛</p>
+ {anonAllowed && (
+ <button className={`btn ${anon ? '' : 'ghost'}`} style={{ width: '100%', marginBottom: 12 }} onClick={() => { haptic('tap'); setAnon(a => !a) }}>
+ {anon ? '🙈 Тайный лучик (друг не узнает, кто)' : '👤 Отправить от своего имени'}
+ </button>
+ )}
+ <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+ {list.map(m => (
+ <button key={m.id} className="goal-row" style={{ width: '100%', border: 'none', cursor: 'pointer', textAlign: 'left' }} onClick={() => void send(m.id)}>
+ <span style={{ fontSize: 22 }}>{m.emoji}</span>
+ <span style={{ flex: 1, fontWeight: 700 }}>{m.ru}</span>
+ <span style={{ color: 'var(--accent-deep)', fontWeight: 800 }}>›</span>
+ </button>
+ ))}
+ </div>
+ </Sheet>
  )
 }

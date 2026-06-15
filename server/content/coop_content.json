@@ -1,0 +1,51 @@
+{
+  "_doc": "Content for «Содружок» (co-op puppy). Walk stories use {a}=initiator pet-owner game-name and {b}=partner, {pet}=shared puppy name. Data-only; a non-coder can add entries. Co-op walks pick a story (optionally tied to a discovery).",
+  "walk_stories": [
+    { "id": "cw_meadow", "ru_text": "{pet} бежал(а) по лугу так, будто вас двоих ждали именно здесь. Остановился(ась), оглянулся(ась) — точно ли оба рядом? Оба. И тогда понёсся(лась) дальше, счастливо виляя.", "discovery_id": "cd_clover" },
+    { "id": "cw_bridge", "ru_text": "Маленький мостик через ручей. {pet} сначала боялся(ась), но вы оба были рядом, и он(а) перешёл(ла). На той стороне сел(а) и будто сказал(а): «Вместе не страшно».", "discovery_id": "cd_smooth_stone" },
+    { "id": "cw_sunset", "ru_text": "Вы гуляли до самого заката. {pet} валялся(ась) в тёплой траве между вами и сопел(а) от удовольствия. Хороший был день — потому что общий.", "discovery_id": null },
+    { "id": "cw_rain", "ru_text": "Закапал дождик, и {pet} спрятался(ась) — то к одному, то к другому. В итоге устроился(ась) посередине, под общим зонтом из ваших забот. Тёплый, сухой, довольный.", "discovery_id": "cd_dew_drop" },
+    { "id": "cw_market", "ru_text": "На ярмарке {pet} учуял(а) запах пирожков и сделал(а) самые честные глаза в мире. Вы оба засмеялись и поделились корочкой. Делить вкусное вдвоём — отдельное удовольствие.", "discovery_id": "cd_warm_crust" },
+    { "id": "cw_hill", "ru_text": "Забрались на холм. {pet} первым(ой) добежал(а) до вершины и ждал(а), пока подтянутся оба. Сверху всё маленькое и тёплое, и вы трое — самое главное в этом виде.", "discovery_id": "cd_feather" },
+    { "id": "cw_library", "ru_text": "У тихой библиотеки {pet} притих(ла) и шёл(ла) на цыпочках, поглядывая то на одного, то на другую. Кажется, он(а) понял(а): вы команда, а команды берегут тишину вместе.", "discovery_id": null },
+    { "id": "cw_pond", "ru_text": "У пруда {pet} долго смотрел(а) на своё отражение, а потом на ваши. Три мордочки в воде. Гавкнул(а) от радости — и рябь всё смыла, но это было не важно.", "discovery_id": "cd_lily" },
+    { "id": "cw_first_snow", "ru_text": "Первый снежок! {pet} ловил(а) снежинки и не понимал(а), почему они тают. Вы объясняли наперебой, и он(а) слушал(а) обоих, как самый внимательный ученик.", "discovery_id": "cd_snowflake" },
+    { "id": "cw_lantern", "ru_text": "Вечером зажглись фонарики. {pet} шёл(ла) от одного к другому и будто пересчитывал(а): этот ваш, тот ваш, а вы оба — его(её). Простая арифметика тепла.", "discovery_id": "cd_tiny_lantern" },
+    { "id": "cw_garden", "ru_text": "В саду {pet} аккуратно обнюхал(а) каждый цветок и ни один не помял(а). Вы заметили это одновременно и переглянулись — растёт же воспитанный(ая)!", "discovery_id": "cd_seedling" },
+    { "id": "cw_beach", "ru_text": "На берегу {pet} гонялся(ась) за волнами туда-сюда, а вы строили из песка что-то непонятное, но общее. Волна всё смыла, и вы начали заново, смеясь.", "discovery_id": "cd_shell" },
+    { "id": "cw_forest_path", "ru_text": "Лесная тропинка раздваивалась. {pet} замер(ла), не зная, куда. Вы выбрали путь вместе — и он(а) сразу повеселел(а): когда решают вдвоём, любой путь правильный.", "discovery_id": "cd_acorn" },
+    { "id": "cw_starry", "ru_text": "Засиделись до звёзд. {pet} уснул(а), привалившись к обоим сразу. Вы боялись пошевелиться, чтобы не разбудить, и так и сидели — два тёплых берега одного сонного счастья.", "discovery_id": "cd_falling_star" },
+    { "id": "cw_puddle", "ru_text": "{pet} нашёл(ла) самую большую лужу и, конечно, проверил(а) её лапой. Брызги достались обоим. Ругаться не вышло — он(а) был(а) так горд(а) собой.", "discovery_id": null },
+    { "id": "cw_homecoming", "ru_text": "Возвращались домой уставшие и довольные. {pet} семенил(а) между вами и то и дело поднимал(а) морду — проверить, что оба ещё тут. Тут, малыш. Никуда не денемся.", "discovery_id": "cd_warm_window" }
+  ],
+  "discoveries": [
+    { "id": "cd_clover", "ru_name": "Клевер на счастье", "emoji": "🍀" },
+    { "id": "cd_smooth_stone", "ru_name": "Гладкий камешек", "emoji": "🪨" },
+    { "id": "cd_dew_drop", "ru_name": "Капля росы", "emoji": "💧" },
+    { "id": "cd_warm_crust", "ru_name": "Тёплая корочка", "emoji": "🥐" },
+    { "id": "cd_feather", "ru_name": "Лёгкое пёрышко", "emoji": "🪶" },
+    { "id": "cd_lily", "ru_name": "Кувшинка", "emoji": "🪷" },
+    { "id": "cd_snowflake", "ru_name": "Снежинка", "emoji": "❄️" },
+    { "id": "cd_tiny_lantern", "ru_name": "Фонарик", "emoji": "🏮" },
+    { "id": "cd_seedling", "ru_name": "Росток", "emoji": "🌱" },
+    { "id": "cd_shell", "ru_name": "Ракушка", "emoji": "🐚" },
+    { "id": "cd_acorn", "ru_name": "Жёлудь на двоих", "emoji": "🌰" },
+    { "id": "cd_falling_star", "ru_name": "Падающая звезда", "emoji": "🌠" },
+    { "id": "cd_warm_window", "ru_name": "Тёплое окошко", "emoji": "🪟" }
+  ],
+  "_bonded_micropets_doc": "Clearing a co-op stage hatches a co-op-exclusive bonded micropet for BOTH members. species ids reuse the existing micropets.json catalog; these are flagged co-op-only by being granted solely on co-op stage-ups.",
+  "bonded_micropets": [
+    { "stage": "toddler", "species_id": "plyushka_hamster" },
+    { "stage": "child", "species_id": "buton_bee" },
+    { "stage": "teen", "species_id": "puzyr_snail" },
+    { "stage": "adult", "species_id": "pechenka_cow" }
+  ],
+  "egg_colors": [
+    { "id": "golden", "ru": "Золотой", "hex": "#F4C95D" },
+    { "id": "cream", "ru": "Кремовый", "hex": "#F3E2BC" },
+    { "id": "rosy", "ru": "Розоватый", "hex": "#F5C9C0" },
+    { "id": "minty", "ru": "Мятный", "hex": "#BFE3C9" },
+    { "id": "sky", "ru": "Небесный", "hex": "#BFD8EF" },
+    { "id": "lavender", "ru": "Лавандовый", "hex": "#D9CBEF" }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "_doc": "«Косточка дня» daily-dig pool. The pool is global per game-day; each user's result is deterministic (stable on re-read) and persisted. Tiers map to DAILY_DIG_WEIGHTS / DAILY_DIG_STONES in shared/constants.ts. A non-coder can add entries to any tier or swap the whole file seasonally. Rewards are косточки only (never desyncs other modules); `emoji`+`ru` drive the dig card + share card.",
+  "common": [
+    { "ref": "bone_small", "ru": "маленькую косточку", "emoji": "🦴" },
+    { "ref": "pebble", "ru": "блестящий камешек", "emoji": "🪨" },
+    { "ref": "leaf", "ru": "хрустящий листик", "emoji": "🍂" },
+    { "ref": "twig", "ru": "веточку для игры", "emoji": "🌿" },
+    { "ref": "button", "ru": "потерянную пуговку", "emoji": "🔘" },
+    { "ref": "crumb", "ru": "вкусную крошку", "emoji": "🍪" }
+  ],
+  "uncommon": [
+    { "ref": "old_coin", "ru": "старую монетку", "emoji": "🪙" },
+    { "ref": "ribbon", "ru": "яркую ленточку", "emoji": "🎀" },
+    { "ref": "marble", "ru": "стеклянный шарик", "emoji": "🔮" },
+    { "ref": "seashell", "ru": "перламутровую ракушку", "emoji": "🐚" },
+    { "ref": "honey_drop", "ru": "каплю мёда", "emoji": "🍯" },
+    { "ref": "clover", "ru": "четырёхлистный клевер", "emoji": "🍀" }
+  ],
+  "rare": [
+    { "ref": "golden_bone", "ru": "ЗОЛОТУЮ косточку", "emoji": "🦴✨" },
+    { "ref": "gemstone", "ru": "настоящий самоцвет", "emoji": "💎" },
+    { "ref": "star_shard", "ru": "осколок звезды", "emoji": "🌟" },
+    { "ref": "treasure_chest", "ru": "крошечный сундучок", "emoji": "🧰" }
+  ]
+}
