@@ -26,10 +26,10 @@ export const api = {
     sessionStorage.setItem('jwt', r.token)
     return r
   },
-  onboard: (data: { petName: string; pronouns: string; color: string; trait: string; species?: string; userName: string; tz?: string; areas?: string[] }) =>
+  onboard: (data: { petName: string; pronouns: string; trait: string; species?: string; userName: string; tz?: string; areas?: string[] }) =>
     req<{ state: StateDto }>('/onboard', data),
   // Retake from Settings: update the existing pet/profile instead of creating one.
-  onboardRetake: (data: { petName: string; pronouns: string; color: string; trait: string; species?: string; userName: string; tz?: string; areas?: string[] }) =>
+  onboardRetake: (data: { petName: string; pronouns: string; trait: string; species?: string; userName: string; tz?: string; areas?: string[] }) =>
     req<{ state: StateDto }>('/onboard/retake', data),
   state: () => req<{ state: StateDto }>('/state'),
   addGoal: (data: { title: string; emoji?: string }) => req<{ state: StateDto }>('/goals', data),

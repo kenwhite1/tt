@@ -18,7 +18,7 @@ interface Store {
   refresh(): Promise<void>
   setTab(tab: Tab): void
   boot(): Promise<void>
-  finishOnboarding(data: { petName: string; pronouns: string; color: string; trait: string; species?: string; userName: string; areas?: string[] }): Promise<void>
+  finishOnboarding(data: { petName: string; pronouns: string; trait: string; species?: string; userName: string; areas?: string[] }): Promise<void>
   restartOnboarding(): void
   enterApp(): void
   completeGoal(id: number): Promise<RewardDto>

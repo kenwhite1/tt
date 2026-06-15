@@ -32,7 +32,6 @@ api.get('/health', c => c.json({ ok: true }))
 const onboardingSchema = z.object({
  petName: z.string().min(1).max(30),
  pronouns: z.enum(['he', 'she', 'they']),
- color: z.string().max(20),
  trait: z.string().max(30),
  species: z.string().max(20).optional(),
  userName: z.string().min(1).max(40),
@@ -57,8 +56,8 @@ api.post('/onboard', async c => {
  if (getUser(uid)) return c.json({ error: 'already_registered' }, 409)
  const body = onboardingSchema.safeParse(await c.req.json().catch(() => null))
  if (!body.success) return c.json({ error: 'bad_request' }, 400)
- const { petName, pronouns, color, trait, species, userName, tz, areas } = body.data
- const user = bootstrapUser(uid, userName, { petName, pronouns, color, trait, species, tz })
+ const { petName, pronouns, trait, species, userName, tz, areas } = body.data
+ const user = bootstrapUser(uid, userName, { petName, pronouns, trait, species, tz })
  for (const g of starterGoals(areas)) addGoal(user.id, g.ru, g.emoji, g.sca)
  return c.json({ state: getState(user) })
 })
@@ -69,10 +68,10 @@ api.post('/onboard/retake', async c => {
  const user = c.get('user') // middleware guarantees a registered user here
  const body = onboardingSchema.safeParse(await c.req.json().catch(() => null))
  if (!body.success) return c.json({ error: 'bad_request' }, 400)
- const { petName, pronouns, color, trait, species, userName } = body.data
+ const { petName, pronouns, trait, species, userName } = body.data
  db.prepare('UPDATE users SET name=? WHERE id=?').run(userName, user.id)
- db.prepare('UPDATE pets SET name=?, pronouns=?, color=?, trait=?, species=? WHERE user_id=?')
-  .run(petName, pronouns, color, trait, species ?? 'dog', user.id)
+ db.prepare('UPDATE pets SET name=?, pronouns=?, trait=?, species=? WHERE user_id=?')
+  .run(petName, pronouns, trait, species ?? 'dog', user.id)
  return c.json({ state: getState(getUser(user.id)!) })
 })
 

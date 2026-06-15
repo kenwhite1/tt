@@ -177,6 +177,10 @@ h2 { font-size: 18px; }
 
 /* white headers/labels on the dark-coloured tabs; light surfaces keep dark text */
 .tab-quests, .tab-shop, .tab-friends, .tab-bag { color: #fff; }
+/* secondary text sitting directly on the blue shop bg must stay legible —
+   override inline var(--ink-soft) (muted brown) which is unreadable on blue.
+   Only hits top-level paragraphs; muted text inside white cards is untouched. */
+.tab-shop .scroll > p { color: rgba(255, 255, 255, 0.9) !important; }
 .tab-quests .card, .tab-quests .goal-row, .tab-quests input, .tab-quests textarea, .tab-quests select,
 .tab-shop .card, .tab-shop .goal-row, .tab-shop input, .tab-shop textarea, .tab-shop select,
 .tab-friends .card, .tab-friends .goal-row, .tab-friends input, .tab-friends textarea, .tab-friends select,
@@ -416,14 +420,6 @@ h2 { font-size: 18px; }
 .onb-pad .row:first-of-type { border-top: none; }
 .onb-pad .row .em { font-size: 20px; }
 
-/* egg ring */
-.onb-giftring { position: relative; width: 280px; height: 300px; margin: 0 auto; }
-.onb-giftring .center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-.onb-gift { position: absolute; width: 60px; height: 58px; border-radius: 11px;
-  cursor: pointer; transform: translate(-50%, -50%); box-shadow: 0 5px 11px rgba(20,30,50,.13); transition: box-shadow .12s, transform .12s; }
-.onb-gift::after { content: '🎀'; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-size: 19px; pointer-events: none; }
-.onb-gift.sel { box-shadow: 0 0 0 6px rgba(20,30,50,.06), 0 5px 11px rgba(20,30,50,.13); transform: translate(-50%, -50%) scale(1.06); }
-@keyframes giftwiggle { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(7deg); } }
 
 /* phone mockup (widget upsell) */
 .onb-phone { width: 180px; height: 150px; margin: 0 auto; background: #cdd6df; border-radius: 26px 26px 8px 8px;

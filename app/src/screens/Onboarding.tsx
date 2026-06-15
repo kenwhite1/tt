@@ -8,22 +8,6 @@ import { haptic, requestWriteAccess, addToHomeScreen, tg } from '../telegram'
 
 /* ── content ─────────────────────────────────────────────────────────── */
 
-// Gift-box wrapping colours (stored as pet.color). Your friend arrives as a present —
-// no "hatched from an egg" weirdness for a puppy / cat / elephant.
-const BOXES = [
-  { id: 'blue', hex: '#9DC9E8' },
-  { id: 'orange', hex: '#F2B463' },
-  { id: 'pink', hex: '#F2A8C0' },
-  { id: 'green', hex: '#A8D3A0' },
-  { id: 'purple', hex: '#C0A8E0' },
-  { id: 'gray', hex: '#C9C5BD' },
-]
-// ring positions (cx 140, cy 150, Rx 110, Ry 120) — top, then clockwise
-const BOX_POS = [
-  { x: 140, y: 30 }, { x: 235, y: 90 }, { x: 235, y: 210 },
-  { x: 140, y: 270 }, { x: 45, y: 210 }, { x: 45, y: 90 },
-]
-
 const PRONOUNS = [
   { id: 'he', heart: '💙', ru: 'Он' },
   { id: 'she', heart: '💗', ru: 'Она' },
@@ -94,7 +78,7 @@ const COMMIT = [
 ]
 
 const ORDER = [
-  'welcome', 'species', 'gift', 'open', 'pronouns', 'name', 'trait', 'uname', 'whatcare', 'affirm', 'reminders', 'learnyou',
+  'welcome', 'species', 'pronouns', 'name', 'trait', 'uname', 'whatcare', 'affirm', 'reminders', 'learnyou',
   'q:age', 'q:gender', 'q:used', 'q:sleep', 'q:bed', 'q:active', 'q:overwhelm', 'q:support', 'q:routine', 'q:areas',
   'creating', 'plan', 'plus1', 'plus2', 'plus3', 'hear', 'streak', 'commit', 'widget',
 ] as const
@@ -111,7 +95,6 @@ export function Onboarding() {
   const meName = useStore(s => s.state?.user.name)
   const [step, setStep] = useState<Step>('welcome')
   const [species, setSpecies] = useState<Species>((pet?.species as Species) || 'dog')
-  const [boxColor, setBoxColor] = useState(pet?.color ?? '')
   const [pronouns, setPronouns] = useState<'he' | 'she' | 'they'>(pet?.pronouns ?? 'he')
   const [petName, setPetName] = useState(() => pet?.name || PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)])
   const [trait, setTrait] = useState(pet?.trait ?? '')
@@ -140,7 +123,7 @@ export function Onboarding() {
     if (step !== 'creating') return
     let alive = true
     setBusy(true)
-    finishOnboarding({ petName: petName.trim(), pronouns, color: boxColor, trait, species, userName: userName.trim() || 'Друг', areas: selectedAreas() })
+    finishOnboarding({ petName: petName.trim(), pronouns, trait, species, userName: userName.trim() || 'Друг', areas: selectedAreas() })
       .then(() => { if (alive) { haptic('success'); void api.survey(buildSurvey()).catch(() => {}); setStep('plan') } })
       .catch(() => { if (alive) setStep('q:areas') })
       .finally(() => { if (alive) setBusy(false) })
@@ -175,7 +158,7 @@ export function Onboarding() {
 
   // collect the survey into a readable, self-describing blob for the backend
   function buildSurvey(): Record<string, unknown> {
-    const out: Record<string, unknown> = { pronouns, trait, color: boxColor, species }
+    const out: Record<string, unknown> = { pronouns, trait, species }
     for (const qq of QUESTIONS) {
       const v = ans[qq.id]
       if (v == null) continue
@@ -254,7 +237,7 @@ export function Onboarding() {
         <Shell foot={
           <>
             <button className="onb-btn" onClick={next}>Завести питомца</button>
-            <p className="onb-fine">Шарик — развлекательное приложение для заботы о себе в игровой форме. Это не медицинская или психологическая услуга, и оно не заменяет консультацию специалиста. Если тебе тяжело, пожалуйста, обратись за профессиональной помощью.</p>
+            <p className="onb-fine">Шарик это развлекательное приложение для заботы о себе в игровой форме. Это не медицинская или психологическая услуга, и оно не заменяет консультацию специалиста. Если тебе тяжело, пожалуйста, обратись за профессиональной помощью.</p>
           </>}>
           <Pet species={species} size={150} state="happy" />
           <h1 className="onb-h1" style={{ fontSize: 34 }}>Шарик</h1>
@@ -279,25 +262,6 @@ export function Onboarding() {
           </div>
         </Shell>
       )
-
-    case 'gift':
-      return (
-        <Shell foot={<button className="onb-btn" disabled={!boxColor} onClick={next}>Открыть подарок</button>}>
-          <h1 className="onb-h1">Выбери коробочку с подарком!</h1>
-          <p className="onb-sub">{sp.emoji} {sp.ru}: {sp.blurb}. Уже ждёт внутри!</p>
-          <div className="onb-giftring">
-            {BOXES.map((b, idx) => (
-              <button key={b.id} className={`onb-gift${boxColor === b.id ? ' sel' : ''}`}
-                onClick={() => { haptic('tap'); setBoxColor(b.id) }}
-                style={{ left: BOX_POS[idx].x, top: BOX_POS[idx].y, background: boxBg(b.hex) }} aria-label={b.id} />
-            ))}
-            <div className="center"><Pet species={species} size={92} /></div>
-          </div>
-        </Shell>
-      )
-
-    case 'open':
-      return <GiftReveal species={species} name={name} onNext={next} />
 
     case 'pronouns':
       return (
@@ -370,8 +334,8 @@ export function Onboarding() {
           <div className="onb-bubble tail">Приятно познакомиться, {userName.trim() || 'друг'}! Меня называют питомцем заботы о себе. А что такое забота о себе?</div>
           <Pet species={species} size={120} badge="?" />
           <div className="onb-opts" style={{ marginTop: 8 }}>
-            <button className="onb-answer orange" onClick={next}>Забота о себе — это заботиться о теле, разуме и отношениях, и при этом радоваться жизни!</button>
-            <button className="onb-answer pink" onClick={next}>Забота о себе — это делать, что можешь, даже когда тебе непросто.</button>
+            <button className="onb-answer orange" onClick={next}>Забота о себе это когда заботишься о теле, разуме и отношениях и при этом радуешься жизни!</button>
+            <button className="onb-answer pink" onClick={next}>Забота о себе это когда делаешь, что можешь, даже когда тебе непросто.</button>
           </div>
         </Shell>
       )
@@ -380,7 +344,7 @@ export function Onboarding() {
       const tr = TRAITS.find(t => t.id === trait) ?? TRAITS[0]
       return (
         <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
-          <div className="onb-bubble tail">Ух ты! Когда ты заботишься о себе — ты заботишься и обо мне! Давай вместе!</div>
+          <div className="onb-bubble tail">Ух ты! Когда ты заботишься о себе, ты заботишься и обо мне! Давай вместе!</div>
           <Pet species={species} size={130} state="happy" hold="❤️" />
           <div className="onb-stat">
             <span className="em">{tr.em}</span>
@@ -447,7 +411,7 @@ export function Onboarding() {
       return (
         <Shell foot={<button className="onb-btn" onClick={next}>Получить предложение</button>}>
           <p className="onb-sub">Шарик бесплатный</p>
-          <h1 className="onb-h1">Но попробуй Шарик Плюс — <span className="onb-accent">7 дней бесплатно!</span></h1>
+          <h1 className="onb-h1">Но попробуй Шарик Плюс, <span className="onb-accent">7 дней бесплатно!</span></h1>
           <Pet species={species} size={160} state="happy" hold="❤️" />
         </Shell>
       )
@@ -470,13 +434,13 @@ export function Onboarding() {
             <button className="onb-link muted" onClick={next}>Пропустить</button>
           </>}>
           <p className="onb-sub"><span className="onb-accent" style={{ fontWeight: 800 }}>Лучшая цена</span></p>
-          <h1 className="onb-h1">Шарик Плюс — на целый год</h1>
+          <h1 className="onb-h1">Шарик Плюс на целый год</h1>
           <Pet species={species} size={138} state="happy" badge="😎" />
           <div className="onb-stat" style={{ background: '#f2a93b' }}>
             <span className="em">⭐</span>
             <div><b>{C.PLUS_YEAR_STARS} звёзд за весь год</b><span>≈ {perMonth} ⭐/мес вместо {C.PLUS_MONTH_STARS} ⭐/мес</span></div>
           </div>
-          <p className="onb-sub">Это разовая оплата за 365 дней — не ежемесячно. Отменять ничего не нужно.</p>
+          <p className="onb-sub">Это разовая оплата за 365 дней, не ежемесячно. Отменять ничего не нужно.</p>
         </Shell>
       )
     }
@@ -586,28 +550,3 @@ function Progress({ sec, within, count }: { sec: number; within: number; count: 
   )
 }
 
-// gift box → wiggle → pet pops out with a sunburst
-function GiftReveal({ species, name, onNext }: { species: Species; name: string; onNext: () => void }) {
-  const [open, setOpen] = useState(false)
-  const t = useRef<ReturnType<typeof setTimeout>>()
-  useEffect(() => { t.current = setTimeout(() => { setOpen(true); haptic('success') }, 1400); return () => clearTimeout(t.current) }, [])
-  return (
-    <Shell foot={open ? <button className="onb-btn" onClick={onNext}>Познакомиться</button> : undefined}>
-      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 200 }}>
-        {open && <div className="onb-rays light" style={{ inset: '-60%' }} />}
-        {open
-          ? <div className="onb-pop"><Pet species={species} size={170} state="happy" /></div>
-          : <div style={{ fontSize: 96, animation: 'giftwiggle 0.4s ease-in-out infinite' }}>🎁</div>}
-      </div>
-      <h1 className="onb-h1">{open ? `Знакомься, это ${name}!` : 'Коробочка шевелится…'}</h1>
-    </Shell>
-  )
-}
-
-// gift-box wrapping: a soft ribbon cross over the chosen colour
-function boxBg(hex: string) {
-  const ribbon = 'rgba(255,255,255,.6)'
-  return `linear-gradient(90deg, transparent 41%, ${ribbon} 41% 59%, transparent 59%),`
-    + `linear-gradient(0deg, transparent 41%, ${ribbon} 41% 59%, transparent 59%),`
-    + hex
-}

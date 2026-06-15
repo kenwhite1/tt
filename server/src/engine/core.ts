@@ -31,7 +31,7 @@ function genFriendCode(): string {
 }
 
 export function bootstrapUser(tgId: number, name: string, opts: {
-  petName: string; pronouns: string; color: string; trait: string; species?: string; tz?: string
+  petName: string; pronouns: string; trait: string; species?: string; tz?: string
 }): UserRow {
   const now = new Date().toISOString()
   const tz = opts.tz ?? 'Europe/Moscow'
@@ -40,9 +40,10 @@ export function bootstrapUser(tgId: number, name: string, opts: {
   ).run(tgId, name, tz, genFriendCode(), now)
   const user = getUser(tgId)!
   const day = gameDay(user)
+  // color column keeps its DEFAULT ('golden'); the pet's look comes from species now.
   db.prepare(
-    `INSERT INTO pets (user_id, name, species, pronouns, color, trait, hatch_day) VALUES (?,?,?,?,?,?,?)`,
-  ).run(tgId, opts.petName, opts.species ?? 'dog', opts.pronouns, opts.color, opts.trait, day)
+    `INSERT INTO pets (user_id, name, species, pronouns, trait, hatch_day) VALUES (?,?,?,?,?,?)`,
+  ).run(tgId, opts.petName, opts.species ?? 'dog', opts.pronouns, opts.trait, day)
   // Every new pup gets 7 days of Шарик Плюс free (honest "7 дней бесплатно", Finch-style).
   const trialUntil = new Date(Date.now() + 7 * 86_400_000).toISOString().slice(0, 10)
   db.prepare('UPDATE users SET plus_until=? WHERE id=?').run(trialUntil, tgId)
