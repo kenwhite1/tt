@@ -6,7 +6,7 @@ import type { DyePart, PuppyState } from '../../art/Puppy'
 import type { Stage } from '@shared/constants'
 import { C } from '@shared/constants'
 
-// egg-color id → body hex (mirrors Onboarding palette); accepts a raw hex too.
+// box-color id → body hex (mirrors Onboarding palette); accepts a raw hex too.
 const COLOR_HEX: Record<string, string> = {
  blue: '#9DC9E8', orange: '#F2B463', pink: '#F2A8C0',
  green: '#A8D3A0', purple: '#C0A8E0', gray: '#C9C5BD',

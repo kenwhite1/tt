@@ -8,16 +8,18 @@ import { haptic, requestWriteAccess, addToHomeScreen, tg } from '../telegram'
 
 /* ── content ─────────────────────────────────────────────────────────── */
 
-const EGGS = [
-  { id: 'blue', hex: '#9DC9E8', spot: '#6FA8CF' },
-  { id: 'orange', hex: '#F2B463', spot: '#DC9A45' },
-  { id: 'pink', hex: '#F2A8C0', spot: '#DD86A4' },
-  { id: 'green', hex: '#A8D3A0', spot: '#86BC7E' },
-  { id: 'purple', hex: '#C0A8E0', spot: '#A185CD' },
-  { id: 'gray', hex: '#C9C5BD', spot: '#A8A399' },
+// Gift-box wrapping colours (stored as pet.color). Your friend arrives as a present —
+// no "hatched from an egg" weirdness for a puppy / cat / elephant.
+const BOXES = [
+  { id: 'blue', hex: '#9DC9E8' },
+  { id: 'orange', hex: '#F2B463' },
+  { id: 'pink', hex: '#F2A8C0' },
+  { id: 'green', hex: '#A8D3A0' },
+  { id: 'purple', hex: '#C0A8E0' },
+  { id: 'gray', hex: '#C9C5BD' },
 ]
 // ring positions (cx 140, cy 150, Rx 110, Ry 120) — top, then clockwise
-const EGG_POS = [
+const BOX_POS = [
   { x: 140, y: 30 }, { x: 235, y: 90 }, { x: 235, y: 210 },
   { x: 140, y: 270 }, { x: 45, y: 210 }, { x: 45, y: 90 },
 ]
@@ -92,7 +94,7 @@ const COMMIT = [
 ]
 
 const ORDER = [
-  'welcome', 'species', 'egg', 'hatch', 'pronouns', 'name', 'trait', 'uname', 'whatcare', 'affirm', 'reminders', 'learnyou',
+  'welcome', 'species', 'gift', 'open', 'pronouns', 'name', 'trait', 'uname', 'whatcare', 'affirm', 'reminders', 'learnyou',
   'q:age', 'q:gender', 'q:used', 'q:sleep', 'q:bed', 'q:active', 'q:overwhelm', 'q:support', 'q:routine', 'q:areas',
   'creating', 'plan', 'plus1', 'plus2', 'plus3', 'hear', 'streak', 'commit', 'widget',
 ] as const
@@ -105,7 +107,7 @@ export function Onboarding() {
   const goals = useStore(s => s.state?.goals)
   const [step, setStep] = useState<Step>('welcome')
   const [species, setSpecies] = useState<Species>('dog')
-  const [egg, setEgg] = useState('')
+  const [boxColor, setBoxColor] = useState('')
   const [pronouns, setPronouns] = useState<'he' | 'she' | 'they'>('he')
   const [petName, setPetName] = useState(() => PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)])
   const [trait, setTrait] = useState('')
@@ -134,7 +136,7 @@ export function Onboarding() {
     if (step !== 'creating') return
     let alive = true
     setBusy(true)
-    finishOnboarding({ petName: petName.trim(), pronouns, color: egg, trait, species, userName: userName.trim() || 'Друг', areas: selectedAreas() })
+    finishOnboarding({ petName: petName.trim(), pronouns, color: boxColor, trait, species, userName: userName.trim() || 'Друг', areas: selectedAreas() })
       .then(() => { if (alive) { haptic('success'); void api.survey(buildSurvey()).catch(() => {}); setStep('plan') } })
       .catch(() => { if (alive) setStep('q:areas') })
       .finally(() => { if (alive) setBusy(false) })
@@ -169,7 +171,7 @@ export function Onboarding() {
 
   // collect the survey into a readable, self-describing blob for the backend
   function buildSurvey(): Record<string, unknown> {
-    const out: Record<string, unknown> = { pronouns, trait, color: egg, species }
+    const out: Record<string, unknown> = { pronouns, trait, color: boxColor, species }
     for (const qq of QUESTIONS) {
       const v = ans[qq.id]
       if (v == null) continue
@@ -259,7 +261,7 @@ export function Onboarding() {
     case 'species':
       return (
         <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
-          <h1 className="onb-h1">Кто вылупится?</h1>
+          <h1 className="onb-h1">Кто будет твоим питомцем?</h1>
           <p className="onb-sub">Выбери друга, который будет расти вместе с тобой.</p>
           <div className="onb-species">
             {MASCOTS.map(m => (
@@ -274,30 +276,30 @@ export function Onboarding() {
         </Shell>
       )
 
-    case 'egg':
+    case 'gift':
       return (
-        <Shell foot={<button className="onb-btn" disabled={!egg} onClick={next}>Вылупить яйцо</button>}>
-          <h1 className="onb-h1">Выбери своё яйцо!</h1>
+        <Shell foot={<button className="onb-btn" disabled={!boxColor} onClick={next}>Открыть подарок</button>}>
+          <h1 className="onb-h1">Выбери коробочку с подарком!</h1>
           <p className="onb-sub">{sp.emoji} {sp.ru}: {sp.blurb}. Уже ждёт внутри!</p>
-          <div className="onb-eggring">
-            {EGGS.map((e, idx) => (
-              <button key={e.id} className={`onb-egg${egg === e.id ? ' sel' : ''}`}
-                onClick={() => { haptic('tap'); setEgg(e.id) }}
-                style={{ left: EGG_POS[idx].x, top: EGG_POS[idx].y, background: eggBg(e.hex, e.spot) }} aria-label={e.id} />
+          <div className="onb-giftring">
+            {BOXES.map((b, idx) => (
+              <button key={b.id} className={`onb-gift${boxColor === b.id ? ' sel' : ''}`}
+                onClick={() => { haptic('tap'); setBoxColor(b.id) }}
+                style={{ left: BOX_POS[idx].x, top: BOX_POS[idx].y, background: boxBg(b.hex) }} aria-label={b.id} />
             ))}
             <div className="center"><Pet species={species} size={92} /></div>
           </div>
         </Shell>
       )
 
-    case 'hatch':
-      return <HatchReveal species={species} name={name} onNext={next} />
+    case 'open':
+      return <GiftReveal species={species} name={name} onNext={next} />
 
     case 'pronouns':
       return (
         <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
           <Pet species={species} size={140} state="happy" />
-          <h1 className="onb-h1">У тебя вылупился(ась) {name}!</h1>
+          <h1 className="onb-h1">Теперь {name} с тобой!</h1>
           <p className="onb-sub" style={{ fontWeight: 800, color: 'var(--oink)' }}>Местоимения питомца</p>
           <div className="onb-opts">
             {PRONOUNS.map(pn => {
@@ -352,7 +354,7 @@ export function Onboarding() {
     case 'uname':
       return (
         <Shell foot={<button className="onb-btn" disabled={!userName.trim()} onClick={next}>Дальше</button>}>
-          <div className="onb-bubble tail">Привет! Спасибо, что вылупил(а) меня! Меня зовут {name}, а тебя как?</div>
+          <div className="onb-bubble tail">Привет! Спасибо, что выбрал(а) меня! Меня зовут {name}, а тебя как?</div>
           <Pet species={species} size={120} />
           <input className="onb-input" value={userName} onChange={e => setUserName(e.target.value)} placeholder="Твоё имя" maxLength={32} />
         </Shell>
@@ -580,8 +582,8 @@ function Progress({ sec, within, count }: { sec: number; within: number; count: 
   )
 }
 
-// egg → wobble → puppy reveal with a sunburst
-function HatchReveal({ species, name, onNext }: { species: Species; name: string; onNext: () => void }) {
+// gift box → wiggle → pet pops out with a sunburst
+function GiftReveal({ species, name, onNext }: { species: Species; name: string; onNext: () => void }) {
   const [open, setOpen] = useState(false)
   const t = useRef<ReturnType<typeof setTimeout>>()
   useEffect(() => { t.current = setTimeout(() => { setOpen(true); haptic('success') }, 1400); return () => clearTimeout(t.current) }, [])
@@ -591,16 +593,17 @@ function HatchReveal({ species, name, onNext }: { species: Species; name: string
         {open && <div className="onb-rays light" style={{ inset: '-60%' }} />}
         {open
           ? <div className="onb-pop"><Pet species={species} size={170} state="happy" /></div>
-          : <div style={{ fontSize: 96, animation: 'breathe 0.5s ease-in-out infinite' }}>🥚</div>}
+          : <div style={{ fontSize: 96, animation: 'giftwiggle 0.4s ease-in-out infinite' }}>🎁</div>}
       </div>
-      <h1 className="onb-h1">{open ? `Знакомься, это ${name}!` : 'Яйцо шевелится…'}</h1>
+      <h1 className="onb-h1">{open ? `Знакомься, это ${name}!` : 'Коробочка шевелится…'}</h1>
     </Shell>
   )
 }
 
-function eggBg(hex: string, spot: string) {
-  return `radial-gradient(circle at 32% 30%, ${spot} 0 11%, transparent 12%),`
-    + `radial-gradient(circle at 62% 56%, ${spot} 0 9%, transparent 10%),`
-    + `radial-gradient(circle at 40% 78%, ${spot} 0 7%, transparent 8%),`
+// gift-box wrapping: a soft ribbon cross over the chosen colour
+function boxBg(hex: string) {
+  const ribbon = 'rgba(255,255,255,.6)'
+  return `linear-gradient(90deg, transparent 41%, ${ribbon} 41% 59%, transparent 59%),`
+    + `linear-gradient(0deg, transparent 41%, ${ribbon} 41% 59%, transparent 59%),`
     + hex
 }
