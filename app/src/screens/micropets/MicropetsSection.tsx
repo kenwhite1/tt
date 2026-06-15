@@ -112,7 +112,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  async function linkGoal(goalId: number) {
  const r = await req<{ egg: EggDto }>('/micropets/egg/link', { goalId })
  haptic('success')
- showToast('Яйцо привязано к цели! 🥚')
+ showToast('Коробочка привязана к цели! 🎁')
  setPendingGoalId(null)
  setData(d => (d ? { ...d, egg: r.egg } : d))
  }
@@ -154,13 +154,13 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <div className="card" style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
  <span style={{ fontSize: 44 }}>🐐</span>
  <div style={{ fontSize: 14, color: 'var(--ink-soft)', fontWeight: 600 }}>
- «Привет! Привяжи яйцо к одной из своих целей. Выполни её {egg.target} раз -
- и из яйца кто-то вылупится. Кто именно, сюрприз даже для меня!»
+ «Привет! Привяжи коробочку-сюрприз к одной из своих целей. Выполни её {egg.target} раз -
+ и внутри окажется новый друг. Кто именно, сюрприз даже для меня!»
  </div>
  </div>
 
  <div className="card" style={{ textAlign: 'center' }}>
- <div className={'egg-pop' + (egg.canHatch ? ' ready' : '')} style={{ fontSize: 64 }}>🥚</div>
+ <div className={'egg-pop' + (egg.canHatch ? ' ready' : '')} style={{ fontSize: 64 }}>🎁</div>
  {egg.goalId != null ? (
  <>
  <div style={{ fontWeight: 800, margin: '6px 0' }}>
@@ -170,13 +170,13 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <div style={{ fontWeight: 800, marginTop: 6 }}>{egg.progress} / {egg.target}</div>
  {egg.canHatch && (
  <button className="btn accent" style={{ marginTop: 10 }} onClick={() => void hatch()}>
- ✨ Вылупить!
+ ✨ Открыть!
  </button>
  )}
  </>
  ) : (
  <div style={{ color: 'var(--ink-soft)', fontWeight: 700, marginTop: 4 }}>
- Яйцо ждёт, пока ты выберешь цель ниже
+ Коробочка ждёт, пока ты выберешь цель ниже
  </div>
  )}
  </div>
@@ -202,16 +202,16 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  >
  <span style={{ fontSize: 22 }}>{g.emoji}</span>
  <span style={{ flex: 1, fontWeight: 800 }}>{g.title}</span>
- {linked && <span style={{ fontWeight: 800, color: 'var(--accent-deep)' }}>🥚 привязано</span>}
+ {linked && <span style={{ fontWeight: 800, color: 'var(--accent-deep)' }}>🎁 привязано</span>}
  </button>
  )
  })}
 
  {pendingGoal && (
  <div className="card" style={{ background: '#fdeceb' }}>
- <b>Перепривязать яйцо к «{pendingGoal.title}»?</b>
+ <b>Перепривязать коробочку к «{pendingGoal.title}»?</b>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '6px 0 10px' }}>
- Прогресс яйца сбросится до 0 / {egg.target}.
+ Прогресс коробочки сбросится до 0 / {egg.target}.
  </div>
  <div style={{ display: 'flex', gap: 8 }}>
  <button className="btn" onClick={() => void linkGoal(pendingGoal.id)}>Да, перепривязать</button>
@@ -271,7 +271,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  })}
  {pets.length === 0 && (
  <div style={{ position: 'absolute', top: 14, width: '100%', textAlign: 'center', fontWeight: 800, color: 'var(--brown-deep)' }}>
- Пока тут только щенок, вылупи первого друга!
+ Пока тут только твой питомец, получи первого друга!
  </div>
  )}
  </div>
@@ -286,9 +286,9 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  {asList ? (
  <>
  <button className="goal-row" style={{ width: '100%', border: 'none', cursor: 'pointer', textAlign: 'left' }} onClick={() => setView('lab')}>
- <span style={{ fontSize: 26 }}>🥚</span>
+ <span style={{ fontSize: 26 }}>🎁</span>
  <div style={{ flex: 1 }}>
- <div style={{ fontWeight: 800 }}>Яйцо</div>
+ <div style={{ fontWeight: 800 }}>Коробочка</div>
  <EggBar egg={egg} />
  </div>
  <span style={{ fontWeight: 800 }}>{egg.progress}/{egg.target}</span>
@@ -307,7 +307,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  ) : (
  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
  <button className="card" style={{ margin: 0, padding: 10, border: 'none', textAlign: 'center', background: '#eaf3da', cursor: 'pointer' }} onClick={() => setView('lab')}>
- <div style={{ fontSize: 34 }}>🥚</div>
+ <div style={{ fontSize: 34 }}>🎁</div>
  <EggBar egg={egg} />
  <div style={{ fontWeight: 800, fontSize: 13, marginTop: 4 }}>{egg.progress}/{egg.target}</div>
  </button>
@@ -409,8 +409,8 @@ function HatchReveal({ pet, onClose }: { pet: MicropetDto; onClose(): void }) {
  >
  <div className="card" style={{ width: '100%', textAlign: 'center', margin: 0, position: 'relative', overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
  <div className="confetti" aria-hidden>{Array.from({ length: 11 }).map((_, i) => (<i key={i} style={{ left: `${6 + i * 8}%`, ['--cd' as never]: `${(i % 5) * 0.08}s`, background: ['var(--gold)', 'var(--accent)', 'var(--green)', 'var(--red)', 'var(--accent-deep)'][i % 5] }} />))}</div>
- <div style={{ fontSize: 40 }}>🥚✨</div>
- <h2 style={{ margin: '8px 0' }}>Кто-то вылупился!</h2>
+ <div style={{ fontSize: 40 }}>🎁✨</div>
+ <h2 style={{ margin: '8px 0' }}>Кто-то появился!</h2>
  <span className="mp-portrait"><Micropet speciesId={pet.speciesId} variantHex={pet.variantHex} size={96} /></span>
  <h1 style={{ margin: '8px 0 2px' }}>{pet.name} {pet.emoji}</h1>
  <div style={{ fontWeight: 700, color: 'var(--ink-soft)' }}>
