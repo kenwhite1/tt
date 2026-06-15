@@ -195,7 +195,11 @@ function getWalk(userId: number, walkId: number): WalkRow | undefined {
 function ensureStory(walk: WalkRow): typeof STORIES[number] {
  let story = walk.story_id ? STORIES.find(s => s.id === walk.story_id) : undefined
  if (!story) {
- story = STORIES[Math.floor(Math.random() * STORIES.length)]
+ // prefer a story written for this location; else a global (untagged) one; else anything
+ const here = STORIES.filter(s => s.location_id === walk.location_id)
+ const global = STORIES.filter(s => !s.location_id)
+ const pool = here.length ? here : global.length ? global : STORIES
+ story = pool[Math.floor(Math.random() * pool.length)]
  db.prepare('UPDATE walks SET story_id=? WHERE id=?').run(story.id, walk.id)
  walk.story_id = story.id
  }

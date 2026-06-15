@@ -18,6 +18,7 @@ interface SpecialTrack { id: string; ru_template: string; metric: string; tiers:
 interface ChallengeDef {
  id: string; ru_name: string; ru_theme: string; badge_emoji: string
  goals: { ru: string; emoji: string }[]
+ months?: number[] // active calendar months (1-12); absent = always available (legacy)
 }
 interface ChallengeStateRow {
  user_id: number; challenge_id: string; month: string
@@ -282,7 +283,9 @@ function buildState(user: UserRow) {
  const month = day.slice(0, 7)
  const joinOpen = Number(day.slice(8, 10)) <= C.CHALLENGE_JOIN_BY_DAY
  const stRows = new Map((q.chAll.all(user.id, month) as ChallengeStateRow[]).map(r => [r.challenge_id, r]))
- const challenges = CHALLENGES.map(ch => {
+ const monthNum = Number(month.slice(5, 7))
+ // monthly rotation: show challenges active this month (or join-still-open / already-joined ones)
+ const challenges = CHALLENGES.filter(ch => !ch.months || ch.months.includes(monthNum) || stRows.has(ch.id)).map(ch => {
  const st = stRows.get(ch.id)
  const done = st ? (JSON.parse(st.done) as { i: number; day: string }[]) : []
  return {

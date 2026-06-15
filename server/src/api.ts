@@ -16,6 +16,7 @@ import { coopRoutes } from './routes/coop'
 import { dailyRoutes } from './routes/daily'
 import { shareRoutes } from './routes/share'
 import { eveningRoutes } from './routes/evening'
+import { collectiblesRoutes } from './routes/collectibles'
 import type { UserRow } from './engine/rows'
 import { db } from './db'
 import { logEvent, logFirst } from './engine/analytics'
@@ -194,3 +195,4 @@ api.route('/coop', coopRoutes)
 api.route('/daily', dailyRoutes)
 api.route('/share', shareRoutes)
 api.route('/evening', eveningRoutes)
+api.route('/collectibles', collectiblesRoutes)

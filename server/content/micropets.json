@@ -1,857 +1,3729 @@
 {
  "natures": [
- "весёлый",
- "тихий",
- "нежный",
- "смелый",
- "верный",
- "игривый",
- "мечтательный",
- "ласковый"
+  "весёлый",
+  "тихий",
+  "нежный",
+  "смелый",
+  "верный",
+  "игривый",
+  "мечтательный",
+  "ласковый"
  ],
  "species": [
- {
- "id": "puzyr_snail",
- "ru_name": "Пузырь, улитка",
- "species_ru": "улитка",
- "variants": [
- { "id": "pink", "ru_color": "розовый", "hex": "#F4A7B9" },
- { "id": "mint", "ru_color": "мятный", "hex": "#A8D8B9" },
- { "id": "lilac", "ru_color": "сиреневый", "hex": "#C9A7E0" }
- ],
- "origin": "common",
- "ru_description": "Пузырь никуда не торопится, и тебе тихонько советует то же самое.",
- "emoji_hint": "🐌"
- },
- {
- "id": "zefirka_cloud",
- "ru_name": "Зефирка, облачко",
- "species_ru": "облачко",
- "variants": [
- { "id": "white", "ru_color": "белый", "hex": "#F7F5F2" },
- { "id": "peach", "ru_color": "персиковый", "hex": "#FBD3B6" },
- { "id": "sky", "ru_color": "небесный", "hex": "#BBDDF2" }
- ],
- "origin": "common",
- "ru_description": "Зефирка мягко плывёт рядом и собирает твои тревоги, как дождинки.",
- "emoji_hint": "☁️"
- },
- {
- "id": "rosinka_droplet",
- "ru_name": "Росинка, капелька",
- "species_ru": "капелька",
- "variants": [
- { "id": "blue", "ru_color": "голубой", "hex": "#9CCBEB" },
- { "id": "turquoise", "ru_color": "бирюзовый", "hex": "#8FD9C9" },
- { "id": "lavender", "ru_color": "лавандовый", "hex": "#C5B8E8" }
- ],
- "origin": "common",
- "ru_description": "Росинка блестит ярче всего, когда ты не забываешь выпить стакан воды.",
- "emoji_hint": "💧"
- },
- {
- "id": "iskorka_flame",
- "ru_name": "Искорка, огонёк",
- "species_ru": "огонёк",
- "variants": [
- { "id": "orange", "ru_color": "оранжевый", "hex": "#F5A25D" },
- { "id": "golden", "ru_color": "золотой", "hex": "#F8C95C" },
- { "id": "scarlet", "ru_color": "алый", "hex": "#E66B5B" }
- ],
- "origin": "common",
- "ru_description": "Искорка тихонько греет тебя даже в самые серые дни.",
- "emoji_hint": "🔥"
- },
- {
- "id": "plyushka_hamster",
- "ru_name": "Плюшка, хомячок",
- "species_ru": "хомячок",
- "variants": [
- { "id": "beige", "ru_color": "бежевый", "hex": "#E8C9A0" },
- { "id": "ginger", "ru_color": "рыжий", "hex": "#D98E5F" },
- { "id": "gray", "ru_color": "серый", "hex": "#B8B2AD" }
- ],
- "origin": "common",
- "ru_description": "Плюшка прячет за щёчками запас уюта, хватит на вас двоих.",
- "emoji_hint": "🐹"
- },
- {
- "id": "knopka_ladybug",
- "ru_name": "Кнопка, божья коровка",
- "species_ru": "божья коровка",
- "variants": [
- { "id": "red", "ru_color": "красный", "hex": "#D9534F" },
- { "id": "yellow", "ru_color": "жёлтый", "hex": "#F0C94A" },
- { "id": "mint", "ru_color": "мятный", "hex": "#9ED9B5" }
- ],
- "origin": "common",
- "ru_description": "Кнопка приносит маленькие удачи, по одной в день, чтобы хватило надолго.",
- "emoji_hint": "🐞"
- },
- {
- "id": "luchik_star",
- "ru_name": "Лучик, звёздочка",
- "species_ru": "звёздочка",
- "variants": [
- { "id": "golden", "ru_color": "золотой", "hex": "#F6D365" },
- { "id": "silver", "ru_color": "серебряный", "hex": "#D9DEE8" },
- { "id": "pink", "ru_color": "розовый", "hex": "#F4B6C2" }
- ],
- "origin": "common",
- "ru_description": "Лучик светит мягко-мягко, как ночник, который всегда с тобой.",
- "emoji_hint": "⭐"
- },
- {
- "id": "murlyk_kitten",
- "ru_name": "Мурлык, котёнок",
- "species_ru": "котёнок",
- "variants": [
- { "id": "smoky", "ru_color": "дымчатый", "hex": "#A9A4B0" },
- { "id": "ginger", "ru_color": "рыжий", "hex": "#E09A5A" },
- { "id": "white", "ru_color": "белый", "hex": "#F5F1EA" }
- ],
- "origin": "common",
- "ru_description": "Мурлык урчит громче всего, когда ты разрешаешь себе отдохнуть.",
- "emoji_hint": "🐱"
- },
- {
- "id": "kvak_frog",
- "ru_name": "Квак, лягушонок",
- "species_ru": "лягушонок",
- "variants": [
- { "id": "green", "ru_color": "зелёный", "hex": "#8FBF6B" },
- { "id": "blue", "ru_color": "голубой", "hex": "#93C9E3" },
- { "id": "lemon", "ru_color": "лимонный", "hex": "#E8DD6F" }
- ],
- "origin": "common",
- "ru_description": "Квак учит прыгать через маленькие лужи, а не выше головы.",
- "emoji_hint": "🐸"
- },
- {
- "id": "pushinka_dandelion",
- "ru_name": "Пушинка, одуванчик",
- "species_ru": "одуванчик",
- "variants": [
- { "id": "white", "ru_color": "белый", "hex": "#F4F2E9" },
- { "id": "cream", "ru_color": "кремовый", "hex": "#F0E3C0" },
- { "id": "light_green", "ru_color": "салатовый", "hex": "#CBE3A2" }
- ],
- "origin": "common",
- "ru_description": "Пушинка летит туда, куда дует ветер, и ничуть об этом не переживает.",
- "emoji_hint": "🌼"
- },
- {
- "id": "shurshik_hedgehog",
- "ru_name": "Шуршик, ёжик",
- "species_ru": "ёжик",
- "variants": [
- { "id": "brown", "ru_color": "коричневый", "hex": "#9A7B5B" },
- { "id": "gray", "ru_color": "серый", "hex": "#ABA39B" },
- { "id": "ginger", "ru_color": "рыжий", "hex": "#C98E55" }
- ],
- "origin": "common",
- "ru_description": "Шуршик колючий только снаружи, внутри он сплошное тепло.",
- "emoji_hint": "🦔"
- },
- {
- "id": "kisel_jelly",
- "ru_name": "Кисель, желешка",
- "species_ru": "желешка",
- "variants": [
- { "id": "berry", "ru_color": "ягодный", "hex": "#C76FA0" },
- { "id": "mint", "ru_color": "мятный", "hex": "#97D7BD" },
- { "id": "lemon", "ru_color": "лимонный", "hex": "#EFE08A" }
- ],
- "origin": "common",
- "ru_description": "Кисель дрожит от радости каждый раз, когда ты с ним здороваешься.",
- "emoji_hint": "🍮"
- },
- {
- "id": "chizhik_sparrow",
- "ru_name": "Чижик, воробушек",
- "species_ru": "воробушек",
- "variants": [
- { "id": "gray", "ru_color": "серый", "hex": "#A8A29A" },
- { "id": "sandy", "ru_color": "песочный", "hex": "#D9BE8C" },
- { "id": "olive", "ru_color": "оливковый", "hex": "#A9B36B" }
- ],
- "origin": "common",
- "ru_description": "Чижик чирикает тебе по утрам только самые добрые новости.",
- "emoji_hint": "🐦"
- },
- {
- "id": "kroshka_mouse",
- "ru_name": "Крошка, мышонок",
- "species_ru": "мышонок",
- "variants": [
- { "id": "gray", "ru_color": "серый", "hex": "#B5AFAE" },
- { "id": "white", "ru_color": "белый", "hex": "#F2EFEA" },
- { "id": "caramel", "ru_color": "карамельный", "hex": "#D7A876" }
- ],
- "origin": "common",
- "ru_description": "Крошка верит, что маленькие шаги, самые надёжные.",
- "emoji_hint": "🐭"
- },
- {
- "id": "bublik_turtle",
- "ru_name": "Бублик, черепашка",
- "species_ru": "черепашка",
- "variants": [
- { "id": "emerald", "ru_color": "изумрудный", "hex": "#6FA98C" },
- { "id": "olive", "ru_color": "оливковый", "hex": "#A8A05E" },
- { "id": "turquoise", "ru_color": "бирюзовый", "hex": "#76C2BC" }
- ],
- "origin": "common",
- "ru_description": "Бублик никогда не спешит, и всё равно везде успевает.",
- "emoji_hint": "🐢"
- },
- {
- "id": "motok_yarnball",
- "ru_name": "Моток, клубочек",
- "species_ru": "клубочек",
- "variants": [
- { "id": "pink", "ru_color": "розовый", "hex": "#E8A3B8" },
- { "id": "blue", "ru_color": "голубой", "hex": "#9DB8E0" },
- { "id": "pistachio", "ru_color": "фисташковый", "hex": "#BCD3A0" }
- ],
- "origin": "common",
- "ru_description": "Моток разматывает запутанные мысли в ровную мягкую нитку.",
- "emoji_hint": "🧶"
- },
- {
- "id": "pechenka_cow",
- "ru_name": "Печенька, корова",
- "species_ru": "корова",
- "variants": [
- { "id": "spotted", "ru_color": "чёрно-белый", "hex": "#5A534D" },
- { "id": "chocolate", "ru_color": "шоколадный", "hex": "#8B5E3C" },
- { "id": "cream", "ru_color": "кремовый", "hex": "#EDE0C8" }
- ],
- "origin": "referral",
- "ru_description": "Печенька приходит к тем, кто делится теплом с друзьями.",
- "emoji_hint": "🐮"
- },
- {
- "id": "shoroh_bat",
- "ru_name": "Шорох, летучая мышка",
- "species_ru": "летучая мышка",
- "variants": [
- { "id": "black", "ru_color": "чёрный", "hex": "#46414E" },
- { "id": "violet", "ru_color": "фиолетовый", "hex": "#7E6BA8" },
- { "id": "gray", "ru_color": "серый", "hex": "#948FA0" }
- ],
- "origin": "seasonal",
- "event_hint": "Октябрь: тыквенные тайны",
- "ru_description": "Шорох обнимает крыльями, как самым мягким пледом.",
- "emoji_hint": "🦇"
- },
- {
- "id": "snezhok_penguin",
- "ru_name": "Снежок, пингвинёнок",
- "species_ru": "пингвинёнок",
- "variants": [
- { "id": "classic", "ru_color": "чёрно-белый", "hex": "#3E4750" },
- { "id": "blue", "ru_color": "голубой", "hex": "#A7CDE8" },
- { "id": "lilac", "ru_color": "сиреневый", "hex": "#B9A7D6" }
- ],
- "origin": "seasonal",
- "event_hint": "Декабрь: зимние огоньки",
- "ru_description": "Снежок переваливается с лапки на лапку и зовёт тебя смотреть на гирлянды.",
- "emoji_hint": "🐧"
- },
- {
- "id": "valenok_yeti",
- "ru_name": "Валенок, йети",
- "species_ru": "йети",
- "variants": [
- { "id": "white", "ru_color": "белый", "hex": "#F1EEE7" },
- { "id": "icy", "ru_color": "ледяной", "hex": "#C3D7E6" },
- { "id": "brown", "ru_color": "бурый", "hex": "#8F7866" }
- ],
- "origin": "seasonal",
- "event_hint": "Январь: морозные чудеса",
- "ru_description": "Валенок большой, лохматый и совершенно не страшный, особенно когда обнимает.",
- "emoji_hint": "❄️"
- },
- {
- "id": "serdechko_moth",
- "ru_name": "Сердечко, мотылёк",
- "species_ru": "мотылёк",
- "variants": [
- { "id": "scarlet", "ru_color": "алый", "hex": "#DD6B6B" },
- { "id": "peach", "ru_color": "персиковый", "hex": "#F4B58F" },
- { "id": "raspberry", "ru_color": "малиновый", "hex": "#C95E88" }
- ],
- "origin": "seasonal",
- "event_hint": "Февраль: тёплые слова",
- "ru_description": "Сердечко летит на свет добрых слов, особенно тех, что ты говоришь себе.",
- "emoji_hint": "🦋"
- },
- {
- "id": "vesnushka_titmouse",
- "ru_name": "Веснушка, синичка",
- "species_ru": "синичка",
- "variants": [
- { "id": "yellow", "ru_color": "жёлтый", "hex": "#EFD05A" },
- { "id": "blue", "ru_color": "голубой", "hex": "#8FB8DD" },
- { "id": "green", "ru_color": "зелёный", "hex": "#A4C682" }
- ],
- "origin": "seasonal",
- "event_hint": "Март: первые проталины",
- "ru_description": "Веснушка звенит, как первая капель, и радуется каждому твоему шагу.",
- "emoji_hint": "🐤"
- },
- {
- "id": "buton_bee",
- "ru_name": "Бутон, пчёлка",
- "species_ru": "пчёлка",
- "variants": [
- { "id": "golden", "ru_color": "золотой", "hex": "#E9B84E" },
- { "id": "peach", "ru_color": "персиковый", "hex": "#F2BC9A" },
- { "id": "lilac", "ru_color": "лиловый", "hex": "#B79BD1" }
- ],
- "origin": "seasonal",
- "event_hint": "Апрель: цветочный дождь",
- "ru_description": "Бутон собирает не пыльцу, а твои маленькие победы.",
- "emoji_hint": "🐝"
- },
- {
- "id": "raduga_unicorn",
- "ru_name": "Радуга, единорожек",
- "species_ru": "единорожек",
- "variants": [
- { "id": "white", "ru_color": "белый", "hex": "#F6F2F0" },
- { "id": "pink", "ru_color": "розовый", "hex": "#F0B5CD" },
- { "id": "mint", "ru_color": "мятный", "hex": "#A7DCC5" }
- ],
- "origin": "seasonal",
- "event_hint": "Май: радужные грозы",
- "ru_description": "Радуга появляется сразу после трудного дня, так уж она устроена.",
- "emoji_hint": "🦄"
- },
- {
- "id": "event_summer_pet",
- "ru_name": "Боня, крабик",
- "species_ru": "крабик",
- "variants": [
- { "id": "coral", "ru_color": "коралловый", "hex": "#E87461" },
- { "id": "sandy", "ru_color": "песочный", "hex": "#E3C08D" },
- { "id": "turquoise", "ru_color": "бирюзовый", "hex": "#6FC4BE" }
- ],
- "origin": "seasonal",
- "event_hint": "Июнь: солёный бриз",
- "ru_description": "Боня ходит бочком, но в твою сторону, всегда напрямик.",
- "emoji_hint": "🦀"
- },
- {
- "id": "arbuzik_dolphin",
- "ru_name": "Арбузик, дельфинчик",
- "species_ru": "дельфинчик",
- "variants": [
- { "id": "blue", "ru_color": "голубой", "hex": "#7FB5DC" },
- { "id": "silver", "ru_color": "серебристый", "hex": "#C3CCD4" },
- { "id": "pink", "ru_color": "розовый", "hex": "#EFA8B8" }
- ],
- "origin": "seasonal",
- "event_hint": "Июль: морское приключение",
- "ru_description": "Арбузик выпрыгивает из волны, просто чтобы помахать тебе плавником.",
- "emoji_hint": "🐬"
- },
- {
- "id": "kolosok_gopher",
- "ru_name": "Колосок, суслик",
- "species_ru": "суслик",
- "variants": [
- { "id": "golden", "ru_color": "золотистый", "hex": "#D9A964" },
- { "id": "brown", "ru_color": "коричневый", "hex": "#997352" },
- { "id": "gray", "ru_color": "серый", "hex": "#ADA396" }
- ],
- "origin": "seasonal",
- "event_hint": "Август: золотые поля",
- "ru_description": "Колосок стоит столбиком и высматривает, чем бы тебя порадовать.",
- "emoji_hint": "🌾"
- },
- {
- "id": "klenovka_squirrel",
- "ru_name": "Кленовка, белочка",
- "species_ru": "белочка",
- "variants": [
- { "id": "ginger", "ru_color": "рыжий", "hex": "#C9763E" },
- { "id": "gray", "ru_color": "серый", "hex": "#A29A92" },
- { "id": "chocolate", "ru_color": "шоколадный", "hex": "#7C5A40" }
- ],
- "origin": "seasonal",
- "event_hint": "Сентябрь: тёплый листопад",
- "ru_description": "Кленовка прячет в дупло жёлуди, а для тебя, солнечные деньки.",
- "emoji_hint": "🐿️"
- },
- {
- "id": "bu_ghost",
- "ru_name": "Бу, привидешка",
- "species_ru": "привидешка",
- "variants": [
- { "id": "white", "ru_color": "белый", "hex": "#F4F2EE" }
- ],
- "origin": "seasonal",
- "event_hint": "Октябрь: добрые страшилки",
- "ru_description": "Бу пугает только плохое настроение, оно его очень боится.",
- "emoji_hint": "👻"
- },
- {
- "id": "girlyanda_fawn",
- "ru_name": "Гирлянда, оленёнок",
- "species_ru": "оленёнок",
- "variants": [
- { "id": "caramel", "ru_color": "карамельный", "hex": "#C68B57" },
- { "id": "white", "ru_color": "белый", "hex": "#EFE9E0" },
- { "id": "smoky", "ru_color": "дымчатый", "hex": "#9E948C" }
- ],
- "origin": "seasonal",
- "event_hint": "Декабрь: праздничные огни",
- "ru_description": "Гирлянда несёт на рожках маленькие огоньки, чтобы тебе было светлее.",
- "emoji_hint": "🦌"
- },
- {
- "id": "sugrob_polar_bear",
- "ru_name": "Сугроб, белый мишка",
- "species_ru": "белый мишка",
- "variants": [
- { "id": "white", "ru_color": "белый", "hex": "#F3F0EA" },
- { "id": "cream", "ru_color": "кремовый", "hex": "#EBDFC8" },
- { "id": "icy", "ru_color": "ледяной", "hex": "#CFDEE8" }
- ],
- "origin": "seasonal",
- "event_hint": "Январь: полярная ночь",
- "ru_description": "Сугроб знает: в долгую зиму главное, тёплый бок рядом.",
- "emoji_hint": "🐻‍❄️"
- },
- {
- "id": "kakao_beaver",
- "ru_name": "Какао, бобрёнок",
- "species_ru": "бобрёнок",
- "variants": [
- { "id": "brown", "ru_color": "коричневый", "hex": "#7E5A3E" },
- { "id": "ginger", "ru_color": "рыжий", "hex": "#B07845" },
- { "id": "dark_brown", "ru_color": "тёмно-бурый", "hex": "#5C4533" }
- ],
- "origin": "seasonal",
- "event_hint": "Ноябрь: какао и плед",
- "ru_description": "Какао строит не плотины, а уютные вечера.",
- "emoji_hint": "🦫"
- },
- {
- "id": "blinchik_catfox",
- "ru_name": "Блинчик, котолис",
- "species_ru": "котолис",
- "variants": [
- { "id": "ginger", "ru_color": "рыжий", "hex": "#E09850" },
- { "id": "cream", "ru_color": "кремовый", "hex": "#F2DDB5" },
- { "id": "smoky", "ru_color": "дымчатый", "hex": "#B0A49A" }
- ],
- "origin": "seasonal",
- "event_hint": "Февраль: проводы зимы",
- "ru_description": "Блинчик круглый, тёплый и уверен, что солнце, его дальний родственник.",
- "emoji_hint": "🥞"
- },
- {
- "id": "podsnezhnik_bunny",
- "ru_name": "Подснежник, зайчонок",
- "species_ru": "зайчонок",
- "variants": [
- { "id": "white", "ru_color": "белый", "hex": "#F5F3EF" },
- { "id": "gray", "ru_color": "серый", "hex": "#B7B1AB" },
- { "id": "beige", "ru_color": "бежевый", "hex": "#E2D3BC" }
- ],
- "origin": "seasonal",
- "event_hint": "Март: подснежники",
- "ru_description": "Подснежник первым чувствует весну и тихонько будит её для тебя.",
- "emoji_hint": "🐰"
- },
- {
- "id": "kapel_brook",
- "ru_name": "Капель, ручеёк",
- "species_ru": "ручеёк",
- "variants": [
- { "id": "light_blue", "ru_color": "светло-голубой", "hex": "#A6D3EC" },
- { "id": "turquoise", "ru_color": "бирюзовый", "hex": "#7CC9C0" },
- { "id": "lilac", "ru_color": "сиреневый", "hex": "#BDA9DC" }
- ],
- "origin": "seasonal",
- "event_hint": "Апрель: звон капели",
- "ru_description": "Капель журчит весёлые песенки о том, что всё течёт и налаживается.",
- "emoji_hint": "💦"
- },
- {
- "id": "landysh_firefly",
- "ru_name": "Ландыш, светлячок",
- "species_ru": "светлячок",
- "variants": [
- { "id": "golden", "ru_color": "золотой", "hex": "#F2D079" },
- { "id": "light_green", "ru_color": "салатовый", "hex": "#BBDB8A" },
- { "id": "pearl", "ru_color": "жемчужный", "hex": "#EFE8D8" }
- ],
- "origin": "seasonal",
- "event_hint": "Май: вечерние сады",
- "ru_description": "Ландыш зажигает фонарик ровно тогда, когда тебе нужно чуть-чуть света.",
- "emoji_hint": "✨"
- },
- {
- "id": "dyuna_fennec",
- "ru_name": "Дюна, фенёк",
- "species_ru": "фенёк",
- "variants": [
- { "id": "sandy", "ru_color": "песочный", "hex": "#E5C18E" },
- { "id": "cream", "ru_color": "кремовый", "hex": "#F1E3C6" },
- { "id": "apricot", "ru_color": "абрикосовый", "hex": "#E8A878" }
- ],
- "origin": "seasonal",
- "event_hint": "Июнь: пустынные звёзды",
- "ru_description": "Дюна слышит огромными ушками даже самое тихое твоё «спасибо».",
- "emoji_hint": "🦊"
- },
- {
- "id": "shtorm_octopus",
- "ru_name": "Шторм, осьминожек",
- "species_ru": "осьминожек",
- "variants": [
- { "id": "violet", "ru_color": "фиолетовый", "hex": "#8A6FB5" },
- { "id": "blue", "ru_color": "синий", "hex": "#5E7FB2" },
- { "id": "coral", "ru_color": "коралловый", "hex": "#E08573" }
- ],
- "origin": "seasonal",
- "event_hint": "Июль: глубины океана",
- "ru_description": "Шторм обнимает сразу восемью лапками, на всякий случай покрепче.",
- "emoji_hint": "🐙"
- },
- {
- "id": "zorka_rooster",
- "ru_name": "Зорька, петушок",
- "species_ru": "петушок",
- "variants": [
- { "id": "fiery", "ru_color": "огненный", "hex": "#D96B3F" },
- { "id": "golden", "ru_color": "золотой", "hex": "#E5B54E" },
- { "id": "emerald", "ru_color": "изумрудный", "hex": "#4F9B7A" }
- ],
- "origin": "seasonal",
- "event_hint": "Август: деревенское утро",
- "ru_description": "Зорька будит не криком, а тёплым солнечным бочком.",
- "emoji_hint": "🐓"
- },
- {
- "id": "poloska_raccoon",
- "ru_name": "Полоска, енотик",
- "species_ru": "енотик",
- "variants": [
- { "id": "gray", "ru_color": "серый", "hex": "#9B948E" },
- { "id": "fawn", "ru_color": "палевый", "hex": "#C7A276" },
- { "id": "charcoal", "ru_color": "угольный", "hex": "#58524C" }
- ],
- "origin": "seasonal",
- "event_hint": "Сентябрь: новые тетрадки",
- "ru_description": "Полоска аккуратно складывает твои заботы в стопочку и часть забирает себе.",
- "emoji_hint": "🦝"
- },
- {
- "id": "tuman_wolf_cub",
- "ru_name": "Туман, волчонок",
- "species_ru": "волчонок",
- "variants": [
- { "id": "gray", "ru_color": "серый", "hex": "#8E8C94" },
- { "id": "white", "ru_color": "белый", "hex": "#EEEBE6" },
- { "id": "black", "ru_color": "чёрный", "hex": "#4B4A52" }
- ],
- "origin": "seasonal",
- "event_hint": "Октябрь: лунные тропы",
- "ru_description": "Туман тихо идёт рядом, чтобы тебе не было одиноко в сумерках.",
- "emoji_hint": "🐺"
- },
- {
- "id": "klyukva_bullfinch",
- "ru_name": "Клюква, снегирь",
- "species_ru": "снегирь",
- "variants": [
- { "id": "red", "ru_color": "красный", "hex": "#D4574E" },
- { "id": "pink", "ru_color": "розовый", "hex": "#E89AA4" },
- { "id": "orange", "ru_color": "оранжевый", "hex": "#E08A4E" }
- ],
- "origin": "seasonal",
- "event_hint": "Ноябрь: первые заморозки",
- "ru_description": "Клюква, яркое пятнышко тепла на самой серой ветке.",
- "emoji_hint": "🐦"
- },
- {
- "id": "mandarinka_fox",
- "ru_name": "Мандаринка, лисёнок",
- "species_ru": "лисёнок",
- "variants": [
- { "id": "orange", "ru_color": "оранжевый", "hex": "#E07A3F" },
- { "id": "cream", "ru_color": "кремовый", "hex": "#F2DFC2" },
- { "id": "brown", "ru_color": "бурый", "hex": "#8A5A3C" }
- ],
- "origin": "seasonal",
- "event_hint": "Декабрь: мандариновое настроение",
- "ru_description": "Мандаринка пахнет праздником и сворачивается клубочком у твоих ног.",
- "emoji_hint": "🦊"
- },
- {
- "id": "ldinka_narwhal",
- "ru_name": "Льдинка, нарвальчик",
- "species_ru": "нарвальчик",
- "variants": [
- { "id": "blue", "ru_color": "голубой", "hex": "#9DC4E4" },
- { "id": "silver", "ru_color": "серебристый", "hex": "#CBD4DD" },
- { "id": "lilac", "ru_color": "сиреневый", "hex": "#B3A8D8" }
- ],
- "origin": "seasonal",
- "event_hint": "Январь: подо льдом",
- "ru_description": "Льдинка показывает рожком на самое важное, на отдых.",
- "emoji_hint": "🐳"
- },
- {
- "id": "kupidosha_dove",
- "ru_name": "Купидоша, голубок",
- "species_ru": "голубок",
- "variants": [
- { "id": "white", "ru_color": "белый", "hex": "#F4F1EC" },
- { "id": "peach", "ru_color": "персиковый", "hex": "#F3C6A5" },
- { "id": "gray_blue", "ru_color": "серо-голубой", "hex": "#AEBBCB" }
- ],
- "origin": "seasonal",
- "event_hint": "Февраль: письма с сердечками",
- "ru_description": "Купидоша доставляет добрые записки, первая всегда для тебя.",
- "emoji_hint": "🕊️"
- },
- {
- "id": "verba_lamb",
- "ru_name": "Верба, ягнёнок",
- "species_ru": "ягнёнок",
- "variants": [
- { "id": "cream", "ru_color": "кремовый", "hex": "#F0E6D4" },
- { "id": "gray", "ru_color": "серый", "hex": "#B6AFA6" },
- { "id": "caramel", "ru_color": "карамельный", "hex": "#D2A878" }
- ],
- "origin": "seasonal",
- "event_hint": "Март: вербное тепло",
- "ru_description": "Верба мягкая, как первые пушистые почки весны.",
- "emoji_hint": "🐑"
- },
- {
- "id": "svirel_starling",
- "ru_name": "Свирель, скворушка",
- "species_ru": "скворушка",
- "variants": [
- { "id": "graphite", "ru_color": "графитовый", "hex": "#555B63" },
- { "id": "emerald", "ru_color": "изумрудный", "hex": "#4E8C77" },
- { "id": "plum", "ru_color": "сливовый", "hex": "#7B5E78" }
- ],
- "origin": "seasonal",
- "event_hint": "Апрель: птичьи новоселья",
- "ru_description": "Свирель насвистывает мелодии, под которые легче дышится.",
- "emoji_hint": "🐦"
- },
- {
- "id": "pion_flamingo",
- "ru_name": "Пион, фламинго",
- "species_ru": "фламинго",
- "variants": [
- { "id": "pink", "ru_color": "розовый", "hex": "#EF9BB0" },
- { "id": "coral", "ru_color": "коралловый", "hex": "#E8826E" },
- { "id": "lilac", "ru_color": "лиловый", "hex": "#C193C9" }
- ],
- "origin": "seasonal",
- "event_hint": "Май: розовый закат",
- "ru_description": "Пион умеет стоять на одной ножке и ни о чём не волноваться.",
- "emoji_hint": "🦩"
- },
- {
- "id": "kokos_monkey",
- "ru_name": "Кокос, мартышка",
- "species_ru": "мартышка",
- "variants": [
- { "id": "chocolate", "ru_color": "шоколадный", "hex": "#7A573C" },
- { "id": "golden", "ru_color": "золотистый", "hex": "#C99A5B" },
- { "id": "smoky", "ru_color": "дымчатый", "hex": "#9D9189" }
- ],
- "origin": "seasonal",
- "event_hint": "Июнь: тропический остров",
- "ru_description": "Кокос корчит рожицы, пока ты не улыбнёшься, работает безотказно.",
- "emoji_hint": "🐒"
- },
- {
- "id": "volna_seahorse",
- "ru_name": "Волна, морской конёк",
- "species_ru": "морской конёк",
- "variants": [
- { "id": "turquoise", "ru_color": "бирюзовый", "hex": "#6BC2BB" },
- { "id": "yellow", "ru_color": "жёлтый", "hex": "#E9CB6A" },
- { "id": "pink", "ru_color": "розовый", "hex": "#EBA3B5" }
- ],
- "origin": "seasonal",
- "event_hint": "Июль: подводный балет",
- "ru_description": "Волна покачивается в такт твоему дыханию, медленно и спокойно.",
- "emoji_hint": "🌊"
- },
- {
- "id": "zvezdopad_cosmaling",
- "ru_name": "Звездопад, космёныш",
- "species_ru": "космёныш",
- "variants": [
- { "id": "lilac", "ru_color": "сиреневый", "hex": "#A78BD0" },
- { "id": "mint", "ru_color": "мятный", "hex": "#8FD6BA" },
- { "id": "blue", "ru_color": "синий", "hex": "#6A82C4" }
- ],
- "origin": "seasonal",
- "event_hint": "Август: ночь звездопада",
- "ru_description": "Звездопад прилетел издалека, потому что услышал, какое у тебя доброе сердце.",
- "emoji_hint": "👽"
- },
- {
- "id": "borovik_forest_spirit",
- "ru_name": "Боровик, лесовичок",
- "species_ru": "лесовичок",
- "variants": [
- { "id": "mossy", "ru_color": "мшистый", "hex": "#7E9B6A" },
- { "id": "ginger", "ru_color": "рыжий", "hex": "#BD8049" },
- { "id": "brown", "ru_color": "бурый", "hex": "#846A50" }
- ],
- "origin": "seasonal",
- "event_hint": "Сентябрь: грибной дождь",
- "ru_description": "Боровик знает все тихие тропинки и делится самой спокойной.",
- "emoji_hint": "🍄"
- },
- {
- "id": "polnoch_black_cat",
- "ru_name": "Полночь, чёрная кошка",
- "species_ru": "чёрная кошка",
- "variants": [
- { "id": "black", "ru_color": "чёрный", "hex": "#3C3844" }
- ],
- "origin": "seasonal",
- "event_hint": "Октябрь: бал при свечах",
- "ru_description": "Полночь переходит дорогу только плохим приметам.",
- "emoji_hint": "🐈‍⬛"
- },
- {
- "id": "sharfik_alpaca",
- "ru_name": "Шарфик, альпака",
- "species_ru": "альпака",
- "variants": [
- { "id": "cream", "ru_color": "кремовый", "hex": "#EFE4CC" },
- { "id": "cocoa", "ru_color": "какао", "hex": "#9A7858" },
- { "id": "ashen", "ru_color": "пепельный", "hex": "#B9B2A8" }
- ],
- "origin": "seasonal",
- "event_hint": "Ноябрь: вязаные истории",
- "ru_description": "Шарфик пушистый настолько, что в него можно завернуться с головой.",
- "emoji_hint": "🦙"
- },
- {
- "id": "snezhinka_fairy",
- "ru_name": "Снежинка, зимняя фея",
- "species_ru": "зимняя фея",
- "variants": [
- { "id": "silver", "ru_color": "серебристый", "hex": "#D8DEE8" },
- { "id": "blue", "ru_color": "голубой", "hex": "#AFCBE6" },
- { "id": "pink", "ru_color": "розовый", "hex": "#E7BFD2" }
- ],
- "origin": "seasonal",
- "event_hint": "Декабрь: хрустальный бал",
- "ru_description": "Снежинка кружится над тобой и нашёптывает, что отдых, это тоже волшебство.",
- "emoji_hint": "🧚"
- },
- {
- "id": "pelmeshka_panda",
- "ru_name": "Пельмешка, пандочка",
- "species_ru": "пандочка",
- "variants": [
- { "id": "classic", "ru_color": "чёрно-белый", "hex": "#565250" },
- { "id": "brown", "ru_color": "бурый", "hex": "#8A6B4F" },
- { "id": "smoky", "ru_color": "дымчатый", "hex": "#A9A29B" }
- ],
- "origin": "seasonal",
- "event_hint": "Январь: дни тишины",
- "ru_description": "Пельмешка умеет лениться так вдохновенно, что хочется присоединиться.",
- "emoji_hint": "🐼"
- },
- {
- "id": "iriska_otter",
- "ru_name": "Ириска, выдра",
- "species_ru": "выдра",
- "variants": [
- { "id": "caramel", "ru_color": "карамельный", "hex": "#C08A52" },
- { "id": "chocolate", "ru_color": "шоколадный", "hex": "#79543A" },
- { "id": "gray", "ru_color": "серый", "hex": "#A39A90" }
- ],
- "origin": "seasonal",
- "event_hint": "Февраль: тёплые объятия",
- "ru_description": "Ириска держит тебя лапкой за руку, чтобы вы не потерялись.",
- "emoji_hint": "🦦"
- },
- {
- "id": "luzhitsa_duckling",
- "ru_name": "Лужица, утёнок",
- "species_ru": "утёнок",
- "variants": [
- { "id": "yellow", "ru_color": "жёлтый", "hex": "#F0D264" },
- { "id": "white", "ru_color": "белый", "hex": "#F4F0E6" },
- { "id": "mint", "ru_color": "мятный", "hex": "#ACDCC0" }
- ],
- "origin": "seasonal",
- "event_hint": "Март: весёлые лужи",
- "ru_description": "Лужица уверена: любая лужа, это маленькое море приключений.",
- "emoji_hint": "🦆"
- },
- {
- "id": "semechka_mole",
- "ru_name": "Семечка, кротик",
- "species_ru": "кротик",
- "variants": [
- { "id": "dark_brown", "ru_color": "тёмно-бурый", "hex": "#5E4B3C" }
- ],
- "origin": "seasonal",
- "event_hint": "Апрель: огородные хлопоты",
- "ru_description": "Семечка копает понемногу, но каждый день, совсем как ты со своими делами.",
- "emoji_hint": "🌱"
- },
- {
- "id": "siren_hummingbird",
- "ru_name": "Сирень, колибри",
- "species_ru": "колибри",
- "variants": [
- { "id": "lilac", "ru_color": "лиловый", "hex": "#A985C8" },
- { "id": "emerald", "ru_color": "изумрудный", "hex": "#54A98A" },
- { "id": "pink", "ru_color": "розовый", "hex": "#E699AE" }
- ],
- "origin": "seasonal",
- "event_hint": "Май: сиреневый вечер",
- "ru_description": "Сирень порхает так легко, что рядом с ней и заботы становятся легче.",
- "emoji_hint": "🌸"
- },
- {
- "id": "kuvshinka_goldfish",
- "ru_name": "Кувшинка, золотая рыбка",
- "species_ru": "золотая рыбка",
- "variants": [
- { "id": "golden", "ru_color": "золотой", "hex": "#E8A84E" }
- ],
- "origin": "seasonal",
- "event_hint": "Июнь: тихий пруд",
- "ru_description": "Кувшинка исполняет одно желание, то, в котором ты желаешь себе добра.",
- "emoji_hint": "🐟"
- },
- {
- "id": "karamel_pony",
- "ru_name": "Карамель, пони",
- "species_ru": "пони",
- "variants": [
- { "id": "honey", "ru_color": "медовый", "hex": "#D8A45E" },
- { "id": "chestnut", "ru_color": "каштановый", "hex": "#8A5A3E" },
- { "id": "cream", "ru_color": "кремовый", "hex": "#EEDFC4" }
- ],
- "origin": "seasonal",
- "event_hint": "Август: ярмарка чудес",
- "ru_description": "Карамель катает на спинке только хорошие мысли.",
- "emoji_hint": "🐴"
- }
+  {
+   "id": "puzyr_snail",
+   "ru_name": "Пузырь, улитка",
+   "species_ru": "улитка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4A7B9"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A8D8B9"
+    },
+    {
+     "id": "lilac",
+     "ru_color": "сиреневый",
+     "hex": "#C9A7E0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Пузырь никуда не торопится, и тебе тихонько советует то же самое.",
+   "emoji_hint": "🐌"
+  },
+  {
+   "id": "zefirka_cloud",
+   "ru_name": "Зефирка, облачко",
+   "species_ru": "облачко",
+   "variants": [
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#F7F5F2"
+    },
+    {
+     "id": "peach",
+     "ru_color": "персиковый",
+     "hex": "#FBD3B6"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BBDDF2"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Зефирка мягко плывёт рядом и собирает твои тревоги, как дождинки.",
+   "emoji_hint": "☁️"
+  },
+  {
+   "id": "rosinka_droplet",
+   "ru_name": "Росинка, капелька",
+   "species_ru": "капелька",
+   "variants": [
+    {
+     "id": "blue",
+     "ru_color": "голубой",
+     "hex": "#9CCBEB"
+    },
+    {
+     "id": "turquoise",
+     "ru_color": "бирюзовый",
+     "hex": "#8FD9C9"
+    },
+    {
+     "id": "lavender",
+     "ru_color": "лавандовый",
+     "hex": "#C5B8E8"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Росинка блестит ярче всего, когда ты не забываешь выпить стакан воды.",
+   "emoji_hint": "💧"
+  },
+  {
+   "id": "iskorka_flame",
+   "ru_name": "Искорка, огонёк",
+   "species_ru": "огонёк",
+   "variants": [
+    {
+     "id": "orange",
+     "ru_color": "оранжевый",
+     "hex": "#F5A25D"
+    },
+    {
+     "id": "golden",
+     "ru_color": "золотой",
+     "hex": "#F8C95C"
+    },
+    {
+     "id": "scarlet",
+     "ru_color": "алый",
+     "hex": "#E66B5B"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Искорка тихонько греет тебя даже в самые серые дни.",
+   "emoji_hint": "🔥"
+  },
+  {
+   "id": "plyushka_hamster",
+   "ru_name": "Плюшка, хомячок",
+   "species_ru": "хомячок",
+   "variants": [
+    {
+     "id": "beige",
+     "ru_color": "бежевый",
+     "hex": "#E8C9A0"
+    },
+    {
+     "id": "ginger",
+     "ru_color": "рыжий",
+     "hex": "#D98E5F"
+    },
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#B8B2AD"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Плюшка прячет за щёчками запас уюта, хватит на вас двоих.",
+   "emoji_hint": "🐹"
+  },
+  {
+   "id": "knopka_ladybug",
+   "ru_name": "Кнопка, божья коровка",
+   "species_ru": "божья коровка",
+   "variants": [
+    {
+     "id": "red",
+     "ru_color": "красный",
+     "hex": "#D9534F"
+    },
+    {
+     "id": "yellow",
+     "ru_color": "жёлтый",
+     "hex": "#F0C94A"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9ED9B5"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Кнопка приносит маленькие удачи, по одной в день, чтобы хватило надолго.",
+   "emoji_hint": "🐞"
+  },
+  {
+   "id": "luchik_star",
+   "ru_name": "Лучик, звёздочка",
+   "species_ru": "звёздочка",
+   "variants": [
+    {
+     "id": "golden",
+     "ru_color": "золотой",
+     "hex": "#F6D365"
+    },
+    {
+     "id": "silver",
+     "ru_color": "серебряный",
+     "hex": "#D9DEE8"
+    },
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4B6C2"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Лучик светит мягко-мягко, как ночник, который всегда с тобой.",
+   "emoji_hint": "⭐"
+  },
+  {
+   "id": "murlyk_kitten",
+   "ru_name": "Мурлык, котёнок",
+   "species_ru": "котёнок",
+   "variants": [
+    {
+     "id": "smoky",
+     "ru_color": "дымчатый",
+     "hex": "#A9A4B0"
+    },
+    {
+     "id": "ginger",
+     "ru_color": "рыжий",
+     "hex": "#E09A5A"
+    },
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#F5F1EA"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Мурлык урчит громче всего, когда ты разрешаешь себе отдохнуть.",
+   "emoji_hint": "🐱"
+  },
+  {
+   "id": "kvak_frog",
+   "ru_name": "Квак, лягушонок",
+   "species_ru": "лягушонок",
+   "variants": [
+    {
+     "id": "green",
+     "ru_color": "зелёный",
+     "hex": "#8FBF6B"
+    },
+    {
+     "id": "blue",
+     "ru_color": "голубой",
+     "hex": "#93C9E3"
+    },
+    {
+     "id": "lemon",
+     "ru_color": "лимонный",
+     "hex": "#E8DD6F"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Квак учит прыгать через маленькие лужи, а не выше головы.",
+   "emoji_hint": "🐸"
+  },
+  {
+   "id": "pushinka_dandelion",
+   "ru_name": "Пушинка, одуванчик",
+   "species_ru": "одуванчик",
+   "variants": [
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#F4F2E9"
+    },
+    {
+     "id": "cream",
+     "ru_color": "кремовый",
+     "hex": "#F0E3C0"
+    },
+    {
+     "id": "light_green",
+     "ru_color": "салатовый",
+     "hex": "#CBE3A2"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Пушинка летит туда, куда дует ветер, и ничуть об этом не переживает.",
+   "emoji_hint": "🌼"
+  },
+  {
+   "id": "shurshik_hedgehog",
+   "ru_name": "Шуршик, ёжик",
+   "species_ru": "ёжик",
+   "variants": [
+    {
+     "id": "brown",
+     "ru_color": "коричневый",
+     "hex": "#9A7B5B"
+    },
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#ABA39B"
+    },
+    {
+     "id": "ginger",
+     "ru_color": "рыжий",
+     "hex": "#C98E55"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Шуршик колючий только снаружи, внутри он сплошное тепло.",
+   "emoji_hint": "🦔"
+  },
+  {
+   "id": "kisel_jelly",
+   "ru_name": "Кисель, желешка",
+   "species_ru": "желешка",
+   "variants": [
+    {
+     "id": "berry",
+     "ru_color": "ягодный",
+     "hex": "#C76FA0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#97D7BD"
+    },
+    {
+     "id": "lemon",
+     "ru_color": "лимонный",
+     "hex": "#EFE08A"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Кисель дрожит от радости каждый раз, когда ты с ним здороваешься.",
+   "emoji_hint": "🍮"
+  },
+  {
+   "id": "chizhik_sparrow",
+   "ru_name": "Чижик, воробушек",
+   "species_ru": "воробушек",
+   "variants": [
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#A8A29A"
+    },
+    {
+     "id": "sandy",
+     "ru_color": "песочный",
+     "hex": "#D9BE8C"
+    },
+    {
+     "id": "olive",
+     "ru_color": "оливковый",
+     "hex": "#A9B36B"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Чижик чирикает тебе по утрам только самые добрые новости.",
+   "emoji_hint": "🐦"
+  },
+  {
+   "id": "kroshka_mouse",
+   "ru_name": "Крошка, мышонок",
+   "species_ru": "мышонок",
+   "variants": [
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#B5AFAE"
+    },
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#F2EFEA"
+    },
+    {
+     "id": "caramel",
+     "ru_color": "карамельный",
+     "hex": "#D7A876"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Крошка верит, что маленькие шаги, самые надёжные.",
+   "emoji_hint": "🐭"
+  },
+  {
+   "id": "bublik_turtle",
+   "ru_name": "Бублик, черепашка",
+   "species_ru": "черепашка",
+   "variants": [
+    {
+     "id": "emerald",
+     "ru_color": "изумрудный",
+     "hex": "#6FA98C"
+    },
+    {
+     "id": "olive",
+     "ru_color": "оливковый",
+     "hex": "#A8A05E"
+    },
+    {
+     "id": "turquoise",
+     "ru_color": "бирюзовый",
+     "hex": "#76C2BC"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Бублик никогда не спешит, и всё равно везде успевает.",
+   "emoji_hint": "🐢"
+  },
+  {
+   "id": "motok_yarnball",
+   "ru_name": "Моток, клубочек",
+   "species_ru": "клубочек",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#E8A3B8"
+    },
+    {
+     "id": "blue",
+     "ru_color": "голубой",
+     "hex": "#9DB8E0"
+    },
+    {
+     "id": "pistachio",
+     "ru_color": "фисташковый",
+     "hex": "#BCD3A0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Моток разматывает запутанные мысли в ровную мягкую нитку.",
+   "emoji_hint": "🧶"
+  },
+  {
+   "id": "pechenka_cow",
+   "ru_name": "Печенька, корова",
+   "species_ru": "корова",
+   "variants": [
+    {
+     "id": "spotted",
+     "ru_color": "чёрно-белый",
+     "hex": "#5A534D"
+    },
+    {
+     "id": "chocolate",
+     "ru_color": "шоколадный",
+     "hex": "#8B5E3C"
+    },
+    {
+     "id": "cream",
+     "ru_color": "кремовый",
+     "hex": "#EDE0C8"
+    }
+   ],
+   "origin": "referral",
+   "ru_description": "Печенька приходит к тем, кто делится теплом с друзьями.",
+   "emoji_hint": "🐮"
+  },
+  {
+   "id": "shoroh_bat",
+   "ru_name": "Шорох, летучая мышка",
+   "species_ru": "летучая мышка",
+   "variants": [
+    {
+     "id": "black",
+     "ru_color": "чёрный",
+     "hex": "#46414E"
+    },
+    {
+     "id": "violet",
+     "ru_color": "фиолетовый",
+     "hex": "#7E6BA8"
+    },
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#948FA0"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Октябрь: тыквенные тайны",
+   "ru_description": "Шорох обнимает крыльями, как самым мягким пледом.",
+   "emoji_hint": "🦇"
+  },
+  {
+   "id": "snezhok_penguin",
+   "ru_name": "Снежок, пингвинёнок",
+   "species_ru": "пингвинёнок",
+   "variants": [
+    {
+     "id": "classic",
+     "ru_color": "чёрно-белый",
+     "hex": "#3E4750"
+    },
+    {
+     "id": "blue",
+     "ru_color": "голубой",
+     "hex": "#A7CDE8"
+    },
+    {
+     "id": "lilac",
+     "ru_color": "сиреневый",
+     "hex": "#B9A7D6"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Декабрь: зимние огоньки",
+   "ru_description": "Снежок переваливается с лапки на лапку и зовёт тебя смотреть на гирлянды.",
+   "emoji_hint": "🐧"
+  },
+  {
+   "id": "valenok_yeti",
+   "ru_name": "Валенок, йети",
+   "species_ru": "йети",
+   "variants": [
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#F1EEE7"
+    },
+    {
+     "id": "icy",
+     "ru_color": "ледяной",
+     "hex": "#C3D7E6"
+    },
+    {
+     "id": "brown",
+     "ru_color": "бурый",
+     "hex": "#8F7866"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Январь: морозные чудеса",
+   "ru_description": "Валенок большой, лохматый и совершенно не страшный, особенно когда обнимает.",
+   "emoji_hint": "❄️"
+  },
+  {
+   "id": "serdechko_moth",
+   "ru_name": "Сердечко, мотылёк",
+   "species_ru": "мотылёк",
+   "variants": [
+    {
+     "id": "scarlet",
+     "ru_color": "алый",
+     "hex": "#DD6B6B"
+    },
+    {
+     "id": "peach",
+     "ru_color": "персиковый",
+     "hex": "#F4B58F"
+    },
+    {
+     "id": "raspberry",
+     "ru_color": "малиновый",
+     "hex": "#C95E88"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Февраль: тёплые слова",
+   "ru_description": "Сердечко летит на свет добрых слов, особенно тех, что ты говоришь себе.",
+   "emoji_hint": "🦋"
+  },
+  {
+   "id": "vesnushka_titmouse",
+   "ru_name": "Веснушка, синичка",
+   "species_ru": "синичка",
+   "variants": [
+    {
+     "id": "yellow",
+     "ru_color": "жёлтый",
+     "hex": "#EFD05A"
+    },
+    {
+     "id": "blue",
+     "ru_color": "голубой",
+     "hex": "#8FB8DD"
+    },
+    {
+     "id": "green",
+     "ru_color": "зелёный",
+     "hex": "#A4C682"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Март: первые проталины",
+   "ru_description": "Веснушка звенит, как первая капель, и радуется каждому твоему шагу.",
+   "emoji_hint": "🐤"
+  },
+  {
+   "id": "buton_bee",
+   "ru_name": "Бутон, пчёлка",
+   "species_ru": "пчёлка",
+   "variants": [
+    {
+     "id": "golden",
+     "ru_color": "золотой",
+     "hex": "#E9B84E"
+    },
+    {
+     "id": "peach",
+     "ru_color": "персиковый",
+     "hex": "#F2BC9A"
+    },
+    {
+     "id": "lilac",
+     "ru_color": "лиловый",
+     "hex": "#B79BD1"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Апрель: цветочный дождь",
+   "ru_description": "Бутон собирает не пыльцу, а твои маленькие победы.",
+   "emoji_hint": "🐝"
+  },
+  {
+   "id": "raduga_unicorn",
+   "ru_name": "Радуга, единорожек",
+   "species_ru": "единорожек",
+   "variants": [
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#F6F2F0"
+    },
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F0B5CD"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A7DCC5"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Май: радужные грозы",
+   "ru_description": "Радуга появляется сразу после трудного дня, так уж она устроена.",
+   "emoji_hint": "🦄"
+  },
+  {
+   "id": "event_summer_pet",
+   "ru_name": "Боня, крабик",
+   "species_ru": "крабик",
+   "variants": [
+    {
+     "id": "coral",
+     "ru_color": "коралловый",
+     "hex": "#E87461"
+    },
+    {
+     "id": "sandy",
+     "ru_color": "песочный",
+     "hex": "#E3C08D"
+    },
+    {
+     "id": "turquoise",
+     "ru_color": "бирюзовый",
+     "hex": "#6FC4BE"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Июнь: солёный бриз",
+   "ru_description": "Боня ходит бочком, но в твою сторону, всегда напрямик.",
+   "emoji_hint": "🦀"
+  },
+  {
+   "id": "arbuzik_dolphin",
+   "ru_name": "Арбузик, дельфинчик",
+   "species_ru": "дельфинчик",
+   "variants": [
+    {
+     "id": "blue",
+     "ru_color": "голубой",
+     "hex": "#7FB5DC"
+    },
+    {
+     "id": "silver",
+     "ru_color": "серебристый",
+     "hex": "#C3CCD4"
+    },
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EFA8B8"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Июль: морское приключение",
+   "ru_description": "Арбузик выпрыгивает из волны, просто чтобы помахать тебе плавником.",
+   "emoji_hint": "🐬"
+  },
+  {
+   "id": "kolosok_gopher",
+   "ru_name": "Колосок, суслик",
+   "species_ru": "суслик",
+   "variants": [
+    {
+     "id": "golden",
+     "ru_color": "золотистый",
+     "hex": "#D9A964"
+    },
+    {
+     "id": "brown",
+     "ru_color": "коричневый",
+     "hex": "#997352"
+    },
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#ADA396"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Август: золотые поля",
+   "ru_description": "Колосок стоит столбиком и высматривает, чем бы тебя порадовать.",
+   "emoji_hint": "🌾"
+  },
+  {
+   "id": "klenovka_squirrel",
+   "ru_name": "Кленовка, белочка",
+   "species_ru": "белочка",
+   "variants": [
+    {
+     "id": "ginger",
+     "ru_color": "рыжий",
+     "hex": "#C9763E"
+    },
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#A29A92"
+    },
+    {
+     "id": "chocolate",
+     "ru_color": "шоколадный",
+     "hex": "#7C5A40"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Сентябрь: тёплый листопад",
+   "ru_description": "Кленовка прячет в дупло жёлуди, а для тебя, солнечные деньки.",
+   "emoji_hint": "🐿️"
+  },
+  {
+   "id": "bu_ghost",
+   "ru_name": "Бу, привидешка",
+   "species_ru": "привидешка",
+   "variants": [
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#F4F2EE"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Октябрь: добрые страшилки",
+   "ru_description": "Бу пугает только плохое настроение, оно его очень боится.",
+   "emoji_hint": "👻"
+  },
+  {
+   "id": "girlyanda_fawn",
+   "ru_name": "Гирлянда, оленёнок",
+   "species_ru": "оленёнок",
+   "variants": [
+    {
+     "id": "caramel",
+     "ru_color": "карамельный",
+     "hex": "#C68B57"
+    },
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#EFE9E0"
+    },
+    {
+     "id": "smoky",
+     "ru_color": "дымчатый",
+     "hex": "#9E948C"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Декабрь: праздничные огни",
+   "ru_description": "Гирлянда несёт на рожках маленькие огоньки, чтобы тебе было светлее.",
+   "emoji_hint": "🦌"
+  },
+  {
+   "id": "sugrob_polar_bear",
+   "ru_name": "Сугроб, белый мишка",
+   "species_ru": "белый мишка",
+   "variants": [
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#F3F0EA"
+    },
+    {
+     "id": "cream",
+     "ru_color": "кремовый",
+     "hex": "#EBDFC8"
+    },
+    {
+     "id": "icy",
+     "ru_color": "ледяной",
+     "hex": "#CFDEE8"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Январь: полярная ночь",
+   "ru_description": "Сугроб знает: в долгую зиму главное, тёплый бок рядом.",
+   "emoji_hint": "🐻‍❄️"
+  },
+  {
+   "id": "kakao_beaver",
+   "ru_name": "Какао, бобрёнок",
+   "species_ru": "бобрёнок",
+   "variants": [
+    {
+     "id": "brown",
+     "ru_color": "коричневый",
+     "hex": "#7E5A3E"
+    },
+    {
+     "id": "ginger",
+     "ru_color": "рыжий",
+     "hex": "#B07845"
+    },
+    {
+     "id": "dark_brown",
+     "ru_color": "тёмно-бурый",
+     "hex": "#5C4533"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Ноябрь: какао и плед",
+   "ru_description": "Какао строит не плотины, а уютные вечера.",
+   "emoji_hint": "🦫"
+  },
+  {
+   "id": "blinchik_catfox",
+   "ru_name": "Блинчик, котолис",
+   "species_ru": "котолис",
+   "variants": [
+    {
+     "id": "ginger",
+     "ru_color": "рыжий",
+     "hex": "#E09850"
+    },
+    {
+     "id": "cream",
+     "ru_color": "кремовый",
+     "hex": "#F2DDB5"
+    },
+    {
+     "id": "smoky",
+     "ru_color": "дымчатый",
+     "hex": "#B0A49A"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Февраль: проводы зимы",
+   "ru_description": "Блинчик круглый, тёплый и уверен, что солнце, его дальний родственник.",
+   "emoji_hint": "🥞"
+  },
+  {
+   "id": "podsnezhnik_bunny",
+   "ru_name": "Подснежник, зайчонок",
+   "species_ru": "зайчонок",
+   "variants": [
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#F5F3EF"
+    },
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#B7B1AB"
+    },
+    {
+     "id": "beige",
+     "ru_color": "бежевый",
+     "hex": "#E2D3BC"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Март: подснежники",
+   "ru_description": "Подснежник первым чувствует весну и тихонько будит её для тебя.",
+   "emoji_hint": "🐰"
+  },
+  {
+   "id": "kapel_brook",
+   "ru_name": "Капель, ручеёк",
+   "species_ru": "ручеёк",
+   "variants": [
+    {
+     "id": "light_blue",
+     "ru_color": "светло-голубой",
+     "hex": "#A6D3EC"
+    },
+    {
+     "id": "turquoise",
+     "ru_color": "бирюзовый",
+     "hex": "#7CC9C0"
+    },
+    {
+     "id": "lilac",
+     "ru_color": "сиреневый",
+     "hex": "#BDA9DC"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Апрель: звон капели",
+   "ru_description": "Капель журчит весёлые песенки о том, что всё течёт и налаживается.",
+   "emoji_hint": "💦"
+  },
+  {
+   "id": "landysh_firefly",
+   "ru_name": "Ландыш, светлячок",
+   "species_ru": "светлячок",
+   "variants": [
+    {
+     "id": "golden",
+     "ru_color": "золотой",
+     "hex": "#F2D079"
+    },
+    {
+     "id": "light_green",
+     "ru_color": "салатовый",
+     "hex": "#BBDB8A"
+    },
+    {
+     "id": "pearl",
+     "ru_color": "жемчужный",
+     "hex": "#EFE8D8"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Май: вечерние сады",
+   "ru_description": "Ландыш зажигает фонарик ровно тогда, когда тебе нужно чуть-чуть света.",
+   "emoji_hint": "✨"
+  },
+  {
+   "id": "dyuna_fennec",
+   "ru_name": "Дюна, фенёк",
+   "species_ru": "фенёк",
+   "variants": [
+    {
+     "id": "sandy",
+     "ru_color": "песочный",
+     "hex": "#E5C18E"
+    },
+    {
+     "id": "cream",
+     "ru_color": "кремовый",
+     "hex": "#F1E3C6"
+    },
+    {
+     "id": "apricot",
+     "ru_color": "абрикосовый",
+     "hex": "#E8A878"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Июнь: пустынные звёзды",
+   "ru_description": "Дюна слышит огромными ушками даже самое тихое твоё «спасибо».",
+   "emoji_hint": "🦊"
+  },
+  {
+   "id": "shtorm_octopus",
+   "ru_name": "Шторм, осьминожек",
+   "species_ru": "осьминожек",
+   "variants": [
+    {
+     "id": "violet",
+     "ru_color": "фиолетовый",
+     "hex": "#8A6FB5"
+    },
+    {
+     "id": "blue",
+     "ru_color": "синий",
+     "hex": "#5E7FB2"
+    },
+    {
+     "id": "coral",
+     "ru_color": "коралловый",
+     "hex": "#E08573"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Июль: глубины океана",
+   "ru_description": "Шторм обнимает сразу восемью лапками, на всякий случай покрепче.",
+   "emoji_hint": "🐙"
+  },
+  {
+   "id": "zorka_rooster",
+   "ru_name": "Зорька, петушок",
+   "species_ru": "петушок",
+   "variants": [
+    {
+     "id": "fiery",
+     "ru_color": "огненный",
+     "hex": "#D96B3F"
+    },
+    {
+     "id": "golden",
+     "ru_color": "золотой",
+     "hex": "#E5B54E"
+    },
+    {
+     "id": "emerald",
+     "ru_color": "изумрудный",
+     "hex": "#4F9B7A"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Август: деревенское утро",
+   "ru_description": "Зорька будит не криком, а тёплым солнечным бочком.",
+   "emoji_hint": "🐓"
+  },
+  {
+   "id": "poloska_raccoon",
+   "ru_name": "Полоска, енотик",
+   "species_ru": "енотик",
+   "variants": [
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#9B948E"
+    },
+    {
+     "id": "fawn",
+     "ru_color": "палевый",
+     "hex": "#C7A276"
+    },
+    {
+     "id": "charcoal",
+     "ru_color": "угольный",
+     "hex": "#58524C"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Сентябрь: новые тетрадки",
+   "ru_description": "Полоска аккуратно складывает твои заботы в стопочку и часть забирает себе.",
+   "emoji_hint": "🦝"
+  },
+  {
+   "id": "tuman_wolf_cub",
+   "ru_name": "Туман, волчонок",
+   "species_ru": "волчонок",
+   "variants": [
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#8E8C94"
+    },
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#EEEBE6"
+    },
+    {
+     "id": "black",
+     "ru_color": "чёрный",
+     "hex": "#4B4A52"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Октябрь: лунные тропы",
+   "ru_description": "Туман тихо идёт рядом, чтобы тебе не было одиноко в сумерках.",
+   "emoji_hint": "🐺"
+  },
+  {
+   "id": "klyukva_bullfinch",
+   "ru_name": "Клюква, снегирь",
+   "species_ru": "снегирь",
+   "variants": [
+    {
+     "id": "red",
+     "ru_color": "красный",
+     "hex": "#D4574E"
+    },
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#E89AA4"
+    },
+    {
+     "id": "orange",
+     "ru_color": "оранжевый",
+     "hex": "#E08A4E"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Ноябрь: первые заморозки",
+   "ru_description": "Клюква, яркое пятнышко тепла на самой серой ветке.",
+   "emoji_hint": "🐦"
+  },
+  {
+   "id": "mandarinka_fox",
+   "ru_name": "Мандаринка, лисёнок",
+   "species_ru": "лисёнок",
+   "variants": [
+    {
+     "id": "orange",
+     "ru_color": "оранжевый",
+     "hex": "#E07A3F"
+    },
+    {
+     "id": "cream",
+     "ru_color": "кремовый",
+     "hex": "#F2DFC2"
+    },
+    {
+     "id": "brown",
+     "ru_color": "бурый",
+     "hex": "#8A5A3C"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Декабрь: мандариновое настроение",
+   "ru_description": "Мандаринка пахнет праздником и сворачивается клубочком у твоих ног.",
+   "emoji_hint": "🦊"
+  },
+  {
+   "id": "ldinka_narwhal",
+   "ru_name": "Льдинка, нарвальчик",
+   "species_ru": "нарвальчик",
+   "variants": [
+    {
+     "id": "blue",
+     "ru_color": "голубой",
+     "hex": "#9DC4E4"
+    },
+    {
+     "id": "silver",
+     "ru_color": "серебристый",
+     "hex": "#CBD4DD"
+    },
+    {
+     "id": "lilac",
+     "ru_color": "сиреневый",
+     "hex": "#B3A8D8"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Январь: подо льдом",
+   "ru_description": "Льдинка показывает рожком на самое важное, на отдых.",
+   "emoji_hint": "🐳"
+  },
+  {
+   "id": "kupidosha_dove",
+   "ru_name": "Купидоша, голубок",
+   "species_ru": "голубок",
+   "variants": [
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#F4F1EC"
+    },
+    {
+     "id": "peach",
+     "ru_color": "персиковый",
+     "hex": "#F3C6A5"
+    },
+    {
+     "id": "gray_blue",
+     "ru_color": "серо-голубой",
+     "hex": "#AEBBCB"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Февраль: письма с сердечками",
+   "ru_description": "Купидоша доставляет добрые записки, первая всегда для тебя.",
+   "emoji_hint": "🕊️"
+  },
+  {
+   "id": "verba_lamb",
+   "ru_name": "Верба, ягнёнок",
+   "species_ru": "ягнёнок",
+   "variants": [
+    {
+     "id": "cream",
+     "ru_color": "кремовый",
+     "hex": "#F0E6D4"
+    },
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#B6AFA6"
+    },
+    {
+     "id": "caramel",
+     "ru_color": "карамельный",
+     "hex": "#D2A878"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Март: вербное тепло",
+   "ru_description": "Верба мягкая, как первые пушистые почки весны.",
+   "emoji_hint": "🐑"
+  },
+  {
+   "id": "svirel_starling",
+   "ru_name": "Свирель, скворушка",
+   "species_ru": "скворушка",
+   "variants": [
+    {
+     "id": "graphite",
+     "ru_color": "графитовый",
+     "hex": "#555B63"
+    },
+    {
+     "id": "emerald",
+     "ru_color": "изумрудный",
+     "hex": "#4E8C77"
+    },
+    {
+     "id": "plum",
+     "ru_color": "сливовый",
+     "hex": "#7B5E78"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Апрель: птичьи новоселья",
+   "ru_description": "Свирель насвистывает мелодии, под которые легче дышится.",
+   "emoji_hint": "🐦"
+  },
+  {
+   "id": "pion_flamingo",
+   "ru_name": "Пион, фламинго",
+   "species_ru": "фламинго",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EF9BB0"
+    },
+    {
+     "id": "coral",
+     "ru_color": "коралловый",
+     "hex": "#E8826E"
+    },
+    {
+     "id": "lilac",
+     "ru_color": "лиловый",
+     "hex": "#C193C9"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Май: розовый закат",
+   "ru_description": "Пион умеет стоять на одной ножке и ни о чём не волноваться.",
+   "emoji_hint": "🦩"
+  },
+  {
+   "id": "kokos_monkey",
+   "ru_name": "Кокос, мартышка",
+   "species_ru": "мартышка",
+   "variants": [
+    {
+     "id": "chocolate",
+     "ru_color": "шоколадный",
+     "hex": "#7A573C"
+    },
+    {
+     "id": "golden",
+     "ru_color": "золотистый",
+     "hex": "#C99A5B"
+    },
+    {
+     "id": "smoky",
+     "ru_color": "дымчатый",
+     "hex": "#9D9189"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Июнь: тропический остров",
+   "ru_description": "Кокос корчит рожицы, пока ты не улыбнёшься, работает безотказно.",
+   "emoji_hint": "🐒"
+  },
+  {
+   "id": "volna_seahorse",
+   "ru_name": "Волна, морской конёк",
+   "species_ru": "морской конёк",
+   "variants": [
+    {
+     "id": "turquoise",
+     "ru_color": "бирюзовый",
+     "hex": "#6BC2BB"
+    },
+    {
+     "id": "yellow",
+     "ru_color": "жёлтый",
+     "hex": "#E9CB6A"
+    },
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EBA3B5"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Июль: подводный балет",
+   "ru_description": "Волна покачивается в такт твоему дыханию, медленно и спокойно.",
+   "emoji_hint": "🌊"
+  },
+  {
+   "id": "zvezdopad_cosmaling",
+   "ru_name": "Звездопад, космёныш",
+   "species_ru": "космёныш",
+   "variants": [
+    {
+     "id": "lilac",
+     "ru_color": "сиреневый",
+     "hex": "#A78BD0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#8FD6BA"
+    },
+    {
+     "id": "blue",
+     "ru_color": "синий",
+     "hex": "#6A82C4"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Август: ночь звездопада",
+   "ru_description": "Звездопад прилетел издалека, потому что услышал, какое у тебя доброе сердце.",
+   "emoji_hint": "👽"
+  },
+  {
+   "id": "borovik_forest_spirit",
+   "ru_name": "Боровик, лесовичок",
+   "species_ru": "лесовичок",
+   "variants": [
+    {
+     "id": "mossy",
+     "ru_color": "мшистый",
+     "hex": "#7E9B6A"
+    },
+    {
+     "id": "ginger",
+     "ru_color": "рыжий",
+     "hex": "#BD8049"
+    },
+    {
+     "id": "brown",
+     "ru_color": "бурый",
+     "hex": "#846A50"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Сентябрь: грибной дождь",
+   "ru_description": "Боровик знает все тихие тропинки и делится самой спокойной.",
+   "emoji_hint": "🍄"
+  },
+  {
+   "id": "polnoch_black_cat",
+   "ru_name": "Полночь, чёрная кошка",
+   "species_ru": "чёрная кошка",
+   "variants": [
+    {
+     "id": "black",
+     "ru_color": "чёрный",
+     "hex": "#3C3844"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Октябрь: бал при свечах",
+   "ru_description": "Полночь переходит дорогу только плохим приметам.",
+   "emoji_hint": "🐈‍⬛"
+  },
+  {
+   "id": "sharfik_alpaca",
+   "ru_name": "Шарфик, альпака",
+   "species_ru": "альпака",
+   "variants": [
+    {
+     "id": "cream",
+     "ru_color": "кремовый",
+     "hex": "#EFE4CC"
+    },
+    {
+     "id": "cocoa",
+     "ru_color": "какао",
+     "hex": "#9A7858"
+    },
+    {
+     "id": "ashen",
+     "ru_color": "пепельный",
+     "hex": "#B9B2A8"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Ноябрь: вязаные истории",
+   "ru_description": "Шарфик пушистый настолько, что в него можно завернуться с головой.",
+   "emoji_hint": "🦙"
+  },
+  {
+   "id": "snezhinka_fairy",
+   "ru_name": "Снежинка, зимняя фея",
+   "species_ru": "зимняя фея",
+   "variants": [
+    {
+     "id": "silver",
+     "ru_color": "серебристый",
+     "hex": "#D8DEE8"
+    },
+    {
+     "id": "blue",
+     "ru_color": "голубой",
+     "hex": "#AFCBE6"
+    },
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#E7BFD2"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Декабрь: хрустальный бал",
+   "ru_description": "Снежинка кружится над тобой и нашёптывает, что отдых, это тоже волшебство.",
+   "emoji_hint": "🧚"
+  },
+  {
+   "id": "pelmeshka_panda",
+   "ru_name": "Пельмешка, пандочка",
+   "species_ru": "пандочка",
+   "variants": [
+    {
+     "id": "classic",
+     "ru_color": "чёрно-белый",
+     "hex": "#565250"
+    },
+    {
+     "id": "brown",
+     "ru_color": "бурый",
+     "hex": "#8A6B4F"
+    },
+    {
+     "id": "smoky",
+     "ru_color": "дымчатый",
+     "hex": "#A9A29B"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Январь: дни тишины",
+   "ru_description": "Пельмешка умеет лениться так вдохновенно, что хочется присоединиться.",
+   "emoji_hint": "🐼"
+  },
+  {
+   "id": "iriska_otter",
+   "ru_name": "Ириска, выдра",
+   "species_ru": "выдра",
+   "variants": [
+    {
+     "id": "caramel",
+     "ru_color": "карамельный",
+     "hex": "#C08A52"
+    },
+    {
+     "id": "chocolate",
+     "ru_color": "шоколадный",
+     "hex": "#79543A"
+    },
+    {
+     "id": "gray",
+     "ru_color": "серый",
+     "hex": "#A39A90"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Февраль: тёплые объятия",
+   "ru_description": "Ириска держит тебя лапкой за руку, чтобы вы не потерялись.",
+   "emoji_hint": "🦦"
+  },
+  {
+   "id": "luzhitsa_duckling",
+   "ru_name": "Лужица, утёнок",
+   "species_ru": "утёнок",
+   "variants": [
+    {
+     "id": "yellow",
+     "ru_color": "жёлтый",
+     "hex": "#F0D264"
+    },
+    {
+     "id": "white",
+     "ru_color": "белый",
+     "hex": "#F4F0E6"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#ACDCC0"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Март: весёлые лужи",
+   "ru_description": "Лужица уверена: любая лужа, это маленькое море приключений.",
+   "emoji_hint": "🦆"
+  },
+  {
+   "id": "semechka_mole",
+   "ru_name": "Семечка, кротик",
+   "species_ru": "кротик",
+   "variants": [
+    {
+     "id": "dark_brown",
+     "ru_color": "тёмно-бурый",
+     "hex": "#5E4B3C"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Апрель: огородные хлопоты",
+   "ru_description": "Семечка копает понемногу, но каждый день, совсем как ты со своими делами.",
+   "emoji_hint": "🌱"
+  },
+  {
+   "id": "siren_hummingbird",
+   "ru_name": "Сирень, колибри",
+   "species_ru": "колибри",
+   "variants": [
+    {
+     "id": "lilac",
+     "ru_color": "лиловый",
+     "hex": "#A985C8"
+    },
+    {
+     "id": "emerald",
+     "ru_color": "изумрудный",
+     "hex": "#54A98A"
+    },
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#E699AE"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Май: сиреневый вечер",
+   "ru_description": "Сирень порхает так легко, что рядом с ней и заботы становятся легче.",
+   "emoji_hint": "🌸"
+  },
+  {
+   "id": "kuvshinka_goldfish",
+   "ru_name": "Кувшинка, золотая рыбка",
+   "species_ru": "золотая рыбка",
+   "variants": [
+    {
+     "id": "golden",
+     "ru_color": "золотой",
+     "hex": "#E8A84E"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Июнь: тихий пруд",
+   "ru_description": "Кувшинка исполняет одно желание, то, в котором ты желаешь себе добра.",
+   "emoji_hint": "🐟"
+  },
+  {
+   "id": "karamel_pony",
+   "ru_name": "Карамель, пони",
+   "species_ru": "пони",
+   "variants": [
+    {
+     "id": "honey",
+     "ru_color": "медовый",
+     "hex": "#D8A45E"
+    },
+    {
+     "id": "chestnut",
+     "ru_color": "каштановый",
+     "hex": "#8A5A3E"
+    },
+    {
+     "id": "cream",
+     "ru_color": "кремовый",
+     "hex": "#EEDFC4"
+    }
+   ],
+   "origin": "seasonal",
+   "event_hint": "Август: ярмарка чудес",
+   "ru_description": "Карамель катает на спинке только хорошие мысли.",
+   "emoji_hint": "🐴"
+  },
+  {
+   "id": "ulitka_lesnaya_1",
+   "ru_name": "Тишка, улитка",
+   "species_ru": "улитка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4A7B9"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A8D8B9"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BFD8EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Тишка никуда не спешит и тебя не торопит. Носит свой домик на спине и всегда рад показать тебе, что медленно тоже бывает уютно."
+  },
+  {
+   "id": "oblachko_pushistoe_1",
+   "ru_name": "Пух, облачко",
+   "species_ru": "облачко",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6B5C4"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#B2DEC2"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C7DEF2"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Пух тихонько плывёт у тебя над головой и роняет мягкие тени, когда тебе нужна прохлада. В дождливый день он первым обнимет тебя пушистым боком."
+  },
+  {
+   "id": "kotik_sonnyy_1",
+   "ru_name": "Мур, котик",
+   "species_ru": "котик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F2A9BB"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A4D6B5"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BAD5EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Мур любит свернуться калачиком у тебя на коленях и мурлыкать, пока ты отдыхаешь. Он считает, что любой день становится теплее рядом с тобой."
+  },
+  {
+   "id": "rostok_smelyy_1",
+   "ru_name": "Зеля, росток",
+   "species_ru": "росток",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5AEC0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9FD4B0"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C2DAEF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Зеля только проклюнулся из земли, но уже тянется к свету изо всех сил. Он верит, что ты тоже растёшь, даже когда этого не замечаешь."
+  },
+  {
+   "id": "ptenchik_robkiy_1",
+   "ru_name": "Чив, птенчик",
+   "species_ru": "птенчик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3A6B8"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#ABDABC"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B8D4ED"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Чив ещё учится летать и немного робеет, но рядом с тобой ему смелее. Он напевает тихие песенки по утрам, чтобы тебе было веселее просыпаться."
+  },
+  {
+   "id": "zhuchok_svetlyachok_1",
+   "ru_name": "Искра, жучок",
+   "species_ru": "жучок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F7B2C2"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A6D7B7"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C4DCF0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Искра светится мягким огоньком в темноте и провожает тебя ко сну. Когда тебе тревожно, она напоминает, что даже крошечный свет разгоняет ночь."
+  },
+  {
+   "id": "kapelka_dobraya_1",
+   "ru_name": "Капа, капелька",
+   "species_ru": "капелька",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4ABBD"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A2D5B3"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BDD7F0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Капа дрожит на кончике листа и отражает в себе целый мир. Она знает, что иногда поплакать полезно, и всегда побудет рядом, пока тебе грустно."
+  },
+  {
+   "id": "ezhik_uyutnyy_1",
+   "ru_name": "Колюк, ёжик",
+   "species_ru": "ёжик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F1A8BA"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A9D9BA"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C0D9EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Колюк снаружи колючий, а внутри самый мягкий и тёплый. Он сворачивается в клубочек рядом с тобой и тихонько сопит, оберегая твой покой."
+  },
+  {
+   "id": "meduzka_plavnaya_1",
+   "ru_name": "Желе, медузка",
+   "species_ru": "медузка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6AFC0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A5D6B6"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C1DBF1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Желе плавно покачивается в тёплой воде и светится изнутри нежным сиянием. Рядом с ней дышится медленнее, и тревоги уплывают сами собой."
+  },
+  {
+   "id": "blobik_myagkiy_1",
+   "ru_name": "Пузя, блобик",
+   "species_ru": "блобик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3AABC"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A7D8B8"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BCD6EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Пузя мягкий как пастила и принимает любую форму, лишь бы тебе было удобно. Его можно тискать сколько угодно, он только довольно булькает в ответ."
+  },
+  {
+   "id": "lisenok_ryzhiy_1",
+   "ru_name": "Рыжик, лисёнок",
+   "species_ru": "лисёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5A9BB"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A3D5B4"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BFD8F1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Рыжик любопытный и хвостатый, и всегда найдёт повод тебя порадовать. Он прячет в норке маленькие сокровища и обязательно поделится ими с тобой."
+  },
+  {
+   "id": "pchelka_medovaya_1",
+   "ru_name": "Жужа, пчёлка",
+   "species_ru": "пчёлка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4B0C1"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#AAD9BB"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C3DBF0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Жужа целыми днями собирает капельки доброты и носит их тебе. Она тихонько жужжит над цветами и верит, что у каждого дня есть свой медовый вкус."
+  },
+  {
+   "id": "gribok_lesnoy_1",
+   "ru_name": "Шляпа, грибок",
+   "species_ru": "грибок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F2A7B9"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A8D7B8"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BDD7EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Шляпа вырос после тёплого дождя и прячет под собой целый уютный мирок. Он зовёт тебя укрыться рядом, когда хочется немного тишины и сырости леса."
+  },
+  {
+   "id": "zvezdochka_morskaya_1",
+   "ru_name": "Лучик, звёздочка",
+   "species_ru": "морская звёздочка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6ACBE"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A4D7B7"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C0DAF0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Лучик нежится на тёплом песке у самой кромки воды и греется на солнышке. Он напоминает тебе, что отдыхать, раскинув лапки, это тоже важное дело."
+  },
+  {
+   "id": "barashek_oblachnyy_1",
+   "ru_name": "Кудря, барашек",
+   "species_ru": "барашек",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3A9BB"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A6D8B9"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C2DAEF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Кудря весь в мягких облачных завитках, и его так и хочется обнять. Он считает овечек вместе с тобой, пока ты засыпаешь, и сам зевает первым."
+  },
+  {
+   "id": "axolotl_uliybchivyy_1",
+   "ru_name": "Лотик, аксолотль",
+   "species_ru": "аксолотль",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5B3C3"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A9D9BA"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C5DCF1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Лотик улыбается всегда, даже когда сам не понимает почему. Он плавает кругами в тёплой воде и приглашает тебя улыбнуться вместе с ним."
+  },
+  {
+   "id": "sovenok_nochnoy_1",
+   "ru_name": "Ух, совёнок",
+   "species_ru": "совёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F1A6B8"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A5D6B7"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BBD5ED"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Ух любит тихие вечера и большие звёздные глаза у него всегда добрые. Он посидит с тобой допоздна, если не спится, и не задаст ни одного вопроса."
+  },
+  {
+   "id": "kraboshka_pesochnyy_1",
+   "ru_name": "Клешня, крабик",
+   "species_ru": "крабик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4AABC"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A7D7B8"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BED8EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Клешня бочком бегает по тёплому песку и рисует на нём смешные узоры. Он немного ворчун, но для тебя всегда оставит самую красивую ракушку."
+  },
+  {
+   "id": "ulitka_rosa_2",
+   "ru_name": "Роса, улитка",
+   "species_ru": "улитка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4A7B9"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A8D8B9"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BFD8EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Роса никуда не спешит и носит свой уютный домик повсюду. Она напоминает тебе, что медленно тоже значит хорошо."
+  },
+  {
+   "id": "snegir_pushok_2",
+   "ru_name": "Пушок, снегирь",
+   "species_ru": "снегирь",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EFA0AE"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9FD4AF"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B4D0EC"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Пушок поёт тихую песенку каждое утро, чтобы тебе было теплее просыпаться. Он любит сидеть у тебя на плече и греться."
+  },
+  {
+   "id": "kotenok_persik_2",
+   "ru_name": "Персик, котёнок",
+   "species_ru": "котёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6AAB6"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#AADCBC"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C2DAF1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Персик мурлычет, когда ты рядом, и сворачивается клубочком у тебя на коленях. С ним любой вечер становится спокойнее."
+  },
+  {
+   "id": "bozhya_korovka_tochka_2",
+   "ru_name": "Точка, божья коровка",
+   "species_ru": "божья коровка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EE9CAB"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A3D6B3"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B9D5EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Точка приносит маленькую удачу всем, кого встречает на пути. Она верит, что у тебя всё обязательно сложится хорошо."
+  },
+  {
+   "id": "oblachko_tucha_2",
+   "ru_name": "Туча, облачко",
+   "species_ru": "облачко",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F2A5B4"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A6DAB7"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C6DCF3"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Туча мягкая и пушистая, и любит плыть за тобой по небу. Когда тебе грустно, она проливается тёплым добрым дождиком."
+  },
+  {
+   "id": "rostok_zelenysh_2",
+   "ru_name": "Зеленыш, росток",
+   "species_ru": "росток",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EFA3B1"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9CD3AC"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BCD7EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Зеленыш тянется к свету и растёт вместе с твоими маленькими привычками. Он радуется каждому новому листочку так же, как ты новому дню."
+  },
+  {
+   "id": "kapelka_blob_2",
+   "ru_name": "Капелька, желейка",
+   "species_ru": "желейный комочек",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5A8B7"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A9DBBA"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C0D9F0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Капелька мягкая и слегка дрожащая, её приятно держать в ладонях. Она обнимает тебя всем своим желейным тельцем."
+  },
+  {
+   "id": "ezhik_igolochka_2",
+   "ru_name": "Иголочка, ёжик",
+   "species_ru": "ёжик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EE9EAC"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A1D5B1"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B7D3ED"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Иголочка только с виду колючая, а внутри самый тёплый и нежный друг. Она прячет для тебя сушёное яблочко на чёрный день."
+  },
+  {
+   "id": "lyagushonok_kvaksha_2",
+   "ru_name": "Кваксик, лягушонок",
+   "species_ru": "лягушонок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F1A1B0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#98D2A9"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BAD6EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Кваксик сидит на листочке и считает дождинки вместе с тобой. Он квакает тихонько, чтобы напомнить, что ты не один."
+  },
+  {
+   "id": "pchelka_medok_2",
+   "ru_name": "Медок, пчёлка",
+   "species_ru": "пчёлка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3A6B5"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A5D9B6"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C4DBF2"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Медок трудится понемногу и всегда оставляет время отдохнуть на цветке. Он угощает тебя капелькой сладкого мёда, когда устаёшь."
+  },
+  {
+   "id": "liska_ryzhik_2",
+   "ru_name": "Рыжик, лисёнок",
+   "species_ru": "лисёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F0A2B0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9ED4AE"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BDD8F0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Рыжик хитрый только в играх, а на самом деле очень верный и ласковый. Он укрывает тебя своим пушистым хвостиком в холода."
+  },
+  {
+   "id": "sovenok_dremlik_2",
+   "ru_name": "Дремлик, совёнок",
+   "species_ru": "совёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EFA0AF"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A2D6B2"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B6D2EC"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Дремлик любит сумерки и тихо ухает, когда пора отдыхать. Он бережёт твой сон и желает тебе самых добрых снов."
+  },
+  {
+   "id": "medvezhonok_bublik_2",
+   "ru_name": "Бублик, медвежонок",
+   "species_ru": "медвежонок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5A9B8"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A7DAB8"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C1DAF1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Бублик пухлый и обнимательный, и крепче всех умеет прижать к себе. Рядом с ним становится спокойно и тепло на душе."
+  },
+  {
+   "id": "morskoy_konek_volnik_2",
+   "ru_name": "Волник, морской конёк",
+   "species_ru": "морской конёк",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F2A4B3"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A0D5B0"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BFD9F1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Волник плавно качается на тёплых волнах и берёт тебя за руку плавником. Он напоминает дышать ровно и не торопиться."
+  },
+  {
+   "id": "krot_norushka_2",
+   "ru_name": "Норушка, кротик",
+   "species_ru": "кротик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EF9FAE"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9DD3AD"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B8D4ED"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Норушка любит уютную тёмную норку, где мягко и тихо. Она зовёт тебя спрятаться от суеты и просто немножко полежать."
+  },
+  {
+   "id": "motylek_pyltsa_2",
+   "ru_name": "Пыльца, мотылёк",
+   "species_ru": "мотылёк",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4A7B6"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A8DBBA"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C3DBF2"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Пыльца порхает легко и садится тебе на нос, чтобы рассмешить. Она верит, что в каждом дне прячется хоть одна красивая мелочь."
+  },
+  {
+   "id": "pingvinenok_lyodik_2",
+   "ru_name": "Лёдик, пингвинёнок",
+   "species_ru": "пингвинёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F1A3B2"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9FD5AF"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BCD7F0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Лёдик смешно переваливается с ножки на ножку и всегда тебе рад. Он делится с тобой своим тёплым местечком в самый холодный день."
+  },
+  {
+   "id": "semechko_zyornyshko_2",
+   "ru_name": "Зёрнышко, семечко",
+   "species_ru": "семечко",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EEA1AF"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A4D8B5"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BBD6EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Зёрнышко маленькое, но в нём спрятана целая будущая весна. Оно тихо ждёт своего часа и учит тебя верить в себя."
+  },
+  {
+   "id": "ulitka_zvezda_3",
+   "ru_name": "Звёздочка, улитка",
+   "species_ru": "улитка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4A7B9"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A8D8B9"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BFD8EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Она никуда не спешит и тихо радуется тому, что ты рядом. Возьми её с собой, и любой долгий день станет чуть мягче."
+  },
+  {
+   "id": "ptenchik_pero_3",
+   "ru_name": "Пёрышко, птенчик",
+   "species_ru": "птенчик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F2A6C0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9FD6B4"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B6D4ED"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Этот пушистый малыш просыпается раньше всех и поёт только для тебя. Когда тебе грустно, он садится поближе и греет своим тёплым бочком."
+  },
+  {
+   "id": "kotik_uyut_3",
+   "ru_name": "Уютик, котёнок",
+   "species_ru": "котёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6AEC2"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A5DBB6"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C2DAEF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Сворачивается клубочком у тебя на коленях и тихонько мурлычет. С ним даже самый обычный вечер кажется маленьким праздником."
+  },
+  {
+   "id": "zhuchok_iskorka_3",
+   "ru_name": "Искорка, жучок",
+   "species_ru": "жучок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EF9FB6"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9AD3AD"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B9D6F0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Крошечный, но очень храбрый, он всегда находит, чему порадоваться. Шепни ему секрет, и он сохранит его навсегда."
+  },
+  {
+   "id": "oblachko_son_3",
+   "ru_name": "Сонюшка, облачко",
+   "species_ru": "облачко",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5B0C6"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#ABDBBC"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#CCE2F4"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Мягкое и лёгкое, оно плывёт рядом и уносит твои тревоги подальше. Обними его перед сном, и тебе приснится что-то доброе."
+  },
+  {
+   "id": "rostok_listik_3",
+   "ru_name": "Листик, росток",
+   "species_ru": "росток",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EFA8BC"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#94D2A6"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BDD9F0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Он растёт медленно и не торопит тебя тоже. Каждый раз, когда ты заботишься о себе, он распускает новый зелёный листочек."
+  },
+  {
+   "id": "blobik_kisel_3",
+   "ru_name": "Кисель, блобик",
+   "species_ru": "блобик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F7A9C0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A2D9B2"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C4DCF1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Мягкий, тёплый и немного смешной, он подпрыгивает от радости, когда ты возвращаешься. Его так приятно тискать, что грусть тает сама собой."
+  },
+  {
+   "id": "liska_ogonek_3",
+   "ru_name": "Огонёк, лисёнок",
+   "species_ru": "лисёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3A0B3"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9ED5AF"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B8D5EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Любопытный и ласковый, он бегает за тобой хвостиком весь день. Когда ты устаёшь, он сворачивается рядом и согревает пушистым хвостом."
+  },
+  {
+   "id": "ezhik_klubok_3",
+   "ru_name": "Клубочек, ёжик",
+   "species_ru": "ёжик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EFA3B9"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9BD4AC"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BBD7EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Снаружи колючий, а внутри самый нежный на свете. Доверься ему, и он раскроется, показав, какое у него доброе сердце."
+  },
+  {
+   "id": "medvezhonok_med_3",
+   "ru_name": "Медок, медвежонок",
+   "species_ru": "медвежонок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4AABD"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A6D9B8"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C0D9EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Большой любитель обнимашек и тёплого чая. Он напоминает тебе делать паузы и угощаться чем-нибудь сладким, ведь ты этого заслуживаешь."
+  },
+  {
+   "id": "pchelka_zhuzhik_3",
+   "ru_name": "Жужик, пчёлка",
+   "species_ru": "пчёлка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F2A4B7"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9CD4AD"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BAD6EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Маленькая хлопотунья с большим сердцем, она собирает для тебя капельки хорошего настроения. С ней любая мелочь превращается в радость."
+  },
+  {
+   "id": "kit_volna_3",
+   "ru_name": "Волна, китёнок",
+   "species_ru": "китёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F0A5BE"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A0D7B6"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B4D3EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Он плавает в спокойном море твоих мыслей и учит тебя дышать медленно и глубоко. Рядом с ним становится тихо и хорошо."
+  },
+  {
+   "id": "frog_kvakush_3",
+   "ru_name": "Квакуша, лягушонок",
+   "species_ru": "лягушонок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EFA6B8"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#96D3A6"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BDD8F0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Сидит себе на листочке кувшинки и радуется каждой капле дождя. Он напоминает тебе, что отдыхать, ничего не делая, это тоже важно."
+  },
+  {
+   "id": "sovenok_dremush_3",
+   "ru_name": "Дрёмушка, совёнок",
+   "species_ru": "совёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3A8C1"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A3D8B5"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C1DBF1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Он бодрствует, пока ты не уснёшь, и тихонько охраняет твой покой. Утром он первым желает тебе доброго и светлого дня."
+  },
+  {
+   "id": "vydra_pleshka_3",
+   "ru_name": "Плюшка, выдрёнок",
+   "species_ru": "выдрёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5AABF"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A4DAB4"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BFD8EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Игривый и нежный, он держит тебя за лапку, чтобы ты не потерялся. С ним даже хлопоты превращаются в весёлое приключение."
+  },
+  {
+   "id": "gribok_shapka_3",
+   "ru_name": "Шапочка, грибок",
+   "species_ru": "грибок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F0A1B5"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#99D2AA"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B7D5EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Маленький и уютный, он прячется под своей мягкой шапочкой и зовёт тебя отдохнуть в тени. Рядом с ним так спокойно и не страшно ничего."
+  },
+  {
+   "id": "zvezdochet_luchik_3",
+   "ru_name": "Лучик, звёздочка",
+   "species_ru": "звёздочка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6AEC4"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A8DBBA"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C8E0F3"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Она тихо мерцает на твоём ночном небе и шепчет, что всё будет хорошо. Загадай желание, и она будет светить, пока оно не сбудется."
+  },
+  {
+   "id": "baran_obnimaka_3",
+   "ru_name": "Обнимака, барашек",
+   "species_ru": "барашек",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4A9BD"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A1D7B3"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BDD8F0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Самый мягкий и кудрявый из всех, он создан для тёплых объятий. Прижмись к его пушистой шёрстке, и тревоги отступят сами собой."
+  },
+  {
+   "id": "mshara_4",
+   "ru_name": "Мшара, мшистая улитка",
+   "species_ru": "улитка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4A7B9"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9FD6AE"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BFD8EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Носит на спинке крошечный садик из мха и не торопится никогда. Если тебе тревожно, она напомнит, что можно просто идти медленно."
+  },
+  {
+   "id": "perinka_4",
+   "ru_name": "Перинка, пуховая птичка",
+   "species_ru": "птичка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6B0C3"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#ABDDBB"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B7D4EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Мягкая, как первый снег, и поёт совсем тихо, только для тебя. По утрам устраивается на плече и греет своим теплом."
+  },
+  {
+   "id": "barhotka_4",
+   "ru_name": "Бархотка, плюшевый котик",
+   "species_ru": "кот",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F2A2B6"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A4D7B5"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C4DCF0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Мурчит так уютно, что хочется укутаться в плед и забыть про спешку. Любит сворачиваться клубочком у тебя на коленях."
+  },
+  {
+   "id": "svetляк_4",
+   "ru_name": "Светлячок, добрый жучок",
+   "species_ru": "жук",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5AEC0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A0D4AF"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BAD6F0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Тихонько мерцает в сумерках, чтобы тебе не было одиноко. Зажигает свой фонарик, когда ты вспоминаешь о себе с теплотой."
+  },
+  {
+   "id": "oblachko_4",
+   "ru_name": "Облачко, сонное облако",
+   "species_ru": "облако",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F7B4C6"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#AEDCBE"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C0DAF1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Плывёт неспешно и роняет мягкие капельки тишины. Когда устаёшь, оно опускается ниже, чтобы ты прилёг на него и подремал."
+  },
+  {
+   "id": "rostochek_4",
+   "ru_name": "Росточек, храбрый проросток",
+   "species_ru": "росток",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3A8BA"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9BD3AB"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BDD8EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Маленький, но тянется к свету каждый день, и тебе советует то же. Радуется любому твоему шагу, даже самому крошечному."
+  },
+  {
+   "id": "kisel_4",
+   "ru_name": "Кисель, желейный комочек",
+   "species_ru": "блоб",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5A9BB"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A6D9B6"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C2DBF0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Колышется и пружинит, и от него совсем невозможно грустить. Любит, когда его легонько тыкаешь пальцем, и сразу хихикает."
+  },
+  {
+   "id": "hvostик_4",
+   "ru_name": "Хвостик, рыжий лисёнок",
+   "species_ru": "лисёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4AAB8"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A2D5B2"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BCD7EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Любопытный и ласковый, всюду ходит за тобой пушистым хвостиком. Сворачивается рядом, когда тебе хочется тишины и тепла."
+  },
+  {
+   "id": "zhemchug_4",
+   "ru_name": "Жемчуг, морской слизнячок",
+   "species_ru": "морской слизень",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6ADBF"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9ED2AD"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B9D5EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Переливается перламутром и оставляет за собой тропку добрых мыслей. Качается в такт твоему дыханию, помогая успокоиться."
+  },
+  {
+   "id": "puzyrek_4",
+   "ru_name": "Пузырёк, воздушный шарик-малыш",
+   "species_ru": "пузырик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3A6B8"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A8DBBB"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C3DCF1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Лёгкий и круглый, поднимается ввысь, забирая твою усталость. Если выдохнешь медленно, он покачивается рядом и улыбается."
+  },
+  {
+   "id": "varezhka_4",
+   "ru_name": "Варежка, тёплый зайчик",
+   "species_ru": "зайчик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5ABBD"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A3D6B4"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BED9F0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Мягкие ушки и тёплые лапки, в которых уютно прятать пальцы. Прижимается носиком к щеке, когда хочет тебя поддержать."
+  },
+  {
+   "id": "mokhnatik_4",
+   "ru_name": "Мохнатик, лохматый зверёк",
+   "species_ru": "зверёк",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4A4B6"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A0D7B0"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C1DAEF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Весь в мягком ворсе и обожает обниматься без повода. Гладишь его, и на душе сразу становится спокойнее и теплее."
+  },
+  {
+   "id": "kapelka_4",
+   "ru_name": "Капелька, дождевая росинка",
+   "species_ru": "капелька",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6AFC1"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#ACDABA"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B8D4ED"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Чистая и блестящая, она ловит свет и дарит его тебе. Напоминает, что после дождя всегда наступает свежесть и покой."
+  },
+  {
+   "id": "medok_4",
+   "ru_name": "Медок, сонный мишка",
+   "species_ru": "медвежонок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3A9BB"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9DD2AC"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BFD9F0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Пухлый и неторопливый, он знает толк в долгих обнимашках. Зевает так заразительно, что и тебе хочется отдохнуть."
+  },
+  {
+   "id": "listik_4",
+   "ru_name": "Листик, осенний листочек",
+   "species_ru": "листочек",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5A7B9"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A5D8B6"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C0DBF0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Кружится на тёплом ветру и шепчет, что отпускать тоже бывает легко. Любит лежать у тебя на ладони и греться на солнышке."
+  },
+  {
+   "id": "snezhok_4",
+   "ru_name": "Снежок, пушистый совёнок",
+   "species_ru": "совёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4ACBE"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A1D4B1"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BBD6EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Тихий ночной дружок, который мудро моргает и никогда не торопит. Уютно ухает, провожая тебя в спокойный, добрый сон."
+  },
+  {
+   "id": "vatka_4",
+   "ru_name": "Ватка, облачный барашек",
+   "species_ru": "барашек",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6AABC"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A7DAB9"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C2DCF1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Кудрявый и мягонький, он считает с тобой добрые сны вместо забот. Любит, когда ты гладишь его шёрстку, и тихо посапывает."
+  },
+  {
+   "id": "morosh_4",
+   "ru_name": "Морошка, болотный лягушонок",
+   "species_ru": "лягушонок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3A5B7"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9CD1AB"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BDD7EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Сидит на тёплом листочке и квакает песенки про спокойствие. Если день выдался шумным, он зовёт тебя посидеть в тишине у воды."
+  },
+  {
+   "id": "luchik_slizen_5",
+   "ru_name": "Лучик, улитка",
+   "species_ru": "улитка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4A7B9"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A8D8B9"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BFD8EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Лучик никуда не спешит и тебя не торопит. Он тихо ползёт рядом и напоминает, что медленно тоже хорошо."
+  },
+  {
+   "id": "pushok_vorobey_5",
+   "ru_name": "Пушок, воробей",
+   "species_ru": "воробей",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5B0C0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9FD4B4"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B4D2EC"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Пушок встречает каждое утро тихим чириканьем. Он рад тебе просто так, без всякого повода."
+  },
+  {
+   "id": "murka_kotyonok_5",
+   "ru_name": "Мурка, котёнок",
+   "species_ru": "котёнок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F2A2B5"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#ABDCBD"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C2DAF0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Мурка любит свернуться у тебя на коленях и мягко мурлыкать. С ней любой вечер становится теплее."
+  },
+  {
+   "id": "zhuzha_bozhya_korovka_5",
+   "ru_name": "Жужа, божья коровка",
+   "species_ru": "божья коровка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F39AAE"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A4D7B7"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BAD6EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Жужа приносит крошечную удачу на своих пятнышках. Она садится тебе на ладонь и тихонько греется."
+  },
+  {
+   "id": "oblachko_tuchka_5",
+   "ru_name": "Облачко, тучка",
+   "species_ru": "тучка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6AEC2"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A1D6B0"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C8E0F4"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Облачко плывёт над тобой и роняет лёгкий мягкий дождик, когда грустно. Оно всегда выбирает плыть рядом."
+  },
+  {
+   "id": "rostok_pobeg_5",
+   "ru_name": "Росток, побег",
+   "species_ru": "росток",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EFA0B0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9AD2A8"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BCD6EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Росток тянется к свету каждый день понемногу. Он верит, что и у тебя всё растёт в своём темпе."
+  },
+  {
+   "id": "kapelka_blobik_5",
+   "ru_name": "Капелька, кляксик",
+   "species_ru": "кляксик",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4A8BA"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A6DABA"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BFD9EF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Капелька мягкая и круглая, она расплывается от радости, когда ты рядом. Её можно обнять, и она примет любую форму."
+  },
+  {
+   "id": "yozhik_yozh_5",
+   "ru_name": "Ёжик, ёж",
+   "species_ru": "ёж",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F0A4B6"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A9DCBC"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C0D9EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Ёжик с виду колючий, но внутри совсем мягкий и доверчивый. Он быстро привыкает к тебе и перестаёт прятать носик."
+  },
+  {
+   "id": "plyushka_zayka_5",
+   "ru_name": "Плюшка, зайка",
+   "species_ru": "зайка",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5AAC0"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A2D6B2"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BDD7ED"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Плюшка прижимает длинные ушки, когда ей уютно. Она прыгает к тебе по утрам, чтобы пожелать доброго дня."
+  },
+  {
+   "id": "pchyolka_pchela_5",
+   "ru_name": "Пчёлка, пчела",
+   "species_ru": "пчела",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3A0B2"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A5D9B8"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C1DBEF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Пчёлка собирает маленькие радости, как капельки мёда. Она тихо гудит рядом и делится с тобой сладким настроением."
+  },
+  {
+   "id": "morzhik_morzh_5",
+   "ru_name": "Моржик, морж",
+   "species_ru": "морж",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EF9FB2"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9CD3AA"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#B8D5EC"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Моржик пухлый, тёплый и совсем не боится холода. Он садится рядом и греет тебя своим круглым боком."
+  },
+  {
+   "id": "svetlyachok_5",
+   "ru_name": "Светлячок, жучок",
+   "species_ru": "жучок",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F4ACBE"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#AADDBD"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C4DCF0"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Светлячок зажигает мягкий огонёк, когда вокруг темнеет. Он остаётся с тобой до утра, чтобы было не страшно."
+  },
+  {
+   "id": "lisyonok_lisa_5",
+   "ru_name": "Лисёнок, лиса",
+   "species_ru": "лиса",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F2A6B8"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A0D5B0"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BFD8EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Лисёнок любопытный и хитро улыбается, но сердце у него мягкое. Он сворачивается пушистым хвостиком и греет тебе руки."
+  },
+  {
+   "id": "meduzka_meduza_5",
+   "ru_name": "Медузка, медуза",
+   "species_ru": "медуза",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F6B2C6"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A7DBBB"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C6DEF2"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Медузка плавно покачивается, будто танцует под тихую музыку. Рядом с ней дыхание само становится медленным и спокойным."
+  },
+  {
+   "id": "sovyonok_sova_5",
+   "ru_name": "Совёнок, сова",
+   "species_ru": "сова",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#EFA1B4"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#9ED4AC"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BBD6EC"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Совёнок не спит по вечерам и составляет тебе тихую компанию. Он смотрит большими глазами и говорит, что пора отдыхать."
+  },
+  {
+   "id": "gribochek_grib_5",
+   "ru_name": "Грибочек, гриб",
+   "species_ru": "гриб",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F3A4B6"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A8DBBC"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C0DAEF"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Грибочек прячется под шляпкой и тихо радуется дождю. Он растёт там, где спокойно, и зовёт тебя отдохнуть в тени."
+  },
+  {
+   "id": "vydronok_vydra_5",
+   "ru_name": "Выдрёнок, выдра",
+   "species_ru": "выдра",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F1A3B5"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A3D8B6"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#BDD8EE"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Выдрёнок держит лапку в твоей, чтобы не потеряться во сне. С ним даже плыть по течению становится тёплым и нестрашным."
+  },
+  {
+   "id": "zvyozdochka_zvezda_5",
+   "ru_name": "Звёздочка, морская звезда",
+   "species_ru": "морская звезда",
+   "variants": [
+    {
+     "id": "pink",
+     "ru_color": "розовый",
+     "hex": "#F5AABE"
+    },
+    {
+     "id": "mint",
+     "ru_color": "мятный",
+     "hex": "#A1D7B3"
+    },
+    {
+     "id": "sky",
+     "ru_color": "небесный",
+     "hex": "#C3DCF1"
+    }
+   ],
+   "origin": "common",
+   "ru_description": "Звёздочка лежит на тёплом песке и считает с тобой добрые мысли. Она тихо светится и верит, что ты у неё самый главный."
+  }
  ]
 }

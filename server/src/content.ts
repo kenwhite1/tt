@@ -21,7 +21,7 @@ export const content = {
   locations: load<{ locations: { id: string; ru_name: string; progress_per_walk: number }[] }>('locations.json'),
   clothing: load<Record<string, unknown>>('items_clothing.json'),
   furniture: load<Record<string, unknown>>('items_furniture.json'),
-  stories: load<{ generic: { id: string; ru_text: string; replies: { ru: string; dim: string }[]; discovery_id: string | null }[]; discoveries: unknown[] }>('stories.json'),
+  stories: load<{ generic: { id: string; ru_text: string; replies: { ru: string; dim: string }[]; discovery_id: string | null; location_id?: string | null }[]; discoveries: unknown[] }>('stories.json'),
   botCopy: load<Record<string, string[] | string>>('bot_copy.json'),
 }
 

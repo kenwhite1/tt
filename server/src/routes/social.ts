@@ -210,8 +210,7 @@ function settleOne(p: PendingRef) {
  mailTo(invitee.id, 'system', 'Подарок за знакомство! 🎁',
  `Тебя пригласил(а) ${inviter.name}, и к тебе уже бежит микропитомец ${speciesName(INVITEE_GIFT_SPECIES)}! Загляни в Сумку 💛`,
  { referral: true })
- // inviter ladder rewards, capped
- if (inviter.referral_rewards < C.REFERRAL_MAX_REWARDS) {
+ // inviter ladder: 3 named hero tiers, then a diminishing-but-never-zero tail that never caps
  const tier = inviter.referral_rewards + 1
  let rewardText = ''
  if (tier === 1) {
@@ -223,18 +222,24 @@ function settleOne(p: PendingRef) {
  db.prepare('INSERT OR IGNORE INTO items_owned (user_id, kind, item_id, color_id, acquired_ts) VALUES (?,?,?,?,?)')
  .run(inviter.id, 'plushie', REFERRAL_PLUSHIE, '', now)
  rewardText = 'плюшевый кот Лоскуток'
- } else {
+ } else if (tier === 3) {
  grantMicropet(inviter.id, REFERRAL_COW, inviter.last_day ?? today)
  rewardText = 'микропитомец Корова Печенька! 🐮'
+ } else {
+ // tier 4+: косточки taper but never reach zero, plus a surprise micropet every Nth friend
+ const stones = Math.max(C.REFERRAL_TAIL_MIN_STONES, C.REFERRAL_TAIL_BASE_STONES - (tier - 4) * C.REFERRAL_TAIL_STEP)
+ addStones(inviter.id, stones, 'referral_tail')
+ rewardText = `${stones}🦴`
+ if (tier % C.REFERRAL_EGG_EVERY === 0) {
+ const commons = content.micropets.species.filter(s => s.origin === 'common')
+ const sp = commons[Math.floor(Math.random() * commons.length)]
+ if (sp) { grantMicropet(inviter.id, sp.id, inviter.last_day ?? today); rewardText += ` и новый малыш ${speciesName(sp.id)} 🥚` }
+ }
  }
  db.prepare('UPDATE users SET referral_rewards=? WHERE id=?').run(tier, inviter.id)
  mailTo(inviter.id, 'system', `${invitee.name} теперь с нами! 🎉`,
  `Твоё приглашение сработало. Награда: ${rewardText}. Вы уже друзья во Дворике 💛`,
  { referral: true, tier })
- } else {
- mailTo(inviter.id, 'system', `${invitee.name} теперь с нами! 🎉`,
- 'Твоё приглашение сработало, вы уже друзья во Дворике 💛', { referral: true })
- }
  })()
 }
 
@@ -770,7 +775,9 @@ socialRoutes.get('/referrals', c => {
  { tier: 1, ru: `${REFERRAL_TIER1_STONES}🦴 и капюшончик для питомца`, done: fresh.referral_rewards >= 1 },
  { tier: 2, ru: 'Плюшевый кот Лоскуток', done: fresh.referral_rewards >= 2 },
  { tier: 3, ru: 'Микропитомец Корова Печенька 🐮', done: fresh.referral_rewards >= 3 },
+ { tier: 4, ru: `И дальше без конца: косточки за каждого друга и новый малыш каждые ${C.REFERRAL_EGG_EVERY} 🥚`, done: fresh.referral_rewards >= 4 },
  ],
+ unlimited: true,
  inviteeGift: `Твой друг сразу получит микропитомца ${speciesName(INVITEE_GIFT_SPECIES)} 🎁`,
  })
 })

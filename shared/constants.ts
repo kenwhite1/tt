@@ -74,7 +74,13 @@ export const C = {
   CHALLENGE_JOIN_BY_DAY: 16,
 
   REFERRAL_WINDOW_HOURS: 48,
-  REFERRAL_MAX_REWARDS: 3,
+  REFERRAL_MAX_REWARDS: 3,          // count of NAMED hero tiers (hood · plushie · Корова Печенька)
+  // Beyond tier 3 the ladder never ends: every additional friend pays a diminishing-but-never-zero
+  // 🦴 reward, plus a surprise micropet egg every Nth friend. A real k-factor engine, not a thank-you note.
+  REFERRAL_TAIL_BASE_STONES: 120,
+  REFERRAL_TAIL_STEP: 8,
+  REFERRAL_TAIL_MIN_STONES: 25,
+  REFERRAL_EGG_EVERY: 5,
 
   MOOD_LOW_MAX: 2, // 1..5 scale; ≤2 = low-mood day
   SAVED_COMBOS_FREE: 2,
@@ -110,9 +116,11 @@ export const C = {
   // 5B collectible puppy items
   COLLECTIBLE_GIFT_FEE: 200,
   COLLECTIBLE_DROPS: [
-    { id: 'col_summer_kerchief', ru: 'Летняя бандана', cap: 5000, season: 'summer' },
-    { id: 'col_amber_collar', ru: 'Янтарный ошейник', cap: 3000, season: 'summer' },
-    { id: 'col_acorn_charm', ru: 'Жёлудь-талисман', cap: 2000, season: 'autumn' },
+    { id: 'col_summer_kerchief', ru: 'Летняя бандана', emoji: '🧣', cap: 5000, price: 400, season: 'summer' },
+    { id: 'col_amber_collar', ru: 'Янтарный ошейник', emoji: '📿', cap: 3000, price: 700, season: 'summer' },
+    { id: 'col_acorn_charm', ru: 'Жёлудь-талисман', emoji: '🌰', cap: 2000, price: 900, season: 'autumn' },
+    { id: 'col_winter_scarf', ru: 'Снежный шарф', emoji: '❄️', cap: 2500, price: 600, season: 'winter' },
+    { id: 'col_spring_bloom', ru: 'Весенний цветок', emoji: '🌸', cap: 3500, price: 500, season: 'spring' },
   ],
   // 6 «Вечерний сбор»
   EVENING_DEFAULT_HOUR: 20,

@@ -1,177 +1,2166 @@
 {
-  "scas": [
-    { "id": "productivity", "ru": "Дела по чуть-чуть", "emoji": "🗂️", "color": "#FFD8A8" },
-    { "id": "gratitude", "ru": "Спасибо за сегодня", "emoji": "🌼", "color": "#FFF0B5" },
-    { "id": "self_kindness", "ru": "Доброта к себе", "emoji": "💛", "color": "#FFC9DE" },
-    { "id": "calm", "ru": "Тихая гавань", "emoji": "🌿", "color": "#C9E4CA" },
-    { "id": "sleep", "ru": "Сладкий сон", "emoji": "🌙", "color": "#CDC9F0" },
-    { "id": "hygiene", "ru": "Уход за собой", "emoji": "🫧", "color": "#BDE6E8" },
-    { "id": "movement", "ru": "Лёгкое движение", "emoji": "🤸", "color": "#FFB3A7" },
-    { "id": "nutrition", "ru": "Еда с заботой", "emoji": "🍓", "color": "#E9D8A6" },
-    { "id": "connection", "ru": "Тёплые связи", "emoji": "🤝", "color": "#E6C9F5" }
-  ],
-  "goals": [
-    { "id": "ew_glass_of_water", "ru": "выпить стакан воды", "emoji": "💧", "category": "easy_wins", "sca": "nutrition" },
-    { "id": "ew_get_out_of_bed", "ru": "вылезти из-под одеяла", "emoji": "🐣", "category": "easy_wins", "sca": "self_kindness" },
-    { "id": "ew_three_breaths", "ru": "сделать 3 глубоких вдоха", "emoji": "🌬️", "category": "easy_wins", "sca": "calm" },
-    { "id": "ew_brush_teeth", "ru": "почистить зубы", "emoji": "🪥", "category": "easy_wins", "sca": "hygiene" },
-    { "id": "ew_wash_face", "ru": "умыться прохладной водой", "emoji": "🫧", "category": "easy_wins", "sca": "hygiene" },
-    { "id": "ew_change_clothes", "ru": "переодеться в чистое", "emoji": "👕", "category": "easy_wins", "sca": "hygiene" },
-    { "id": "ew_open_window", "ru": "открыть окно на минутку", "emoji": "🪟", "category": "easy_wins", "sca": "calm" },
-    { "id": "ew_step_outside", "ru": "выйти на улицу хотя бы на минуту", "emoji": "🚪", "category": "easy_wins", "sca": null },
-    { "id": "ew_survive_day", "ru": "просто пережить этот день", "emoji": "🕯️", "category": "easy_wins", "sca": "self_kindness" },
-    { "id": "ew_just_be", "ru": "просто побыть, ничего не делая", "emoji": "🍃", "category": "easy_wins", "sca": "self_kindness" },
-    { "id": "ew_eat_something", "ru": "съесть хоть что-нибудь", "emoji": "🍞", "category": "easy_wins", "sca": "nutrition" },
-    { "id": "ew_shower", "ru": "принять душ", "emoji": "🚿", "category": "easy_wins", "sca": "hygiene" },
-    { "id": "ew_comb_hair", "ru": "расчесать волосы", "emoji": "🪮", "category": "easy_wins", "sca": "hygiene" },
-    { "id": "ew_stretch_ten_sec", "ru": "потянуться на 10 секунд", "emoji": "🙆‍♀️", "category": "easy_wins", "sca": "movement" },
-    { "id": "ew_one_kind_word_self", "ru": "сказать себе одно доброе слово", "emoji": "💛", "category": "easy_wins", "sca": "self_kindness" },
-    { "id": "ew_name_supporter", "ru": "вспомнить, кто меня любит", "emoji": "💞", "category": "easy_wins", "sca": "connection" },
-    { "id": "ew_drink_warm", "ru": "выпить что-нибудь тёплое", "emoji": "☕", "category": "easy_wins", "sca": "self_kindness" },
-    { "id": "ew_wash_one_dish", "ru": "помыть одну чашку", "emoji": "🍵", "category": "easy_wins", "sca": "productivity" },
-    { "id": "ew_sit_in_sun", "ru": "посидеть минутку на солнышке", "emoji": "☀️", "category": "easy_wins", "sca": "calm" },
-    { "id": "ew_pet_animal", "ru": "погладить кого-нибудь пушистого", "emoji": "💛", "category": "easy_wins", "sca": null },
-    { "id": "ew_relax_shoulders", "ru": "расслабить плечи и челюсть", "emoji": "😮‍💨", "category": "easy_wins", "sca": "calm" },
-    { "id": "ew_favorite_song", "ru": "включить любимую песню", "emoji": "🎵", "category": "easy_wins", "sca": "self_kindness" },
-    { "id": "ew_look_at_sky", "ru": "посмотреть на небо", "emoji": "☁️", "category": "easy_wins", "sca": "calm" },
-    { "id": "ew_hand_cream", "ru": "намазать руки кремом", "emoji": "🧴", "category": "easy_wins", "sca": "hygiene" },
-    { "id": "ew_stand_up", "ru": "встать и постоять 10 секунд", "emoji": "🧍‍♀️", "category": "easy_wins", "sca": "movement" },
-    { "id": "ew_one_tiny_task", "ru": "сделать одно крошечное дело", "emoji": "✅", "category": "easy_wins", "sca": "productivity" },
-    { "id": "ew_vitamins", "ru": "выпить свои витамины или лекарства", "emoji": "💊", "category": "easy_wins", "sca": null },
-    { "id": "ew_warm_socks", "ru": "надеть тёплые носки", "emoji": "🧦", "category": "easy_wins", "sca": "self_kindness" },
-    { "id": "ew_smile_mirror", "ru": "улыбнуться себе в зеркале", "emoji": "🥰", "category": "easy_wins", "sca": "self_kindness" },
-    { "id": "ew_allow_rest", "ru": "разрешить себе отдохнуть", "emoji": "🛋️", "category": "easy_wins", "sca": "self_kindness" },
-
-    { "id": "sl_no_coffee_after_3", "ru": "не пить кофе после 15:00", "emoji": "☕", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_dim_lights", "ru": "приглушить свет за час до сна", "emoji": "🕯️", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_phone_away", "ru": "отложить телефон за час до сна", "emoji": "📵", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_silent_mode", "ru": "включить беззвучный режим за полчаса до сна", "emoji": "🔕", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_warm_shower", "ru": "принять тёплый душ за час до сна", "emoji": "🚿", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_no_snack_late", "ru": "не перекусывать после ужина", "emoji": "🥄", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_no_nap", "ru": "обойтись сегодня без дневного сна", "emoji": "🌤️", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_tomorrow_list", "ru": "записать планы на завтра перед сном", "emoji": "📝", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_three_good_things", "ru": "вспомнить 3 хорошие вещи перед сном", "emoji": "✨", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_read_paper_book", "ru": "почитать бумажную книгу перед сном", "emoji": "📖", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_dark_room", "ru": "затемнить комнату перед сном", "emoji": "🌑", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_bed_on_time", "ru": "лечь спать вовремя", "emoji": "⏰", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_leave_bed_20", "ru": "встать, если не спится дольше 20 минут", "emoji": "🚶‍♀️", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_air_bedroom", "ru": "проветрить спальню перед сном", "emoji": "🪟", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_herbal_tea", "ru": "выпить травяной чай вечером", "emoji": "🍵", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_stretch_before_bed", "ru": "мягко потянуться перед сном", "emoji": "🧘‍♀️", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_no_doomscroll_bed", "ru": "не листать ленту в кровати", "emoji": "📱", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_favorite_pajamas", "ru": "надеть любимую пижаму", "emoji": "🩷", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_gentle_alarm", "ru": "поставить будильник с приятной мелодией", "emoji": "🎐", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_morning_light", "ru": "впустить утренний свет сразу после пробуждения", "emoji": "🌅", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_no_work_in_bed", "ru": "не работать сегодня в кровати", "emoji": "💻", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_white_noise", "ru": "включить тихий шум для засыпания", "emoji": "🌧️", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_evening_walk", "ru": "коротко прогуляться перед сном", "emoji": "🌆", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_write_worries", "ru": "выгрузить тревоги на бумагу перед сном", "emoji": "🗒️", "category": "sleep", "sca": "sleep" },
-    { "id": "sl_no_clock_at_night", "ru": "не смотреть на часы ночью", "emoji": "🕰️", "category": "sleep", "sca": "sleep" },
-
-    { "id": "ex_3_pushups", "ru": "сделать 3 отжимания", "emoji": "💪", "category": "exercise", "sca": "movement" },
-    { "id": "ex_5_squats", "ru": "сделать 5 приседаний", "emoji": "🦵", "category": "exercise", "sca": "movement" },
-    { "id": "ex_5_crunches", "ru": "сделать 5 скручиваний", "emoji": "🤸‍♀️", "category": "exercise", "sca": "movement" },
-    { "id": "ex_10_jumps", "ru": "сделать 10 прыжков на месте", "emoji": "🤾‍♀️", "category": "exercise", "sca": "movement" },
-    { "id": "ex_plank_10s", "ru": "постоять в планке 10 секунд", "emoji": "⏱️", "category": "exercise", "sca": "movement" },
-    { "id": "ex_morning_stretch", "ru": "потянуться после пробуждения", "emoji": "🌅", "category": "exercise", "sca": "movement" },
-    { "id": "ex_walk_around_block", "ru": "пройтись вокруг дома", "emoji": "🚶‍♀️", "category": "exercise", "sca": "movement" },
-    { "id": "ex_walk_10min_podcast", "ru": "погулять 10 минут с подкастом", "emoji": "🎧", "category": "exercise", "sca": "movement" },
-    { "id": "ex_take_stairs", "ru": "подняться по лестнице вместо лифта", "emoji": "🪜", "category": "exercise", "sca": "movement" },
-    { "id": "ex_dance_one_song", "ru": "потанцевать под одну песню", "emoji": "💃", "category": "exercise", "sca": "movement" },
-    { "id": "ex_neck_shoulders", "ru": "размять шею и плечи", "emoji": "🙆‍♀️", "category": "exercise", "sca": "movement" },
-    { "id": "ex_5_lunges", "ru": "сделать 5 выпадов", "emoji": "🏃‍♀️", "category": "exercise", "sca": "movement" },
-    { "id": "ex_3_burpees", "ru": "сделать 3 бёрпи", "emoji": "🔥", "category": "exercise", "sca": "movement" },
-    { "id": "ex_wall_sit_15s", "ru": "посидеть у стенки 15 секунд", "emoji": "🧱", "category": "exercise", "sca": "movement" },
-    { "id": "ex_toe_touch", "ru": "потянуться к носочкам", "emoji": "🦶", "category": "exercise", "sca": "movement" },
-    { "id": "ex_mini_workout_2min", "ru": "сделать мини-зарядку на 2 минуты", "emoji": "⏲️", "category": "exercise", "sca": "movement" },
-    { "id": "ex_one_yoga_pose", "ru": "постоять в одной позе йоги", "emoji": "🧘‍♀️", "category": "exercise", "sca": "movement" },
-    { "id": "ex_balance_20s", "ru": "постоять на одной ноге 20 секунд", "emoji": "🦩", "category": "exercise", "sca": "movement" },
-    { "id": "ex_eye_gym", "ru": "сделать гимнастику для глаз", "emoji": "👀", "category": "exercise", "sca": "movement" },
-    { "id": "ex_back_stretch", "ru": "мягко размять спину", "emoji": "🐈", "category": "exercise", "sca": "movement" },
-    { "id": "ex_walk_during_call", "ru": "пройтись во время созвона", "emoji": "📞", "category": "exercise", "sca": "movement" },
-    { "id": "ex_10_calf_raises", "ru": "подняться на носочки 10 раз", "emoji": "🩰", "category": "exercise", "sca": "movement" },
-    { "id": "ex_shake_30s", "ru": "потрясти руками и ногами 30 секунд", "emoji": "🪩", "category": "exercise", "sca": "movement" },
-    { "id": "ex_break_after_sitting", "ru": "встать и размяться после часа сидения", "emoji": "🪑", "category": "exercise", "sca": "movement" },
-    { "id": "ex_10_arm_swings", "ru": "сделать 10 махов руками", "emoji": "🌀", "category": "exercise", "sca": "movement" },
-
-    { "id": "lo_ask_friend_how", "ru": "спросить у друга, как дела", "emoji": "📲", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_call_mom", "ru": "позвонить маме", "emoji": "📞", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_say_love", "ru": "сказать близкому «люблю тебя»", "emoji": "❤️", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_thank_helper", "ru": "поблагодарить того, кто помог", "emoji": "🙏", "category": "loved_ones", "sca": "gratitude" },
-    { "id": "lo_old_friend_miss", "ru": "написать старому другу, что скучаю", "emoji": "💌", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_share_memory", "ru": "поделиться тёплым воспоминанием", "emoji": "📸", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_long_hug", "ru": "обнять кого-нибудь подольше", "emoji": "🤗", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_send_meme", "ru": "отправить другу смешной мем", "emoji": "😂", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_plan_meeting", "ru": "договориться о встрече с другом", "emoji": "📅", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_cook_for_family", "ru": "приготовить что-нибудь вкусное для близких", "emoji": "🍲", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_listen_fully", "ru": "выслушать близкого, не перебивая", "emoji": "👂", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_call_grandparents", "ru": "позвонить бабушке или дедушке", "emoji": "☎️", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_compliment_close", "ru": "сделать комплимент близкому", "emoji": "🌷", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_game_night", "ru": "позвать друзей на настолки", "emoji": "🎲", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_send_day_photo", "ru": "отправить близким фото из своего дня", "emoji": "🤳", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_ask_for_help", "ru": "попросить о помощи, если нужно", "emoji": "🫂", "category": "loved_ones", "sca": "self_kindness" },
-    { "id": "lo_voice_message", "ru": "записать тёплое голосовое другу", "emoji": "🎙️", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_play_with_pet", "ru": "поиграть с питомцем", "emoji": "💛", "category": "loved_ones", "sca": null },
-    { "id": "lo_family_tea", "ru": "попить чай с кем-то из семьи", "emoji": "🫖", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_say_goodnight", "ru": "пожелать близкому доброй ночи", "emoji": "🌙", "category": "loved_ones", "sca": "connection" },
-
-    { "id": "pr_lunch_no_phone", "ru": "пообедать без телефона", "emoji": "🍽️", "category": "presence", "sca": "nutrition" },
-    { "id": "pr_no_social_at_work", "ru": "не заходить в соцсети во время работы", "emoji": "🎯", "category": "presence", "sca": "productivity" },
-    { "id": "pr_morning_no_phone", "ru": "не брать телефон первые 15 минут утра", "emoji": "🌄", "category": "presence", "sca": "calm" },
-    { "id": "pr_delete_time_eater", "ru": "удалить одно приложение, которое крадёт время", "emoji": "🧹", "category": "presence", "sca": "productivity" },
-    { "id": "pr_slow_tea", "ru": "выпить чай медленно, без спешки", "emoji": "🍵", "category": "presence", "sca": "calm" },
-    { "id": "pr_notice_5_things", "ru": "заметить 5 красивых мелочей вокруг", "emoji": "🔍", "category": "presence", "sca": "gratitude" },
-    { "id": "pr_single_task_30", "ru": "полчаса делать одно дело за раз", "emoji": "🧩", "category": "presence", "sca": "productivity" },
-    { "id": "pr_walk_no_headphones", "ru": "прогуляться без наушников", "emoji": "🌳", "category": "presence", "sca": "calm" },
-    { "id": "pr_mute_notifications", "ru": "отключить лишние уведомления", "emoji": "🔕", "category": "presence", "sca": "calm" },
-    { "id": "pr_savor_food", "ru": "съесть что-нибудь медленно, смакуя", "emoji": "🍫", "category": "presence", "sca": "nutrition" },
-    { "id": "pr_listen_sounds", "ru": "минуту послушать звуки вокруг", "emoji": "🦗", "category": "presence", "sca": "calm" },
-    { "id": "pr_pause_one_breath", "ru": "сделать паузу на один вдох перед ответом", "emoji": "🫁", "category": "presence", "sca": "calm" },
-    { "id": "pr_window_gaze", "ru": "посмотреть в окно две минуты", "emoji": "🏞️", "category": "presence", "sca": "calm" },
-    { "id": "pr_scroll_timer", "ru": "поставить таймер на листание ленты", "emoji": "⏳", "category": "presence", "sca": "productivity" },
-    { "id": "pr_here_and_now", "ru": "сказать себе: «я здесь и сейчас»", "emoji": "🧭", "category": "presence", "sca": "calm" },
-
-    { "id": "td_make_bed", "ru": "застелить кровать", "emoji": "🛏️", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_one_item_home", "ru": "убрать одну вещь на место", "emoji": "🧸", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_take_out_trash", "ru": "вынести мусор", "emoji": "🗑️", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_wash_dishes", "ru": "помыть посуду после еды", "emoji": "🧽", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_start_laundry", "ru": "запустить стирку", "emoji": "🧺", "category": "tidy_up", "sca": "hygiene" },
-    { "id": "td_clothes_off_chair", "ru": "поднять одежду со стула", "emoji": "👚", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_fresh_sheets", "ru": "поменять постельное бельё", "emoji": "🛌", "category": "tidy_up", "sca": "hygiene" },
-    { "id": "td_clear_desk", "ru": "расчистить рабочий стол", "emoji": "🖥️", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_tidy_5min_music", "ru": "прибраться 5 минут под музыку", "emoji": "🎶", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_wipe_kitchen", "ru": "протереть кухонный стол", "emoji": "🍋", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_sort_bag", "ru": "разобрать сумку или рюкзак", "emoji": "🎒", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_delete_10_photos", "ru": "удалить 10 лишних фото из галереи", "emoji": "🖼️", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_inbox_3_emails", "ru": "разобрать 3 письма в почте", "emoji": "📧", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_water_plants", "ru": "полить цветы", "emoji": "🪴", "category": "tidy_up", "sca": null },
-    { "id": "td_fridge_check", "ru": "выбросить просроченное из холодильника", "emoji": "🧊", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_shoes_in_row", "ru": "поставить обувь ровно у двери", "emoji": "👟", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_wipe_mirror", "ru": "протереть зеркало", "emoji": "🪞", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_clean_downloads", "ru": "почистить папку загрузок", "emoji": "📂", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_one_drawer", "ru": "навести порядок в одном ящике", "emoji": "🗄️", "category": "tidy_up", "sca": "productivity" },
-    { "id": "td_fresh_towel", "ru": "повесить свежее полотенце", "emoji": "🛁", "category": "tidy_up", "sca": "hygiene" },
-
-    { "id": "kn_smile_passerby", "ru": "улыбнуться прохожему", "emoji": "😊", "category": "kindness", "sca": null },
-    { "id": "kn_donate_clothes", "ru": "собрать пакет одежды на благотворительность", "emoji": "🛍️", "category": "kindness", "sca": null },
-    { "id": "kn_compliment_stranger", "ru": "сделать комплимент незнакомому человеку", "emoji": "💐", "category": "kindness", "sca": "connection" },
-    { "id": "kn_kind_comment", "ru": "оставить добрый комментарий в интернете", "emoji": "💬", "category": "kindness", "sca": null },
-    { "id": "kn_let_ahead_queue", "ru": "пропустить кого-то вперёд в очереди", "emoji": "🚶", "category": "kindness", "sca": null },
-    { "id": "kn_feed_birds", "ru": "покормить птиц или уличного котика", "emoji": "🐦", "category": "kindness", "sca": null },
-    { "id": "kn_thank_courier", "ru": "поблагодарить кассира или курьера", "emoji": "🛒", "category": "kindness", "sca": "gratitude" },
-    { "id": "kn_bake_and_share", "ru": "испечь что-нибудь и угостить", "emoji": "🍪", "category": "kindness", "sca": "connection" },
-    { "id": "kn_leave_review", "ru": "оставить хороший отзыв любимому месту", "emoji": "⭐", "category": "kindness", "sca": null },
-    { "id": "kn_bigger_tip", "ru": "оставить чаевые побольше", "emoji": "🪙", "category": "kindness", "sca": null },
-    { "id": "kn_check_neighbors", "ru": "спросить у соседей, не нужна ли помощь", "emoji": "🏠", "category": "kindness", "sca": "connection" },
-    { "id": "kn_gift_book", "ru": "подарить прочитанную книгу", "emoji": "📚", "category": "kindness", "sca": null },
-    { "id": "kn_kind_note", "ru": "оставить кому-нибудь записку с добрыми словами", "emoji": "✉️", "category": "kindness", "sca": null },
-    { "id": "kn_thank_inspirer", "ru": "сказать спасибо тому, кто меня вдохновил", "emoji": "🌟", "category": "kindness", "sca": "gratitude" },
-    { "id": "kn_small_eco_deed", "ru": "сделать маленькое доброе дело для планеты", "emoji": "♻️", "category": "kindness", "sca": null }
-  ],
-  "starter_goal_ids": [
-    "ew_glass_of_water",
-    "ew_three_breaths",
-    "ex_walk_around_block",
-    "sl_three_good_things"
-  ]
+ "scas": [
+  {
+   "id": "productivity",
+   "ru": "Дела по чуть-чуть",
+   "emoji": "🗂️",
+   "color": "#FFD8A8"
+  },
+  {
+   "id": "gratitude",
+   "ru": "Спасибо за сегодня",
+   "emoji": "🌼",
+   "color": "#FFF0B5"
+  },
+  {
+   "id": "self_kindness",
+   "ru": "Доброта к себе",
+   "emoji": "💛",
+   "color": "#FFC9DE"
+  },
+  {
+   "id": "calm",
+   "ru": "Тихая гавань",
+   "emoji": "🌿",
+   "color": "#C9E4CA"
+  },
+  {
+   "id": "sleep",
+   "ru": "Сладкий сон",
+   "emoji": "🌙",
+   "color": "#CDC9F0"
+  },
+  {
+   "id": "hygiene",
+   "ru": "Уход за собой",
+   "emoji": "🫧",
+   "color": "#BDE6E8"
+  },
+  {
+   "id": "movement",
+   "ru": "Лёгкое движение",
+   "emoji": "🤸",
+   "color": "#FFB3A7"
+  },
+  {
+   "id": "nutrition",
+   "ru": "Еда с заботой",
+   "emoji": "🍓",
+   "color": "#E9D8A6"
+  },
+  {
+   "id": "connection",
+   "ru": "Тёплые связи",
+   "emoji": "🤝",
+   "color": "#E6C9F5"
+  }
+ ],
+ "goals": [
+  {
+   "id": "ew_glass_of_water",
+   "ru": "выпить стакан воды",
+   "emoji": "💧",
+   "category": "easy_wins",
+   "sca": "nutrition"
+  },
+  {
+   "id": "ew_get_out_of_bed",
+   "ru": "вылезти из-под одеяла",
+   "emoji": "🐣",
+   "category": "easy_wins",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "ew_three_breaths",
+   "ru": "сделать 3 глубоких вдоха",
+   "emoji": "🌬️",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "ew_brush_teeth",
+   "ru": "почистить зубы",
+   "emoji": "🪥",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "ew_wash_face",
+   "ru": "умыться прохладной водой",
+   "emoji": "🫧",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "ew_change_clothes",
+   "ru": "переодеться в чистое",
+   "emoji": "👕",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "ew_open_window",
+   "ru": "открыть окно на минутку",
+   "emoji": "🪟",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "ew_step_outside",
+   "ru": "выйти на улицу хотя бы на минуту",
+   "emoji": "🚪",
+   "category": "easy_wins",
+   "sca": null
+  },
+  {
+   "id": "ew_survive_day",
+   "ru": "просто пережить этот день",
+   "emoji": "🕯️",
+   "category": "easy_wins",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "ew_just_be",
+   "ru": "просто побыть, ничего не делая",
+   "emoji": "🍃",
+   "category": "easy_wins",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "ew_eat_something",
+   "ru": "съесть хоть что-нибудь",
+   "emoji": "🍞",
+   "category": "easy_wins",
+   "sca": "nutrition"
+  },
+  {
+   "id": "ew_shower",
+   "ru": "принять душ",
+   "emoji": "🚿",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "ew_comb_hair",
+   "ru": "расчесать волосы",
+   "emoji": "🪮",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "ew_stretch_ten_sec",
+   "ru": "потянуться на 10 секунд",
+   "emoji": "🙆‍♀️",
+   "category": "easy_wins",
+   "sca": "movement"
+  },
+  {
+   "id": "ew_one_kind_word_self",
+   "ru": "сказать себе одно доброе слово",
+   "emoji": "💛",
+   "category": "easy_wins",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "ew_name_supporter",
+   "ru": "вспомнить, кто меня любит",
+   "emoji": "💞",
+   "category": "easy_wins",
+   "sca": "connection"
+  },
+  {
+   "id": "ew_drink_warm",
+   "ru": "выпить что-нибудь тёплое",
+   "emoji": "☕",
+   "category": "easy_wins",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "ew_wash_one_dish",
+   "ru": "помыть одну чашку",
+   "emoji": "🍵",
+   "category": "easy_wins",
+   "sca": "productivity"
+  },
+  {
+   "id": "ew_sit_in_sun",
+   "ru": "посидеть минутку на солнышке",
+   "emoji": "☀️",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "ew_pet_animal",
+   "ru": "погладить кого-нибудь пушистого",
+   "emoji": "💛",
+   "category": "easy_wins",
+   "sca": null
+  },
+  {
+   "id": "ew_relax_shoulders",
+   "ru": "расслабить плечи и челюсть",
+   "emoji": "😮‍💨",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "ew_favorite_song",
+   "ru": "включить любимую песню",
+   "emoji": "🎵",
+   "category": "easy_wins",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "ew_look_at_sky",
+   "ru": "посмотреть на небо",
+   "emoji": "☁️",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "ew_hand_cream",
+   "ru": "намазать руки кремом",
+   "emoji": "🧴",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "ew_stand_up",
+   "ru": "встать и постоять 10 секунд",
+   "emoji": "🧍‍♀️",
+   "category": "easy_wins",
+   "sca": "movement"
+  },
+  {
+   "id": "ew_one_tiny_task",
+   "ru": "сделать одно крошечное дело",
+   "emoji": "✅",
+   "category": "easy_wins",
+   "sca": "productivity"
+  },
+  {
+   "id": "ew_vitamins",
+   "ru": "выпить свои витамины или лекарства",
+   "emoji": "💊",
+   "category": "easy_wins",
+   "sca": null
+  },
+  {
+   "id": "ew_warm_socks",
+   "ru": "надеть тёплые носки",
+   "emoji": "🧦",
+   "category": "easy_wins",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "ew_smile_mirror",
+   "ru": "улыбнуться себе в зеркале",
+   "emoji": "🥰",
+   "category": "easy_wins",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "ew_allow_rest",
+   "ru": "разрешить себе отдохнуть",
+   "emoji": "🛋️",
+   "category": "easy_wins",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "sl_no_coffee_after_3",
+   "ru": "не пить кофе после 15:00",
+   "emoji": "☕",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_dim_lights",
+   "ru": "приглушить свет за час до сна",
+   "emoji": "🕯️",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_phone_away",
+   "ru": "отложить телефон за час до сна",
+   "emoji": "📵",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_silent_mode",
+   "ru": "включить беззвучный режим за полчаса до сна",
+   "emoji": "🔕",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_warm_shower",
+   "ru": "принять тёплый душ за час до сна",
+   "emoji": "🚿",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_no_snack_late",
+   "ru": "не перекусывать после ужина",
+   "emoji": "🥄",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_no_nap",
+   "ru": "обойтись сегодня без дневного сна",
+   "emoji": "🌤️",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_tomorrow_list",
+   "ru": "записать планы на завтра перед сном",
+   "emoji": "📝",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_three_good_things",
+   "ru": "вспомнить 3 хорошие вещи перед сном",
+   "emoji": "✨",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_read_paper_book",
+   "ru": "почитать бумажную книгу перед сном",
+   "emoji": "📖",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_dark_room",
+   "ru": "затемнить комнату перед сном",
+   "emoji": "🌑",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_bed_on_time",
+   "ru": "лечь спать вовремя",
+   "emoji": "⏰",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_leave_bed_20",
+   "ru": "встать, если не спится дольше 20 минут",
+   "emoji": "🚶‍♀️",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_air_bedroom",
+   "ru": "проветрить спальню перед сном",
+   "emoji": "🪟",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_herbal_tea",
+   "ru": "выпить травяной чай вечером",
+   "emoji": "🍵",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_stretch_before_bed",
+   "ru": "мягко потянуться перед сном",
+   "emoji": "🧘‍♀️",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_no_doomscroll_bed",
+   "ru": "не листать ленту в кровати",
+   "emoji": "📱",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_favorite_pajamas",
+   "ru": "надеть любимую пижаму",
+   "emoji": "🩷",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_gentle_alarm",
+   "ru": "поставить будильник с приятной мелодией",
+   "emoji": "🎐",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_morning_light",
+   "ru": "впустить утренний свет сразу после пробуждения",
+   "emoji": "🌅",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_no_work_in_bed",
+   "ru": "не работать сегодня в кровати",
+   "emoji": "💻",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_white_noise",
+   "ru": "включить тихий шум для засыпания",
+   "emoji": "🌧️",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_evening_walk",
+   "ru": "коротко прогуляться перед сном",
+   "emoji": "🌆",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_write_worries",
+   "ru": "выгрузить тревоги на бумагу перед сном",
+   "emoji": "🗒️",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "sl_no_clock_at_night",
+   "ru": "не смотреть на часы ночью",
+   "emoji": "🕰️",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "ex_3_pushups",
+   "ru": "сделать 3 отжимания",
+   "emoji": "💪",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_5_squats",
+   "ru": "сделать 5 приседаний",
+   "emoji": "🦵",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_5_crunches",
+   "ru": "сделать 5 скручиваний",
+   "emoji": "🤸‍♀️",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_10_jumps",
+   "ru": "сделать 10 прыжков на месте",
+   "emoji": "🤾‍♀️",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_plank_10s",
+   "ru": "постоять в планке 10 секунд",
+   "emoji": "⏱️",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_morning_stretch",
+   "ru": "потянуться после пробуждения",
+   "emoji": "🌅",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_walk_around_block",
+   "ru": "пройтись вокруг дома",
+   "emoji": "🚶‍♀️",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_walk_10min_podcast",
+   "ru": "погулять 10 минут с подкастом",
+   "emoji": "🎧",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_take_stairs",
+   "ru": "подняться по лестнице вместо лифта",
+   "emoji": "🪜",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_dance_one_song",
+   "ru": "потанцевать под одну песню",
+   "emoji": "💃",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_neck_shoulders",
+   "ru": "размять шею и плечи",
+   "emoji": "🙆‍♀️",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_5_lunges",
+   "ru": "сделать 5 выпадов",
+   "emoji": "🏃‍♀️",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_3_burpees",
+   "ru": "сделать 3 бёрпи",
+   "emoji": "🔥",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_wall_sit_15s",
+   "ru": "посидеть у стенки 15 секунд",
+   "emoji": "🧱",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_toe_touch",
+   "ru": "потянуться к носочкам",
+   "emoji": "🦶",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_mini_workout_2min",
+   "ru": "сделать мини-зарядку на 2 минуты",
+   "emoji": "⏲️",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_one_yoga_pose",
+   "ru": "постоять в одной позе йоги",
+   "emoji": "🧘‍♀️",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_balance_20s",
+   "ru": "постоять на одной ноге 20 секунд",
+   "emoji": "🦩",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_eye_gym",
+   "ru": "сделать гимнастику для глаз",
+   "emoji": "👀",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_back_stretch",
+   "ru": "мягко размять спину",
+   "emoji": "🐈",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_walk_during_call",
+   "ru": "пройтись во время созвона",
+   "emoji": "📞",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_10_calf_raises",
+   "ru": "подняться на носочки 10 раз",
+   "emoji": "🩰",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_shake_30s",
+   "ru": "потрясти руками и ногами 30 секунд",
+   "emoji": "🪩",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_break_after_sitting",
+   "ru": "встать и размяться после часа сидения",
+   "emoji": "🪑",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "ex_10_arm_swings",
+   "ru": "сделать 10 махов руками",
+   "emoji": "🌀",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "lo_ask_friend_how",
+   "ru": "спросить у друга, как дела",
+   "emoji": "📲",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_call_mom",
+   "ru": "позвонить маме",
+   "emoji": "📞",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_say_love",
+   "ru": "сказать близкому «люблю тебя»",
+   "emoji": "❤️",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_thank_helper",
+   "ru": "поблагодарить того, кто помог",
+   "emoji": "🙏",
+   "category": "loved_ones",
+   "sca": "gratitude"
+  },
+  {
+   "id": "lo_old_friend_miss",
+   "ru": "написать старому другу, что скучаю",
+   "emoji": "💌",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_share_memory",
+   "ru": "поделиться тёплым воспоминанием",
+   "emoji": "📸",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_long_hug",
+   "ru": "обнять кого-нибудь подольше",
+   "emoji": "🤗",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_send_meme",
+   "ru": "отправить другу смешной мем",
+   "emoji": "😂",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_plan_meeting",
+   "ru": "договориться о встрече с другом",
+   "emoji": "📅",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_cook_for_family",
+   "ru": "приготовить что-нибудь вкусное для близких",
+   "emoji": "🍲",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_listen_fully",
+   "ru": "выслушать близкого, не перебивая",
+   "emoji": "👂",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_call_grandparents",
+   "ru": "позвонить бабушке или дедушке",
+   "emoji": "☎️",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_compliment_close",
+   "ru": "сделать комплимент близкому",
+   "emoji": "🌷",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_game_night",
+   "ru": "позвать друзей на настолки",
+   "emoji": "🎲",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_send_day_photo",
+   "ru": "отправить близким фото из своего дня",
+   "emoji": "🤳",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_ask_for_help",
+   "ru": "попросить о помощи, если нужно",
+   "emoji": "🫂",
+   "category": "loved_ones",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "lo_voice_message",
+   "ru": "записать тёплое голосовое другу",
+   "emoji": "🎙️",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_play_with_pet",
+   "ru": "поиграть с питомцем",
+   "emoji": "💛",
+   "category": "loved_ones",
+   "sca": null
+  },
+  {
+   "id": "lo_family_tea",
+   "ru": "попить чай с кем-то из семьи",
+   "emoji": "🫖",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "lo_say_goodnight",
+   "ru": "пожелать близкому доброй ночи",
+   "emoji": "🌙",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "pr_lunch_no_phone",
+   "ru": "пообедать без телефона",
+   "emoji": "🍽️",
+   "category": "presence",
+   "sca": "nutrition"
+  },
+  {
+   "id": "pr_no_social_at_work",
+   "ru": "не заходить в соцсети во время работы",
+   "emoji": "🎯",
+   "category": "presence",
+   "sca": "productivity"
+  },
+  {
+   "id": "pr_morning_no_phone",
+   "ru": "не брать телефон первые 15 минут утра",
+   "emoji": "🌄",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "pr_delete_time_eater",
+   "ru": "удалить одно приложение, которое крадёт время",
+   "emoji": "🧹",
+   "category": "presence",
+   "sca": "productivity"
+  },
+  {
+   "id": "pr_slow_tea",
+   "ru": "выпить чай медленно, без спешки",
+   "emoji": "🍵",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "pr_notice_5_things",
+   "ru": "заметить 5 красивых мелочей вокруг",
+   "emoji": "🔍",
+   "category": "presence",
+   "sca": "gratitude"
+  },
+  {
+   "id": "pr_single_task_30",
+   "ru": "полчаса делать одно дело за раз",
+   "emoji": "🧩",
+   "category": "presence",
+   "sca": "productivity"
+  },
+  {
+   "id": "pr_walk_no_headphones",
+   "ru": "прогуляться без наушников",
+   "emoji": "🌳",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "pr_mute_notifications",
+   "ru": "отключить лишние уведомления",
+   "emoji": "🔕",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "pr_savor_food",
+   "ru": "съесть что-нибудь медленно, смакуя",
+   "emoji": "🍫",
+   "category": "presence",
+   "sca": "nutrition"
+  },
+  {
+   "id": "pr_listen_sounds",
+   "ru": "минуту послушать звуки вокруг",
+   "emoji": "🦗",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "pr_pause_one_breath",
+   "ru": "сделать паузу на один вдох перед ответом",
+   "emoji": "🫁",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "pr_window_gaze",
+   "ru": "посмотреть в окно две минуты",
+   "emoji": "🏞️",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "pr_scroll_timer",
+   "ru": "поставить таймер на листание ленты",
+   "emoji": "⏳",
+   "category": "presence",
+   "sca": "productivity"
+  },
+  {
+   "id": "pr_here_and_now",
+   "ru": "сказать себе: «я здесь и сейчас»",
+   "emoji": "🧭",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "td_make_bed",
+   "ru": "застелить кровать",
+   "emoji": "🛏️",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_one_item_home",
+   "ru": "убрать одну вещь на место",
+   "emoji": "🧸",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_take_out_trash",
+   "ru": "вынести мусор",
+   "emoji": "🗑️",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_wash_dishes",
+   "ru": "помыть посуду после еды",
+   "emoji": "🧽",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_start_laundry",
+   "ru": "запустить стирку",
+   "emoji": "🧺",
+   "category": "tidy_up",
+   "sca": "hygiene"
+  },
+  {
+   "id": "td_clothes_off_chair",
+   "ru": "поднять одежду со стула",
+   "emoji": "👚",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_fresh_sheets",
+   "ru": "поменять постельное бельё",
+   "emoji": "🛌",
+   "category": "tidy_up",
+   "sca": "hygiene"
+  },
+  {
+   "id": "td_clear_desk",
+   "ru": "расчистить рабочий стол",
+   "emoji": "🖥️",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_tidy_5min_music",
+   "ru": "прибраться 5 минут под музыку",
+   "emoji": "🎶",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_wipe_kitchen",
+   "ru": "протереть кухонный стол",
+   "emoji": "🍋",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_sort_bag",
+   "ru": "разобрать сумку или рюкзак",
+   "emoji": "🎒",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_delete_10_photos",
+   "ru": "удалить 10 лишних фото из галереи",
+   "emoji": "🖼️",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_inbox_3_emails",
+   "ru": "разобрать 3 письма в почте",
+   "emoji": "📧",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_water_plants",
+   "ru": "полить цветы",
+   "emoji": "🪴",
+   "category": "tidy_up",
+   "sca": null
+  },
+  {
+   "id": "td_fridge_check",
+   "ru": "выбросить просроченное из холодильника",
+   "emoji": "🧊",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_shoes_in_row",
+   "ru": "поставить обувь ровно у двери",
+   "emoji": "👟",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_wipe_mirror",
+   "ru": "протереть зеркало",
+   "emoji": "🪞",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_clean_downloads",
+   "ru": "почистить папку загрузок",
+   "emoji": "📂",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_one_drawer",
+   "ru": "навести порядок в одном ящике",
+   "emoji": "🗄️",
+   "category": "tidy_up",
+   "sca": "productivity"
+  },
+  {
+   "id": "td_fresh_towel",
+   "ru": "повесить свежее полотенце",
+   "emoji": "🛁",
+   "category": "tidy_up",
+   "sca": "hygiene"
+  },
+  {
+   "id": "kn_smile_passerby",
+   "ru": "улыбнуться прохожему",
+   "emoji": "😊",
+   "category": "kindness",
+   "sca": null
+  },
+  {
+   "id": "kn_donate_clothes",
+   "ru": "собрать пакет одежды на благотворительность",
+   "emoji": "🛍️",
+   "category": "kindness",
+   "sca": null
+  },
+  {
+   "id": "kn_compliment_stranger",
+   "ru": "сделать комплимент незнакомому человеку",
+   "emoji": "💐",
+   "category": "kindness",
+   "sca": "connection"
+  },
+  {
+   "id": "kn_kind_comment",
+   "ru": "оставить добрый комментарий в интернете",
+   "emoji": "💬",
+   "category": "kindness",
+   "sca": null
+  },
+  {
+   "id": "kn_let_ahead_queue",
+   "ru": "пропустить кого-то вперёд в очереди",
+   "emoji": "🚶",
+   "category": "kindness",
+   "sca": null
+  },
+  {
+   "id": "kn_feed_birds",
+   "ru": "покормить птиц или уличного котика",
+   "emoji": "🐦",
+   "category": "kindness",
+   "sca": null
+  },
+  {
+   "id": "kn_thank_courier",
+   "ru": "поблагодарить кассира или курьера",
+   "emoji": "🛒",
+   "category": "kindness",
+   "sca": "gratitude"
+  },
+  {
+   "id": "kn_bake_and_share",
+   "ru": "испечь что-нибудь и угостить",
+   "emoji": "🍪",
+   "category": "kindness",
+   "sca": "connection"
+  },
+  {
+   "id": "kn_leave_review",
+   "ru": "оставить хороший отзыв любимому месту",
+   "emoji": "⭐",
+   "category": "kindness",
+   "sca": null
+  },
+  {
+   "id": "kn_bigger_tip",
+   "ru": "оставить чаевые побольше",
+   "emoji": "🪙",
+   "category": "kindness",
+   "sca": null
+  },
+  {
+   "id": "kn_check_neighbors",
+   "ru": "спросить у соседей, не нужна ли помощь",
+   "emoji": "🏠",
+   "category": "kindness",
+   "sca": "connection"
+  },
+  {
+   "id": "kn_gift_book",
+   "ru": "подарить прочитанную книгу",
+   "emoji": "📚",
+   "category": "kindness",
+   "sca": null
+  },
+  {
+   "id": "kn_kind_note",
+   "ru": "оставить кому-нибудь записку с добрыми словами",
+   "emoji": "✉️",
+   "category": "kindness",
+   "sca": null
+  },
+  {
+   "id": "kn_thank_inspirer",
+   "ru": "сказать спасибо тому, кто меня вдохновил",
+   "emoji": "🌟",
+   "category": "kindness",
+   "sca": "gratitude"
+  },
+  {
+   "id": "kn_small_eco_deed",
+   "ru": "сделать маленькое доброе дело для планеты",
+   "emoji": "♻️",
+   "category": "kindness",
+   "sca": null
+  },
+  {
+   "id": "g_easy_wins_1",
+   "ru": "выпить стакан воды",
+   "emoji": "💧",
+   "category": "easy_wins",
+   "sca": "nutrition"
+  },
+  {
+   "id": "g_easy_wins_2",
+   "ru": "проветрить комнату",
+   "emoji": "🪟",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "g_easy_wins_3",
+   "ru": "потянуться всем телом",
+   "emoji": "🙆",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "g_easy_wins_4",
+   "ru": "умыться прохладной водой",
+   "emoji": "💦",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "g_easy_wins_5",
+   "ru": "сделать три глубоких вдоха",
+   "emoji": "🌬️",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "g_easy_wins_6",
+   "ru": "съесть кусочек фрукта",
+   "emoji": "🍎",
+   "category": "easy_wins",
+   "sca": "nutrition"
+  },
+  {
+   "id": "g_easy_wins_7",
+   "ru": "почистить зубы не спеша",
+   "emoji": "🪥",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "g_easy_wins_8",
+   "ru": "выглянуть в окно на минутку",
+   "emoji": "👀",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "g_easy_wins_9",
+   "ru": "налить тёплый чай",
+   "emoji": "🍵",
+   "category": "easy_wins",
+   "sca": "nutrition"
+  },
+  {
+   "id": "g_easy_wins_10",
+   "ru": "размять плечи",
+   "emoji": "💪",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "g_easy_wins_11",
+   "ru": "помыть руки тёплой водой",
+   "emoji": "🧼",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "g_easy_wins_12",
+   "ru": "закрыть глаза на минутку",
+   "emoji": "😌",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "g_easy_wins_13",
+   "ru": "добавить горсть ягод к завтраку",
+   "emoji": "🫐",
+   "category": "easy_wins",
+   "sca": "nutrition"
+  },
+  {
+   "id": "g_easy_wins_14",
+   "ru": "нанести крем на руки",
+   "emoji": "🧴",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "g_easy_wins_15",
+   "ru": "повертеть шеей мягко",
+   "emoji": "🧘",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "g_easy_wins_16",
+   "ru": "перекусить горстью орехов",
+   "emoji": "🥜",
+   "category": "easy_wins",
+   "sca": "nutrition"
+  },
+  {
+   "id": "g_easy_wins_17",
+   "ru": "расчесать волосы",
+   "emoji": "💇",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "g_easy_wins_18",
+   "ru": "медленно выдохнуть напряжение",
+   "emoji": "☁️",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "g_easy_wins_19",
+   "ru": "добавить лимон в воду",
+   "emoji": "🍋",
+   "category": "easy_wins",
+   "sca": "nutrition"
+  },
+  {
+   "id": "g_easy_wins_20",
+   "ru": "ополоснуть лицо вечером",
+   "emoji": "🚿",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "g_easy_wins_21",
+   "ru": "потянуть руки вверх",
+   "emoji": "🤸",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "g_easy_wins_22",
+   "ru": "съесть тёплую кашу утром",
+   "emoji": "🥣",
+   "category": "easy_wins",
+   "sca": "nutrition"
+  },
+  {
+   "id": "g_easy_wins_23",
+   "ru": "сменить на свежую футболку",
+   "emoji": "👕",
+   "category": "easy_wins",
+   "sca": "hygiene"
+  },
+  {
+   "id": "g_easy_wins_24",
+   "ru": "посидеть в тишине минутку",
+   "emoji": "🤫",
+   "category": "easy_wins",
+   "sca": "calm"
+  },
+  {
+   "id": "g_easy_wins_25",
+   "ru": "допить воду перед сном",
+   "emoji": "🌙",
+   "category": "easy_wins",
+   "sca": "nutrition"
+  },
+  {
+   "id": "g_sleep_1",
+   "ru": "проветрить спальню перед сном",
+   "emoji": "🪟",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_2",
+   "ru": "выпить тёплого чая без кофеина",
+   "emoji": "🍵",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_3",
+   "ru": "приглушить свет за час до сна",
+   "emoji": "🕯️",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_4",
+   "ru": "отложить телефон подальше от кровати",
+   "emoji": "📵",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_5",
+   "ru": "взбить подушку поудобнее",
+   "emoji": "🛏️",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_6",
+   "ru": "надеть тёплые носочки",
+   "emoji": "🧦",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_7",
+   "ru": "сделать пару медленных вдохов",
+   "emoji": "😮‍\ud83d",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_8",
+   "ru": "включить тихую спокойную музыку",
+   "emoji": "🎶",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_9",
+   "ru": "умыться прохладной водой",
+   "emoji": "💧",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_10",
+   "ru": "потянуться всем телом",
+   "emoji": "🧘",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_11",
+   "ru": "задёрнуть шторы поплотнее",
+   "emoji": "🌙",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_12",
+   "ru": "переодеться в мягкую пижаму",
+   "emoji": "👕",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_13",
+   "ru": "вспомнить три хороших момента дня",
+   "emoji": "✨",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_14",
+   "ru": "поставить будильник на завтра",
+   "emoji": "⏰",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_15",
+   "ru": "почитать пару страниц книги",
+   "emoji": "📖",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_16",
+   "ru": "зажечь аромалампу с лавандой",
+   "emoji": "💜",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_17",
+   "ru": "убрать лишний свет от экранов",
+   "emoji": "🔌",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_18",
+   "ru": "налить стакан воды у кровати",
+   "emoji": "🥛",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_19",
+   "ru": "укрыться тёплым одеялом",
+   "emoji": "🧸",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_20",
+   "ru": "расслабить плечи и челюсть",
+   "emoji": "🌸",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_21",
+   "ru": "записать тревожные мысли в блокнот",
+   "emoji": "📝",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_22",
+   "ru": "закрыть глаза и помечтать о хорошем",
+   "emoji": "☁️",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_23",
+   "ru": "выключить уведомления на ночь",
+   "emoji": "🔕",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_24",
+   "ru": "лечь спать чуть пораньше",
+   "emoji": "😴",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_sleep_25",
+   "ru": "пожелать себе спокойной ночи",
+   "emoji": "🌟",
+   "category": "sleep",
+   "sca": "sleep"
+  },
+  {
+   "id": "g_exercise_1",
+   "ru": "пройтись вокруг дома",
+   "emoji": "🚶",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_2",
+   "ru": "потянуться к небу",
+   "emoji": "🙆",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_3",
+   "ru": "сделать десять приседаний",
+   "emoji": "🏋️",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_4",
+   "ru": "размять плечи и шею",
+   "emoji": "💆",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_5",
+   "ru": "станцевать под любимую песню",
+   "emoji": "💃",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_6",
+   "ru": "подняться по лестнице пешком",
+   "emoji": "🪜",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_7",
+   "ru": "покрутить ступнями в воздухе",
+   "emoji": "🦶",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_8",
+   "ru": "прогуляться до ближайшего парка",
+   "emoji": "🌳",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_9",
+   "ru": "сделать пять глубоких наклонов",
+   "emoji": "🤸",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_10",
+   "ru": "постоять на одной ноге",
+   "emoji": "🦩",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_11",
+   "ru": "повертеть руками по кругу",
+   "emoji": "🙋",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_12",
+   "ru": "пройти лишнюю остановку пешком",
+   "emoji": "🚏",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_13",
+   "ru": "сделать утреннюю зарядку",
+   "emoji": "🌅",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_14",
+   "ru": "потанцевать на кухне",
+   "emoji": "🎶",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_15",
+   "ru": "вытянуть спину у стены",
+   "emoji": "🧱",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_16",
+   "ru": "немного попрыгать на месте",
+   "emoji": "🤾",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_17",
+   "ru": "сделать мягкую растяжку",
+   "emoji": "🧘",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_18",
+   "ru": "пройтись босиком по полу",
+   "emoji": "👣",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_19",
+   "ru": "размяться после долгого сидения",
+   "emoji": "🪑",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_20",
+   "ru": "сделать круг по двору",
+   "emoji": "🏡",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_21",
+   "ru": "потянуть руки за спиной",
+   "emoji": "🤲",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_22",
+   "ru": "прогуляться перед сном",
+   "emoji": "🌙",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_23",
+   "ru": "сделать пару кругов руками",
+   "emoji": "🔄",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_24",
+   "ru": "размять кисти и пальцы",
+   "emoji": "✋",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_exercise_25",
+   "ru": "медленно покачаться из стороны в сторону",
+   "emoji": "🌊",
+   "category": "exercise",
+   "sca": "movement"
+  },
+  {
+   "id": "g_loved_ones_1",
+   "ru": "написать маме доброе утро",
+   "emoji": "☀️",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_2",
+   "ru": "позвонить бабушке на пять минут",
+   "emoji": "📞",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_3",
+   "ru": "отправить другу смешной мем",
+   "emoji": "😂",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_4",
+   "ru": "спросить близкого, как он себя чувствует",
+   "emoji": "💬",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_5",
+   "ru": "обнять того, кто рядом",
+   "emoji": "🤗",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_6",
+   "ru": "сказать кому-то спасибо вслух",
+   "emoji": "🙏",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_7",
+   "ru": "написать старому другу первым",
+   "emoji": "✉️",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_8",
+   "ru": "поделиться с близким хорошей новостью",
+   "emoji": "🎉",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_9",
+   "ru": "отправить голосовое сообщение вместо текста",
+   "emoji": "🎙️",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_10",
+   "ru": "спросить у мамы рецепт",
+   "emoji": "🍲",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_11",
+   "ru": "написать тёплое сообщение без повода",
+   "emoji": "💌",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_12",
+   "ru": "поздравить кого-то с маленьким успехом",
+   "emoji": "🌟",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_13",
+   "ru": "вспомнить о ком-то и написать ему",
+   "emoji": "💭",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_14",
+   "ru": "позвонить, чтобы просто услышать голос",
+   "emoji": "☎️",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_15",
+   "ru": "отправить фотографию дорогому человеку",
+   "emoji": "📸",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_16",
+   "ru": "предложить близкому встретиться на чай",
+   "emoji": "🍵",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_17",
+   "ru": "искренне выслушать кого-то сегодня",
+   "emoji": "👂",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_18",
+   "ru": "сказать любимому, что ценишь его",
+   "emoji": "❤️",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_19",
+   "ru": "написать другу, как он тебе дорог",
+   "emoji": "🫶",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_20",
+   "ru": "спросить совета у близкого человека",
+   "emoji": "🤝",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_21",
+   "ru": "отправить открытку по почте",
+   "emoji": "📮",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_22",
+   "ru": "позвать родных на общий ужин",
+   "emoji": "🍽️",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_23",
+   "ru": "ответить на сообщение, которое давно ждёт",
+   "emoji": "📩",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_24",
+   "ru": "пожелать кому-то спокойной ночи",
+   "emoji": "🌙",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_loved_ones_25",
+   "ru": "вспомнить общий тёплый момент с близким",
+   "emoji": "🥰",
+   "category": "loved_ones",
+   "sca": "connection"
+  },
+  {
+   "id": "g_presence_1",
+   "ru": "сделать три медленных вдоха",
+   "emoji": "🌬️",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_2",
+   "ru": "выпить стакан воды не спеша",
+   "emoji": "💧",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_3",
+   "ru": "проветрить комнату",
+   "emoji": "🪟",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_4",
+   "ru": "послушать тишину минуту",
+   "emoji": "🤫",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_5",
+   "ru": "назвать три вещи, за которые ты благодарен",
+   "emoji": "🙏",
+   "category": "presence",
+   "sca": "gratitude"
+  },
+  {
+   "id": "g_presence_6",
+   "ru": "посмотреть в окно на небо",
+   "emoji": "☁️",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_7",
+   "ru": "положить руку на сердце и почувствовать его стук",
+   "emoji": "💗",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_8",
+   "ru": "заметить пять звуков вокруг тебя",
+   "emoji": "👂",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_9",
+   "ru": "медленно выпить тёплый чай",
+   "emoji": "🍵",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_10",
+   "ru": "вспомнить приятный момент за сегодня",
+   "emoji": "✨",
+   "category": "presence",
+   "sca": "gratitude"
+  },
+  {
+   "id": "g_presence_11",
+   "ru": "почувствовать опору под ногами",
+   "emoji": "🦶",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_12",
+   "ru": "сказать спасибо своему телу",
+   "emoji": "🫶",
+   "category": "presence",
+   "sca": "gratitude"
+  },
+  {
+   "id": "g_presence_13",
+   "ru": "закрыть глаза и расслабить плечи",
+   "emoji": "😌",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_14",
+   "ru": "понаблюдать за своим дыханием",
+   "emoji": "🌊",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_15",
+   "ru": "заметить, что тебя сейчас радует",
+   "emoji": "🌸",
+   "category": "presence",
+   "sca": "gratitude"
+  },
+  {
+   "id": "g_presence_16",
+   "ru": "потянуться всем телом",
+   "emoji": "🙆",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_17",
+   "ru": "поблагодарить себя за маленькое дело",
+   "emoji": "💛",
+   "category": "presence",
+   "sca": "gratitude"
+  },
+  {
+   "id": "g_presence_18",
+   "ru": "вдохнуть запах чего-то приятного",
+   "emoji": "🌿",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_19",
+   "ru": "почувствовать тепло солнца на коже",
+   "emoji": "☀️",
+   "category": "presence",
+   "sca": "gratitude"
+  },
+  {
+   "id": "g_presence_20",
+   "ru": "отложить телефон на пару минут",
+   "emoji": "📵",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_21",
+   "ru": "улыбнуться своему отражению",
+   "emoji": "🪞",
+   "category": "presence",
+   "sca": "gratitude"
+  },
+  {
+   "id": "g_presence_22",
+   "ru": "мягко размять шею",
+   "emoji": "🌀",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_23",
+   "ru": "вспомнить, кому ты благодарен сегодня",
+   "emoji": "💌",
+   "category": "presence",
+   "sca": "gratitude"
+  },
+  {
+   "id": "g_presence_24",
+   "ru": "посидеть в тишине с чашкой в руках",
+   "emoji": "☕",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_presence_25",
+   "ru": "заметить, как воздух наполняет грудь",
+   "emoji": "🫁",
+   "category": "presence",
+   "sca": "calm"
+  },
+  {
+   "id": "g_kindness_1",
+   "ru": "сказать себе доброе слово",
+   "emoji": "💛",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_2",
+   "ru": "улыбнуться своему отражению",
+   "emoji": "🪞",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_3",
+   "ru": "написать близкому тёплое сообщение",
+   "emoji": "💌",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_4",
+   "ru": "поблагодарить кого-то вслух",
+   "emoji": "🙏",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_5",
+   "ru": "обнять того, кто рядом",
+   "emoji": "🤗",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_6",
+   "ru": "простить себя за мелкую ошибку",
+   "emoji": "🍃",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_7",
+   "ru": "сделать кому-то искренний комплимент",
+   "emoji": "🌷",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_8",
+   "ru": "уступить место в транспорте",
+   "emoji": "🚋",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_9",
+   "ru": "покормить птиц во дворе",
+   "emoji": "🐦",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_10",
+   "ru": "похвалить себя за маленький шаг",
+   "emoji": "⭐",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_11",
+   "ru": "спросить близкого как дела",
+   "emoji": "☎️",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_12",
+   "ru": "оставить добрый отзыв",
+   "emoji": "✍️",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_13",
+   "ru": "положить руку на сердце",
+   "emoji": "🫶",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_14",
+   "ru": "отпустить лишнюю самокритику",
+   "emoji": "🕊️",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_15",
+   "ru": "придержать дверь для прохожего",
+   "emoji": "🚪",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_16",
+   "ru": "вспомнить три повода для тепла",
+   "emoji": "🕯️",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_17",
+   "ru": "поделиться чем-то вкусным",
+   "emoji": "🍪",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_18",
+   "ru": "позволить себе отдохнуть без вины",
+   "emoji": "🛋️",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_19",
+   "ru": "поддержать друга добрым словом",
+   "emoji": "💬",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_20",
+   "ru": "сказать спасибо самому себе",
+   "emoji": "🌻",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_21",
+   "ru": "помочь соседу с мелочью",
+   "emoji": "🤝",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_22",
+   "ru": "бережно поговорить с собой",
+   "emoji": "🧸",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_23",
+   "ru": "отправить открытку дорогому человеку",
+   "emoji": "📮",
+   "category": "kindness",
+   "sca": "productivity"
+  },
+  {
+   "id": "g_kindness_24",
+   "ru": "замедлиться и пожалеть себя",
+   "emoji": "🌙",
+   "category": "kindness",
+   "sca": "self_kindness"
+  },
+  {
+   "id": "g_kindness_25",
+   "ru": "сделать маленькое доброе дело тихо",
+   "emoji": "✨",
+   "category": "kindness",
+   "sca": "productivity"
+  }
+ ],
+ "starter_goal_ids": [
+  "ew_glass_of_water",
+  "ew_three_breaths",
+  "ex_walk_around_block",
+  "sl_three_good_things"
+ ]
 }

@@ -8,13 +8,14 @@ import { MicropetsSection } from './micropets/MicropetsSection'
 import { errRu } from './shop/types'
 import type { BagDto, MailItemDto, OwnedItemDto } from './shop/types'
 
-type View = 'menu' | 'mail' | 'outfits' | 'furniture' | 'colors' | 'micropets'
+type View = 'menu' | 'mail' | 'outfits' | 'furniture' | 'colors' | 'micropets' | 'collectibles'
 
 export function Bag() {
  const [view, setView] = useState<View>('menu')
  const open = (v: View) => { haptic('tap'); setView(v) }
 
  if (view === 'micropets') return <MicropetsSection onBack={() => setView('menu')} />
+ if (view === 'collectibles') return <CollectiblesView onBack={() => setView('menu')} />
  if (view === 'mail') return <MailView onBack={() => setView('menu')} />
  if (view !== 'menu') return <DressView kind={view} onBack={() => setView('menu')} />
 
@@ -30,6 +31,7 @@ function BagMenu({ onOpen }: { onOpen(v: View): void }) {
  { id: 'furniture', ru: 'Мебель', emoji: '🛋️' },
  { id: 'colors', ru: 'Окрасы', emoji: '🎨' },
  { id: 'micropets', ru: 'Микропитомцы', emoji: '💛' },
+ { id: 'collectibles', ru: 'Коллекция', emoji: '🏆', full: true },
  ]
  return (
  <div className="scroll" style={{ paddingTop: 8 }}>
@@ -104,6 +106,63 @@ function MailView({ onBack }: { onBack(): void }) {
  )}
  </div>
  ))}
+ </div>
+ )
+}
+
+// ---------- Коллекция (limited collectibles) ----------
+interface Drop { id: string; ru: string; emoji: string; cap: number; price: number; season: string; minted: number; ownedEdition: number | null }
+function CollectiblesView({ onBack }: { onBack(): void }) {
+ const [data, setData] = useState<{ drops: Drop[]; stones: number } | null>(null)
+ const [busy, setBusy] = useState<string | null>(null)
+ const showToast = useStore(s => s.showToast)
+ const load = useCallback(() => { void req<{ drops: Drop[]; stones: number }>('/collectibles').then(setData) }, [])
+ useEffect(load, [load])
+
+ async function claim(d: Drop) {
+ setBusy(d.id); haptic('tap')
+ try {
+ const r = await req<{ edition: number }>(`/collectibles/${d.id}/claim`, {})
+ haptic('success'); showToast(`Твой экземпляр №${r.edition}! 🏆`)
+ void useStore.getState().refresh(); load()
+ } catch (e) { haptic('warn'); showToast(errRu(e)) }
+ setBusy(null)
+ }
+
+ return (
+ <div className="scroll" style={{ paddingTop: 8 }}>
+ <header style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+ <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={onBack}>‹</button>
+ <h1>Коллекция 🏆</h1>
+ </header>
+ <p style={{ color: 'var(--ink-soft)', fontSize: 13, margin: '0 4px 12px' }}>
+ Особые вещицы ограниченного тиража. У каждой свой номер. Прозрачно: видно, сколько уже разобрали.
+ </p>
+ {!data && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Открываю витрину…</p>}
+ {data?.drops.map(d => {
+ const soldOut = d.minted >= d.cap
+ const owned = d.ownedEdition != null
+ const canAfford = data.stones >= d.price
+ return (
+ <div key={d.id} className="card" style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+ <span style={{ fontSize: 34 }}>{d.emoji}</span>
+ <div style={{ flex: 1, minWidth: 0 }}>
+ <b>{d.ru}</b>
+ <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>Разобрано {d.minted} из {d.cap}</div>
+ <div style={{ height: 6, background: 'var(--card-shade)', borderRadius: 4, marginTop: 4, overflow: 'hidden' }}>
+ <div style={{ width: `${Math.min(100, (d.minted / d.cap) * 100)}%`, height: '100%', background: 'var(--gold)' }} />
+ </div>
+ </div>
+ {owned ? (
+ <span style={{ fontWeight: 800, color: 'var(--accent-deep)', whiteSpace: 'nowrap' }}>№{d.ownedEdition}</span>
+ ) : (
+ <button className="btn" disabled={soldOut || !canAfford || busy === d.id} onClick={() => void claim(d)} style={{ whiteSpace: 'nowrap' }}>
+ {soldOut ? 'Разобрали' : `${d.price}🦴`}
+ </button>
+ )}
+ </div>
+ )
+ })}
  </div>
  )
 }

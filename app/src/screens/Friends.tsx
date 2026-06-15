@@ -201,7 +201,7 @@ export function Friends() {
  <span style={{ fontSize: 34 }}>🐮</span>
  <div style={{ flex: 1 }}>
  <b style={{ color: 'var(--gold)' }}>Познакомься с Коровой Печенькой</b>
- <div style={{ fontSize: 13, opacity: 0.92 }}>Позови друзей и получи микропитомца! · {data.referral.count}/{data.referral.max}</div>
+ <div style={{ fontSize: 13, opacity: 0.92 }}>Зови друзей, награды не кончаются · приглашено: {data.referral.count}</div>
  </div>
  <span style={{ fontSize: 22, color: 'var(--gold)' }}>›</span>
  </button>
