@@ -410,19 +410,21 @@ export function Onboarding() {
 
     case 'plus1':
       return (
-        <Shell foot={<button className="onb-btn" onClick={next}>Получить предложение</button>}>
+        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
           <p className="onb-sub">Шарик бесплатный</p>
-          <h1 className="onb-h1">Но попробуй Шарик Плюс, <span className="onb-accent">7 дней бесплатно!</span></h1>
+          <h1 className="onb-h1">А ещё дарим тебе <span className="onb-accent">7 дней Шарик Плюс!</span></h1>
           <Pet species={species} size={160} state="happy" hold="❤️" />
+          <p className="onb-sub">Это подарок к знакомству. Сами по себе деньги не спишутся.</p>
         </Shell>
       )
 
     case 'plus2':
       return (
-        <Shell foot={<button className="onb-btn" onClick={next}>Получить предложение</button>}>
-          <p className="onb-sub">Отменить можно в любой момент</p>
-          <h1 className="onb-h1">Напомним <span className="onb-accent">за 2 дня</span> до конца пробного периода</h1>
-          <Pet species={species} size={150} badge="🔔" />
+        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
+          <p className="onb-sub">Без скрытых платежей</p>
+          <h1 className="onb-h1">Ничего не спишется <span className="onb-accent">само</span></h1>
+          <Pet species={species} size={150} badge="⭐" />
+          <p className="onb-sub">Шарик Плюс оплачивается звёздами Telegram и только когда ты сам(а) захочешь. Никаких автосписаний и карт.</p>
         </Shell>
       )
 

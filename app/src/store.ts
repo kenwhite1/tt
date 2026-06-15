@@ -105,7 +105,7 @@ export const useStore = create<Store>((set, get) => ({
   async startWalk() {
     const { state } = await api.startWalk()
     haptic('success')
-    get().showToast('Щенок отправился на прогулку! 🐾')
+    get().showToast(`${state.pet.name} на прогулке! 🐾`)
     set({ state })
   },
 
