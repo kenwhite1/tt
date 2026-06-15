@@ -25,28 +25,36 @@ export const content = {
   botCopy: load<Record<string, string[] | string>>('bot_copy.json'),
 }
 
-// Build the starter plan. With no survey areas it's the classic fixed plan; given the
-// self-care areas the user picked in onboarding, it's tailored: a gentle universal base
-// plus one easy win per requested area (deduped, capped).
+// Build the starter plan. With no survey areas it's the classic fixed plan; otherwise
+// the plan is built FROM the self-care areas the user picked (plus the ones inferred from
+// their survey answers), so different answers genuinely produce different daily activities.
 export function starterGoals(areas?: string[]): ContentGoal[] {
   const byId = new Map(content.goals.goals.map(g => [g.id, g]))
   const out: ContentGoal[] = []
   const seen = new Set<string>()
   const push = (g?: ContentGoal) => { if (g && !seen.has(g.id)) { seen.add(g.id); out.push(g) } }
 
-  if (!areas || areas.length === 0) {
+  const chosen = (areas ?? []).filter(Boolean)
+  if (chosen.length === 0) {
     for (const id of content.goals.starter_goal_ids) push(byId.get(id))
     return out
   }
 
-  // gentle base everyone starts with, then one fresh easy win per chosen area
-  for (const id of ['ew_glass_of_water', 'ew_three_breaths']) push(byId.get(id))
+  // One gentle universal anchor, then several goals drawn from the chosen areas.
+  // Fewer areas → more goals each, so a focused answer still yields a full, on-point plan.
+  push(byId.get('ew_glass_of_water'))
   const ew = content.goals.goals.filter(g => g.category === 'easy_wins')
-  for (const sca of areas) {
-    push(ew.find(g => g.sca === sca && !seen.has(g.id))
-      ?? content.goals.goals.find(g => g.sca === sca && !seen.has(g.id)))
+  const perArea = chosen.length === 1 ? 3 : chosen.length === 2 ? 2 : 1
+  for (const sca of chosen) {
+    // easy wins first (gentlest), then any other goal for the area
+    const pool = [...ew.filter(g => g.sca === sca), ...content.goals.goals.filter(g => g.sca === sca && g.category !== 'easy_wins')]
+    let added = 0
+    for (const g of pool) {
+      if (added >= perArea) break
+      if (!seen.has(g.id)) { push(g); added++ }
+    }
   }
-  // top up from the classic plan if the user picked very few areas
+  // never leave the plan thin
   for (const id of content.goals.starter_goal_ids) { if (out.length >= 4) break; push(byId.get(id)) }
   return out.slice(0, 7)
 }

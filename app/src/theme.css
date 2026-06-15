@@ -437,6 +437,9 @@ h2 { font-size: 18px; }
 .onb.blue .onb-btn { background: #fff; color: var(--ob-deep); box-shadow: 0 4px 0 rgba(0,0,0,.14); }
 .onb.blue .onb-btn.sec { background: rgba(255,255,255,.16); color: #fff; box-shadow: 0 4px 0 rgba(0,0,0,.14); }
 .onb.blue .onb-opt { background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.28); color: #fff; }
+/* selected option on the blue commit screen — needs higher specificity than the rule
+   above, which would otherwise override the green .sel border and hide the selection. */
+.onb.blue .onb-opt.sel { border-color: #fff; background: rgba(255,255,255,.30); }
 .onb.blue .onb-opt .end { color: rgba(255,255,255,.82); }
 .onb.blue .onb-bubble { background: #fff; }
 .onb-big { font-size: 92px; font-weight: 900; line-height: 1; }
