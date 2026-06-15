@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="theme.css"></head>
+<body>
+<div class="screen tab-home"><div class="tab-page"><div class="scroll"><div style="height:300px">room</div></div>
+<!-- mood sheet (exact markup from Home.tsx 182-200) -->
+<div id="backdrop" style="position:fixed;inset:0;background:rgba(60,40,20,0.45);z-index:40;display:flex;align-items:flex-end">
+  <div id="card" class="card sheet" style="width:100%;border-radius:26px 26px 0 0;margin:0;padding-bottom:calc(20px + var(--safe-bottom))">
+    <h2 style="text-align:center;margin-bottom:14px">Как ты сейчас?</h2>
+    <div style="display:flex;justify-content:space-around">
+      <button class="m" style="font-size:38px;background:none;border:none;cursor:pointer">😞</button>
+      <button class="m" style="font-size:38px;background:none;border:none;cursor:pointer">😕</button>
+      <button class="m" style="font-size:38px;background:none;border:none;cursor:pointer">😐</button>
+      <button class="m" style="font-size:38px;background:none;border:none;cursor:pointer">🙂</button>
+      <button class="m" style="font-size:38px;background:none;border:none;cursor:pointer">😄</button>
+    </div>
+  </div>
+</div>
+</div></div>
+<script>
+window.__sheethit=()=>{
+  const r=document.querySelectorAll('.m');
+  const out=[];
+  r.forEach((b,i)=>{const rc=b.getBoundingClientRect();const cx=rc.left+rc.width/2,cy=rc.top+rc.height/2;
+    const el=document.elementFromPoint(cx,cy);out.push({i,topEl:el?(el.className||el.tagName):null,isM:el&&el.classList.contains('m')});});
+  // also test: does the backdrop sit above the card? click center of card area
+  const card=document.getElementById('card').getBoundingClientRect();
+  const cEl=document.elementFromPoint(card.left+card.width/2, card.top+10);
+  return {moods:out, cardTopEl: cEl?(cEl.id||cEl.className||cEl.tagName):null};
+};
+</script>
+</body></html>

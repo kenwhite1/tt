@@ -1,11 +1,7 @@
 {
   "version": "0.0.1",
   "configurations": [
-    {
-      "name": "druzhok",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["start"],
-      "port": 3000
-    }
+    { "name": "druzhok", "runtimeExecutable": "npm", "runtimeArgs": ["start"], "port": 3000 },
+    { "name": "moodtest", "runtimeExecutable": "node", "runtimeArgs": [".tmp_moodtest/serve.cjs"], "port": 8899, "autoPort": true }
   ]
 }

@@ -241,6 +241,9 @@ function settleOne(p: PendingRef) {
  `Твоё приглашение сработало. Награда: ${rewardText}. Вы уже друзья во Дворике 💛`,
  { referral: true, tier })
  })()
+ // instant, visible reciprocity (#7): DM the inviter the moment the friend joins, and welcome the invitee by name
+ sendDM(inviter.id, `🎉 ${invitee.name} присоединил(а)ся по твоему приглашению! Награда уже в Почте, и вы теперь друзья во Дворике 💛`)
+ sendDM(invitee.id, `Добро пожаловать! Тебя позвал(а) ${inviter.name} 💛 В Сумке уже ждёт подарок от друга.`)
 }
 
 export function settleReferrals(me: UserRow) {
@@ -629,6 +632,11 @@ socialRoutes.post('/gifts/:id/claim', c => {
  } else if (gift.kind === 'freeze') {
  // banked streak-freeze (Feature 3): only ever PREVENTS loss; may temporarily exceed the normal cap
  db.prepare('UPDATE users SET repairs=MIN(?, repairs+1) WHERE id=?').run(C.REPAIRS_GIFT_OVERCAP, me.id)
+ } else if (gift.kind === 'collectible') {
+ // gifted collectible (F5B): its minted serial rode along in box_color
+ const edition = Number((gift as { box_color?: string }).box_color) || null
+ db.prepare("INSERT OR IGNORE INTO items_owned (user_id, kind, item_id, color_id, edition, acquired_ts) VALUES (?,?,?,?,?,?)")
+ .run(me.id, 'collectible', gift.item_id, '', edition, Date.now())
  } else {
  db.prepare('INSERT OR IGNORE INTO items_owned (user_id, kind, item_id, color_id, acquired_ts) VALUES (?,?,?,?,?)')
  .run(me.id, gift.kind, gift.item_id, gift.color_id, Date.now())

@@ -1,7 +1,7 @@
 // «Содружок» / «Наш щенок» — the co-op puppy surface inside the Дворик.
 // Cards with the split contribution bar, the shared «Гулять вместе» walk, co-op streak,
 // adopt flow (friend or link), and a detail sheet (rename/pause/leave/share).
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { CoopDto } from '@shared/types'
 import { coop, type CoopListPayload, type Friend } from '../api'
 import { Sheet, PuppyMini } from '../ui'
@@ -19,13 +19,16 @@ function remainingText(endsTs: number): string {
   return h > 0 ? `${h} ч ${m} мин` : `${m} мин`
 }
 
-export function CoopSection({ friends, mySpecies }: { friends: Friend[]; mySpecies: string }) {
+export function CoopSection({ friends, mySpecies, openAdoptSignal = 0 }: { friends: Friend[]; mySpecies: string; openAdoptSignal?: number }) {
   const [data, setData] = useState<CoopListPayload | null>(null)
   const [adopt, setAdopt] = useState(false)
   const [detail, setDetail] = useState<CoopDto | null>(null)
+  const [hatchShare, setHatchShare] = useState<CoopDto | null>(null)
 
   function reload() { coop.list().then(setData).catch(() => { /* offline */ }) }
   useEffect(reload, [])
+  // open the adopt flow when triggered from the AddFriendSheet CTA
+  useEffect(() => { if (openAdoptSignal > 0) setAdopt(true) }, [openAdoptSignal])
   // keep an open detail in sync after reloads
   useEffect(() => { if (detail && data) { const f = data.bonds.find(b => b.id === detail.id); if (f) setDetail(f) } }, [data]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -45,7 +48,7 @@ export function CoopSection({ friends, mySpecies }: { friends: Friend[]; mySpeci
           <span style={{ fontSize: 26 }}>🥚</span>
           <div style={{ flex: 1, fontSize: 14 }}><b>{inv.fromName}</b> зовёт растить общего щенка <b>{inv.name}</b></div>
           <button className="btn accent" style={{ padding: '8px 14px' }} onClick={async () => {
-            try { await coop.accept(inv.code); haptic('success'); useStore.getState().showToast('Щенок вылупился! 🐣'); reload() }
+            try { const r = await coop.accept(inv.code); haptic('success'); useStore.getState().showToast('Щенок вылупился! 🐣'); reload(); if (r.coop) setHatchShare(r.coop) }
             catch { haptic('warn'); useStore.getState().showToast('Не получилось принять') }
           }}>Принять</button>
         </div>
@@ -60,8 +63,15 @@ export function CoopSection({ friends, mySpecies }: { friends: Friend[]; mySpeci
         </button>
       )}
 
-      {adopt && <AdoptSheet friends={friends} mySpecies={mySpecies} onClose={() => setAdopt(false)} reload={reload} />}
+      {adopt && <AdoptSheet friends={friends} mySpecies={mySpecies} eggColors={data.eggColors} onClose={() => setAdopt(false)} reload={reload} />}
       {detail && <CoopDetail bond={detail} onClose={() => setDetail(null)} reload={reload} />}
+      {hatchShare && (
+        <ShareSheet
+          opts={{ kind: 'coop', ref: `hatch_${hatchShare.id}`, species: hatchShare.species, headline: `У нас вылупился ${hatchShare.name}!`, subtitle: 'Растим вдвоём 🐣', emoji: '🐣' }}
+          text={`Мы завели общего щенка ${hatchShare.name} в Шарике 🐣`}
+          onClose={() => setHatchShare(null)}
+        />
+      )}
     </div>
   )
 }
@@ -86,8 +96,10 @@ function SplitBar({ bond }: { bond: CoopDto }) {
   )
 }
 
+type CardShare = { kind: string; ref: string; species: string; headline: string; subtitle?: string; emoji?: string; text: string }
 function CoopCard({ bond, onOpen, reload }: { bond: CoopDto; onOpen: () => void; reload: () => void }) {
   const [busy, setBusy] = useState(false)
+  const [share, setShare] = useState<CardShare | null>(null)
   const waiting = bond.members.find(m => !m.showedUp && !m.isMe)
 
   async function startWalk() {
@@ -100,13 +112,21 @@ function CoopCard({ bond, onOpen, reload }: { bond: CoopDto; onOpen: () => void;
     setBusy(true); haptic('tap')
     try {
       const r = await coop.walkClaim(bond.id)
-      if (r.claimed) { haptic('success'); useStore.getState().showToast(r.leveledTo ? `Мы подросли — теперь ${STAGE_RU[r.leveledTo]}! 💛` : `Прогулка! +${r.reward?.stones}🦴 каждому 🦴`) }
+      if (r.claimed) {
+        haptic('success')
+        useStore.getState().showToast(r.leveledTo ? `Мы подросли — теперь ${STAGE_RU[r.leveledTo]}! 💛` : `Прогулка! +${r.reward?.stones}🦴 каждому 🦴`)
+        // §6.3 auto-offer a milestone story card on stage-up or a streak milestone
+        const st = r.coop.streak
+        if (r.leveledTo) setShare({ kind: 'coop', ref: `stage_${bond.id}_${r.leveledTo}`, species: bond.species, headline: `${bond.name} подрос(ла) до «${STAGE_RU[r.leveledTo]}»!`, subtitle: 'Мы растим его вдвоём', emoji: '🎉', text: `Наш общий щенок ${bond.name} подрос в Шарике! 🎉` })
+        else if ([7, 30, 100, 365].includes(st)) setShare({ kind: 'coop', ref: `streak_${bond.id}_${st}`, species: bond.species, headline: `${st} дней вместе!`, subtitle: `${bond.name} растёт с нами`, emoji: '🔥', text: `${st} дней подряд растим общего щенка вдвоём 🔥` })
+      }
       reload()
     } catch { haptic('warn') }
     setBusy(false)
   }
 
   return (
+    <>
     <div className="card" style={{ marginBottom: 8, opacity: bond.status === 'dormant' ? 0.7 : 1 }}>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
         <button onClick={onOpen} style={{ border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}>
@@ -135,14 +155,22 @@ function CoopCard({ bond, onOpen, reload }: { bond: CoopDto; onOpen: () => void;
         )}
       </div>
     </div>
+    {share && (
+      <ShareSheet
+        opts={{ kind: share.kind, ref: share.ref, species: share.species, headline: share.headline, subtitle: share.subtitle, emoji: share.emoji }}
+        text={share.text} onClose={() => setShare(null)}
+      />
+    )}
+    </>
   )
 }
 
-function AdoptSheet({ friends, mySpecies, onClose, reload }: {
-  friends: Friend[]; mySpecies: string; onClose: () => void; reload: () => void
+function AdoptSheet({ friends, mySpecies, eggColors, onClose, reload }: {
+  friends: Friend[]; mySpecies: string; eggColors: { id: string; ru: string; hex: string }[]; onClose: () => void; reload: () => void
 }) {
   const [friendId, setFriendId] = useState<number | null>(null)
   const [species, setSpecies] = useState(mySpecies || 'dog')
+  const [color, setColor] = useState(eggColors[0]?.id ?? 'golden')
   const [name, setName] = useState('')
   const [busy, setBusy] = useState(false)
   const [link, setLink] = useState<string | null>(null)
@@ -150,7 +178,7 @@ function AdoptSheet({ friends, mySpecies, onClose, reload }: {
   async function create() {
     setBusy(true); haptic('tap')
     try {
-      const r = await coop.create({ friendId: friendId ?? undefined, name: name.trim() || undefined, species })
+      const r = await coop.create({ friendId: friendId ?? undefined, name: name.trim() || undefined, species, color })
       haptic('success')
       if (friendId) { useStore.getState().showToast('Приглашение отправлено! 💛'); reload(); onClose() }
       else { setLink(r.link); reload() }
@@ -190,6 +218,14 @@ function AdoptSheet({ friends, mySpecies, onClose, reload }: {
             ))}
           </div>
 
+          <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink-soft)' }}>Цвет яйца</label>
+          <div style={{ display: 'flex', gap: 8, padding: '6px 0 12px' }}>
+            {eggColors.map(ec => (
+              <button key={ec.id} title={ec.ru} onClick={() => { haptic('tap'); setColor(ec.id) }}
+                style={{ width: 38, height: 38, borderRadius: '50%', background: ec.hex, cursor: 'pointer', border: color === ec.id ? '3px solid #4d7339' : '2px solid #fff', boxShadow: 'var(--shadow-lip)' }} />
+            ))}
+          </div>
+
           <label style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink-soft)' }}>С кем растим</label>
           <div style={{ maxHeight: 180, overflowY: 'auto', margin: '6px 0 14px' }}>
             <button className={`coop-pick${friendId === null ? ' sel' : ''}`} onClick={() => setFriendId(null)}
@@ -218,11 +254,26 @@ function CoopDetail({ bond, onClose, reload }: { bond: CoopDto; onClose: () => v
   const [share, setShare] = useState(false)
   const [renaming, setRenaming] = useState('')
   const orphan = bond.members.length < 2
+  const hearts = useRef<HTMLDivElement>(null)
+  const lastPat = useRef(0)
+
+  // drag-to-pat the shared puppy: float hearts; bank a (cosmetic) pat, throttled
+  function onPat(e: React.PointerEvent) {
+    haptic('tap')
+    const el = document.createElement('div')
+    el.className = 'heart-float'; el.textContent = '💛'
+    el.style.left = `${e.nativeEvent.offsetX}px`; el.style.top = `${e.nativeEvent.offsetY}px`
+    hearts.current?.appendChild(el); setTimeout(() => el.remove(), 1000)
+    const now = Date.now()
+    if (now - lastPat.current > 800) { lastPat.current = now; void coop.pet(bond.id).catch(() => {}) }
+  }
 
   return (
     <Sheet onClose={onClose} z={60}>
       <div style={{ textAlign: 'center' }}>
-        <Mascot species={bond.species} size={120} state={bond.walk ? 'walking' : 'happy'} />
+        <div ref={hearts} style={{ position: 'relative', display: 'inline-block', touchAction: 'none' }} onPointerDown={onPat}>
+          <Mascot species={bond.species} size={120} state={bond.walk ? 'walking' : 'happy'} />
+        </div>
         <h2 style={{ margin: '6px 0 2px' }}>{bond.name}</h2>
         <div style={{ color: 'var(--ink-soft)', fontSize: 14 }}>
           {STAGE_RU[bond.stage]} · {bond.walks} прогулок{bond.streak > 0 ? ` · ${bond.streak} дн вместе 🔥` : ''}
@@ -238,6 +289,17 @@ function CoopDetail({ bond, onClose, reload }: { bond: CoopDto; onClose: () => v
         <span style={{ fontSize: 22 }}>💞</span>
         <div style={{ flex: 1, fontSize: 14 }}>Дружба: уровень {bond.friendshipLevel}</div>
       </div>
+
+      {bond.recentDiscoveries.length > 0 && (
+        <div className="card" style={{ marginTop: 8 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink-soft)', marginBottom: 8 }}>Наши находки 🔍</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            {bond.recentDiscoveries.map((d, i) => (
+              <span key={i} style={{ fontSize: 13, background: 'var(--card-shade)', borderRadius: 999, padding: '4px 10px' }}>{d.emoji} {d.ru}</span>
+            ))}
+          </div>
+        </div>
+      )}
 
       <button className="btn accent" style={{ width: '100%', marginTop: 12 }} onClick={() => { haptic('tap'); setShare(true) }}>
         Поделиться в истории 💛

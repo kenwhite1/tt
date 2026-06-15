@@ -30,6 +30,7 @@ export function Friends() {
  const [open, setOpen] = useState<null | 'add' | 'inbox' | 'referral' | 'settings'>(null)
  const [active, setActive] = useState<Friend | null>(null)
  const [hugBusy, setHugBusy] = useState(false)
+ const [adoptSignal, setAdoptSignal] = useState(0)
 
  function reload() {
  social.friends().then(d => { setData(d); setError(false) }).catch(() => setError(true))
@@ -187,7 +188,7 @@ export function Friends() {
  <button className="btn" style={{ width: '100%', marginBottom: 12 }} onClick={() => setOpen('add')}>＋ Добавить друга</button>
 
  {/* «Содружок» / our shared puppy */}
- <CoopSection friends={d.friends} mySpecies={d.me.species} />
+ <CoopSection friends={d.friends} mySpecies={d.me.species} openAdoptSignal={adoptSignal} />
 
  {/* «Вечерний сбор» — gentle wind-down */}
  <EveningCard />
@@ -206,7 +207,7 @@ export function Friends() {
  <span style={{ fontSize: 22, color: 'var(--gold)' }}>›</span>
  </button>
 
- {open === 'add' && <AddFriendSheet data={data} onClose={() => setOpen(null)} reload={reload} />}
+ {open === 'add' && <AddFriendSheet data={data} onClose={() => setOpen(null)} reload={reload} onCoop={() => { setOpen(null); setAdoptSignal(n => n + 1) }} />}
  {open === 'inbox' && <InboxSheet data={data} onClose={() => setOpen(null)} reload={reload} />}
  {open === 'referral' && <ReferralSheet onClose={() => setOpen(null)} />}
  {open === 'settings' && <SettingsSheet data={data} onClose={() => setOpen(null)} />}

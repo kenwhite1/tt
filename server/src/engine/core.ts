@@ -44,9 +44,7 @@ export function bootstrapUser(tgId: number, name: string, opts: {
   db.prepare(
     `INSERT INTO pets (user_id, name, species, pronouns, trait, hatch_day) VALUES (?,?,?,?,?,?)`,
   ).run(tgId, opts.petName, opts.species ?? 'dog', opts.pronouns, opts.trait, day)
-  // Every new pup gets 7 days of Шарик Плюс free (honest "7 дней бесплатно", Finch-style).
-  const trialUntil = new Date(Date.now() + 7 * 86_400_000).toISOString().slice(0, 10)
-  db.prepare('UPDATE users SET plus_until=? WHERE id=?').run(trialUntil, tgId)
+  // No trial: the app itself is free, Шарик Плюс is an optional one-off upgrade. plus_until stays NULL.
   return getUser(tgId)!
 }
 

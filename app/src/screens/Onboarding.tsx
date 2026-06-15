@@ -78,6 +78,16 @@ const COMMIT = [
   { em: '🔥', days: 14, ru: '14 дней', end: 'Несокрушимая серия' },
 ]
 
+// Шарик Плюс perks shown in onboarding to sell the yearly plan (mirrors PlusScreen benefits)
+const PLUS_PERKS = [
+  { em: '🛍️', ru: 'Вдвое больше витрин в магазинах и вещь со скидкой −50% каждый день' },
+  { em: '✈️', ru: '9 направлений у Сасси для прогулок вместо 3' },
+  { em: '🎁', ru: 'Вторая колонка наград события и микропитомец на 5 дней раньше' },
+  { em: '🌈', ru: 'Полный набор вещей события и выбор из 10 цветов' },
+  { em: '💌', ru: 'Все газеты недели и весь архив' },
+  { em: '🧘', ru: 'Все упражнения, дыхания и длительности таймеров' },
+]
+
 const ORDER = [
   'welcome', 'species', 'pronouns', 'name', 'trait', 'uname', 'whatcare', 'affirm', 'reminders', 'learnyou',
   'q:age', 'q:gender', 'q:used', 'q:sleep', 'q:bed', 'q:active', 'q:overwhelm', 'q:support', 'q:routine', 'q:areas',
@@ -412,10 +422,17 @@ export function Onboarding() {
     case 'plus1':
       return (
         <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
-          <p className="onb-sub">Шарик бесплатный</p>
-          <h1 className="onb-h1">А ещё дарим тебе <span className="onb-accent">7 дней Шарик Плюс!</span></h1>
-          <Pet species={species} size={160} state="happy" hold="❤️" />
-          <p className="onb-sub">Это подарок к знакомству. Сами по себе деньги не спишутся.</p>
+          <p className="onb-sub">Шарик бесплатный навсегда</p>
+          <h1 className="onb-h1">А с <span className="onb-accent">Шарик Плюс</span> заботы ещё больше</h1>
+          <Pet species={species} size={104} state="happy" hold="❤️" />
+          <div className="onb-opts" style={{ marginTop: 4 }}>
+            {PLUS_PERKS.map((p, idx) => (
+              <div key={idx} className="onb-opt">
+                <span className="em">{p.em}</span>
+                <span className="lbl">{p.ru}</span>
+              </div>
+            ))}
+          </div>
         </Shell>
       )
 

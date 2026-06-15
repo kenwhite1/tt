@@ -98,6 +98,7 @@ export interface CoopDto {
   friendshipPts: number
   friendshipLevel: number
   shareCode: string        // for invite / story deep-link
+  recentDiscoveries: { ru: string; emoji: string }[]
 }
 
 // ─── «Косточка дня» daily dig ───

@@ -11,8 +11,8 @@ function inviteLink(bot: string, code: string) {
  return `https://t.me/${bot}?startapp=ref_${code}`
 }
 
-export function AddFriendSheet({ data, onClose, reload }:
- { data: FriendsPayload; onClose: () => void; reload: () => void }) {
+export function AddFriendSheet({ data, onClose, reload, onCoop }:
+ { data: FriendsPayload; onClose: () => void; reload: () => void; onCoop?: () => void }) {
  const [mode, setMode] = useState<'menu' | 'code' | 'mine'>('menu')
  const [code, setCode] = useState('')
  const [busy, setBusy] = useState(false)
@@ -60,7 +60,10 @@ export function AddFriendSheet({ data, onClose, reload }:
  <h2 style={{ textAlign: 'center', marginBottom: 16 }}>Добавить друга</h2>
  <button className="btn accent" style={{ width: '100%', marginBottom: 10 }} onClick={shareLink}>📨 Пригласить нового</button>
  <button className="btn ghost" style={{ width: '100%', marginBottom: 10 }} onClick={() => setMode('code')}>🔢 Ввести код друга</button>
- <button className="btn ghost" style={{ width: '100%' }} onClick={() => setMode('mine')}>🪪 Показать мой код</button>
+ <button className="btn ghost" style={{ width: '100%', marginBottom: 10 }} onClick={() => setMode('mine')}>🪪 Показать мой код</button>
+ {onCoop && (
+ <button className="btn ghost" style={{ width: '100%', borderStyle: 'dashed' }} onClick={() => { haptic('tap'); onCoop() }}>🥚 …или заведите общего щенка вместе</button>
+ )}
  </>
  )}
 

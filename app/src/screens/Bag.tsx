@@ -1,10 +1,13 @@
 // Сумка питомца, Почта · Одежда (примерочная) · Мебель (домик) · Окрасы · Микропитомцы.
 import { useCallback, useEffect, useState } from 'react'
+import { C } from '@shared/constants'
 import { req } from '../api'
 import { haptic } from '../telegram'
 import { useStore } from '../store'
 import { Mascot } from '../art/Mascot'
 import { MicropetsSection } from './micropets/MicropetsSection'
+import { collectibles, social, type Friend } from './friends/api'
+import { Sheet } from './friends/ui'
 import { errRu } from './shop/types'
 import type { BagDto, MailItemDto, OwnedItemDto } from './shop/types'
 
@@ -115,14 +118,15 @@ interface Drop { id: string; ru: string; emoji: string; cap: number; price: numb
 function CollectiblesView({ onBack }: { onBack(): void }) {
  const [data, setData] = useState<{ drops: Drop[]; stones: number } | null>(null)
  const [busy, setBusy] = useState<string | null>(null)
+ const [gift, setGift] = useState<Drop | null>(null)
  const showToast = useStore(s => s.showToast)
- const load = useCallback(() => { void req<{ drops: Drop[]; stones: number }>('/collectibles').then(setData) }, [])
+ const load = useCallback(() => { void collectibles.list().then(setData) }, [])
  useEffect(load, [load])
 
  async function claim(d: Drop) {
  setBusy(d.id); haptic('tap')
  try {
- const r = await req<{ edition: number }>(`/collectibles/${d.id}/claim`, {})
+ const r = await collectibles.claim(d.id)
  haptic('success'); showToast(`Твой экземпляр №${r.edition}! 🏆`)
  void useStore.getState().refresh(); load()
  } catch (e) { haptic('warn'); showToast(errRu(e)) }
@@ -136,7 +140,7 @@ function CollectiblesView({ onBack }: { onBack(): void }) {
  <h1>Коллекция 🏆</h1>
  </header>
  <p style={{ color: 'var(--ink-soft)', fontSize: 13, margin: '0 4px 12px' }}>
- Особые вещицы ограниченного тиража. У каждой свой номер. Прозрачно: видно, сколько уже разобрали.
+ Особые вещицы ограниченного тиража. У каждой свой номер. Прозрачно: видно, сколько уже разобрали. Можно подарить другу.
  </p>
  {!data && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Открываю витрину…</p>}
  {data?.drops.map(d => {
@@ -153,17 +157,44 @@ function CollectiblesView({ onBack }: { onBack(): void }) {
  <div style={{ width: `${Math.min(100, (d.minted / d.cap) * 100)}%`, height: '100%', background: 'var(--gold)' }} />
  </div>
  </div>
- {owned ? (
- <span style={{ fontWeight: 800, color: 'var(--accent-deep)', whiteSpace: 'nowrap' }}>№{d.ownedEdition}</span>
- ) : (
- <button className="btn" disabled={soldOut || !canAfford || busy === d.id} onClick={() => void claim(d)} style={{ whiteSpace: 'nowrap' }}>
- {soldOut ? 'Разобрали' : `${d.price}🦴`}
- </button>
- )}
+ <div style={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'flex-end' }}>
+ {owned
+ ? <span style={{ fontWeight: 800, color: 'var(--accent-deep)', whiteSpace: 'nowrap' }}>№{d.ownedEdition}</span>
+ : <button className="btn" disabled={soldOut || !canAfford || busy === d.id} onClick={() => void claim(d)} style={{ whiteSpace: 'nowrap', padding: '6px 12px' }}>{soldOut ? 'Разобрали' : `${d.price}🦴`}</button>}
+ {!soldOut && <button className="btn ghost" style={{ padding: '4px 10px', fontSize: 12 }} onClick={() => { haptic('tap'); setGift(d) }}>🎁 Подарить</button>}
+ </div>
  </div>
  )
  })}
+ {gift && <GiftCollectibleSheet drop={gift} onClose={() => setGift(null)} onDone={load} />}
  </div>
+ )
+}
+
+function GiftCollectibleSheet({ drop, onClose, onDone }: { drop: Drop; onClose(): void; onDone(): void }) {
+ const [friends, setFriends] = useState<Friend[] | null>(null)
+ const showToast = useStore(s => s.showToast)
+ useEffect(() => { void social.friends().then(p => setFriends(p.friends)).catch(() => setFriends([])) }, [])
+ async function give(f: Friend) {
+ try {
+ const r = await collectibles.gift(drop.id, f.id)
+ haptic('success'); showToast(`Подарок №${r.edition} отправлен ${f.name} 🎁`)
+ void useStore.getState().refresh(); onDone(); onClose()
+ } catch (e) { haptic('warn'); showToast(errRu(e)) }
+ }
+ return (
+ <Sheet onClose={onClose}>
+ <h2 style={{ textAlign: 'center', marginBottom: 4 }}>Подарить «{drop.ru}» {drop.emoji}</h2>
+ <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 12px' }}>Другу достанется свежий экземпляр со своим номером. Цена подарка {C.COLLECTIBLE_GIFT_FEE}🦴.</p>
+ {!friends && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Загружаю друзей…</p>}
+ {friends && friends.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Сначала заведи друга во Дворике 💛</p>}
+ {friends?.map(f => (
+ <button key={f.id} className="goal-row" style={{ width: '100%', border: 'none', cursor: 'pointer', textAlign: 'left' }} onClick={() => void give(f)}>
+ <span style={{ flex: 1, fontWeight: 700 }}>{f.emoji ? `${f.emoji} ` : ''}{f.name}</span>
+ <span style={{ color: 'var(--accent-deep)', fontWeight: 800 }}>🎁</span>
+ </button>
+ ))}
+ </Sheet>
  )
 }
 

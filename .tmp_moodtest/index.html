@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="theme.css">
+</head><body>
+<div class="screen tab-home">
+  <div class="tab-page">
+    <div class="scroll" style="padding-top:calc(var(--safe-top) + 4px)">
+      <div style="position:relative;margin-bottom:18px">
+        <!-- RoomScene root -->
+        <div style="position:relative;width:100%;border-radius:var(--radius-lg);overflow:hidden">
+          <svg viewBox="0 0 320 250" width="100%" style="display:block"><rect width="320" height="250" fill="#94A9C7"/></svg>
+          <div style="position:absolute;left:50%;bottom:10%;transform:translateX(-50%)">
+            <div style="position:relative;display:inline-block;touch-action:none">
+              <div class="petrug"><div class="petrug-pet"><div class="pet-rock">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="150" height="150" class="pet-img">
+              </div></div></div>
+            </div>
+          </div>
+        </div>
+        <button id="menu" class="round-btn" style="position:absolute;top:8px;left:10px">☰</button>
+        <button id="mood" class="round-btn" style="position:absolute;top:8px;right:10px">🙂</button>
+      </div>
+      <div class="adv-card"><div style="flex:1">card</div></div>
+    </div>
+  </div>
+</div>
+<script>
+function hit(id){
+  const b=document.getElementById(id), r=b.getBoundingClientRect();
+  const cx=r.left+r.width/2, cy=r.top+r.height/2;
+  const el=document.elementFromPoint(cx,cy);
+  return {id, rect:{x:Math.round(r.left),y:Math.round(r.top),w:Math.round(r.width),h:Math.round(r.height)}, topEl: el? (el.id||el.tagName+'.'+el.className) : null, isButton: el===b};
+}
+window.__hit=()=>({mood:hit('mood'), menu:hit('menu')});
+</script>
+</body></html>

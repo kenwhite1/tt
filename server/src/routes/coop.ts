@@ -124,16 +124,16 @@ function completeCoopWalkIfDue(coopId: number): { completed: boolean; leveledTo?
     db.prepare('UPDATE coop_pets SET walks=?, walk_completed=1, walk_story_id=?, streak=?, streak_day=? WHERE id=?')
       .run(walks, story.id, streak, today, coopId)
     const level = friendshipLevel(Math.floor(memberPairPts(members)))
+    const friendshipGain = C.FRIENDSHIP_WALK_BONUS[level - 1] ?? C.FRIENDSHIP_WALK_BONUS[0]
     for (const m of members) {
       addStones(m.user_id, C.COOP_WALK_STONES, 'coop_walk')
       logEvent(m.user_id, 'coop_walk', { coopId })
     }
-    // mutual friendship points for the pair (both directional rows), modest +1 like a personal walk
+    // mutual friendship points for the pair (both directional rows): +FRIENDSHIP_WALK_BONUS[level] per spec §4
     if (members.length === 2) {
       const [a, b] = members
-      db.prepare('UPDATE friendships SET pts=pts+1 WHERE user_id=? AND friend_id=?').run(a.user_id, b.user_id)
-      db.prepare('UPDATE friendships SET pts=pts+1 WHERE user_id=? AND friend_id=?').run(b.user_id, a.user_id)
-      void level
+      db.prepare('UPDATE friendships SET pts=pts+? WHERE user_id=? AND friend_id=?').run(friendshipGain, a.user_id, b.user_id)
+      db.prepare('UPDATE friendships SET pts=pts+? WHERE user_id=? AND friend_id=?').run(friendshipGain, b.user_id, a.user_id)
     }
     // bonded micropet for everyone when a stage is cleared
     if (afterStage !== beforeStage) {
@@ -186,6 +186,13 @@ function buildDto(coopId: number, meId: number, meDay: string): CoopDto | null {
   const walkReady = fresh.status === 'active' && bar >= barFull && !w && !walkedToday
 
   const pts = memberPairPts(members)
+  const discRows = db.prepare(
+    'SELECT discovery_id FROM coop_walks WHERE coop_id=? AND completed=1 AND discovery_id IS NOT NULL ORDER BY id DESC LIMIT 6',
+  ).all(coopId) as { discovery_id: string }[]
+  const recentDiscoveries = discRows
+    .map(r => coopContent.discoveries.find(d => d.id === r.discovery_id))
+    .filter((d): d is { id: string; ru_name: string; emoji: string } => !!d)
+    .map(d => ({ ru: d.ru_name, emoji: d.emoji }))
   return {
     id: fresh.id, name: fresh.name, pronouns: fresh.pronouns, species: fresh.species,
     color: fresh.color, dyes: safeJson(fresh.dyes), stage, walks: fresh.walks, status: fresh.status,
@@ -195,6 +202,7 @@ function buildDto(coopId: number, meId: number, meDay: string): CoopDto | null {
     streak: fresh.streak,
     friendshipPts: pts, friendshipLevel: friendshipLevel(Math.floor(pts)),
     shareCode: shareCodeFor(coopId),
+    recentDiscoveries,
   }
 }
 

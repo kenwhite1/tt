@@ -47,6 +47,24 @@ eveningRoutes.post('/checkin', c => {
   return c.json({ ok: true })
 })
 
+// one-tap shared action: send a gentle «спокойной ночи» wave to friends present in the window
+eveningRoutes.post('/wave', c => {
+  const me = ensureFresh(c.get('user'))
+  const day = me.last_day!
+  const present = db.prepare(
+    `SELECT e.user_id FROM evening_checkin e
+     JOIN friendships f ON f.friend_id=e.user_id AND f.user_id=?
+     WHERE e.day=? LIMIT 50`,
+  ).all(me.id, day) as { user_id: number }[]
+  const ins = db.prepare('INSERT INTO mail (user_id, kind, title, body, data, ts) VALUES (?,?,?,?,?,?)')
+  for (const p of present) {
+    ins.run(p.user_id, 'system', `${me.name} машет тебе на ночь 🌙`,
+      'Кто-то рядом желает тебе тёплых снов. Спокойной ночи 💤', JSON.stringify({ evening_wave: true }), Date.now())
+  }
+  logEvent(me.id, 'evening_wave', { reached: present.length })
+  return c.json({ ok: true, reached: present.length })
+})
+
 eveningRoutes.post('/settings', async c => {
   const me = ensureFresh(c.get('user'))
   const body = z.object({ hour: z.number().int().min(0).max(23) }).safeParse(await c.req.json().catch(() => null))

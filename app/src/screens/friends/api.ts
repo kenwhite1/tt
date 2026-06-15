@@ -161,7 +161,16 @@ export const daily = {
 export const evening = {
   now: () => req<{ inWindow: boolean; hour: number; windowMin: number; checkedIn: boolean; present: { name: string; petName: string; species: string }[] }>('/evening/now'),
   checkin: () => req<{ ok: boolean }>('/evening/checkin', {}),
+  wave: () => req<{ ok: boolean; reached: number }>('/evening/wave', {}),
   setHour: (hour: number) => req<{ ok: boolean; hour: number }>('/evening/settings', { hour }),
+}
+
+// ─── «Коллекция» collectibles ───
+export interface CollectibleDrop { id: string; ru: string; emoji: string; cap: number; price: number; season: string; minted: number; ownedEdition: number | null }
+export const collectibles = {
+  list: () => req<{ drops: CollectibleDrop[]; stones: number }>('/collectibles'),
+  claim: (id: string) => req<{ ok: boolean; edition: number; minted: number; cap: number; stones: number }>(`/collectibles/${id}/claim`, {}),
+  gift: (id: string, friendId: number) => req<{ ok: boolean; edition: number; stones: number }>(`/collectibles/${id}/gift`, { friendId }),
 }
 
 // ─── «Витрина» share cards ───

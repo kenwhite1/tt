@@ -52,6 +52,12 @@ export function EveningCard() {
         onClick={async () => { await evening.checkin(); haptic('success'); useStore.getState().showToast('Спокойной ночи 🌙'); reload() }}>
         {now.checkedIn ? 'Ты здесь 💛' : 'Я укладываю щенка 🌙'}
       </button>
+      {now.present.length > 0 && (
+        <button className="btn ghost" style={{ width: '100%', marginTop: 8, color: '#fff', borderColor: 'rgba(255,255,255,0.4)' }}
+          onClick={async () => { const r = await evening.wave(); haptic('success'); useStore.getState().showToast(r.reached > 0 ? `Помахал(а) ${r.reached} друзьям 🌙` : 'Пока никого рядом') }}>
+          👋 Пожелать всем спокойной ночи
+        </button>
+      )}
       {settings && <HourSheet hour={now.hour} onClose={() => setSettings(false)} onSaved={reload} />}
     </div>
   )
