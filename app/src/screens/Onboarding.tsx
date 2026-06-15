@@ -4,6 +4,7 @@ import { useStore } from '../store'
 import { api } from '../api'
 import { track } from '../analytics'
 import { Mascot, MASCOTS, type Species } from '../art/Mascot'
+import { declineName } from '../ru'
 import { haptic, requestWriteAccess, addToHomeScreen, tg } from '../telegram'
 
 /* ── content ─────────────────────────────────────────────────────────── */
@@ -302,7 +303,7 @@ export function Onboarding() {
       return (
         <Shell foot={<button className="onb-btn" disabled={!trait} onClick={next}>Дальше</button>}>
           <Pet species={species} size={120} state="happy" />
-          <h1 className="onb-h1">Выбери черту для {name}</h1>
+          <h1 className="onb-h1">Выбери черту для {declineName(name, 'gen')}</h1>
           <p className="onb-sub" style={{ fontWeight: 800, color: 'var(--oink)' }}>{name} ценит…</p>
           <div className="onb-opts">
             {TRAITS.map(t => {
@@ -361,11 +362,11 @@ export function Onboarding() {
             <button className="onb-btn" disabled={busy} onClick={enableReminders}>Включить напоминания</button>
             <button className="onb-btn sec" disabled={busy} onClick={next}>Может позже</button>
           </>}>
-          <h1 className="onb-h1">Напоминания от {name}</h1>
+          <h1 className="onb-h1">Напоминания от {declineName(name, 'gen')}</h1>
           <div className="onb-noti">
             <span className="onb-noti-emoji" aria-hidden>{sp.emoji}</span>
             <div>
-              <div className="nt">От {name}</div>
+              <div className="nt">От {declineName(name, 'gen')}</div>
               <div className="nb">Не забудь попить воды!</div>
             </div>
             <span className="when">сейчас</span>
@@ -399,7 +400,7 @@ export function Onboarding() {
           <div className="onb-pad">
             <div className="onb-pad-tabs">{Array.from({ length: 5 }).map((_, k) => <i key={k} />)}</div>
             <h3>Стартовый план {userName.trim() || ''}</h3>
-            <div className="cap">Попробуй эти простые цели с {name}!</div>
+            <div className="cap">Попробуй эти простые цели с {declineName(name, 'ins')}!</div>
             {(goals ?? []).slice(0, 7).map(g => (
               <div key={g.id} className="row"><span className="em">{g.emoji}</span><span>{g.title}</span></div>
             ))}
@@ -478,7 +479,7 @@ export function Onboarding() {
     case 'commit':
       return (
         <Shell blue foot={<button className="onb-btn" disabled={commit === null} onClick={next}>Беру на себя!</button>}>
-          <h1 className="onb-h1">Сколько дней подряд ты будешь заботиться о {name}?</h1>
+          <h1 className="onb-h1">Сколько дней подряд ты будешь заботиться о {declineName(name, 'prep')}?</h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Pet species={species} size={84} badge="?" />
             <div className="onb-bubble tail" style={{ fontSize: 15 }}>У тебя получится!</div>
