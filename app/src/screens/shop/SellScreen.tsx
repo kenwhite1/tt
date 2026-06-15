@@ -45,7 +45,7 @@ export function SellScreen({ onBack }: { onBack(): void }) {
         <div className="card" style={{ margin: 0, padding: '8px 12px', fontWeight: 800 }}>🦴 {bag?.stones ?? '…'}</div>
       </header>
       <p style={{ margin: '0 4px 12px', fontSize: 13, color: 'var(--ink-soft)' }}>
-        За вещь вернётся половина её цены. Краску, которую щенок носит прямо сейчас, продать нельзя.
+        За вещь вернётся половина её цены. Краску, которую питомец носит прямо сейчас, продать нельзя.
       </p>
 
       {!bag && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Открываем сумку…</p>}

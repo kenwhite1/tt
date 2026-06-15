@@ -99,7 +99,7 @@ export function EventCalendar() {
 
  if (!data || data.hidden || !data.event || !data.days) return null
  const { event, days, daysEarned = 0, plus = false } = data
- const petEmoji = data.micropet?.emoji ?? '🐾'
+ const petEmoji = data.micropet?.emoji ?? '💛'
 
  async function claim(day: number, column: 'free' | 'plus', state: CellState, spec: Spec) {
  if (state === 'plus_locked') { setShowPlus(true); return }
@@ -186,7 +186,7 @@ export function EventCalendar() {
  День {event.day} из {event.totalDays} · заработано наград: {daysEarned}
  </p>
  <p style={{ margin: 0, fontSize: 13, color: 'var(--ink-soft)' }}>
- Гуляй со щенком каждый день, каждая прогулка открывает награду {expanded ? '▲' : '▼'}
+ Гуляй со своим питомцем каждый день, каждая прогулка открывает награду {expanded ? '▲' : '▼'}
  </p>
  </LocationScene>
  </div>

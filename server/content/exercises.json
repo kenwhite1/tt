@@ -51,7 +51,7 @@
  },
  {
  "id": "breath_lullaby",
- "ru_name": "Колыбельная для хвостика",
+ "ru_name": "Колыбельная на ночь",
  "tabs": ["night"],
  "phases": [
  { "label_ru": "вдох", "seconds": 4 },
@@ -167,7 +167,7 @@
  "Притормози на минутку. Положи руку на грудь или на живот, как удобнее, и сделай спокойный вдох и выдох.",
  "Спроси себя: то, что я сейчас чувствую, скорее приятное, неприятное или нейтральное?",
  "Попробуй подобрать слово поточнее. Не «нормально», а например: усталость, тревога, обида, радость, скука?",
- "Если первое слово не подошло, поищи ещё. Чувств больше, чем пород собак, честное щенячье.",
+ "Если первое слово не подошло, поищи ещё. Чувств больше, чем звёзд на небе, честное-пречестное.",
  "Скажи про себя или вслух: «Сейчас я чувствую…». Заметь: не «я, это чувство», а «я его чувствую». Оно гость, а не хозяин.",
  "Прислушайся: когда у чувства появляется имя, оно часто становится чуть тише. Ты большой молодец, что замечаешь себя."
  ]
@@ -240,7 +240,7 @@
  { "ru_name": "Руки к солнцу", "seconds": 30, "anim_key": "upward_salute" },
  { "ru_name": "Наклон вперёд", "seconds": 30, "anim_key": "forward_fold" },
  { "ru_name": "Кошка-корова", "seconds": 30, "anim_key": "cat_cow" },
- { "ru_name": "Собака мордой вниз", "seconds": 30, "anim_key": "downward_dog" },
+ { "ru_name": "Горка вниз головой", "seconds": 30, "anim_key": "downward_dog" },
  { "ru_name": "Кобра", "seconds": 30, "anim_key": "cobra_pose" },
  { "ru_name": "Воин I", "seconds": 30, "anim_key": "warrior_one" },
  { "ru_name": "Поза ребёнка", "seconds": 30, "anim_key": "child_pose" }
@@ -254,7 +254,7 @@
  { "ru_name": "Кошка-корова", "seconds": 30, "anim_key": "cat_cow" },
  { "ru_name": "Скрутка сидя", "seconds": 30, "anim_key": "seated_twist" },
  { "ru_name": "Ноги на стену", "seconds": 30, "anim_key": "legs_up_wall" },
- { "ru_name": "Счастливый щенок", "seconds": 30, "anim_key": "happy_baby" },
+ { "ru_name": "Счастливый малыш", "seconds": 30, "anim_key": "happy_baby" },
  { "ru_name": "Бабочка лёжа", "seconds": 30, "anim_key": "reclined_butterfly" },
  { "ru_name": "Колени к груди", "seconds": 30, "anim_key": "knees_to_chest" },
  { "ru_name": "Поза отдыха", "seconds": 30, "anim_key": "savasana" }
@@ -262,7 +262,7 @@
  },
  {
  "id": "move_standing_yoga",
- "ru_name": "Йога на крепких лапках",
+ "ru_name": "Йога на крепких ножках",
  "kind": "yoga",
  "moves": [
  { "ru_name": "Поза горы", "seconds": 30, "anim_key": "mountain_pose" },
@@ -289,7 +289,7 @@
  },
  {
  "id": "move_morning_exercise",
- "ru_name": "Зарядка с хвостиком",
+ "ru_name": "Бодрая зарядка",
  "kind": "exercise",
  "moves": [
  { "ru_name": "Марш на месте", "seconds": 30, "anim_key": "march_in_place" },

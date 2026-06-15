@@ -48,7 +48,7 @@ export function Friends() {
  <div className="scroll" style={{ paddingTop: 8, textAlign: 'center' }}>
  <h1 style={{ marginBottom: 14 }}>Дворик</h1>
  <div className="card" style={{ color: 'var(--ink-soft)' }}>
- Не удалось загрузить Дворик 🐾
+ Не удалось загрузить Дворик 🌿
  <button className="btn ghost" style={{ marginTop: 12 }} onClick={reload}>Обновить</button>
  </div>
  </div>

@@ -3,7 +3,7 @@ import { haptic } from '../../telegram'
 import type { DailyQuestDto } from './types'
 
 const TYPE_EMOJI: Record<string, string> = {
- pat_pet: '🐶', complete_goal: '✅', walk: '🐾', affirmation: '🌞',
+ pat_pet: '💛', complete_goal: '✅', walk: '🌳', affirmation: '🌞',
  gratitude_reflection: '🌼', name_emotion: '💬', breathing: '🌬️',
  change_outfit: '👕', change_interior: '🛋️', send_vibe: '💛',
  answer_friends: '❓', log_mood: '🙂',
@@ -95,7 +95,7 @@ export function DailyQuests({ daily, onClaim, onDone, onAnswer }: Props) {
  <div style={{ marginTop: 12, textAlign: 'center' }}>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', marginBottom: 10 }}>
  {quest.type === 'change_outfit'
- ? 'Загляни в Сумку → Одежда, переодень щенка, а потом вернись сюда.'
+ ? 'Загляни в Сумку → Одежда, переодень питомца, а потом вернись сюда.'
  : 'Загляни в Сумку → Мебель, поменяй что-нибудь в домике, а потом вернись сюда.'}
  </div>
  <button className="btn" onClick={() => { onDone(quest.id); setOpen(null) }}>

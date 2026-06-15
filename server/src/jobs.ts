@@ -133,7 +133,7 @@ function collectDue(): { userId: number; text: string }[] {
  if (within(u.sleep_min - BEDTIME_BEFORE)) queue(u, 'bedtime', day, pick(pool('bedtime')))
  // Спасатель серии, 21:00, если сегодня ещё не открывал приложение
  if (within(STREAK_MIN) && u.last_day !== day) queue(u, 'streak_saver', day, pick(pool('streak_saver')))
- // Газета «Недельный лай», понедельник 09:00
+ // Газета «Недельный листок», понедельник 09:00
  if (within(MAIL_MIN) && new Date(`${local.date}T12:00:00Z`).getUTCDay() === 1) {
  if (queue(u, 'mail', day, pick(pool('mail')))) insertNewsletter(u, day)
  }
@@ -169,7 +169,7 @@ function collectDue(): { userId: number; text: string }[] {
  return sends
 }
 
-// «Недельный лай»: weekly stats letter into the in-app mailbox (the DM only announces it).
+// «Недельный листок»: weekly stats letter into the in-app mailbox (the DM only announces it).
 function insertNewsletter(u: EligibleRow, day: string) {
  const from = shiftDate(day, -6)
  const checkins = (db.prepare('SELECT COUNT(*) n FROM moods WHERE user_id=? AND day>=? AND day<=?')
@@ -189,7 +189,7 @@ function insertNewsletter(u: EligibleRow, day: string) {
 
  const petName = u.pet_name ?? 'Шарик'
  const body = [
- `Гав! Это «Недельный лай», наша с тобой газета. ${petName} собирал новости всю неделю 🗞🐶`,
+ `Привет! Это «Недельный листок», наша с тобой газета. ${petName} собирал новости всю неделю 🗞💛`,
  '',
  `Неделя ${from}, ${day}:`,
  `• Отметок настроения: ${checkins}, ${moodLine}`,
@@ -202,7 +202,7 @@ function insertNewsletter(u: EligibleRow, day: string) {
  ].join('\n')
 
  db.prepare('INSERT INTO mail (user_id, kind, title, body, data, ts) VALUES (?,?,?,?,?,?)')
- .run(u.id, 'newsletter', 'Недельный лай 🗞', body, '{}', Date.now())
+ .run(u.id, 'newsletter', 'Недельный листок 🗞', body, '{}', Date.now())
 }
 
 // ---- scheduler ----

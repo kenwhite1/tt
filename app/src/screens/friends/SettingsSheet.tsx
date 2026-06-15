@@ -42,7 +42,7 @@ export function SettingsSheet({ data, onClose }: { data: FriendsPayload; onClose
  </div>
  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', fontWeight: 700 }}>
  <span>Принимаю заявки в друзья</span>
- <span>{data.settings.allowRequests ? 'да 🐾' : 'нет'}</span>
+ <span>{data.settings.allowRequests ? 'да 💛' : 'нет'}</span>
  </div>
  </div>
  </Sheet>

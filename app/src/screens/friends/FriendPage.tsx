@@ -94,7 +94,7 @@ export function FriendPage({ data, friend, onBack, reload }:
  <div className="card" style={{ textAlign: 'center', background: 'linear-gradient(#f6e7c8 0%, #efe0bd 100%)', position: 'relative' }}>
  <PuppyMini stage={friend.stage} color={friend.color} dyes={friend.dyes} size={150} state="happy" />
  <h1 style={{ marginTop: 4 }}>{friend.emoji ? `${friend.emoji} ` : ''}{friend.name}</h1>
- <div style={{ color: 'var(--ink-soft)', fontWeight: 800, fontSize: 14 }}>щенок {friend.petName}</div>
+ <div style={{ color: 'var(--ink-soft)', fontWeight: 800, fontSize: 14 }}>питомец {friend.petName}</div>
 
  {/* friendship level */}
  <div style={{ marginTop: 14, padding: '0 8px' }}>
@@ -144,7 +144,7 @@ export function FriendPage({ data, friend, onBack, reload }:
  {/* last-4-events feed */}
  <h2 style={{ margin: '6px 4px 10px' }}>Что нового</h2>
  {friend.feed.length === 0 ? (
- <div className="card" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Пока тихо, но скоро будут новости 🐾</div>
+ <div className="card" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Пока тихо, но скоро будут новости ✨</div>
  ) : (
  <div className="card" style={{ padding: '6px 0' }}>
  {friend.feed.map((e, i) => (

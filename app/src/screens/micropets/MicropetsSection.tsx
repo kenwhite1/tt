@@ -81,7 +81,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  async function equip(p: MicropetDto) {
  await req(`/micropets/${p.id}/equip`, { on: !p.equipped })
  haptic('success')
- showToast(p.equipped ? `${p.name} останется дома 🏡` : `${p.name} пойдёт на прогулку! 🐾`)
+ showToast(p.equipped ? `${p.name} останется дома 🏡` : `${p.name} пойдёт на прогулку! 🌳`)
  reload()
  }
 
@@ -132,7 +132,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <>
  <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '4px 2px 12px' }}>
  <button className="btn ghost" style={{ padding: '8px 14px' }} onClick={onBack}>‹</button>
- <h1>🐾 Микропитомцы</h1>
+ <h1>💛 Микропитомцы</h1>
  </div>
  <div className="card" style={{ textAlign: 'center' }}>Загружаю…</div>
  </>
@@ -232,7 +232,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <style>{ROAM_CSS}</style>
  <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '4px 2px 12px' }}>
  <button className="btn ghost" style={{ padding: '8px 14px' }} onClick={onBack}>‹</button>
- <h1 style={{ flex: 1 }}>🐾 Микропитомцы</h1>
+ <h1 style={{ flex: 1 }}>💛 Микропитомцы</h1>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={() => { haptic('tap'); setView('lab') }}>🐐</button>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={() => { haptic('tap'); setView('pedia') }}>📖</button>
  </div>
@@ -265,7 +265,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  }}
  >
  <Micropet speciesId={p.speciesId} variantHex={p.variantHex} adult={p.adult} size={p.adult ? 44 : 34} />
- {p.equipped && <div style={{ fontSize: 11, textAlign: 'center' }}>🐾</div>}
+ {p.equipped && <div style={{ fontSize: 11, textAlign: 'center' }}>🌳</div>}
  </button>
  )
  })}
@@ -297,7 +297,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <button key={p.id} className="goal-row" style={{ width: '100%', border: 'none', cursor: 'pointer', textAlign: 'left' }} onClick={() => openDetail(p)}>
  <Micropet speciesId={p.speciesId} variantHex={p.variantHex} adult={p.adult} size={40} />
  <div style={{ flex: 1 }}>
- <div style={{ fontWeight: 800 }}>{p.name} {p.equipped ? '🐾' : ''}</div>
+ <div style={{ fontWeight: 800 }}>{p.name} {p.equipped ? '🌳' : ''}</div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{p.adult ? 'Взрослый' : 'Малыш'} · прогулок: {p.walks}</div>
  </div>
  <span style={{ color: 'var(--ink-soft)' }}>›</span>
@@ -314,7 +314,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  {pets.map(p => (
  <button key={p.id} className="card" style={{ margin: 0, padding: 10, border: 'none', textAlign: 'center', background: '#eaf3da', cursor: 'pointer' }} onClick={() => openDetail(p)}>
  <Micropet speciesId={p.speciesId} variantHex={p.variantHex} adult={p.adult} size={46} />
- <div style={{ fontWeight: 800, fontSize: 13, marginTop: 4 }}>{p.name} {p.equipped ? '🐾' : ''}</div>
+ <div style={{ fontWeight: 800, fontSize: 13, marginTop: 4 }}>{p.name} {p.equipped ? '🌳' : ''}</div>
  </button>
  ))}
  </div>
@@ -339,7 +339,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  {selected.speciesRu} · {selected.variantColor} · {PRONOUN_RU[selected.pronouns] ?? selected.pronouns}
  </div>
  <div style={{ fontSize: 13, fontWeight: 800, marginTop: 4 }}>
- {selected.adult ? '🌟 Взрослый' : '🍼 Малыш'} · 🐾 прогулок: {selected.walks}
+ {selected.adult ? '🌟 Взрослый' : '🍼 Малыш'} · 🌳 прогулок: {selected.walks}
  {!selected.adult && !selected.foreverBaby && ` / ${C.MICROPET_ADULT_WALKS}`}
  </div>
  <div style={{ fontSize: 13, color: 'var(--accent-deep)', fontWeight: 800, marginTop: 2 }}>
@@ -353,7 +353,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
 
  {!gear ? (
  <button className={selected.equipped ? 'btn ghost' : 'btn accent'} style={{ width: '100%' }} onClick={() => void equip(selected)}>
- {selected.equipped ? '🏡 Оставить дома' : '🐾 Взять на прогулку'}
+ {selected.equipped ? '🏡 Оставить дома' : '🌳 Взять на прогулку'}
  </button>
  ) : (
  <div>

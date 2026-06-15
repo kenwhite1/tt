@@ -51,7 +51,7 @@ export function Quests() {
  return (
  <div className="scroll" style={{ paddingTop: 8 }}>
  <h1 style={{ textAlign: 'center', marginBottom: 14 }}>Задания</h1>
- <div className="card" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Несу твои задания… 🐾</div>
+ <div className="card" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Несу твои задания… ✨</div>
  </div>
  )
  }

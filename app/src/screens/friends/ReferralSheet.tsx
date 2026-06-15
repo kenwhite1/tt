@@ -17,7 +17,7 @@ export function ReferralSheet({ onClose }: { onClose: () => void }) {
  function shareLink() {
  if (!data) return
  haptic('tap')
- const url = `https://t.me/share/url?url=${encodeURIComponent(data.link)}&text=${encodeURIComponent('Заходи растить щенка вместе со мной! 🐶')}`
+ const url = `https://t.me/share/url?url=${encodeURIComponent(data.link)}&text=${encodeURIComponent('Заходи растить питомца вместе со мной! 💛')}`
  window.open(url, '_blank')
  }
 

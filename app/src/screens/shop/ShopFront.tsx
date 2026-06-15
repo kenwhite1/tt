@@ -18,7 +18,7 @@ export type ShopKind = 'outfit' | 'furniture' | 'color'
 const NPC: Record<ShopKind, { emoji: string; name: string; greet: string }> = {
  outfit: { emoji: '🦔', name: 'Ёж Колюч', greet: 'Привет! Я как раз разложил обновки. Примеришь что-нибудь?' },
  furniture: { emoji: '🐦‍⬛', name: 'Соро́ка из «БУДКЕА»', greet: 'Заходи-заходи! Натащила тебе блестящих штучек для домика.' },
- color: { emoji: '🦎', name: 'Хамелеон Тео', greet: 'О, новые краски подоспели! Подберём щенку настроение?' },
+ color: { emoji: '🦎', name: 'Хамелеон Тео', greet: 'О, новые краски подоспели! Подберём питомцу настроение?' },
 }
 
 export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) {
@@ -136,7 +136,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  {/* dye stage info */}
  {shop === 'color' && (
  <div className="card" style={{ marginTop: 14, fontSize: 13, color: 'var(--ink-soft)' }}>
- 🐶 Краски открываются по мере роста щенка:{' '}
+ ✨ Краски открываются по мере роста питомца:{' '}
  {data.dyeParts.map(p => `${p.ru.toLowerCase()}, ${p.stageRu.toLowerCase()}`).join(', ')}.
  </div>
  )}

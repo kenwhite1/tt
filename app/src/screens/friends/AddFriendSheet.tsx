@@ -20,7 +20,7 @@ export function AddFriendSheet({ data, onClose, reload }:
 
  function shareLink() {
  haptic('tap')
- const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Заходи растить щенка вместе со мной! 🐶')}`
+ const url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Заходи растить питомца вместе со мной! 💛')}`
  window.open(url, '_blank')
  }
 
@@ -31,7 +31,7 @@ export function AddFriendSheet({ data, onClose, reload }:
  try {
  const r = await social.add(c)
  haptic('success')
- useStore.getState().showToast(r.accepted ? 'Вы теперь друзья! 💛' : 'Заявка отправлена 🐾')
+ useStore.getState().showToast(r.accepted ? 'Вы теперь друзья! 💛' : 'Заявка отправлена ✨')
  setCode(''); onClose(); reload()
  } catch (e) {
  haptic('warn')

@@ -1,4 +1,4 @@
-// Сумка щенка, Почта · Одежда (примерочная) · Мебель (домик) · Окрасы · Микропитомцы.
+// Сумка питомца, Почта · Одежда (примерочная) · Мебель (домик) · Окрасы · Микропитомцы.
 import { useCallback, useEffect, useState } from 'react'
 import { req } from '../api'
 import { haptic } from '../telegram'
@@ -29,12 +29,12 @@ function BagMenu({ onOpen }: { onOpen(v: View): void }) {
  { id: 'outfits', ru: 'Одежда', emoji: '👕' },
  { id: 'furniture', ru: 'Мебель', emoji: '🛋️' },
  { id: 'colors', ru: 'Окрасы', emoji: '🎨' },
- { id: 'micropets', ru: 'Микропитомцы', emoji: '🐾' },
+ { id: 'micropets', ru: 'Микропитомцы', emoji: '💛' },
  ]
  return (
  <div className="scroll" style={{ paddingTop: 8 }}>
  <div style={{ textAlign: 'center', fontSize: 56, marginBottom: 4 }}>🎒</div>
- <h1 style={{ textAlign: 'center', marginBottom: 16 }}>Сумка щенка</h1>
+ <h1 style={{ textAlign: 'center', marginBottom: 16 }}>Сумка питомца</h1>
  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
  {SECTIONS.map(s => (
  <button key={s.id} className="card shop-tile" onClick={() => onOpen(s.id)}
@@ -75,7 +75,7 @@ function MailView({ onBack }: { onBack(): void }) {
  const fromId = m.data.fromId
  if (typeof fromId !== 'number') return
  await req(`/social/requests/${fromId}/${accept ? 'accept' : 'decline'}`, {}).catch(() => {})
- haptic(accept ? 'success' : 'tap'); showToast(accept ? 'Теперь вы друзья! 🐾' : 'Отклонено'); load()
+ haptic(accept ? 'success' : 'tap'); showToast(accept ? 'Теперь вы друзья! 💛' : 'Отклонено'); load()
  }
 
  return (

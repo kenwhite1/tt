@@ -300,7 +300,7 @@ socialRoutes.get('/friends', c => {
  if (r.walks >= need) {
  const w = db.prepare('SELECT day FROM walks WHERE user_id=? AND completed=1 ORDER BY id LIMIT 1 OFFSET ?')
  .get(r.friend_id, need - 1) as { day: string } | undefined
- if (w) feed.push({ day: w.day, text: `Щенок подрос, теперь ${STAGE_RU[st]}! 🐶` })
+ if (w) feed.push({ day: w.day, text: `Питомец подрос, теперь ${STAGE_RU[st]}! 💛` })
  }
  }
  feed.sort((a, b) => (a.day < b.day ? 1 : -1))
@@ -445,7 +445,7 @@ socialRoutes.post('/add', async c => {
  db.prepare('INSERT OR REPLACE INTO friend_requests (from_id, to_id, ts, status) VALUES (?,?,?,?)')
  .run(me.id, target.id, Date.now(), 'pending')
  mailTo(target.id, 'friend_request', `${me.name} хочет дружить!`,
- `Щенок ${myPet?.name ?? 'Шарик'} машет хвостиком и ждёт ответа во вкладке «Друзья» 💛`,
+ `Питомец ${myPet?.name ?? 'Шарик'} ждёт ответа во вкладке «Друзья» 💛`,
  { fromId: me.id, name: me.name, petName: myPet?.name ?? '' })
  })()
  return c.json({ sent: true })
@@ -756,7 +756,7 @@ socialRoutes.get('/referrals', c => {
  link,
  botUsername: BOT_USERNAME,
  ladder: [
- { tier: 1, ru: `${REFERRAL_TIER1_STONES}🦴 и капюшончик для щенка`, done: fresh.referral_rewards >= 1 },
+ { tier: 1, ru: `${REFERRAL_TIER1_STONES}🦴 и капюшончик для питомца`, done: fresh.referral_rewards >= 1 },
  { tier: 2, ru: 'Плюшевый кот Лоскуток', done: fresh.referral_rewards >= 2 },
  { tier: 3, ru: 'Микропитомец Корова Печенька 🐮', done: fresh.referral_rewards >= 3 },
  ],

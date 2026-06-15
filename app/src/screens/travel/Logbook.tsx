@@ -36,7 +36,7 @@ export function Logbook({ onBack }: { onBack(): void }) {
  l.visited ? (
  <div key={l.id} className="card" style={{ margin: 0, padding: 10 }}>
  <LocationScene sky={l.palette?.sky} ground={l.palette?.ground} accent={l.palette?.accent}>
- <div style={{ padding: '12px 0', fontSize: 26 }}>{l.pct === 100 ? '🏆' : '🐾'}</div>
+ <div style={{ padding: '12px 0', fontSize: 26 }}>{l.pct === 100 ? '🏆' : '✨'}</div>
  </LocationScene>
  <div style={{ fontWeight: 800, marginTop: 8 }}>
  {l.ruName} {l.current ? '📍' : ''}

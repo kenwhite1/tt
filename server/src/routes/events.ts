@@ -249,7 +249,7 @@ eventsRoutes.get('/', c => {
  },
  daysEarned,
  plus,
- micropet: EVENT_SPECIES ? { name: EVENT_SPECIES.ru_name, emoji: EVENT_SPECIES.emoji_hint ?? '🐾' } : null,
+ micropet: EVENT_SPECIES ? { name: EVENT_SPECIES.ru_name, emoji: EVENT_SPECIES.emoji_hint ?? '💛' } : null,
  days,
  past,
  })
@@ -315,7 +315,7 @@ eventsRoutes.post('/claim', async c => {
  name: EVENT_SPECIES.ru_name,
  species: EVENT_SPECIES.species_ru,
  variant: { id: variant.id, ru: variant.ru_color, hex: variant.hex },
- emoji: EVENT_SPECIES.emoji_hint ?? '🐾',
+ emoji: EVENT_SPECIES.emoji_hint ?? '💛',
  },
  })
  }

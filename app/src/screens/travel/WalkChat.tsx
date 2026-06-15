@@ -1,4 +1,4 @@
-// Post-walk chat («Поговорить со щенком»), once a day after the walk.
+// Post-walk chat («Поговорить с питомцем»), once a day after the walk.
 // Rendered by Home when walk.completed && !walk.chatDone.
 import { useEffect, useState } from 'react'
 import { req } from '../../api'
@@ -56,7 +56,7 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  if (!open) {
  return (
  <button className="btn accent" style={{ marginTop: 8 }} onClick={() => { haptic('tap'); setOpen(true) }}>
- 💬 Поговорить со щенком
+ 💬 Поговорить с питомцем
  </button>
  )
  }
@@ -73,7 +73,7 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  >
  {!result ? (
  <>
- <h2 style={{ marginBottom: 10 }}>🐾 {petName} вернулся с прогулки!</h2>
+ <h2 style={{ marginBottom: 10 }}>💛 {petName} вернулся с прогулки!</h2>
  <div className="card" style={{ background: 'var(--card-shade)', marginBottom: 12 }}>
  <p style={{ margin: 0, lineHeight: 1.45 }}>{story.ruText}</p>
  </div>
@@ -107,7 +107,7 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  autoFocus
  value={customText}
  onChange={e => setCustomText(e.target.value)}
- placeholder="Напиши щенку…"
+ placeholder="Напиши питомцу…"
  style={{ flex: 1, border: '2px solid var(--gold)', borderRadius: 12, padding: '10px 12px', fontSize: 16, fontFamily: 'inherit' }}
  />
  <button
@@ -147,12 +147,12 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  </div>
  ) : (
  <div className="card" style={{ textAlign: 'center', background: 'var(--card-shade)', marginBottom: 12 }}>
- <div style={{ fontSize: 40 }}>🐶💛</div>
- <p style={{ margin: '6px 0 0', fontWeight: 800 }}>Щенку было важно поделиться этим с тобой.</p>
+ <div style={{ fontSize: 40 }}>✨💛</div>
+ <p style={{ margin: '6px 0 0', fontWeight: 800 }}>Питомцу было важно поделиться этим с тобой.</p>
  </div>
  )}
  <p style={{ textAlign: 'center', fontWeight: 800, margin: '0 0 12px' }}>+{result.stones} 🦴 за тёплый разговор</p>
- <button className="btn accent" style={{ width: '100%' }} onClick={close}>Обнять щенка 🤗</button>
+ <button className="btn accent" style={{ width: '100%' }} onClick={close}>Обнять питомца 🤗</button>
  </>
  )}
  </div>

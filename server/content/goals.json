@@ -30,7 +30,7 @@
     { "id": "ew_drink_warm", "ru": "выпить что-нибудь тёплое", "emoji": "☕", "category": "easy_wins", "sca": "self_kindness" },
     { "id": "ew_wash_one_dish", "ru": "помыть одну чашку", "emoji": "🍵", "category": "easy_wins", "sca": "productivity" },
     { "id": "ew_sit_in_sun", "ru": "посидеть минутку на солнышке", "emoji": "☀️", "category": "easy_wins", "sca": "calm" },
-    { "id": "ew_pet_animal", "ru": "погладить кого-нибудь пушистого", "emoji": "🐶", "category": "easy_wins", "sca": null },
+    { "id": "ew_pet_animal", "ru": "погладить кого-нибудь пушистого", "emoji": "💛", "category": "easy_wins", "sca": null },
     { "id": "ew_relax_shoulders", "ru": "расслабить плечи и челюсть", "emoji": "😮‍💨", "category": "easy_wins", "sca": "calm" },
     { "id": "ew_favorite_song", "ru": "включить любимую песню", "emoji": "🎵", "category": "easy_wins", "sca": "self_kindness" },
     { "id": "ew_look_at_sky", "ru": "посмотреть на небо", "emoji": "☁️", "category": "easy_wins", "sca": "calm" },
@@ -111,7 +111,7 @@
     { "id": "lo_send_day_photo", "ru": "отправить близким фото из своего дня", "emoji": "🤳", "category": "loved_ones", "sca": "connection" },
     { "id": "lo_ask_for_help", "ru": "попросить о помощи, если нужно", "emoji": "🫂", "category": "loved_ones", "sca": "self_kindness" },
     { "id": "lo_voice_message", "ru": "записать тёплое голосовое другу", "emoji": "🎙️", "category": "loved_ones", "sca": "connection" },
-    { "id": "lo_play_with_pet", "ru": "поиграть с питомцем", "emoji": "🐕", "category": "loved_ones", "sca": null },
+    { "id": "lo_play_with_pet", "ru": "поиграть с питомцем", "emoji": "💛", "category": "loved_ones", "sca": null },
     { "id": "lo_family_tea", "ru": "попить чай с кем-то из семьи", "emoji": "🫖", "category": "loved_ones", "sca": "connection" },
     { "id": "lo_say_goodnight", "ru": "пожелать близкому доброй ночи", "emoji": "🌙", "category": "loved_ones", "sca": "connection" },
 

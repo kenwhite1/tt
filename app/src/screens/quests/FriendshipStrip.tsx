@@ -29,7 +29,7 @@ export function FriendshipStrip() {
  </div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', fontWeight: 700, marginTop: 6, textAlign: 'right' }}>
  {maxed
- ? 'Вы, не разлей вода! 🐾'
+ ? 'Вы, не разлей вода! 💛'
  : `${Math.floor(pet.friendshipPts)} / ${next} очков дружбы`}
  </div>
  </div>

@@ -49,7 +49,7 @@ if (bot) {
  : undefined
  const greeting = pickFrom(
  'onboarding_bot_greeting',
- 'Привет! Это Шарик 🐾 Игра про питомца, чуть похожая на тамагочи: заботишься о зверьке, а заодно и о себе. Жми кнопку ниже, я всё покажу!',
+ 'Привет! Это Шарик 💛 Игра про питомца, чуть похожая на тамагочи: заботишься о зверьке, а заодно и о себе. Жми кнопку ниже, я всё покажу!',
  )
  .replaceAll('{name}', ctx.from?.first_name || 'друг')
  .replaceAll('{pet}', pet?.name ?? 'Шарик')
@@ -58,13 +58,13 @@ if (bot) {
 
  bot.command('app', async ctx => {
  if (ctx.from) grantWriteAccess(ctx.from.id)
- await ctx.reply('Вот я! Жми кнопку, и заходи в гости 🐾', { reply_markup: appKeyboard() })
+ await ctx.reply('Вот я! Жми кнопку, и заходи в гости 💛', { reply_markup: appKeyboard() })
  })
 
  bot.command('help', async ctx => {
  if (ctx.from) grantWriteAccess(ctx.from.id)
  await ctx.reply(
- 'Это Шарик 🐾 Игра про питомца, немного как тамагочи.\n\n' +
+ 'Это Шарик 💛 Игра про питомца, немного как тамагочи.\n\n' +
  'Как всё устроено:\n' +
  '• заводишь зверька и заботишься о нём\n' +
  '• заботишься о себе: вода, прогулка, сон, дыхание, дневник, маленькие цели\n' +

@@ -20,7 +20,7 @@ const TABS: { key: Tab; ru: string }[] = [
   { key: 'shop', ru: 'Магазин' },
   { key: 'friends', ru: 'Друзья' },
   { key: 'bag', ru: 'Сумка' },
-  { key: 'pet', ru: 'Щенок' },
+  { key: 'pet', ru: 'Питомец' },
 ]
 
 // per-tab page colour (drives the screen background + Telegram chrome)

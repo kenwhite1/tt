@@ -94,7 +94,7 @@ export function History({ onBack }: { onBack(): void }) {
           {data.walk && (
             <div className="card">
               <h2 style={{ marginBottom: 6 }}>Прогулка</h2>
-              <p style={{ margin: 0, color: 'var(--ink-soft)' }}>{data.walk.completed ? '🐾 Прогулка состоялась' : '🐾 Прогулка началась'} в {fmtTime(data.walk.started_ts)}</p>
+              <p style={{ margin: 0, color: 'var(--ink-soft)' }}>{data.walk.completed ? '🌳 Прогулка состоялась' : '🌳 Прогулка началась'} в {fmtTime(data.walk.started_ts)}</p>
             </div>
           )}
         </>

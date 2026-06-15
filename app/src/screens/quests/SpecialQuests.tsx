@@ -1,7 +1,7 @@
 import type { SpecialDto } from './types'
 
 const METRIC_EMOJI: Record<string, string> = {
- clothing: '👕', furniture: '🛋️', micropets: '🐾', locations: '🗺️', stage: '🌱', friendship: '💛',
+ clothing: '👕', furniture: '🛋️', micropets: '✨', locations: '🗺️', stage: '🌱', friendship: '💛',
 }
 
 interface Props {

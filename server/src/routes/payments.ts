@@ -105,6 +105,6 @@ export function registerPaymentHandlers(b: Bot) {
  db.prepare('INSERT INTO events (user_id, name, props, ts) VALUES (?,?,?,?)')
  .run(ctx.from.id, 'plus_purchased', JSON.stringify({ kind: isYear ? 'year' : 'month', stars: sp.total_amount }), Date.now())
 
- await ctx.reply('Гав-гав! 💛 Шарик Плюс включён, спасибо, что заботишься о нас обоих!').catch(() => {})
+ await ctx.reply('Ура! 💛 Шарик Плюс включён, спасибо, что заботишься о нас обоих!').catch(() => {})
  })
 }

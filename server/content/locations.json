@@ -2,7 +2,7 @@
  "locations": [
  {
  "id": "puppy_forest",
- "ru_name": "Щенячий лес",
+ "ru_name": "Тёплый лес",
  "region_ru": "Дом",
  "is_start": true,
  "palette": { "sky": "#D6EBD0", "ground": "#8FBF7F", "accent": "#E8A04C" },

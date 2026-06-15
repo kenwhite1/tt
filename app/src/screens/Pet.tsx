@@ -1,4 +1,4 @@
-// Щенок tab: profile card (ABOUT/DETAILS/TRAITS), streak card with repair,
+// Питомец tab: profile card (ABOUT/DETAILS/TRAITS), streak card with repair,
 // collections (микропитомцы → микропедия, локации, открытия, значки).
 // Built by the micropets module agent.
 import { useEffect, useState } from 'react'
@@ -57,7 +57,7 @@ function normalizeLogbook(r: unknown): LogbookInfo | null {
  return {
  visited: Math.max(1, visited.length),
  total: Number(o?.total) || list.length || 27,
- firstName: String(first?.ruName ?? first?.ru_name ?? first?.name ?? 'Щенячий лес'),
+ firstName: String(first?.ruName ?? first?.ru_name ?? first?.name ?? 'Тёплый лес'),
  firstPct: Math.round(Number(first?.pct) || 0),
  }
 }
@@ -116,7 +116,7 @@ export function Pet() {
  </div>
  {shown.length === 0 && (
  <div className="card" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>
- Пока пусто, открытия появляются после прогулок и бесед со щенком 🐾
+ Пока пусто, открытия появляются после прогулок и бесед с питомцем ✨
  </div>
  )}
  {shown.map((d, i) => {
@@ -187,7 +187,7 @@ export function Pet() {
  </div>
 
  <div style={{ display: 'flex', gap: 6, margin: '14px 0 10px' }}>
- {([['about', 'О щенке'], ['details', 'Детали'], ['traits', 'Характер']] as const).map(([id, ru]) => (
+ {([['about', 'О питомце'], ['details', 'Детали'], ['traits', 'Характер']] as const).map(([id, ru]) => (
  <button key={id} className={tab === id ? 'btn' : 'btn ghost'} style={{ flex: 1, padding: '8px 0', fontSize: 14 }} onClick={() => { haptic('tap'); setTab(id) }}>
  {ru}
  </button>
@@ -198,7 +198,7 @@ export function Pet() {
  <div style={{ display: 'grid', gap: 8 }}>
  <Row label="🎂 День рождения" value={ruDate(pet.hatchDay)} />
  <Row label="🌱 Возраст" value={`${ageDays} ${plural(ageDays, ['день', 'дня', 'дней'])}`} />
- <Row label="🐾 Прогулок" value={String(pet.walks)} />
+ <Row label="🌳 Прогулок" value={String(pet.walks)} />
  </div>
  )}
  {tab === 'details' && (
@@ -223,7 +223,7 @@ export function Pet() {
  </div>
  )
  })}
- <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>Характер растёт из твоих ответов на прогулках 🐾</div>
+ <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>Характер растёт из твоих ответов на прогулках ✨</div>
  </div>
  )}
  </div>
@@ -282,7 +282,7 @@ export function Pet() {
  ))}
  </div>
  <div style={{ fontSize: 13, textAlign: 'center', marginTop: 6, fontWeight: 700 }}>
- {logbook?.firstName ?? 'Щенячий лес'}, {logbook?.firstPct ?? 1}%
+ {logbook?.firstName ?? 'Тёплый лес'}, {logbook?.firstPct ?? 1}%
  </div>
  <div style={{ textAlign: 'center', marginTop: 6, fontWeight: 800, color: 'var(--brown)' }}>
  {logbook?.visited ?? 1} / {logbook?.total ?? 27} ›
@@ -293,7 +293,7 @@ export function Pet() {
  <button className="card" style={{ width: '100%', border: 'none', textAlign: 'left', cursor: 'pointer' }} onClick={() => { haptic('tap'); setView('discoveries') }}>
  <h2 style={{ marginBottom: 6 }}>Открытия</h2>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
- Что щенок любит и не любит, узнаётся в беседах после прогулок
+ Что питомец любит и не любит, узнаётся в беседах после прогулок
  </div>
  <div style={{ textAlign: 'center', marginTop: 10, fontWeight: 800, color: 'var(--brown)' }}>
  {discoveries?.length ?? 0} ›

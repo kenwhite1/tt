@@ -50,7 +50,7 @@ function petDto(r: MicropetRow) {
  variantHex: v?.hex ?? '#C9A3E0',
  variantColor: v?.ru_color ?? '',
  description: sp?.ru_description ?? '',
- emoji: sp?.emoji_hint ?? '🐾',
+ emoji: sp?.emoji_hint ?? '💛',
  }
 }
 export type MicropetDtoServer = ReturnType<typeof petDto>

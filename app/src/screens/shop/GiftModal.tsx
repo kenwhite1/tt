@@ -60,7 +60,7 @@ export function GiftModal({ mode, itemRu, onClose, onDone }: {
  <h3 style={{ fontSize: 15, margin: '0 0 8px' }}>Кому подарим?</h3>
  {friends === null && <p style={{ color: 'var(--ink-soft)' }}>Зову друзей…</p>}
  {friends !== null && friends.length === 0 && (
- <p style={{ color: 'var(--ink-soft)' }}>Пока некому дарить, загляни во «Дворик» и добавь друзей 🐾</p>
+ <p style={{ color: 'var(--ink-soft)' }}>Пока некому дарить, загляни во «Дворик» и добавь друзей 💛</p>
  )}
  {friends?.map(f => {
  const blocked = f.owned || f.giftedToday
@@ -72,7 +72,7 @@ export function GiftModal({ mode, itemRu, onClose, onDone }: {
  onClick={() => setFriendId(f.id)}
  style={{ width: '100%', border: friendId === f.id ? '2px solid var(--accent)' : '2px solid transparent', opacity: blocked ? 0.5 : 1, cursor: 'pointer', textAlign: 'left' }}
  >
- <span style={{ fontSize: 22 }}>🐶</span>
+ <span style={{ fontSize: 22 }}>💛</span>
  <span style={{ flex: 1, fontWeight: 800 }}>{f.name}</span>
  {f.owned && <span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>уже есть</span>}
  {!f.owned && f.giftedToday && <span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>уже подарено</span>}

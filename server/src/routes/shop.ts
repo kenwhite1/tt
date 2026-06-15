@@ -41,8 +41,8 @@ const CLOTHING_SLOTS: { id: string; ru: string }[] = [
  { id: 'top', ru: 'Верх' },
  { id: 'bottom', ru: 'Низ' },
  { id: 'full', ru: 'Целиком' },
- { id: 'feet', ru: 'На лапки' },
- { id: 'held', ru: 'В лапки' },
+ { id: 'feet', ru: 'На ножки' },
+ { id: 'held', ru: 'В ручки' },
  { id: 'back', ru: 'На спинку' },
 ]
 const FURNITURE_SLOTS = FU.slots // 14: 10 furniture + floor/wall/door/window

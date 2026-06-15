@@ -74,10 +74,10 @@ export function InboxSheet({ data, onClose, reload }:
           <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--ink-soft)', margin: '0 4px 6px' }}>ЗАЯВКИ В ДРУЗЬЯ</div>
           {data.requests.map(r => (
             <div key={r.fromId} className="goal-row">
-              <span style={{ fontSize: 24 }}>🐶</span>
+              <span style={{ fontSize: 24 }}>💛</span>
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: 800 }}>{r.name}</div>
-                <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>щенок {r.petName} · хочет дружить</div>
+                <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>питомец {r.petName} · хочет дружить</div>
               </div>
               <button className="btn" style={{ padding: '8px 12px' }} onClick={() => void accept(r.fromId)}>✓</button>
               <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={() => void decline(r.fromId)}>✕</button>

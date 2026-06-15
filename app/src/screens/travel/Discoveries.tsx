@@ -50,7 +50,7 @@ export function Discoveries({ onBack }: { onBack(): void }) {
  <div className="card" style={{ textAlign: 'center' }}>
  <div style={{ fontSize: 40 }}>🔍</div>
  <p style={{ margin: '8px 0 0', color: 'var(--ink-soft)' }}>
- Здесь пока пусто. Щенок делает открытия на прогулках, поговори с ним, когда он вернётся!
+ Здесь пока пусто. Питомец делает открытия на прогулках, поговори с ним, когда он вернётся!
  </p>
  </div>
  ) : (

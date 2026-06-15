@@ -81,7 +81,7 @@ export function Menu({ onClose }: { onClose(): void }) {
  const code = state?.user.friendCode ?? ''
  const copyCode = () => {
  void navigator.clipboard?.writeText(code).catch(() => {})
- haptic('success'); useStore.getState().showToast('Код скопирован 🐾')
+ haptic('success'); useStore.getState().showToast('Код скопирован ✨')
  }
  return (
  <Frame>

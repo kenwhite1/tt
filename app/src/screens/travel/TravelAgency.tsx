@@ -74,12 +74,12 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  <div style={{ fontSize: 52 }}>🐈✈️</div>
  <h2 style={{ margin: '8px 0' }}>Турбюро пока закрыто</h2>
  <p style={{ color: 'var(--ink-soft)', margin: '0 0 10px' }}>
- Сасси откроет двери, когда щенок немного подрастёт и сможет летать.
+ Сасси откроет двери, когда питомец немного подрастёт и сможет летать.
  </p>
  <div className="energy-track" style={{ margin: '0 12px' }}>
  <div className="energy-fill" style={{ width: `${Math.min(100, ((data.walksNow ?? 0) / (data.walksNeed ?? 1)) * 100)}%` }} />
  </div>
- <p style={{ fontWeight: 800, margin: '6px 0 0' }}>🐾 {data.walksNow} / {data.walksNeed} прогулок</p>
+ <p style={{ fontWeight: 800, margin: '6px 0 0' }}>🚶 {data.walksNow} / {data.walksNeed} прогулок</p>
  </div>
  ) : (
  <>
@@ -99,7 +99,7 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  <div>
  <b>Билет в {data.queued.ruName} куплен!</b>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
- Полетим, как только щенок наберёт энергию на прогулку.
+ Полетим, как только питомец наберёт энергию на прогулку.
  </div>
  </div>
  </div>
@@ -159,7 +159,7 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  <h2 style={{ textAlign: 'center', marginBottom: 10 }}>Летим в {confirm.ruName}?</h2>
  <p style={{ color: 'var(--ink-soft)', margin: '0 4px 12px', lineHeight: 1.4 }}>
  ⚠️ Билет в один конец: вернуться можно будет, только когда город снова появится у Сасси.
- Полёт займёт место сегодняшней прогулки (или завтрашней, если щенок уже гулял).
+ Полёт займёт место сегодняшней прогулки (или завтрашней, если питомец уже гулял).
  </p>
  <p style={{ textAlign: 'center', fontWeight: 800, marginBottom: 12 }}>
  {confirm.price === 0 ? 'Бесплатно, первый полёт 🎉' : `Стоимость: ${confirm.price} 🦴`}
