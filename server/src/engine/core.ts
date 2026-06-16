@@ -205,6 +205,14 @@ export function getState(userRaw: UserRow): StateDto {
   const done = new Map((q.completionsToday.all(user.id, day) as { goal_id: number; n: number }[]).map(r => [r.goal_id, r.n]))
   const moodRow = q.moodToday.get(user.id, day) as { value: number } | undefined
 
+  // equipped outfit (slot → itemId) so the mascot renders worn items everywhere
+  const outfitRow = db.prepare('SELECT slots FROM outfits WHERE user_id=?').get(user.id) as { slots: string } | undefined
+  const outfit: Record<string, string> = {}
+  try {
+    const parsed = JSON.parse(outfitRow?.slots || '{}') as Record<string, { itemId?: string } | undefined>
+    for (const [slot, v] of Object.entries(parsed)) if (v?.itemId) outfit[slot] = v.itemId
+  } catch { /* ignore malformed */ }
+
   const goals: GoalDto[] = (q.goals.all(user.id) as GoalRow[]).map(g => ({
     id: g.id,
     title: g.title,
@@ -226,7 +234,7 @@ export function getState(userRaw: UserRow): StateDto {
     pet: {
       name: pet.name, species: pet.species, pronouns: pet.pronouns, stage, walks: pet.walks,
       friendshipPts: pet.friendship_pts, friendshipLevel: friendshipLevel(pet.friendship_pts),
-      color: pet.color, trait: pet.trait, hatchDay: pet.hatch_day,
+      color: pet.color, trait: pet.trait, hatchDay: pet.hatch_day, outfit,
     },
     day,
     energy: user.energy,

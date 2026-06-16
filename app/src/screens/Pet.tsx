@@ -174,7 +174,7 @@ export function Pet() {
  <div className="card">
  <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
  <div className="portrait-frame">
- <Mascot species={pet.species} size={104} />
+ <Mascot species={pet.species} size={104} outfit={pet.outfit} />
  </div>
  <div style={{ flex: 1 }}>
  <h1>{STAGE_RU[pet.stage]} {pet.name}</h1>

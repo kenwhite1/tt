@@ -118,7 +118,10 @@ export function Home() {
           <div className="adv-bolt"><BoltIcon /></div>
           <div style={{ flex: 1 }}>
             <div style={{ fontWeight: 800, marginBottom: 6 }}>
-              {walking ? `${pet.name} на прогулке` : '1-я прогулка'}
+              {walking ? `${pet.name} на прогулке`
+                : walkReady ? 'Готовы гулять!'
+                : walk && walk.completed ? 'Сегодня уже гуляли 🌙'
+                : 'Копим энергию на прогулку'}
             </div>
             {walking ? (
               <div style={{ fontSize: 14, opacity: 0.9 }}>Вернётся через <WalkCountdown endsTs={walk.endsTs} /></div>
@@ -137,6 +140,13 @@ export function Home() {
 
         {walkReady && (
           <button className="btn accent" style={{ width: '100%', marginBottom: 14 }} onClick={() => void onWalk()}>На прогулку!</button>
+        )}
+
+        {!walking && !walkReady && walk && walk.completed && walk.chatDone && (
+          <div className="card" style={{ display: 'flex', gap: 10, alignItems: 'center', background: '#eef3f7' }}>
+            <span style={{ fontSize: 22 }}>🌙</span>
+            <div style={{ fontSize: 14, color: 'var(--ink-soft)' }}>Сегодня вы уже гуляли вместе. Энергия копится дальше, а новая прогулка будет завтра.</div>
+          </div>
         )}
 
         {state.lowMoodDay && (
