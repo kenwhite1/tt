@@ -36,8 +36,14 @@ export function preloadMascots(): void {
 
 // Equipped items render as procedural vector garments (Garment.tsx) tinted by the item's
 // colour, positioned over the pet. `size` is the garment SVG size as a fraction of the pet.
-// Two position sets: the dog is a lying-down raster; the image species sit upright.
+// `top`/`left` are percentages of the square pet box and mark the CENTRE of the garment
+// (each garment span is translate(-50%,-50%)). Every species is drawn at different
+// proportions — the owl is nearly all head, the cat has no visible torso, the elephant's
+// crown is pinched between wide ears, the alpaca's eyes sit low — so each gets its own
+// anchor map. Tuned against app/public/mascots/<id>.png with a temporary visual harness.
 type Pos = Partial<Record<OutfitSlot, { top: string; left: string; size: number }>>
+
+// Dog: the original lying-down Puppy raster (front paws forward, head upper-centre).
 const DOG_POS: Pos = {
   back: { top: '40%', left: '14%', size: 0.46 },
   full: { top: '70%', left: '50%', size: 0.66 },
@@ -49,17 +55,73 @@ const DOG_POS: Pos = {
   feet: { top: '92%', left: '58%', size: 0.36 },
   held: { top: '80%', left: '82%', size: 0.44 },
 }
-// sitting, front-facing image species (owl/cat/turtle/elephant/alpaca): head top, body centred
-const IMG_POS: Pos = {
-  back: { top: '46%', left: '18%', size: 0.46 },
-  full: { top: '58%', left: '50%', size: 0.6 },
-  top:  { top: '57%', left: '50%', size: 0.46 },
-  bottom: { top: '73%', left: '50%', size: 0.42 },
-  head: { top: '19%', left: '50%', size: 0.5 },
-  face: { top: '34%', left: '50%', size: 0.42 },
-  neck: { top: '48%', left: '50%', size: 0.36 },
-  feet: { top: '86%', left: '50%', size: 0.44 },
-  held: { top: '58%', left: '77%', size: 0.42 },
+// Owl: round, head-dominant. Big eyes high (~42%), tiny belly, talons centred at the base,
+// wings/hands low at the sides.
+const OWL_POS: Pos = {
+  back: { top: '52%', left: '20%', size: 0.46 },
+  full: { top: '70%', left: '50%', size: 0.54 },
+  top:  { top: '76%', left: '50%', size: 0.42 },
+  bottom: { top: '84%', left: '50%', size: 0.34 },
+  head: { top: '13%', left: '50%', size: 0.46 },
+  face: { top: '42%', left: '50%', size: 0.52 },
+  neck: { top: '65%', left: '50%', size: 0.40 },
+  feet: { top: '93%', left: '50%', size: 0.40 },
+  held: { top: '80%', left: '78%', size: 0.40 },
+}
+// Elephant: crown is narrow between wide ears; eyes ~46%, trunk mid, sitting body with toes
+// at the base.
+const ELEPHANT_POS: Pos = {
+  back: { top: '54%', left: '19%', size: 0.46 },
+  full: { top: '70%', left: '50%', size: 0.54 },
+  top:  { top: '78%', left: '50%', size: 0.46 },
+  bottom: { top: '86%', left: '50%', size: 0.38 },
+  head: { top: '16%', left: '50%', size: 0.40 },
+  face: { top: '46%', left: '50%', size: 0.46 },
+  neck: { top: '71%', left: '50%', size: 0.42 },
+  feet: { top: '91%', left: '50%', size: 0.42 },
+  held: { top: '82%', left: '74%', size: 0.40 },
+}
+// Cat: almost entirely head; ears at the top corners, eyes low (~50%), only a sliver of
+// chest between the two front paws at the base.
+const CAT_POS: Pos = {
+  back: { top: '52%', left: '20%', size: 0.44 },
+  full: { top: '79%', left: '50%', size: 0.46 },
+  top:  { top: '83%', left: '50%', size: 0.40 },
+  bottom: { top: '89%', left: '50%', size: 0.32 },
+  head: { top: '12%', left: '50%', size: 0.46 },
+  face: { top: '50%', left: '50%', size: 0.50 },
+  neck: { top: '79%', left: '50%', size: 0.36 },
+  feet: { top: '90%', left: '50%', size: 0.40 },
+  held: { top: '84%', left: '74%', size: 0.38 },
+}
+// Turtle: round head (eyes ~40%), shell flippers at the sides, yellow plastron is the belly,
+// stubby feet splayed wide at the base.
+const TURTLE_POS: Pos = {
+  back: { top: '50%', left: '19%', size: 0.46 },
+  full: { top: '66%', left: '50%', size: 0.54 },
+  top:  { top: '74%', left: '50%', size: 0.42 },
+  bottom: { top: '82%', left: '50%', size: 0.38 },
+  head: { top: '13%', left: '50%', size: 0.46 },
+  face: { top: '40%', left: '50%', size: 0.48 },
+  neck: { top: '66%', left: '50%', size: 0.42 },
+  feet: { top: '88%', left: '50%', size: 0.44 },
+  held: { top: '76%', left: '76%', size: 0.42 },
+}
+// Alpaca: woolly, ears at the top corners, eyes low (~52%), long muzzle, small paws meeting
+// at the base.
+const ALPACA_POS: Pos = {
+  back: { top: '54%', left: '20%', size: 0.44 },
+  full: { top: '76%', left: '50%', size: 0.50 },
+  top:  { top: '80%', left: '50%', size: 0.42 },
+  bottom: { top: '88%', left: '50%', size: 0.34 },
+  head: { top: '11%', left: '50%', size: 0.44 },
+  face: { top: '52%', left: '50%', size: 0.46 },
+  neck: { top: '78%', left: '50%', size: 0.36 },
+  feet: { top: '90%', left: '50%', size: 0.40 },
+  held: { top: '84%', left: '74%', size: 0.40 },
+}
+const POS_BY_SPECIES: Record<Species, Pos> = {
+  dog: DOG_POS, owl: OWL_POS, elephant: ELEPHANT_POS, cat: CAT_POS, turtle: TURTLE_POS, alpaca: ALPACA_POS,
 }
 // drawing order: back layer first, accessories/held last
 const SLOT_ORDER: OutfitSlot[] = ['back', 'full', 'top', 'bottom', 'head', 'face', 'neck', 'feet', 'held']
@@ -98,11 +160,12 @@ function OutfitOverlay({ outfit, size, posSet }: { outfit?: MascotOutfit; size: 
 // unknown values, so legacy/garbage data never renders a blank pet.
 export function Mascot({ species = 'dog', size = 180, state = 'idle', outfit }: { species?: string; size?: number; state?: PuppyState; outfit?: MascotOutfit }) {
   const wrap = { position: 'relative' as const, display: 'inline-block', width: size, height: size }
+  const posSet = (POS_BY_SPECIES as Record<string, Pos>)[species] ?? DOG_POS
   if (!IMG_SPECIES.has(species)) {
     return (
       <span style={wrap}>
         <Puppy size={size} state={state} />
-        <OutfitOverlay outfit={outfit} size={size} posSet={DOG_POS} />
+        <OutfitOverlay outfit={outfit} size={size} posSet={posSet} />
       </span>
     )
   }
@@ -113,7 +176,7 @@ export function Mascot({ species = 'dog', size = 180, state = 'idle', outfit }: 
         <source srcSet={`/mascots/${species}.webp`} type="image/webp" />
         <img src={`/mascots/${species}.png`} width={size} height={size} alt="" draggable={false} className={cls} />
       </picture>
-      <OutfitOverlay outfit={outfit} size={size} posSet={IMG_POS} />
+      <OutfitOverlay outfit={outfit} size={size} posSet={posSet} />
     </span>
   )
 }
