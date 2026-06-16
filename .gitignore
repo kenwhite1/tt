@@ -5,3 +5,6 @@ data/
 *.sqlite*
 .DS_Store
 .code-review-graph/
+
+# build output (Railway rebuilds via npm run build; committing it overwrote fresh builds)
+app/dist/

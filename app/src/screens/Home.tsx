@@ -1,7 +1,9 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { C } from '@shared/constants'
+import { req } from '../api'
 import { useStore } from '../store'
 import { Mascot } from '../art/Mascot'
+import type { BagDto } from './shop/types'
 import { PetRug } from '../art/PetRug'
 import { RoomScene } from '../art/RoomScene'
 import { BoltIcon } from '../art/icons'
@@ -30,6 +32,17 @@ export function Home() {
   const [leaving, setLeaving] = useState(false)
   const reactTimer = useRef<ReturnType<typeof setTimeout>>()
   const hearts = useRef<HTMLDivElement>(null)
+  // equipped outfit (slot -> itemId) so the pet wears its clothes on the home screen
+  const [outfit, setOutfit] = useState<Record<string, string>>({})
+  useEffect(() => {
+    void req<BagDto>('/shop/bag').then(b => {
+      const o: Record<string, string> = {}
+      for (const [slot, entry] of Object.entries(b.equipped.outfit)) {
+        if (entry?.itemId) o[slot] = entry.itemId
+      }
+      setOutfit(o)
+    }).catch(() => {})
+  }, [])
   if (!state) return null
   const { pet, energy, energyMax, walk, walkReady, goals } = state
   const goalEnergy = state.lowMoodDay ? C.GOAL_ENERGY_LOW_MOOD : C.GOAL_ENERGY
@@ -88,7 +101,7 @@ export function Home() {
                 <PetRug>
                   <div className={leaving ? 'walk-out' : 'pet-rock'}>
                     {sleepy && <span className="pet-zzz" aria-hidden>💤</span>}
-                    <Mascot species={pet.species} state={leaving ? 'walking' : react ? 'happy' : sleepy ? 'sleeping' : 'idle'} size={150} />
+                    <Mascot species={pet.species} state={leaving ? 'walking' : react ? 'happy' : sleepy ? 'sleeping' : 'idle'} size={150} outfit={outfit} />
                   </div>
                 </PetRug>
               </div>
@@ -195,7 +208,11 @@ export function Home() {
                 <button
                   key={i}
                   style={{ fontSize: 38, background: 'none', border: 'none', cursor: 'pointer' }}
-                  onClick={() => { void logMood(i + 1); setShowMood(false) }}
+                  onClick={async () => {
+                    // await so a failed save surfaces a toast instead of silently closing the sheet
+                    try { await logMood(i + 1); setShowMood(false) }
+                    catch { useStore.getState().showToast('Не получилось записать настроение, попробуй ещё раз') }
+                  }}
                 >{m}</button>
               ))}
             </div>

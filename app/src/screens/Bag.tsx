@@ -235,6 +235,12 @@ function DressView({ kind, onBack }: { kind: 'outfits' | 'furniture' | 'colors';
  const equippedItem = (slotId: string): string | undefined =>
  kind === 'colors' ? bag.equipped.dyes[slotId] : (kind === 'outfits' ? bag.equipped.outfit[slotId] : bag.equipped.room[slotId])?.itemId
 
+ // slot -> itemId map so the dressing-room preview shows what the pet is actually wearing
+ const equippedOutfit: Record<string, string> = {}
+ for (const [slot, entry] of Object.entries(bag.equipped.outfit)) {
+  if (entry?.itemId) equippedOutfit[slot] = entry.itemId
+ }
+
  return (
  <div className="scroll" style={{ paddingTop: 8 }}>
  <header style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
@@ -243,7 +249,7 @@ function DressView({ kind, onBack }: { kind: 'outfits' | 'furniture' | 'colors';
  </header>
 
  <div className="card" style={{ textAlign: 'center', background: 'linear-gradient(#cfe6f5, #e8f3d8)' }}>
- <Mascot species={species} size={150} />
+ <Mascot species={species} size={150} outfit={kind === 'outfits' ? equippedOutfit : undefined} />
  </div>
 
  {slots.map(s => {

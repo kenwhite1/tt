@@ -40,7 +40,9 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  const r = await req<ChatPostRes>(`/travel/chat/${walkId}`, body)
  haptic('success')
  setResult(r)
- void useStore.getState().refresh()
+ // Don't refresh() here: it flips walk.chatDone in the store, and Home gates this
+ // component on !chatDone — refreshing now would unmount the reward/discovery reveal
+ // before the user sees it. close() → onDone() refreshes after «Обнять питомца».
  } catch {
  setSending(false)
  }
