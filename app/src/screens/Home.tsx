@@ -34,6 +34,7 @@ export function Home() {
   const hearts = useRef<HTMLDivElement>(null)
   // equipped outfit (slot -> itemId) so the pet wears its clothes on the home screen
   const [outfit, setOutfit] = useState<Record<string, { itemId: string; colorId: string }>>({})
+  const [room, setRoom] = useState<Record<string, { itemId: string; colorId: string }>>({})
   useEffect(() => {
     void req<BagDto>('/shop/bag').then(b => {
       const o: Record<string, { itemId: string; colorId: string }> = {}
@@ -41,6 +42,11 @@ export function Home() {
         if (entry?.itemId) o[slot] = { itemId: entry.itemId, colorId: entry.colorId ?? '' }
       }
       setOutfit(o)
+      const r: Record<string, { itemId: string; colorId: string }> = {}
+      for (const [slot, entry] of Object.entries(b.equipped.room)) {
+        if (entry?.itemId) r[slot] = { itemId: entry.itemId, colorId: entry.colorId ?? '' }
+      }
+      setRoom(r)
     }).catch(() => {})
   }, [])
   if (!state) return null
@@ -95,7 +101,7 @@ export function Home() {
       <div className="scroll" style={{ paddingTop: 'calc(var(--safe-top) + 4px)' }}>
         {/* room hero with floating controls */}
         <div style={{ position: 'relative', marginBottom: 18 }}>
-          <RoomScene>
+          <RoomScene furniture={room}>
             {!walking && (
               <div ref={hearts} style={{ position: 'relative', display: 'inline-block', touchAction: 'none' }} onPointerDown={leaving ? undefined : onPat}>
                 <PetRug>

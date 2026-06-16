@@ -1,9 +1,50 @@
 // The puppy's room — original cozy interior with soft shading/gradients: papered wall,
 // glowing moon window, shaded dresser, arched door, hanging lamp, straw nest. The pet is
 // rendered by the caller via the children slot, positioned on the floor.
-interface Props { children?: React.ReactNode }
+// Equipped furniture (the non-baked slots) is layered in additively over the crafted room.
+import { FurnitureArt } from './FurnitureArt'
+import { FURNITURE_ART } from './furnitureMap'
+import { CLOTHING_PALETTE } from './garmentMap'
 
-export function RoomScene({ children }: Props) {
+type RoomFurniture = Record<string, { itemId: string; colorId: string } | undefined>
+interface Props { children?: React.ReactNode; furniture?: RoomFurniture }
+
+// Free spots in the crafted room (left%, top% of the container, width% for the square piece).
+const FUR_POS: Record<string, { left: number; top: number; w: number }> = {
+  rug: { left: 50, top: 87, w: 46 },
+  bed: { left: 19, top: 82, w: 28 },
+  doormat: { left: 83, top: 91, w: 24 },
+  clock: { left: 16, top: 23, w: 17 },
+  wall_item: { left: 70, top: 25, w: 22 },
+  dresser_item: { left: 41, top: 41, w: 17 },
+  door_left: { left: 70, top: 60, w: 17 },
+  door_right: { left: 95, top: 62, w: 15 },
+}
+const FUR_ORDER = ['rug', 'doormat', 'bed', 'clock', 'wall_item', 'dresser_item', 'door_left', 'door_right']
+
+function RoomFurnitureLayer({ furniture }: { furniture?: RoomFurniture }) {
+  if (!furniture) return null
+  const slots = FUR_ORDER.filter(s => furniture[s]?.itemId && FUR_POS[s] && FURNITURE_ART[furniture[s]!.itemId])
+  if (!slots.length) return null
+  return (
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+      {slots.map(slot => {
+        const pos = FUR_POS[slot], entry = furniture[slot]!
+        const color = CLOTHING_PALETTE[entry.colorId] ?? '#C8A36A'
+        return (
+          <div key={slot} style={{
+            position: 'absolute', left: `${pos.left}%`, top: `${pos.top}%`, width: `${pos.w}%`,
+            transform: 'translate(-50%, -50%)', filter: 'drop-shadow(0 2px 2px rgba(20,30,40,0.22))',
+          }}>
+            <FurnitureArt art={FURNITURE_ART[entry.itemId]} color={color} />
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+export function RoomScene({ children, furniture }: Props) {
   return (
     <div style={{ position: 'relative', width: '100%', borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 4px 12px rgba(40, 50, 70, 0.15)' }}>
       <svg viewBox="0 0 320 250" width="100%" style={{ display: 'block' }}>
@@ -119,6 +160,8 @@ export function RoomScene({ children }: Props) {
         <rect x="0" y="0" width="320" height="250" fill="url(#rs-night)" style={{ pointerEvents: 'none' }} />
         <rect x="0" y="0" width="320" height="250" fill="url(#rs-vignette)" style={{ pointerEvents: 'none' }} />
       </svg>
+      {/* equipped furniture, layered over the crafted room, behind the pet */}
+      <RoomFurnitureLayer furniture={furniture} />
       {/* pet rests in its bed, centered toward the lower-middle */}
       <div style={{ position: 'absolute', left: '50%', bottom: '10%', transform: 'translateX(-50%)' }}>
         {children}
