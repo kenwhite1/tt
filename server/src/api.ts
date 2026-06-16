@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { z } from 'zod'
 import { validateInitData, issueToken, verifyToken } from './auth'
 import { addGoal, bootstrapUser, completeGoal, getState, getUser, logMood, patPet, startWalk } from './engine/core'
+import { C } from '../../shared/constants'
 import { starterGoals } from './content'
 import type { Env } from './env'
 import { activitiesRoutes } from './routes/activities'
@@ -76,8 +77,15 @@ api.post('/onboard/retake', async c => {
  if (!body.success) return c.json({ error: 'bad_request' }, 400)
  const { petName, pronouns, trait, species, userName } = body.data
  db.prepare('UPDATE users SET name=? WHERE id=?').run(userName, user.id)
- db.prepare('UPDATE pets SET name=?, pronouns=?, trait=?, species=? WHERE user_id=?')
-  .run(petName, pronouns, trait, species ?? 'dog', user.id)
+ // Re-seed the chosen personality dim so a changed trait is reflected, without erasing earned walk-chat growth.
+ const RETAKE_DIMS = ['confidence', 'curiosity', 'security', 'resilience', 'compassion', 'logic']
+ const retakeDim = RETAKE_DIMS.includes(trait) ? trait : 'curiosity'
+ const existingPet = db.prepare('SELECT personality FROM pets WHERE user_id=?').get(user.id) as { personality: string } | undefined
+ let retakePersonality: Record<string, number> = {}
+ try { retakePersonality = JSON.parse(existingPet?.personality || '{}') as Record<string, number> } catch { retakePersonality = {} }
+ retakePersonality[retakeDim] = Math.max(retakePersonality[retakeDim] ?? 0, C.TRAIT_SEED_POINTS)
+ db.prepare('UPDATE pets SET name=?, pronouns=?, trait=?, species=?, personality=? WHERE user_id=?')
+  .run(petName, pronouns, trait, species ?? 'dog', JSON.stringify(retakePersonality), user.id)
  return c.json({ state: getState(getUser(user.id)!) })
 })
 

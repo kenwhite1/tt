@@ -118,6 +118,10 @@ export function Home() {
           </div>
         </div>
 
+        {walk && walk.completed && !walk.chatDone && (
+          <WalkChat walkId={walk.id} onDone={() => void useStore.getState().refresh()} />
+        )}
+
         {walkReady && (
           <button className="btn accent" style={{ width: '100%', marginBottom: 14 }} onClick={() => void onWalk()}>На прогулку!</button>
         )}

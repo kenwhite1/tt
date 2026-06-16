@@ -20,6 +20,7 @@ export const C = {
   FRIENDSHIP_WALK_BONUS: [2, 4, 6, 8, 10, 14, 22, 35, 50, 75],
   FRIENDSHIP_LEVEL_STONES: 100,
   PATS_PER_POINT: 15,
+  TRAIT_SEED_POINTS: 6, // starting points granted to the onboarding-chosen personality dim (rounds «+5.9» to a clean integer)
 
   DAILY_QUEST_STONES: 25,
   DAILY_QUESTS_PER_DAY: 3,

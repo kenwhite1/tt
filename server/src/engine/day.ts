@@ -47,11 +47,14 @@ export function ensureFresh(userStale: UserRow): UserRow {
   }
   const best = Math.max(user.streak_best, streak)
 
+  // Energy now CARRIES OVER across days (it is spent when a walk starts, not reset at
+  // midnight). Resetting to 0 here soft-locked low-goal users who could never reach the
+  // walk bar in a single day; carrying it over lets them save up toward a walk.
   db.prepare(
-    `UPDATE users SET last_day=?, streak=?, streak_best=?, energy=0 WHERE id=?`,
+    `UPDATE users SET last_day=?, streak=?, streak_best=? WHERE id=?`,
   ).run(day, streak, best, user.id)
   db.prepare(`UPDATE pets SET pats_today=0 WHERE user_id=?`).run(user.id)
   db.prepare(`UPDATE goals SET goal_of_day=NULL WHERE user_id=? AND goal_of_day IS NOT NULL AND goal_of_day<>?`).run(user.id, day)
 
-  return { ...user, last_day: day, streak, streak_best: best, energy: 0 }
+  return { ...user, last_day: day, streak, streak_best: best }
 }

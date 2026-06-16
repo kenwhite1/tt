@@ -41,9 +41,14 @@ export function bootstrapUser(tgId: number, name: string, opts: {
   const user = getUser(tgId)!
   const day = gameDay(user)
   // color column keeps its DEFAULT ('golden'); the pet's look comes from species now.
+  // Seed personality from the chosen trait so the Характер tab is non-empty at hatch
+  // and the trait is mechanically meaningful (matches onboarding's «+5.9 {trait}» beat).
+  const PERSONALITY_DIMS = ['confidence', 'curiosity', 'security', 'resilience', 'compassion', 'logic'] as const
+  const seedDim = (PERSONALITY_DIMS as readonly string[]).includes(opts.trait) ? opts.trait : 'curiosity'
+  const seededPersonality = JSON.stringify({ [seedDim]: C.TRAIT_SEED_POINTS })
   db.prepare(
-    `INSERT INTO pets (user_id, name, species, pronouns, trait, hatch_day) VALUES (?,?,?,?,?,?)`,
-  ).run(tgId, opts.petName, opts.species ?? 'dog', opts.pronouns, opts.trait, day)
+    `INSERT INTO pets (user_id, name, species, pronouns, trait, personality, hatch_day) VALUES (?,?,?,?,?,?,?)`,
+  ).run(tgId, opts.petName, opts.species ?? 'dog', opts.pronouns, opts.trait, seededPersonality, day)
   // No trial: the app itself is free, Шарик Плюс is an optional one-off upgrade. plus_until stays NULL.
   return getUser(tgId)!
 }
@@ -85,6 +90,33 @@ function completeWalk(user: UserRow, w: WalkRow): WalkRow {
   return { ...w, completed: 1 }
 }
 
+// Credit every finished-but-uncredited walk for this user, regardless of which game
+// day it was started on. Growth (pet.walks), stones and friendship are banked only
+// here, so this must NOT be day-scoped: a walk that ends after the day rolls over —
+// or is only first seen on a later day — must still count. Returns the count credited.
+export function sweepDueWalks(user: UserRow): number {
+  const due = db.prepare(
+    'SELECT * FROM walks WHERE user_id=? AND completed=0 AND ends_ts<=? ORDER BY id',
+  ).all(user.id, Date.now()) as WalkRow[]
+  for (const w of due) completeWalk(user, w)
+  return due.length
+}
+
+// Global sweep for the cron: bank finished walks for everyone, including users who
+// never reopen the app, so stage/streak/stones stay correct and offline counts
+// (newsletter, events) are accurate. Cheap: only touches elapsed, uncompleted walks.
+export function sweepAllDueWalks(): number {
+  const ids = db.prepare(
+    'SELECT DISTINCT user_id FROM walks WHERE completed=0 AND ends_ts<=?',
+  ).all(Date.now()) as { user_id: number }[]
+  let n = 0
+  for (const { user_id } of ids) {
+    const user = getUser(user_id)
+    if (user) n += sweepDueWalks(user)
+  }
+  return n
+}
+
 export function isLowMoodDay(userId: number, day: string): boolean {
   const m = q.moodToday.get(userId, day) as { value: number } | undefined
   return !!m && m.value <= C.MOOD_LOW_MAX
@@ -92,6 +124,7 @@ export function isLowMoodDay(userId: number, day: string): boolean {
 
 export function completeGoal(userRaw: UserRow, goalId: number): { reward: RewardDto } | { error: string } {
   const user = ensureFresh(userRaw)
+  sweepDueWalks(user) // a finished walk shouldn't linger uncredited just because a goal was tapped first
   const day = user.last_day!
   const goal = q.goal.get(goalId, user.id) as GoalRow | undefined
   if (!goal || goal.archived) return { error: 'not_found' }
@@ -126,17 +159,25 @@ export function completeGoal(userRaw: UserRow, goalId: number): { reward: Reward
 
 export function startWalk(userRaw: UserRow): { walk: WalkRow } | { error: string } {
   const user = ensureFresh(userRaw)
+  sweepDueWalks(user) // bank any finished walk first, so stage/energy reflect reality
   const day = user.last_day!
   const pet = q.pet.get(user.id) as PetRow
   const stage = stageForWalks(pet.walks)
-  if (user.energy < C.ENERGY_BAR[stage]) return { error: 'not_enough_energy' }
+  const bar = C.ENERGY_BAR[stage]
+  if (user.energy < bar) return { error: 'not_enough_energy' }
   if (q.walkToday.get(user.id, day)) return { error: 'walk_done_today' }
   const start = Date.now()
   const ends = start + C.WALK_HOURS[stage] * 3_600_000
-  const r = db.prepare(
-    'INSERT INTO walks (user_id, day, location_id, started_ts, ends_ts) VALUES (?,?,?,?,?)',
-  ).run(user.id, day, user.location_id, start, ends)
-  return { walk: db.prepare('SELECT * FROM walks WHERE id=?').get(r.lastInsertRowid) as WalkRow }
+  const walk = db.transaction(() => {
+    // The walk spends a bar's worth of energy. Energy now carries over across days
+    // (see ensureFresh), so spending it here is what keeps the daily goal loop honest.
+    db.prepare('UPDATE users SET energy=energy-? WHERE id=?').run(bar, user.id)
+    const r = db.prepare(
+      'INSERT INTO walks (user_id, day, location_id, started_ts, ends_ts) VALUES (?,?,?,?,?)',
+    ).run(user.id, day, user.location_id, start, ends)
+    return db.prepare('SELECT * FROM walks WHERE id=?').get(r.lastInsertRowid) as WalkRow
+  })()
+  return { walk }
 }
 
 export function patPet(userRaw: UserRow, count: number): { pts: number } {
@@ -156,6 +197,7 @@ export function logMood(userRaw: UserRow, value: number, note?: string, factors?
 
 export function getState(userRaw: UserRow): StateDto {
   const user = ensureFresh(userRaw)
+  sweepDueWalks(user) // bank any finished walk (incl. ones that crossed the day boundary) before rendering
   const day = user.last_day!
   const pet = q.pet.get(user.id) as PetRow
   const stage = stageForWalks(pet.walks)

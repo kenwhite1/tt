@@ -5,7 +5,7 @@ import type { Stage } from '@shared/constants'
 
 export type PuppyState = 'idle' | 'sleeping' | 'happy' | 'walking'
 export type DyePart = 'body' | 'ears' | 'muzzle' | 'cheeks' | 'paws' | 'tail' | 'tummy'
-export type OutfitSlot = 'head' | 'face' | 'neck' | 'top' | 'bottom' | 'feet' | 'held' | 'back'
+export type OutfitSlot = 'head' | 'face' | 'neck' | 'top' | 'bottom' | 'full' | 'feet' | 'held' | 'back'
 
 interface Props {
   size?: number

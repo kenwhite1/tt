@@ -7,6 +7,7 @@ import { db } from './db'
 import { bot, appKeyboard } from './bot'
 import { content } from './content'
 import { gameDay, localNow } from './engine/day'
+import { sweepAllDueWalks } from './engine/core'
 import { C } from '../../shared/constants'
 import type { UserRow } from './engine/rows'
 
@@ -269,3 +270,11 @@ if (bot) {
  cron.schedule('* * * * *', () => { void tick() })
  console.log('reminder engine: minute cron armed')
 }
+
+// Bank finished walks for EVERYONE on a schedule, independent of BOT_TOKEN, so growth
+// (pet.walks/stage), streak, stones and offline counts stay correct even for users who
+// don't reopen the app. Runs once at boot to catch up anything missed while down.
+try { sweepAllDueWalks() } catch (e) { console.error('[jobs] boot walk sweep failed', e) }
+cron.schedule('*/5 * * * *', () => {
+ try { sweepAllDueWalks() } catch (e) { console.error('[jobs] walk sweep failed', e) }
+})

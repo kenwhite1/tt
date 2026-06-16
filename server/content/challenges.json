@@ -1119,6 +1119,1364 @@
    "yard_veranda_door",
    "yard_sunflower_wall"
   ],
-  "micropet_id": "event_summer_pet"
- }
+  "micropet_id": "event_summer_pet",
+  "months": [
+   6,
+   7,
+   8
+  ],
+  "collection_clothing": "summer_yard",
+  "collection_furniture": "leto"
+ },
+ "events": [
+  {
+   "id": "summer_yard",
+   "ru_name": "Летний дворик",
+   "days": [
+    {
+     "day": 1,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_straw_hat"
+     }
+    },
+    {
+     "day": 2,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_picnic_rug"
+     }
+    },
+    {
+     "day": 3,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_cherry_sunglasses"
+     }
+    },
+    {
+     "day": 4,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_strawberry_clock"
+     }
+    },
+    {
+     "day": 5,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_gingham_shirt"
+     }
+    },
+    {
+     "day": 6,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_sunflower_wall"
+     }
+    },
+    {
+     "day": 7,
+     "free": {
+      "kind": "stones",
+      "amount": 50
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_garden_sandals"
+     }
+    },
+    {
+     "day": 8,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_firefly_garland"
+     }
+    },
+    {
+     "day": 9,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_daisy_sundress"
+     }
+    },
+    {
+     "day": 10,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_hammock_bed"
+     }
+    },
+    {
+     "day": 11,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_lemonade_glass"
+     }
+    },
+    {
+     "day": 12,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "yard_veranda_door"
+     }
+    },
+    {
+     "day": 13,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 14,
+     "free": {
+      "kind": "stones",
+      "amount": 50
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 15,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 16,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 17,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 18,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 19,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 20,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "micropet"
+     }
+    },
+    {
+     "day": 21,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 22,
+     "free": {
+      "kind": "stones",
+      "amount": 50
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 23,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 24,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 25,
+     "free": {
+      "kind": "micropet"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 26,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 27,
+     "free": {
+      "kind": "stones",
+      "amount": 75
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 28,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 29,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 30,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    }
+   ],
+   "item_set_ids": [
+    "yard_straw_hat",
+    "yard_daisy_sundress",
+    "yard_gingham_shirt",
+    "yard_cherry_sunglasses",
+    "yard_garden_sandals",
+    "yard_lemonade_glass",
+    "yard_hammock_bed",
+    "yard_picnic_rug",
+    "yard_firefly_garland",
+    "yard_strawberry_clock",
+    "yard_veranda_door",
+    "yard_sunflower_wall"
+   ],
+   "micropet_id": "event_summer_pet",
+   "months": [
+    6,
+    7,
+    8
+   ],
+   "collection_clothing": "summer_yard",
+   "collection_furniture": "leto"
+  },
+  {
+   "id": "autumn_forest_event",
+   "ru_name": "Осенний лес",
+   "months": [
+    9,
+    10,
+    11
+   ],
+   "collection_clothing": "autumn_forest",
+   "collection_furniture": "les",
+   "micropet_id": "klenovka_squirrel",
+   "days": [
+    {
+     "day": 1,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "beret_klenovy_list"
+     }
+    },
+    {
+     "day": 2,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "bed_pod_gribkom"
+     }
+    },
+    {
+     "day": 3,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "sviter_gorchichny"
+     }
+    },
+    {
+     "day": 4,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "rug_listochek"
+     }
+    },
+    {
+     "day": 5,
+     "free": {
+      "kind": "micropet"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "sharf_ryabinka"
+     }
+    },
+    {
+     "day": 6,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 7,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "shapochka_zhyolud"
+     }
+    },
+    {
+     "day": 8,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "dl_paporotnik"
+     }
+    },
+    {
+     "day": 9,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "kurtochka_pohodnaya"
+     }
+    },
+    {
+     "day": 10,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "dr_lukoshko"
+     }
+    },
+    {
+     "day": 11,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "botinochki_pohodnye"
+     }
+    },
+    {
+     "day": 12,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 13,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "korzinka_dlya_gribov"
+     }
+    },
+    {
+     "day": 14,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "clock_kukushka"
+     }
+    },
+    {
+     "day": 15,
+     "free": {
+      "kind": "micropet"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "zontik_listopad"
+     }
+    },
+    {
+     "day": 16,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "clock_beryozovyy_spil"
+     }
+    },
+    {
+     "day": 17,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "kombinezonchik_lesnoy"
+     }
+    },
+    {
+     "day": 18,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 19,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "venok_iz_osennih_listev"
+     }
+    },
+    {
+     "day": 20,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "dresser_bryovnyshki"
+     }
+    },
+    {
+     "day": 21,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "termos_s_chaem"
+     }
+    },
+    {
+     "day": 22,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "di_miska_shishek"
+     }
+    },
+    {
+     "day": 23,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "nakidka_yozhik"
+     }
+    },
+    {
+     "day": 24,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 25,
+     "free": {
+      "kind": "micropet"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "window_vid_na_les"
+     }
+    },
+    {
+     "day": 26,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "beret_klenovy_list"
+     }
+    },
+    {
+     "day": 27,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "bed_pod_gribkom"
+     }
+    },
+    {
+     "day": 28,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "sviter_gorchichny"
+     }
+    },
+    {
+     "day": 29,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "rug_listochek"
+     }
+    },
+    {
+     "day": 30,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    }
+   ],
+   "item_set_ids": [
+    "beret_klenovy_list",
+    "bed_pod_gribkom",
+    "sviter_gorchichny",
+    "rug_listochek",
+    "sharf_ryabinka",
+    "doormat_mshistyy",
+    "shapochka_zhyolud",
+    "dl_paporotnik",
+    "kurtochka_pohodnaya",
+    "dr_lukoshko",
+    "botinochki_pohodnye",
+    "wi_kartina_tropinka",
+    "korzinka_dlya_gribov",
+    "clock_kukushka",
+    "zontik_listopad",
+    "clock_beryozovyy_spil",
+    "kombinezonchik_lesnoy",
+    "lamp_svetlyachki",
+    "venok_iz_osennih_listev",
+    "dresser_bryovnyshki",
+    "termos_s_chaem",
+    "di_miska_shishek",
+    "nakidka_yozhik",
+    "door_reznyye_listya",
+    "window_vid_na_les"
+   ]
+  },
+  {
+   "id": "winter_tale_event",
+   "ru_name": "Зимняя сказка",
+   "months": [
+    12,
+    1,
+    2
+   ],
+   "collection_clothing": "winter",
+   "collection_furniture": "zima",
+   "micropet_id": "snezhok_penguin",
+   "days": [
+    {
+     "day": 1,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "shubka_severnoe_siyanie"
+     }
+    },
+    {
+     "day": 2,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "bed_sanochki"
+     }
+    },
+    {
+     "day": 3,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "shapka_ushanka_morozko"
+     }
+    },
+    {
+     "day": 4,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "rug_snezhinka"
+     }
+    },
+    {
+     "day": 5,
+     "free": {
+      "kind": "micropet"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "varezhki_na_rezinochke"
+     }
+    },
+    {
+     "day": 6,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 7,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "sharf_krupnoy_vyazki"
+     }
+    },
+    {
+     "day": 8,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "dl_yolochka_v_kadke"
+     }
+    },
+    {
+     "day": 9,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "sviter_s_olenyonkom"
+     }
+    },
+    {
+     "day": 10,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "dr_sanki"
+     }
+    },
+    {
+     "day": 11,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "valenochki_serye"
+     }
+    },
+    {
+     "day": 12,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 13,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "kombinezon_lyzhny"
+     }
+    },
+    {
+     "day": 14,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "wi_khvoynyy_venok"
+     }
+    },
+    {
+     "day": 15,
+     "free": {
+      "kind": "micropet"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "shapochka_s_pomponom"
+     }
+    },
+    {
+     "day": 16,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "clock_snezhinka"
+     }
+    },
+    {
+     "day": 17,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "ledenets_snezhinka"
+     }
+    },
+    {
+     "day": 18,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 19,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "konki_blestyashchie"
+     }
+    },
+    {
+     "day": 20,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "dresser_ledyanoy"
+     }
+    },
+    {
+     "day": 21,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "naushniki_pushistye"
+     }
+    },
+    {
+     "day": 22,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "di_snezhnyy_shar"
+     }
+    },
+    {
+     "day": 23,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "snezhok_v_lapke"
+     }
+    },
+    {
+     "day": 24,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 25,
+     "free": {
+      "kind": "micropet"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "kurtochka_zefirka"
+     }
+    },
+    {
+     "day": 26,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "window_moroznyye_uzory"
+     }
+    },
+    {
+     "day": 27,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "lyzhi_malenkie"
+     }
+    },
+    {
+     "day": 28,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "shubka_severnoe_siyanie"
+     }
+    },
+    {
+     "day": 29,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "bed_sanochki"
+     }
+    },
+    {
+     "day": 30,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    }
+   ],
+   "item_set_ids": [
+    "shubka_severnoe_siyanie",
+    "bed_sanochki",
+    "shapka_ushanka_morozko",
+    "rug_snezhinka",
+    "varezhki_na_rezinochke",
+    "doormat_yolochki",
+    "sharf_krupnoy_vyazki",
+    "dl_yolochka_v_kadke",
+    "sviter_s_olenyonkom",
+    "dr_sanki",
+    "valenochki_serye",
+    "dr_lyzhi",
+    "kombinezon_lyzhny",
+    "wi_khvoynyy_venok",
+    "shapochka_s_pomponom",
+    "clock_snezhinka",
+    "ledenets_snezhinka",
+    "lamp_sosulki",
+    "konki_blestyashchie",
+    "dresser_ledyanoy",
+    "naushniki_pushistye",
+    "di_snezhnyy_shar",
+    "snezhok_v_lapke",
+    "door_moroznaya",
+    "kurtochka_zefirka",
+    "window_moroznyye_uzory",
+    "lyzhi_malenkie"
+   ]
+  },
+  {
+   "id": "spring_garden_event",
+   "ru_name": "Весенний сад",
+   "months": [
+    3,
+    4,
+    5
+   ],
+   "collection_clothing": "garden",
+   "collection_furniture": "sad",
+   "micropet_id": "podsnezhnik_bunny",
+   "days": [
+    {
+     "day": 1,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "perednichek_sadovy"
+     }
+    },
+    {
+     "day": 2,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "bed_romashka"
+     }
+    },
+    {
+     "day": 3,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "shlyapa_ogorodnika"
+     }
+    },
+    {
+     "day": 4,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "rug_polyanka"
+     }
+    },
+    {
+     "day": 5,
+     "free": {
+      "kind": "micropet"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "leyechka_malenkaya"
+     }
+    },
+    {
+     "day": 6,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 7,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "perchatki_sadovye"
+     }
+    },
+    {
+     "day": 8,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "dl_lavanda"
+     }
+    },
+    {
+     "day": 9,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "kombinezon_ogorodny"
+     }
+    },
+    {
+     "day": 10,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "dl_podsolnukh"
+     }
+    },
+    {
+     "day": 11,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "obodok_klubnichka"
+     }
+    },
+    {
+     "day": 12,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 13,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "lopatka_derevyannaya"
+     }
+    },
+    {
+     "day": 14,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "wi_gerbariy"
+     }
+    },
+    {
+     "day": 15,
+     "free": {
+      "kind": "micropet"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "korzinka_s_urozhaem"
+     }
+    },
+    {
+     "day": 16,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "clock_podsolnukh"
+     }
+    },
+    {
+     "day": 17,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "sapozhki_ogorodnye"
+     }
+    },
+    {
+     "day": 18,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 19,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "kostyum_podsolnuha"
+     }
+    },
+    {
+     "day": 20,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "dresser_tsvetochnaya_rospis"
+     }
+    },
+    {
+     "day": 21,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "door_kalitka"
+     }
+    },
+    {
+     "day": 22,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "window_tsvetochnyy_yashchik"
+     }
+    },
+    {
+     "day": 23,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "perednichek_sadovy"
+     }
+    },
+    {
+     "day": 24,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    },
+    {
+     "day": 25,
+     "free": {
+      "kind": "micropet"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "shlyapa_ogorodnika"
+     }
+    },
+    {
+     "day": 26,
+     "free": {
+      "kind": "chest_furniture"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "rug_polyanka"
+     }
+    },
+    {
+     "day": 27,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "leyechka_malenkaya"
+     }
+    },
+    {
+     "day": 28,
+     "free": {
+      "kind": "chest_black"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "doormat_romashki"
+     }
+    },
+    {
+     "day": 29,
+     "free": {
+      "kind": "chest_clothing"
+     },
+     "plus": {
+      "kind": "item",
+      "item_ref": "perchatki_sadovye"
+     }
+    },
+    {
+     "day": 30,
+     "free": {
+      "kind": "stones",
+      "amount": 25
+     },
+     "plus": {
+      "kind": "chest"
+     }
+    }
+   ],
+   "item_set_ids": [
+    "perednichek_sadovy",
+    "bed_romashka",
+    "shlyapa_ogorodnika",
+    "rug_polyanka",
+    "leyechka_malenkaya",
+    "doormat_romashki",
+    "perchatki_sadovye",
+    "dl_lavanda",
+    "kombinezon_ogorodny",
+    "dl_podsolnukh",
+    "obodok_klubnichka",
+    "dr_leyka",
+    "lopatka_derevyannaya",
+    "wi_gerbariy",
+    "korzinka_s_urozhaem",
+    "clock_podsolnukh",
+    "sapozhki_ogorodnye",
+    "lamp_kolokolchik",
+    "kostyum_podsolnuha",
+    "dresser_tsvetochnaya_rospis",
+    "door_kalitka",
+    "window_tsvetochnyy_yashchik"
+   ]
+  }
+ ]
 }

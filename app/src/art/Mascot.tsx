@@ -2,7 +2,7 @@
 // app/public/mascots/<id>.{webp,png}; the dog stays the original Puppy artwork.
 // All share the .pet-img animation classes (breathe / happy / sleep), so the pet
 // keeps the same idle bob and celebration bounce whatever species you picked.
-import { Puppy, type PuppyState } from './Puppy'
+import { Puppy, type PuppyState, type OutfitSlot } from './Puppy'
 
 export type Species = 'dog' | 'turtle' | 'owl' | 'elephant' | 'cat' | 'alpaca'
 

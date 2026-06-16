@@ -31,6 +31,22 @@ interface Store {
 
 let toastTimer: ReturnType<typeof setTimeout> | undefined
 
+// A walk is completed server-side lazily, on any /state call. So we must re-fetch
+// state when the user returns or when a walk's timer crosses the finish line —
+// otherwise growth/stones silently stall until the next manual reopen.
+let autoRefreshArmed = false
+function armAutoRefresh() {
+  if (autoRefreshArmed || typeof document === 'undefined') return
+  autoRefreshArmed = true
+  const refresh = () => { void useStore.getState().refresh() }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh() })
+  window.addEventListener('focus', refresh)
+  setInterval(() => {
+    const walk = useStore.getState().state?.walk
+    if (walk && !walk.completed && walk.endsTs <= Date.now()) refresh()
+  }, 30_000)
+}
+
 export const useStore = create<Store>((set, get) => ({
   phase: 'loading',
   tab: 'home',
@@ -62,6 +78,7 @@ export const useStore = create<Store>((set, get) => ({
       if (!r.registered) { set({ phase: 'onboarding' }); return }
       const { state } = await api.state()
       set({ state, phase: 'ready' })
+      armAutoRefresh()
     } catch (e) {
       console.error(e)
       set({ phase: 'error' })
