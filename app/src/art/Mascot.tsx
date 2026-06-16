@@ -3,6 +3,8 @@
 // All share the .pet-img animation classes (breathe / happy / sleep), so the pet
 // keeps the same idle bob and celebration bounce whatever species you picked.
 import { Puppy, type PuppyState, type OutfitSlot } from './Puppy'
+import { Garment } from './Garment'
+import { GARMENT_ART, CLOTHING_PALETTE } from './garmentMap'
 
 export type Species = 'dog' | 'turtle' | 'owl' | 'elephant' | 'cat' | 'alpaca'
 
@@ -32,37 +34,47 @@ export function preloadMascots(): void {
   }
 }
 
-// Until per-item clothing art exists, equipped outfit slots render as positioned
-// emoji stickers over the pet. Works for the dog (raster) and every image species.
-// Positions are tuned to the lying-down puppy raster (head in the upper-centre,
-// front paws on the rug below). Emoji are anchored at their centre (translate -50%).
-const SLOT_STICKER: Partial<Record<OutfitSlot, { emoji: string; top: string; left: string; scale: number }>> = {
-  head: { emoji: '\u{1F3A9}', top: '13%', left: '50%', scale: 0.34 },
-  face: { emoji: '\u{1F453}', top: '45%', left: '50%', scale: 0.32 },
-  neck: { emoji: '\u{1F9E3}', top: '72%', left: '50%', scale: 0.26 },
-  top:  { emoji: '\u{1F455}', top: '80%', left: '50%', scale: 0.28 },
-  full: { emoji: '\u{1F458}', top: '74%', left: '50%', scale: 0.40 },
-  bottom: { emoji: '\u{1FA73}', top: '88%', left: '42%', scale: 0.24 },
-  feet: { emoji: '\u{1F45F}', top: '92%', left: '58%', scale: 0.24 },
-  held: { emoji: '\u{1F9F8}', top: '80%', left: '81%', scale: 0.28 },
-  back: { emoji: '\u{1F392}', top: '37%', left: '11%', scale: 0.28 },
+// Equipped items render as procedural vector garments (Garment.tsx) tinted by the item's
+// colour, positioned over the pet. `size` is the garment SVG size as a fraction of the pet.
+// Positions tuned to the lying-down puppy raster; approximate for the sitting image species.
+const SLOT_POS: Partial<Record<OutfitSlot, { top: string; left: string; size: number }>> = {
+  back: { top: '40%', left: '14%', size: 0.46 },
+  full: { top: '70%', left: '50%', size: 0.66 },
+  top:  { top: '78%', left: '50%', size: 0.5 },
+  bottom: { top: '88%', left: '44%', size: 0.4 },
+  head: { top: '14%', left: '50%', size: 0.56 },
+  face: { top: '45%', left: '50%', size: 0.5 },
+  neck: { top: '70%', left: '50%', size: 0.42 },
+  feet: { top: '92%', left: '58%', size: 0.36 },
+  held: { top: '80%', left: '82%', size: 0.44 },
 }
-export type MascotOutfit = Partial<Record<OutfitSlot, string>>
+// drawing order: back layer first, accessories/held last
+const SLOT_ORDER: OutfitSlot[] = ['back', 'full', 'top', 'bottom', 'head', 'face', 'neck', 'feet', 'held']
+const SLOT_DEFAULT: Record<string, string> = {
+  head: 'hat', face: 'glasses', neck: 'scarf', top: 'shirt', bottom: 'shorts', feet: 'shoes', held: 'ball', back: 'backpack', full: 'dress',
+}
+export type MascotOutfit = Partial<Record<OutfitSlot, { itemId: string; colorId: string }>>
 
 function OutfitOverlay({ outfit, size }: { outfit?: MascotOutfit; size: number }) {
   if (!outfit) return null
-  const slots = (Object.keys(SLOT_STICKER) as OutfitSlot[]).filter(s => outfit[s])
+  const slots = SLOT_ORDER.filter(s => outfit[s] && SLOT_POS[s])
   if (slots.length === 0) return null
   return (
     <>
       {slots.map(slot => {
-        const s = SLOT_STICKER[slot]!
+        const pos = SLOT_POS[slot]!
+        const entry = outfit[slot]!
+        const art = GARMENT_ART[entry.itemId] ?? SLOT_DEFAULT[slot] ?? 'hat'
+        const color = CLOTHING_PALETTE[entry.colorId] ?? '#E0A94B'
+        const g = Math.round(size * pos.size)
         return (
           <span key={slot} aria-hidden style={{
-            position: 'absolute', top: s.top, left: s.left, transform: 'translate(-50%, -50%)',
-            fontSize: Math.round(size * s.scale), lineHeight: 1, pointerEvents: 'none',
-            filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.18))',
-          }}>{s.emoji}</span>
+            position: 'absolute', top: pos.top, left: pos.left, width: g, height: g,
+            transform: 'translate(-50%, -50%)', pointerEvents: 'none',
+            filter: 'drop-shadow(0 1.5px 1.5px rgba(0,0,0,0.18))',
+          }}>
+            <Garment art={art} color={color} size={g} />
+          </span>
         )
       })}
     </>
@@ -76,7 +88,7 @@ export function Mascot({ species = 'dog', size = 180, state = 'idle', outfit }: 
   if (!IMG_SPECIES.has(species)) {
     return (
       <span style={wrap}>
-        <Puppy size={size} state={state} outfit={outfit} />
+        <Puppy size={size} state={state} />
         <OutfitOverlay outfit={outfit} size={size} />
       </span>
     )

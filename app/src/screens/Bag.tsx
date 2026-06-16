@@ -235,10 +235,10 @@ function DressView({ kind, onBack }: { kind: 'outfits' | 'furniture' | 'colors';
  const equippedItem = (slotId: string): string | undefined =>
  kind === 'colors' ? bag.equipped.dyes[slotId] : (kind === 'outfits' ? bag.equipped.outfit[slotId] : bag.equipped.room[slotId])?.itemId
 
- // slot -> itemId map so the dressing-room preview shows what the pet is actually wearing
- const equippedOutfit: Record<string, string> = {}
+ // slot -> {itemId,colorId} so the dressing-room preview renders the actual garments + colours
+ const equippedOutfit: Record<string, { itemId: string; colorId: string }> = {}
  for (const [slot, entry] of Object.entries(bag.equipped.outfit)) {
-  if (entry?.itemId) equippedOutfit[slot] = entry.itemId
+  if (entry?.itemId) equippedOutfit[slot] = { itemId: entry.itemId, colorId: entry.colorId ?? '' }
  }
 
  return (

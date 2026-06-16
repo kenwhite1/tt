@@ -33,12 +33,12 @@ export function Home() {
   const reactTimer = useRef<ReturnType<typeof setTimeout>>()
   const hearts = useRef<HTMLDivElement>(null)
   // equipped outfit (slot -> itemId) so the pet wears its clothes on the home screen
-  const [outfit, setOutfit] = useState<Record<string, string>>({})
+  const [outfit, setOutfit] = useState<Record<string, { itemId: string; colorId: string }>>({})
   useEffect(() => {
     void req<BagDto>('/shop/bag').then(b => {
-      const o: Record<string, string> = {}
+      const o: Record<string, { itemId: string; colorId: string }> = {}
       for (const [slot, entry] of Object.entries(b.equipped.outfit)) {
-        if (entry?.itemId) o[slot] = entry.itemId
+        if (entry?.itemId) o[slot] = { itemId: entry.itemId, colorId: entry.colorId ?? '' }
       }
       setOutfit(o)
     }).catch(() => {})

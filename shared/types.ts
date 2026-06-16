@@ -26,7 +26,7 @@ export interface PetDto {
   color: string
   trait: string
   hatchDay: string
-  outfit?: Record<string, string>   // equipped slot → itemId (rendered as outfit overlay)
+  outfit?: Record<string, { itemId: string; colorId: string }>   // equipped slot → item+colour (rendered as garments)
 }
 
 export interface GoalDto {
