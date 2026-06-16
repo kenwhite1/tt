@@ -2,9 +2,12 @@
 // glowing moon window, shaded dresser, arched door, hanging lamp, straw nest. The pet is
 // rendered by the caller via the children slot, positioned on the floor.
 // Equipped furniture (the non-baked slots) is layered in additively over the crafted room.
+import type { JSX } from 'react'
 import { FurnitureArt } from './FurnitureArt'
 import { FURNITURE_ART } from './furnitureMap'
 import { CLOTHING_PALETTE } from './garmentMap'
+import { WINDOW_ART, DRESSER_ART, DOOR_ART, LAMP_ART } from './roomFixtures'
+import { ROOM_SURFACE_HEX } from './roomSurfaces'
 
 type RoomFurniture = Record<string, { itemId: string; colorId: string } | undefined>
 interface Props { children?: React.ReactNode; furniture?: RoomFurniture }
@@ -45,6 +48,20 @@ function RoomFurnitureLayer({ furniture }: { furniture?: RoomFurniture }) {
 }
 
 export function RoomScene({ children, furniture }: Props) {
+  // data-driven baked slots: render the equipped fixture (tinted) or keep the crafted default
+  const eq = furniture ?? {}
+  const fixColor = (slot: string) => CLOTHING_PALETTE[eq[slot]?.colorId ?? ''] ?? '#C8A36A'
+  const fix = (slot: string, set: Record<string, (c: string) => JSX.Element>) => {
+    const id = eq[slot]?.itemId
+    const draw = id ? set[FURNITURE_ART[id]] : undefined
+    return draw ? draw(fixColor(slot)) : null
+  }
+  const winFix = fix('window', WINDOW_ART)
+  const dresFix = fix('dresser', DRESSER_ART)
+  const doorFix = fix('door', DOOR_ART)
+  const lampFix = fix('lamp', LAMP_ART)
+  const wallFill = eq.wall?.itemId ? (ROOM_SURFACE_HEX[eq.wall.itemId] ?? 'url(#rs-wall)') : 'url(#rs-wall)'
+  const floorFill = eq.floor?.itemId ? (ROOM_SURFACE_HEX[eq.floor.itemId] ?? 'url(#rs-floor)') : 'url(#rs-floor)'
   return (
     <div style={{ position: 'relative', width: '100%', borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 4px 12px rgba(40, 50, 70, 0.15)' }}>
       <svg viewBox="0 0 320 250" width="100%" style={{ display: 'block' }}>
@@ -94,14 +111,14 @@ export function RoomScene({ children, furniture }: Props) {
           </linearGradient>
         </defs>
 
-        {/* wall + floor */}
-        <rect x="0" y="0" width="320" height="170" fill="url(#rs-wall)" />
-        <path d="M0 168 Q160 150 320 168 L320 250 L0 250 Z" fill="url(#rs-floor)" />
+        {/* wall + floor (tinted by equipped wallpaper / floor, else crafted gradient) */}
+        <rect x="0" y="0" width="320" height="170" fill={wallFill} />
+        <path d="M0 168 Q160 150 320 168 L320 250 L0 250 Z" fill={floorFill} />
         <path d="M0 168 Q160 150 320 168 L320 178 Q160 160 0 178 Z" fill="#3E8A95" opacity="0.7" />
         <path d="M0 168 Q160 150 320 168 L320 174 Q160 156 0 174 Z" fill="#1F4d56" opacity="0.25" />
 
-        {/* hanging lamp (gently sways) */}
-        <g className="rs-lamp">
+        {/* hanging lamp (gently sways) — equipped fixture or crafted default */}
+        <g className="rs-lamp">{lampFix ?? <>
           <line x1="178" y1="0" x2="178" y2="40" stroke="#6F4322" strokeWidth="2" />
           <path d="M163 56 Q178 30 193 56 Z" fill="#8C9A57" />
           <path d="M163 56 Q178 30 178 56 Z" fill="#A2B069" />
@@ -109,9 +126,10 @@ export function RoomScene({ children, furniture }: Props) {
           <ellipse cx="178" cy="57" rx="8" ry="4" fill="url(#rs-nest)" opacity="0.7" />
           <circle cx="178" cy="57" r="3" fill="#FCEFAF" />
           <path d="M165 58 L150 122 L206 122 L191 58 Z" fill="#FCEFAF" opacity="0.3" />
-        </g>
+        </>}</g>
 
-        {/* round moon window */}
+        {/* moon window — equipped fixture or crafted default */}
+        {winFix ?? <>
         <circle cx="130" cy="92" r="51" fill="#CBD8EC" />
         <circle cx="130" cy="92" r="44" fill="url(#rs-glass)" />
         <g className="rs-stars" clipPath="url(#rs-glass-clip)">
@@ -132,8 +150,10 @@ export function RoomScene({ children, furniture }: Props) {
         {/* light beams onto floor */}
         <path d="M96 132 L70 200 L120 200 L120 132 Z" fill="#EAF2FB" opacity="0.12" />
         <path d="M164 132 L210 200 L150 200 L140 132 Z" fill="#EAF2FB" opacity="0.1" />
+        </>}
 
-        {/* dresser under window */}
+        {/* dresser under window — equipped fixture or crafted default */}
+        {dresFix ?? <>
         <ellipse cx="131" cy="172" rx="44" ry="9" fill="#102E34" opacity="0.16" />
         <ellipse cx="131" cy="171" rx="34" ry="5" fill="#102E34" opacity="0.20" />
         <rect x="96" y="118" width="70" height="52" rx="7" fill="url(#rs-dresser)" />
@@ -143,8 +163,11 @@ export function RoomScene({ children, furniture }: Props) {
         <rect x="101" y="124" width="60" height="4" rx="2" fill="#C6D6EC" opacity="0.6" />
         <circle cx="131" cy="130.5" r="1.8" fill="#5C6E92" />
         <circle cx="131" cy="146.5" r="1.8" fill="#5C6E92" />
+        </>}
 
-        {/* arched door, right */}
+        {/* arched door, right — equipped fixture or crafted default */}
+        {doorFix ?? <>
+        <ellipse cx="264" cy="172" rx="36" ry="7" fill="#102E34" opacity="0.20" />
         <path d="M236 60 Q236 36 264 36 Q292 36 292 60 L292 172 L236 172 Z" fill="url(#rs-door)" />
         <path d="M240 62 Q240 42 264 42 L264 168 L240 168 Z" fill="#C28A53" opacity="0.25" />
         <circle cx="264" cy="66" r="13" fill="#CFE0EC" />
@@ -152,9 +175,7 @@ export function RoomScene({ children, furniture }: Props) {
         <circle cx="261" cy="63" r="3" fill="#E8F0F8" opacity="0.6" />
         <circle cx="245" cy="120" r="3.5" fill="#5C3A1E" />
         <circle cx="244" cy="119" r="1.2" fill="#fff" opacity="0.5" />
-
-        {/* door contact shadow */}
-        <ellipse cx="264" cy="172" rx="36" ry="7" fill="#102E34" opacity="0.20" />
+        </>}
 
         {/* night-grade + corner vignette (render behind the absolute pet div) */}
         <rect x="0" y="0" width="320" height="250" fill="url(#rs-night)" style={{ pointerEvents: 'none' }} />

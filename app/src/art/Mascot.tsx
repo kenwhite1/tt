@@ -36,8 +36,9 @@ export function preloadMascots(): void {
 
 // Equipped items render as procedural vector garments (Garment.tsx) tinted by the item's
 // colour, positioned over the pet. `size` is the garment SVG size as a fraction of the pet.
-// Positions tuned to the lying-down puppy raster; approximate for the sitting image species.
-const SLOT_POS: Partial<Record<OutfitSlot, { top: string; left: string; size: number }>> = {
+// Two position sets: the dog is a lying-down raster; the image species sit upright.
+type Pos = Partial<Record<OutfitSlot, { top: string; left: string; size: number }>>
+const DOG_POS: Pos = {
   back: { top: '40%', left: '14%', size: 0.46 },
   full: { top: '70%', left: '50%', size: 0.66 },
   top:  { top: '78%', left: '50%', size: 0.5 },
@@ -48,6 +49,18 @@ const SLOT_POS: Partial<Record<OutfitSlot, { top: string; left: string; size: nu
   feet: { top: '92%', left: '58%', size: 0.36 },
   held: { top: '80%', left: '82%', size: 0.44 },
 }
+// sitting, front-facing image species (owl/cat/turtle/elephant/alpaca): head top, body centred
+const IMG_POS: Pos = {
+  back: { top: '46%', left: '18%', size: 0.46 },
+  full: { top: '58%', left: '50%', size: 0.6 },
+  top:  { top: '57%', left: '50%', size: 0.46 },
+  bottom: { top: '73%', left: '50%', size: 0.42 },
+  head: { top: '19%', left: '50%', size: 0.5 },
+  face: { top: '34%', left: '50%', size: 0.42 },
+  neck: { top: '48%', left: '50%', size: 0.36 },
+  feet: { top: '86%', left: '50%', size: 0.44 },
+  held: { top: '58%', left: '77%', size: 0.42 },
+}
 // drawing order: back layer first, accessories/held last
 const SLOT_ORDER: OutfitSlot[] = ['back', 'full', 'top', 'bottom', 'head', 'face', 'neck', 'feet', 'held']
 const SLOT_DEFAULT: Record<string, string> = {
@@ -55,14 +68,14 @@ const SLOT_DEFAULT: Record<string, string> = {
 }
 export type MascotOutfit = Partial<Record<OutfitSlot, { itemId: string; colorId: string }>>
 
-function OutfitOverlay({ outfit, size }: { outfit?: MascotOutfit; size: number }) {
+function OutfitOverlay({ outfit, size, posSet }: { outfit?: MascotOutfit; size: number; posSet: Pos }) {
   if (!outfit) return null
-  const slots = SLOT_ORDER.filter(s => outfit[s] && SLOT_POS[s])
+  const slots = SLOT_ORDER.filter(s => outfit[s] && posSet[s])
   if (slots.length === 0) return null
   return (
     <>
       {slots.map(slot => {
-        const pos = SLOT_POS[slot]!
+        const pos = posSet[slot]!
         const entry = outfit[slot]!
         const art = GARMENT_ART[entry.itemId] ?? SLOT_DEFAULT[slot] ?? 'hat'
         const color = CLOTHING_PALETTE[entry.colorId] ?? '#E0A94B'
@@ -70,7 +83,7 @@ function OutfitOverlay({ outfit, size }: { outfit?: MascotOutfit; size: number }
         return (
           <span key={slot} aria-hidden style={{
             position: 'absolute', top: pos.top, left: pos.left, width: g, height: g,
-            transform: 'translate(-50%, -50%)', pointerEvents: 'none',
+            transform: 'translate(-50%, -50%)', pointerEvents: 'none', zIndex: 3,
             filter: 'drop-shadow(0 1.5px 1.5px rgba(0,0,0,0.18))',
           }}>
             <Garment art={art} color={color} size={g} />
@@ -89,7 +102,7 @@ export function Mascot({ species = 'dog', size = 180, state = 'idle', outfit }: 
     return (
       <span style={wrap}>
         <Puppy size={size} state={state} />
-        <OutfitOverlay outfit={outfit} size={size} />
+        <OutfitOverlay outfit={outfit} size={size} posSet={DOG_POS} />
       </span>
     )
   }
@@ -100,7 +113,7 @@ export function Mascot({ species = 'dog', size = 180, state = 'idle', outfit }: 
         <source srcSet={`/mascots/${species}.webp`} type="image/webp" />
         <img src={`/mascots/${species}.png`} width={size} height={size} alt="" draggable={false} className={cls} />
       </picture>
-      <OutfitOverlay outfit={outfit} size={size} />
+      <OutfitOverlay outfit={outfit} size={size} posSet={IMG_POS} />
     </span>
   )
 }
