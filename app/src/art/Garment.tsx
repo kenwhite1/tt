@@ -215,6 +215,160 @@ const ART: Record<string, (k: K) => JSX.Element> = {
     <path d="M34 36 Q50 32 66 36 L70 82 Q50 74 30 82 Z" fill={base} />
     <path d="M50 48 L54 59 L66 59 L56 66 L60 78 L50 71 L40 78 L44 66 L34 59 L46 59 Z" fill={light} stroke="none" />
   </>,
+
+  // ---- name-accurate extras: shapes added so each item renders as the thing its
+  // Russian name says (a guitar looks like a guitar, a basket like a basket, etc.) ----
+  // head
+  headband: ({ base, light }) => <>
+    <path d="M22 50 Q50 38 78 50 L78 61 Q50 49 22 61 Z" fill={base} />
+    <rect x="45" y="49" width="10" height="12" rx="2" fill={light} />
+  </>,
+  kerchief: ({ base, dark }) => <>
+    <path d="M24 44 Q50 26 76 44 Q70 58 50 60 Q30 58 24 44 Z" fill={base} />
+    <path d="M68 48 L84 54 L74 60 Z" fill={dark} />
+  </>,
+  helmet: ({ base, dark, light }) => <>
+    <path d="M24 60 Q24 28 50 28 Q76 28 76 60 Z" fill={base} />
+    <rect x="22" y="56" width="56" height="9" rx="4" fill={dark} />
+    <ellipse cx="42" cy="42" rx="10" ry="7" fill={light} opacity="0.6" />
+  </>,
+  // face
+  fangs: ({ base }) => <>
+    <path d="M30 46 Q50 54 70 46 L67 53 Q50 61 33 53 Z" fill={base} />
+    <path d="M41 51 L44 62 L47 51 Z" fill="#fff" stroke={LINE} strokeWidth="1.5" />
+    <path d="M53 51 L56 62 L59 51 Z" fill="#fff" stroke={LINE} strokeWidth="1.5" />
+  </>,
+  // neck
+  tie: ({ base, dark }) => <>
+    <path d="M44 38 L56 38 L54 47 L46 47 Z" fill={dark} />
+    <path d="M46 47 L54 47 L58 74 L50 84 L42 74 Z" fill={base} />
+  </>,
+  // top
+  apron: ({ base, dark }) => <>
+    <path d="M40 40 L60 40 L64 80 Q50 86 36 80 Z" fill={base} />
+    <rect x="44" y="35" width="12" height="7" fill={base} />
+    <path d="M44 40 Q50 33 56 40" fill="none" stroke={dark} strokeWidth="2" />
+    <rect x="43" y="56" width="14" height="11" rx="2" fill={dark} />
+  </>,
+  suspenders: ({ base, dark }) => <>
+    <path d="M40 38 L44 78 M60 38 L56 78" stroke={base} strokeWidth="6" fill="none" />
+    <rect x="34" y="74" width="32" height="8" rx="2" fill={base} />
+    <circle cx="42" cy="44" r="3" fill={dark} /><circle cx="58" cy="44" r="3" fill={dark} />
+  </>,
+  // bottom
+  sash: ({ base, dark }) => <>
+    <path d="M28 48 H72 L72 61 H28 Z" fill={base} />
+    <path d="M60 52 L76 49 L73 65 L58 60 Z" fill={dark} />
+  </>,
+  // full
+  swimsuit: ({ base, light }) => <>
+    <path d="M36 40 Q50 47 64 40 L62 64 Q56 76 50 76 Q44 76 38 64 Z" fill={base} />
+    <path d="M42 43 Q50 49 58 43" fill="none" stroke={light} strokeWidth="2" />
+  </>,
+  coat: ({ base, dark, light }) => <>
+    <path d="M30 44 L24 58 L33 64 L34 84 Q50 90 66 84 L67 64 L76 58 L70 44 Q50 56 30 44 Z" fill={base} />
+    <path d="M34 42 Q50 52 66 42 Q60 50 50 50 Q40 50 34 42 Z" fill={light} />
+    <path d="M50 50 V84" stroke={dark} strokeWidth="3" />
+    <circle cx="50" cy="62" r="2.4" fill={dark} /><circle cx="50" cy="72" r="2.4" fill={dark} />
+  </>,
+  // feet — (gloves/mittens live in the feet slot; reuse socks elsewhere)
+  // back
+  skis: ({ base, dark }) => <>
+    <path d="M40 26 Q44 22 47 27 L50 80 L42 80 Z" fill={base} />
+    <path d="M55 26 Q59 22 62 27 L60 80 L52 80 Z" fill={dark} />
+    <rect x="40" y="50" width="22" height="5" rx="2" fill={LINE} opacity="0.45" />
+  </>,
+  // held
+  basket: ({ base, dark }) => <>
+    <path d="M34 44 Q50 30 66 44" fill="none" stroke={dark} strokeWidth="4" />
+    <path d="M30 52 H70 L66 78 H34 Z" fill={base} />
+    <rect x="28" y="49" width="44" height="6" rx="2" fill={dark} />
+    <path d="M37 60 H63 M40 70 H60" stroke={dark} strokeWidth="2" />
+  </>,
+  watering_can: ({ base, light }) => <>
+    <path d="M34 50 H62 L58 78 H38 Z" fill={base} />
+    <path d="M61 53 L80 43 L82 48 L63 60 Z" fill={base} />
+    <circle cx="82" cy="45" r="5" fill={light} />
+    <path d="M40 50 Q40 40 50 42" fill="none" stroke={LINE} strokeWidth="3" />
+  </>,
+  fan: ({ base, dark }) => <>
+    <path d="M50 74 L26 40 Q50 28 74 40 Z" fill={base} />
+    <path d="M50 74 L38 46 M50 74 L50 38 M50 74 L62 46" stroke={dark} strokeWidth="2" fill="none" />
+    <circle cx="50" cy="74" r="4" fill={dark} />
+  </>,
+  pinwheel: ({ base, light }) => <>
+    <path d="M50 44 L50 24 Q64 24 64 38 Z" fill={base} /><path d="M56 50 L76 50 Q76 64 62 64 Z" fill={light} />
+    <path d="M50 56 L50 76 Q36 76 36 62 Z" fill={base} /><path d="M44 50 L24 50 Q24 36 38 36 Z" fill={light} />
+    <path d="M50 54 L50 88" stroke={LINE} strokeWidth="3" />
+    <circle cx="50" cy="50" r="4" fill={LINE} />
+  </>,
+  boat: ({ base, light }) => <>
+    <path d="M22 54 L78 54 L66 72 L34 72 Z" fill={base} />
+    <path d="M34 54 L50 32 L66 54 Z" fill={light} />
+    <path d="M50 32 L50 54" stroke={LINE} strokeWidth="2" />
+  </>,
+  guitar: ({ base, dark }) => <>
+    <rect x="46" y="20" width="8" height="42" rx="2" fill={dark} />
+    <rect x="43" y="16" width="14" height="8" rx="2" fill={base} />
+    <ellipse cx="50" cy="66" rx="17" ry="19" fill={base} />
+    <circle cx="50" cy="66" r="5" fill={dark} />
+  </>,
+  jump_rope: ({ base, dark }) => <>
+    <path d="M30 44 Q50 88 70 44" fill="none" stroke={base} strokeWidth="4" />
+    <rect x="24" y="38" width="9" height="16" rx="4" fill={dark} /><rect x="67" y="38" width="9" height="16" rx="4" fill={dark} />
+  </>,
+  racket: ({ base, light }) => <>
+    <ellipse cx="42" cy="40" rx="17" ry="19" fill="none" stroke={base} strokeWidth="6" />
+    <path d="M32 40 H52 M42 22 V58" stroke={light} strokeWidth="1.5" />
+    <path d="M52 54 L66 82" stroke={base} strokeWidth="7" strokeLinecap="round" />
+  </>,
+  flag: ({ base }) => <>
+    <path d="M40 26 V84" stroke={LINE} strokeWidth="4" />
+    <path d="M40 30 L74 38 L40 50 Z" fill={base} />
+  </>,
+  record: ({ base, light }) => <>
+    <circle cx="50" cy="52" r="24" fill="#2c2c2c" />
+    <circle cx="50" cy="52" r="17" fill="none" stroke={light} strokeWidth="1" opacity="0.4" />
+    <circle cx="50" cy="52" r="9" fill={base} />
+    <circle cx="50" cy="52" r="2" fill="#2c2c2c" />
+  </>,
+  broom: ({ base, dark }) => <>
+    <path d="M48 22 L52 58" stroke={LINE} strokeWidth="4" />
+    <path d="M40 58 L60 58 L66 84 L34 84 Z" fill={base} />
+    <rect x="38" y="55" width="24" height="7" rx="2" fill={dark} />
+    <path d="M40 66 V84 M48 66 V84 M56 66 V84" stroke={dark} strokeWidth="2" />
+  </>,
+  microphone: ({ base, dark }) => <>
+    <circle cx="50" cy="40" r="15" fill={base} />
+    <path d="M42 40 H58 M44 34 H56 M44 46 H56" stroke={dark} strokeWidth="1.5" />
+    <rect x="46" y="52" width="8" height="32" rx="3" fill={dark} />
+  </>,
+  rocket: ({ base, dark, light }) => <>
+    <path d="M50 22 Q60 40 60 62 L40 62 Q40 40 50 22 Z" fill={base} />
+    <circle cx="50" cy="44" r="5" fill={light} />
+    <path d="M40 56 L30 70 L40 66 Z" fill={dark} /><path d="M60 56 L70 70 L60 66 Z" fill={dark} />
+    <path d="M44 62 L50 80 L56 62 Z" fill="#F4A024" stroke="none" />
+  </>,
+  net: ({ base, light }) => <>
+    <ellipse cx="50" cy="38" rx="18" ry="15" fill={light} opacity="0.45" stroke={base} strokeWidth="4" />
+    <path d="M40 35 H60 M50 24 V52" stroke={base} strokeWidth="1" opacity="0.7" />
+    <path d="M46 52 L34 84" stroke={LINE} strokeWidth="4" />
+  </>,
+  trowel: ({ base, dark }) => <>
+    <rect x="46" y="28" width="8" height="24" rx="3" fill={dark} />
+    <path d="M40 52 Q50 84 60 52 Q56 48 50 48 Q44 48 40 52 Z" fill={base} />
+  </>,
+  tambourine: ({ base, light }) => <>
+    <circle cx="50" cy="50" r="22" fill={base} />
+    <circle cx="50" cy="50" r="22" fill="none" stroke={LINE} strokeWidth="4" />
+    <circle cx="50" cy="28" r="3" fill={light} /><circle cx="72" cy="50" r="3" fill={light} />
+    <circle cx="50" cy="72" r="3" fill={light} /><circle cx="28" cy="50" r="3" fill={light} />
+  </>,
+  seashell: ({ base, dark }) => <>
+    <path d="M50 72 Q22 58 28 38 Q34 30 50 30 Q66 30 72 38 Q78 58 50 72 Z" fill={base} />
+    <path d="M50 70 L40 38 M50 70 L50 34 M50 70 L60 38 M50 70 L32 44 M50 70 L68 44" stroke={dark} strokeWidth="1.5" fill="none" />
+    <ellipse cx="50" cy="68" rx="6" ry="4" fill={dark} />
+  </>,
 }
 
 export const GARMENT_ARTS = new Set(Object.keys(ART))
