@@ -1,14 +1,15 @@
 // «Тёплый лучик» picker, a grid of vibes. Plus-only vibes show a 🔒 for free users
 // (the server still bypasses the gate while the paywall is dormant, but we surface intent).
 import type { Vibe } from './api'
+import { t } from '../../i18n'
 
-export function VibePicker({ vibes, plus, onPick, title = 'Пошли тёплый лучик' }:
+export function VibePicker({ vibes, plus, onPick, title = t('Пошли тёплый лучик') }:
  { vibes: Vibe[]; plus: boolean; onPick: (v: Vibe) => void; title?: string }) {
  return (
  <>
  <h2 style={{ textAlign: 'center', marginBottom: 4 }}>{title}</h2>
  <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 14px' }}>
- Тёплый лучик согреет друга, а тебе за первый за день: +{2}🦴
+ {t('Тёплый лучик согреет друга, а тебе за первый за день:')} +{2}🦴
  </p>
  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
  {vibes.map(v => {
@@ -25,7 +26,7 @@ export function VibePicker({ vibes, plus, onPick, title = 'Пошли тёплы
  }}
  >
  <span style={{ fontSize: 28 }}>{v.emoji}</span>
- <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--brown-deep)', textAlign: 'center', lineHeight: 1.1 }}>{v.ru}</span>
+ <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--brown-deep)', textAlign: 'center', lineHeight: 1.1 }}>{t(v.ru)}</span>
  {locked && (
  <span style={{ position: 'absolute', top: 6, right: 8, fontSize: 13 }}>🔒</span>
  )}

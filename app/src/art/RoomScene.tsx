@@ -1,4 +1,4 @@
-// The puppy's room — original cozy interior with soft shading/gradients: papered wall,
+// The puppy's room - original cozy interior with soft shading/gradients: papered wall,
 // glowing moon window, shaded dresser, arched door, hanging lamp, straw nest. The pet is
 // rendered by the caller via the children slot, positioned on the floor.
 // Equipped furniture (the non-baked slots) is layered in additively over the crafted room.
@@ -117,7 +117,7 @@ export function RoomScene({ children, furniture }: Props) {
         <path d="M0 168 Q160 150 320 168 L320 178 Q160 160 0 178 Z" fill="#3E8A95" opacity="0.7" />
         <path d="M0 168 Q160 150 320 168 L320 174 Q160 156 0 174 Z" fill="#1F4d56" opacity="0.25" />
 
-        {/* hanging lamp (gently sways) — equipped fixture or crafted default */}
+        {/* hanging lamp (gently sways) - equipped fixture or crafted default */}
         <g className="rs-lamp">{lampFix ?? <>
           <line x1="178" y1="0" x2="178" y2="40" stroke="#6F4322" strokeWidth="2" />
           <path d="M163 56 Q178 30 193 56 Z" fill="#8C9A57" />
@@ -128,7 +128,7 @@ export function RoomScene({ children, furniture }: Props) {
           <path d="M165 58 L150 122 L206 122 L191 58 Z" fill="#FCEFAF" opacity="0.3" />
         </>}</g>
 
-        {/* moon window — equipped fixture or crafted default */}
+        {/* moon window - equipped fixture or crafted default */}
         {winFix ?? <>
         <circle cx="130" cy="92" r="51" fill="#CBD8EC" />
         <circle cx="130" cy="92" r="44" fill="url(#rs-glass)" />
@@ -152,7 +152,7 @@ export function RoomScene({ children, furniture }: Props) {
         <path d="M164 132 L210 200 L150 200 L140 132 Z" fill="#EAF2FB" opacity="0.1" />
         </>}
 
-        {/* dresser under window — equipped fixture or crafted default */}
+        {/* dresser under window - equipped fixture or crafted default */}
         {dresFix ?? <>
         <ellipse cx="131" cy="172" rx="44" ry="9" fill="#102E34" opacity="0.16" />
         <ellipse cx="131" cy="171" rx="34" ry="5" fill="#102E34" opacity="0.20" />
@@ -165,7 +165,7 @@ export function RoomScene({ children, furniture }: Props) {
         <circle cx="131" cy="146.5" r="1.8" fill="#5C6E92" />
         </>}
 
-        {/* arched door, right — equipped fixture or crafted default */}
+        {/* arched door, right - equipped fixture or crafted default */}
         {doorFix ?? <>
         <ellipse cx="264" cy="172" rx="36" ry="7" fill="#102E34" opacity="0.20" />
         <path d="M236 60 Q236 36 264 36 Q292 36 292 60 L292 172 L236 172 Z" fill="url(#rs-door)" />

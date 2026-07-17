@@ -1,4 +1,4 @@
-// «Вечерний сбор» — a gentle synchronized wind-down window (Feature 6). Opt-in, skippable,
+// «Вечерний сбор» - a gentle synchronized wind-down window (Feature 6). Opt-in, skippable,
 // NO streak, NO countdown; presence is only ever encouraging. See docs/SPEC-VIRAL-FEATURES.md §6.
 import { Hono } from 'hono'
 import { z } from 'zod'

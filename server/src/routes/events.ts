@@ -253,7 +253,7 @@ eventsRoutes.get('/', c => {
     }
   })
 
-  // Notice about last month's unclaimed rewards (14-day window) — using that month's event.
+  // Notice about last month's unclaimed rewards (14-day window) - using that month's event.
   let past: { month: string; deadline: string; unclaimed: number } | null = null
   if (isCurrent) {
     const prev = prevMonthKey(mk)

@@ -1,5 +1,6 @@
 import { C } from '@shared/constants'
 import { useStore } from '../../store'
+import { t } from '../../i18n'
 
 // Pet-friendship progress strip at the bottom of the Quests tab.
 export function FriendshipStrip() {
@@ -17,10 +18,10 @@ export function FriendshipStrip() {
  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
  <span style={{ fontSize: 24 }} className="heart-glow">💛</span>
  <div style={{ flex: 1 }}>
- <div style={{ fontWeight: 800 }}>Дружба с {pet.name}</div>
+ <div style={{ fontWeight: 800 }}>{t('Дружба с')} {pet.name}</div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
- Уровень {level} из {C.FRIENDSHIP_PTS.length}
- {next != null && <> · следующий за {C.FRIENDSHIP_LEVEL_STONES} 🦴</>}
+ {t('Уровень')} {level} {t('из')} {C.FRIENDSHIP_PTS.length}
+ {next != null && <> · {t('следующий за')} {C.FRIENDSHIP_LEVEL_STONES} 🦴</>}
  </div>
  </div>
  </div>
@@ -29,8 +30,8 @@ export function FriendshipStrip() {
  </div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', fontWeight: 700, marginTop: 6, textAlign: 'right' }}>
  {maxed
- ? 'Вы, не разлей вода! 💛'
- : `${Math.floor(pet.friendshipPts)} / ${next} очков дружбы`}
+ ? t('Вы, не разлей вода! 💛')
+ : `${Math.floor(pet.friendshipPts)} / ${next} ${t('очков дружбы')}`}
  </div>
  </div>
  )

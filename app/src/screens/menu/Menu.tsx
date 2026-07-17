@@ -22,6 +22,7 @@ import { Papers } from './screens/Papers'
 import { History } from './screens/History'
 import { Settings } from './screens/Settings'
 import { Pause } from './screens/Pause'
+import { t } from '../../i18n'
 
 type View =
  | 'root' | 'activities' | 'settings' | 'pause' | 'plus'
@@ -61,17 +62,17 @@ export function Menu({ onClose }: { onClose(): void }) {
  if (view === 'activities') {
  return (
  <Frame>
- <Sub title="Активности" onBack={back}>
- <Row emoji="🎯" title="Идеи целей" sub="Маленькие шаги заботы" onClick={() => go('goalIdeas')} />
- <Row emoji="📓" title="Размышления" sub="Дневник и тёплые вопросы" onClick={() => go('reflections')} />
- <Row emoji="🌬️" title="Дыхание" sub="Успокоиться за пару минут" onClick={() => go('breathing')} />
- <Row emoji="🤸" title="Движение" sub="Лёгкая разминка" onClick={() => go('movement')} />
- <Row emoji="⏳" title="Таймеры" sub="Медитация и фокус" onClick={() => go('timers')} />
- <Row emoji="🌈" title="Заземление" sub="Вернуться в момент" onClick={() => go('grounding')} />
- {content?.quizzesEnabled && <Row emoji="📝" title="Викторины" sub="Прислушаться к себе" onClick={() => go('quizzes')} />}
- <Row emoji="💛" title="Назови эмоцию" sub="Понять, что чувствуешь" onClick={() => go('emotion')} />
- <Row emoji="🤝" title="Доброе дело" sub="Тепло другим, тепло себе" onClick={() => go('gooddeed')} />
- <Row emoji="✨" title="Аффирмации" sub="Доброе слово себе" onClick={() => go('affirmations')} />
+ <Sub title={t('Активности')} onBack={back}>
+ <Row emoji="🎯" title={t('Идеи целей')} sub={t('Маленькие шаги заботы')} onClick={() => go('goalIdeas')} />
+ <Row emoji="📓" title={t('Размышления')} sub={t('Дневник и тёплые вопросы')} onClick={() => go('reflections')} />
+ <Row emoji="🌬️" title={t('Дыхание')} sub={t('Успокоиться за пару минут')} onClick={() => go('breathing')} />
+ <Row emoji="🤸" title={t('Движение')} sub={t('Лёгкая разминка')} onClick={() => go('movement')} />
+ <Row emoji="⏳" title={t('Таймеры')} sub={t('Медитация и фокус')} onClick={() => go('timers')} />
+ <Row emoji="🌈" title={t('Заземление')} sub={t('Вернуться в момент')} onClick={() => go('grounding')} />
+ {content?.quizzesEnabled && <Row emoji="📝" title={t('Викторины')} sub={t('Прислушаться к себе')} onClick={() => go('quizzes')} />}
+ <Row emoji="💛" title={t('Назови эмоцию')} sub={t('Понять, что чувствуешь')} onClick={() => go('emotion')} />
+ <Row emoji="🤝" title={t('Доброе дело')} sub={t('Тепло другим, тепло себе')} onClick={() => go('gooddeed')} />
+ <Row emoji="✨" title={t('Аффирмации')} sub={t('Доброе слово себе')} onClick={() => go('affirmations')} />
  </Sub>
  </Frame>
  )
@@ -81,41 +82,41 @@ export function Menu({ onClose }: { onClose(): void }) {
  const code = state?.user.friendCode ?? ''
  const copyCode = () => {
  void navigator.clipboard?.writeText(code).catch(() => {})
- haptic('success'); useStore.getState().showToast('Код скопирован ✨')
+ haptic('success'); useStore.getState().showToast(t('Код скопирован ✨'))
  }
  return (
  <Frame>
  <header style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '4px 14px 8px' }}>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={onClose}>✕</button>
- <h1 style={{ flex: 1 }}>Меню</h1>
+ <h1 style={{ flex: 1 }}>{t('Меню')}</h1>
  </header>
  <div className="scroll">
  <div className="card">
- <div style={{ fontWeight: 800, fontSize: 18 }}>{state?.pet.name ?? 'Шарик'}</div>
- <div style={{ fontSize: 14, color: 'var(--ink-soft)' }}>хозяин, {state?.user.name}</div>
+ <div style={{ fontWeight: 800, fontSize: 18 }}>{state?.pet.name ?? t('Шарик')}</div>
+ <div style={{ fontSize: 14, color: 'var(--ink-soft)' }}>{t('хозяин')}, {state?.user.name}</div>
  <button onClick={copyCode} style={{ marginTop: 8, background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left' }}>
- <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent-deep)' }}>КОД ДРУГА</div>
+ <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent-deep)' }}>{t('КОД ДРУГА')}</div>
  <div style={{ fontWeight: 800, letterSpacing: 1.5, color: 'var(--accent-deep)' }}>{code} ⧉</div>
  </button>
  </div>
 
  <button className="card" style={{ width: '100%', textAlign: 'left', border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg, #fbe3b2, #f8d77e)' }} onClick={() => go('plus')}>
- <b>💛 Шарик Плюс</b>
- <div style={{ fontSize: 13, color: 'var(--brown)' }}>Больше уюта и возможностей</div>
+ <b>💛 {t('Шарик Плюс')}</b>
+ <div style={{ fontSize: 13, color: 'var(--brown)' }}>{t('Больше уюта и возможностей')}</div>
  </button>
 
- <h2 style={{ margin: '16px 4px 8px' }}>Забота</h2>
- <Row emoji="🧩" title="Активности" sub="Дыхание, дневник, упражнения" onClick={() => go('activities')} />
- <Row emoji="✅" title="Мои цели" onClick={() => go('myGoals')} />
- <Row emoji="🌿" title="Сферы заботы" onClick={() => go('scas')} />
- <Row emoji="📊" title="Инсайты" onClick={() => go('insights')} />
- <Row emoji="💌" title="Газеты" onClick={() => go('papers')} />
- <Row emoji="📅" title="История" sub="Загляни в любой день" onClick={() => go('history')} />
- <Row emoji="⛑️" title="Аптечка" sub="Если сейчас тяжело" onClick={() => go('firstaid')} />
+ <h2 style={{ margin: '16px 4px 8px' }}>{t('Забота')}</h2>
+ <Row emoji="🧩" title={t('Активности')} sub={t('Дыхание, дневник, упражнения')} onClick={() => go('activities')} />
+ <Row emoji="✅" title={t('Мои цели')} onClick={() => go('myGoals')} />
+ <Row emoji="🌿" title={t('Сферы заботы')} onClick={() => go('scas')} />
+ <Row emoji="📊" title={t('Инсайты')} onClick={() => go('insights')} />
+ <Row emoji="💌" title={t('Газеты')} onClick={() => go('papers')} />
+ <Row emoji="📅" title={t('История')} sub={t('Загляни в любой день')} onClick={() => go('history')} />
+ <Row emoji="⛑️" title={t('Аптечка')} sub={t('Если сейчас тяжело')} onClick={() => go('firstaid')} />
 
- <h2 style={{ margin: '16px 4px 8px' }}>Настройки</h2>
- <Row emoji="⚙️" title="Настройки" onClick={() => go('settings')} />
- <Row emoji="⏸️" title="Пауза" sub="Отдохнуть без потери серии" onClick={() => go('pause')} />
+ <h2 style={{ margin: '16px 4px 8px' }}>{t('Настройки')}</h2>
+ <Row emoji="⚙️" title={t('Настройки')} onClick={() => go('settings')} />
+ <Row emoji="⏸️" title={t('Пауза')} sub={t('Отдохнуть без потери серии')} onClick={() => go('pause')} />
  </div>
  </Frame>
  )

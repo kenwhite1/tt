@@ -1,6 +1,7 @@
 // Discoveries logbook, likes (blue) / dislikes (red) by category. Used from Pet.tsx.
 import { useEffect, useState } from 'react'
 import { req } from '../../api'
+import { t } from '../../i18n'
 
 interface Disc { id: string; ruName: string; category: string; liked: boolean; day: string; locationRu: string | null }
 interface DiscoveriesRes { total: number; found: number; discoveries: Disc[] }
@@ -25,7 +26,7 @@ export function Discoveries({ onBack }: { onBack(): void }) {
  <div style={{ position: 'fixed', inset: 0, background: 'var(--bg)', zIndex: 30, display: 'flex', flexDirection: 'column', paddingTop: 'calc(var(--safe-top) + 8px)' }}>
  <header style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '4px 14px 8px' }}>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={onBack}>‹</button>
- <h1 style={{ flex: 1 }}>Открытия</h1>
+ <h1 style={{ flex: 1 }}>{t('Открытия')}</h1>
  {data && <div className="card" style={{ margin: 0, padding: '8px 14px', fontWeight: 800 }}>{data.found} / {data.total}</div>}
  </header>
 
@@ -39,18 +40,18 @@ export function Discoveries({ onBack }: { onBack(): void }) {
  background: cat === c.id ? 'var(--gold)' : 'var(--card)',
  }}
  onClick={() => setCat(c.id)}
- >{c.emoji} {c.ru}</button>
+ >{c.emoji} {t(c.ru)}</button>
  ))}
  </div>
 
  <div className="scroll">
  {!data ? (
- <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Открываем дневник…</p>
+ <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Открываем дневник…')}</p>
  ) : inCat.length === 0 ? (
  <div className="card" style={{ textAlign: 'center' }}>
  <div style={{ fontSize: 40 }}>🔍</div>
  <p style={{ margin: '8px 0 0', color: 'var(--ink-soft)' }}>
- Здесь пока пусто. Питомец делает открытия на прогулках, поговори с ним, когда он вернётся!
+ {t('Здесь пока пусто. Питомец делает открытия на прогулках, поговори с ним, когда он вернётся!')}
  </p>
  </div>
  ) : (
@@ -65,9 +66,9 @@ export function Discoveries({ onBack }: { onBack(): void }) {
  >
  <span style={{ fontSize: 24 }}>{d.liked ? '💙' : '💔'}</span>
  <div style={{ flex: 1 }}>
- <div style={{ fontWeight: 800 }}>{d.ruName}</div>
+ <div style={{ fontWeight: 800 }}>{t(d.ruName)}</div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
- {d.liked ? 'Нравится' : 'Не нравится'}{d.locationRu ? ` · ${d.locationRu}` : ''} · {d.day}
+ {d.liked ? t('Нравится') : t('Не нравится')}{d.locationRu ? ` · ${t(d.locationRu)}` : ''} · {d.day}
  </div>
  </div>
  </div>

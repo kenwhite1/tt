@@ -5,6 +5,7 @@ import { haptic } from '../telegram'
 import { ShopFront, type ShopKind } from './shop/ShopFront'
 import { TravelAgency } from './travel/TravelAgency'
 import { BoneIcon } from '../art/icons'
+import { t } from '../i18n'
 
 const SHOPS: { id: ShopKind; ru: string; emoji: string; npc: string }[] = [
  { id: 'outfit', ru: 'Одежда', emoji: '🦔', npc: 'Ёж Колюч' },
@@ -25,21 +26,21 @@ export function Shop() {
  return (
  <div className="scroll" style={{ paddingTop: 8 }}>
  <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
- <h1>Магазин</h1>
+ <h1>{t('Магазин')}</h1>
  <div className="card" style={{ margin: 0, padding: '8px 14px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: 6 }}><BoneIcon size={18} /> {stones}</div>
  </header>
  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
  {SHOPS.map(s => (
  <button key={s.id} className="card shop-tile" style={{ margin: 0, textAlign: 'center', border: 'none', cursor: 'pointer' }} onClick={() => open(s.id)}>
  <div style={{ marginBottom: 8 }}><span className="emoji-medallion">{s.emoji}</span></div>
- <h2>{s.ru}</h2>
- <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{s.npc}</div>
+ <h2>{t(s.ru)}</h2>
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{t(s.npc)}</div>
  </button>
  ))}
  <button className="card shop-tile" style={{ margin: 0, textAlign: 'center', border: 'none', cursor: 'pointer' }} onClick={() => open('travel')}>
  <div style={{ marginBottom: 8 }}><span className="emoji-medallion">✈️</span></div>
- <h2>Путешествия</h2>
- <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>Хвост-трэвел · Сасси</div>
+ <h2>{t('Путешествия')}</h2>
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{t('Хвост-трэвел · Сасси')}</div>
  </button>
  </div>
  </div>

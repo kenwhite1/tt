@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { req } from '../../../api'
 import { haptic } from '../../../telegram'
 import { Loading, Sub, VALENCE_EMOJI, applyReward, useContent } from '../ui'
+import { t } from '../../../i18n'
 import type { EmotionValence, Reward } from '../types'
 
 const VAL_EMOJI: Record<string, string> = { pleasant: '☀️', neutral: '😐', unpleasant: '🌧' }
@@ -14,7 +15,7 @@ export function NameEmotion({ onBack }: { onBack(): void }) {
  const [chosen, setChosen] = useState<string | null>(null)
  const [busy, setBusy] = useState(false)
 
- if (!content) return <Sub title="Назови эмоцию" onBack={onBack}><Loading /></Sub>
+ if (!content) return <Sub title={t('Назови эмоцию')} onBack={onBack}><Loading /></Sub>
 
  async function pickWord(word: string) {
  if (busy) return
@@ -22,7 +23,7 @@ export function NameEmotion({ onBack }: { onBack(): void }) {
  setChosen(word)
  try {
  const r = await req<{ reward: Reward }>('/activities/log', { kind: 'emotion', refId: word.slice(0, 40) })
- applyReward(r.reward, `«${word}», я слышу тебя 💛`)
+ applyReward(r.reward, `${t('«')}${word}${t('», я слышу тебя 💛')}`)
  } catch { /* keep the warm screen */ }
  setBusy(false)
  }
@@ -30,14 +31,14 @@ export function NameEmotion({ onBack }: { onBack(): void }) {
  // result card
  if (chosen) {
  return (
- <Sub title="Назови эмоцию" onBack={onBack}>
+ <Sub title={t('Назови эмоцию')} onBack={onBack}>
  <div className="card" style={{ textAlign: 'center', padding: '28px 18px' }}>
  <div style={{ fontSize: 48 }}>{valence ? VAL_EMOJI[valence.id] ?? '💛' : '💛'}</div>
  <h2 style={{ margin: '8px 0' }}>{chosen}</h2>
- <p style={{ color: 'var(--ink-soft)' }}>Назвать чувство, уже половина дела. Спасибо, что заглянул(а) внутрь.</p>
+ <p style={{ color: 'var(--ink-soft)' }}>{t('Назвать чувство, уже половина дела. Спасибо, что заглянул(а) внутрь.')}</p>
  <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 12 }}>
- <button className="btn ghost" onClick={() => { setChosen(null); setSubIdx(null) }}>Ещё раз</button>
- <button className="btn" onClick={onBack}>Готово</button>
+ <button className="btn ghost" onClick={() => { setChosen(null); setSubIdx(null) }}>{t('Ещё раз')}</button>
+ <button className="btn" onClick={onBack}>{t('Готово')}</button>
  </div>
  </div>
  </Sub>
@@ -49,7 +50,7 @@ export function NameEmotion({ onBack }: { onBack(): void }) {
  const sub = valence.sub[subIdx]
  return (
  <Sub title={valence.ru} onBack={() => setSubIdx(null)}>
- <p style={{ color: 'var(--ink-soft)', margin: '0 4px 10px' }}>Что ближе всего?</p>
+ <p style={{ color: 'var(--ink-soft)', margin: '0 4px 10px' }}>{t('Что ближе всего?')}</p>
  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
  {sub.words.map(w => (
  <button
@@ -73,7 +74,7 @@ export function NameEmotion({ onBack }: { onBack(): void }) {
  if (subs.length === 1) { setSubIdx(0); return null }
  return (
  <Sub title={valence.ru} onBack={() => setValence(null)}>
- <p style={{ color: 'var(--ink-soft)', margin: '0 4px 10px' }}>Куда это ближе?</p>
+ <p style={{ color: 'var(--ink-soft)', margin: '0 4px 10px' }}>{t('Куда это ближе?')}</p>
  {subs.map((s, i) => (
  <button
  key={s.id ?? i} className="goal-row"
@@ -90,8 +91,8 @@ export function NameEmotion({ onBack }: { onBack(): void }) {
 
  // step 1: valence
  return (
- <Sub title="Назови эмоцию" onBack={onBack}>
- <p style={{ color: 'var(--ink-soft)', margin: '0 4px 12px' }}>Как тебе сейчас в целом?</p>
+ <Sub title={t('Назови эмоцию')} onBack={onBack}>
+ <p style={{ color: 'var(--ink-soft)', margin: '0 4px 12px' }}>{t('Как тебе сейчас в целом?')}</p>
  {content.emotions.map(v => (
  <button
  key={v.id} className="goal-row"

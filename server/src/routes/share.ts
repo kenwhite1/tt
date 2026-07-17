@@ -1,4 +1,4 @@
-// «Витрина» — premium milestone share cards (Feature 1). The CLIENT rasterizes the card
+// «Витрина» - premium milestone share cards (Feature 1). The CLIENT rasterizes the card
 // (puppy art + headline + deep-link) on a <canvas> and uploads the PNG here; the server only
 // hosts it statically and (best-effort) prepares an inline message for chat-forwarding.
 // No server-side image library needed. See docs/SPEC-VIRAL-FEATURES.md §1.
@@ -76,7 +76,7 @@ shareRoutes.post('/card', async c => {
         savePreparedInlineMessage: (uid: number, r: unknown, o: unknown) => Promise<{ id: string }>
       }).savePreparedInlineMessage(me.id, result, { allow_user_chats: true, allow_group_chats: true })
       preparedId = prepared?.id ?? null
-    } catch { /* old Bot API / no token — client falls back to story or link */ }
+    } catch { /* old Bot API / no token - client falls back to story or link */ }
   }
 
   return c.json({ url, preparedId, link, rewarded })

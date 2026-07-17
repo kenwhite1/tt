@@ -5,6 +5,7 @@ import { useStore } from '../../../store'
 import { haptic } from '../../../telegram'
 import { Mascot } from '../../../art/Mascot'
 import { Chip, ChipRow, Loading, Sub, applyReward, useContent } from '../ui'
+import { t } from '../../../i18n'
 import type { Reward, TimerCfg } from '../types'
 
 function Running({ kind, minutes, onDone }: { kind: 'meditation' | 'focus'; minutes: number; onDone(): void }) {
@@ -29,7 +30,7 @@ function Running({ kind, minutes, onDone }: { kind: 'meditation' | 'focus'; minu
     setDone(true)
     try {
       const r = await req<{ reward: Reward }>('/activities/log', { kind, minutes })
-      applyReward(r.reward, kind === 'meditation' ? 'Медитация завершена 💛' : 'Фокус-сессия завершена 💛')
+      applyReward(r.reward, kind === 'meditation' ? t('Медитация завершена 💛') : t('Фокус-сессия завершена 💛'))
     } catch { /* let out */ }
     onDone()
   }
@@ -46,9 +47,9 @@ function Running({ kind, minutes, onDone }: { kind: 'meditation' | 'focus'; minu
         <div className="energy-fill" style={{ width: `${pct}%` }} />
       </div>
       <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>
-        {kind === 'meditation' ? 'Шарик отдыхает рядом. Просто будь здесь.' : 'Шарик дремлет, пока ты в деле. Сосредоточься на одном.'}
+        {kind === 'meditation' ? t('Шарик отдыхает рядом. Просто будь здесь.') : t('Шарик дремлет, пока ты в деле. Сосредоточься на одном.')}
       </p>
-      <button className="btn ghost" onClick={() => void finish()}>Закончить раньше</button>
+      <button className="btn ghost" onClick={() => void finish()}>{t('Закончить раньше')}</button>
     </div>
   )
 }
@@ -57,14 +58,14 @@ function Picker({ kind, cfg, plus, onPick }: { kind: 'meditation' | 'focus'; cfg
   const all = [...new Set([...cfg.free, ...cfg.plus])].sort((a, b) => a - b)
   return (
     <div className="card">
-      <h2>{kind === 'meditation' ? '🧘 Медитация' : '🎯 Фокус'}</h2>
+      <h2>{kind === 'meditation' ? `🧘 ${t('Медитация')}` : `🎯 ${t('Фокус')}`}</h2>
       <p style={{ color: 'var(--ink-soft)', fontSize: 14, margin: '4px 0 10px' }}>
-        {kind === 'meditation' ? 'Тихое время с Шариком.' : 'Помодоро-таймер: одно дело, без отвлечений.'}
+        {kind === 'meditation' ? t('Тихое время с Шариком.') : t('Помодоро-таймер: одно дело, без отвлечений.')}
       </p>
       <ChipRow>
         {all.map(m => {
           const locked = !cfg.free.includes(m) && !plus
-          return <Chip key={m} locked={locked} onClick={() => { if (!locked) { haptic('tap'); onPick(m) } }}>{m} мин</Chip>
+          return <Chip key={m} locked={locked} onClick={() => { if (!locked) { haptic('tap'); onPick(m) } }}>{m} {t('мин')}</Chip>
         })}
       </ChipRow>
     </div>
@@ -75,18 +76,18 @@ export function Timers({ onBack }: { onBack(): void }) {
   const content = useContent()
   const [run, setRun] = useState<{ kind: 'meditation' | 'focus'; minutes: number } | null>(null)
 
-  if (!content) return <Sub title="Таймеры" onBack={onBack}><Loading /></Sub>
+  if (!content) return <Sub title={t('Таймеры')} onBack={onBack}><Loading /></Sub>
 
   if (run) {
     return (
-      <Sub title={run.kind === 'meditation' ? 'Медитация' : 'Фокус'} onBack={onBack}>
+      <Sub title={run.kind === 'meditation' ? t('Медитация') : t('Фокус')} onBack={onBack}>
         <Running kind={run.kind} minutes={run.minutes} onDone={onBack} />
       </Sub>
     )
   }
 
   return (
-    <Sub title="Таймеры" onBack={onBack}>
+    <Sub title={t('Таймеры')} onBack={onBack}>
       <Picker kind="meditation" cfg={content.timers.meditation} plus={content.plus} onPick={m => setRun({ kind: 'meditation', minutes: m })} />
       <Picker kind="focus" cfg={content.timers.focus} plus={content.plus} onPick={m => setRun({ kind: 'focus', minutes: m })} />
     </Sub>

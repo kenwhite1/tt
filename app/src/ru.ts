@@ -30,7 +30,7 @@ export function declineName(name: string, c: RuCase): string {
     if (c === 'ins') return stem + 'ей'
     return stem + 'е'
   }
-  // indeclinable vowel endings (Барни, Лео, Бьянку…) — leave as-is
+  // indeclinable vowel endings (Барни, Лео, Бьянку…) - leave as-is
   if ('еёиоуыэю'.includes(last)) return n
   // …й (Андрей)
   if (last === 'й') {

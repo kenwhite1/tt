@@ -1,4 +1,5 @@
 import { C } from '@shared/constants'
+import { t } from '../../i18n'
 import type { WeeklyDto } from './types'
 
 interface Props {
@@ -9,14 +10,14 @@ interface Props {
 export function WeeklyStars({ weekly, onClaim }: Props) {
  return (
  <>
- <h2 style={{ margin: '14px 4px 4px' }}>Недельные звёзды</h2>
+ <h2 style={{ margin: '14px 4px 4px' }}>{t('Недельные звёзды')}</h2>
  <p style={{ margin: '0 4px 10px', fontSize: 13, color: 'var(--ink-soft)' }}>
- Выполняй цели из сфер заботы в разные дни недели: {C.WEEKLY_MILESTONES.map(m => m.days).join(' / ')} дней -{' '}
+ {t('Выполняй цели из сфер заботы в разные дни недели:')} {C.WEEKLY_MILESTONES.map(m => m.days).join(' / ')} {t('дней')} -{' '}
  {C.WEEKLY_MILESTONES.map(m => m.stones).join(' / ')} 🦴
  </p>
  {weekly.length === 0 && (
  <div className="card" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>
- Привяжи свои цели к сферам заботы, и каждую неделю здесь будут появляться звёзды ⭐
+ {t('Привяжи свои цели к сферам заботы, и каждую неделю здесь будут появляться звёзды ⭐')}
  </div>
  )}
  {weekly.map(w => (
@@ -33,7 +34,7 @@ export function WeeklyStars({ weekly, onClaim }: Props) {
  <div style={{ flex: 1 }}>
  <div style={{ fontWeight: 800 }}>{w.ru}</div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
- {w.days} {plural(w.days)} с целями на этой неделе
+ {w.days} {plural(w.days)} {t('с целями на этой неделе')}
  </div>
  </div>
  </div>
@@ -55,7 +56,7 @@ export function WeeklyStars({ weekly, onClaim }: Props) {
  >
  <div style={{ fontSize: 20 }} className={reachable && !isClaimed ? 'star-twinkle' : undefined}>{isClaimed || reachable ? '⭐' : '☆'}</div>
  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--ink)' }}>
- {isClaimed ? 'Получено' : reachable ? `Забрать ${m.stones} 🦴` : `${m.days} дн. → ${m.stones} 🦴`}
+ {isClaimed ? t('Получено') : reachable ? `${t('Забрать')} ${m.stones} 🦴` : `${m.days} ${t('дн.')} → ${m.stones} 🦴`}
  </div>
  </button>
  )
@@ -69,7 +70,7 @@ export function WeeklyStars({ weekly, onClaim }: Props) {
 
 function plural(n: number): string {
  const mod10 = n % 10, mod100 = n % 100
- if (mod10 === 1 && mod100 !== 11) return 'день'
- if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return 'дня'
- return 'дней'
+ if (mod10 === 1 && mod100 !== 11) return t('день')
+ if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return t('дня')
+ return t('дней')
 }

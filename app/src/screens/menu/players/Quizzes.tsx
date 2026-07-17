@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { req } from '../../../api'
 import { haptic } from '../../../telegram'
 import { Loading, Sub, applyReward, useContent } from '../ui'
+import { t } from '../../../i18n'
 import type { QuizDef, Reward } from '../types'
 
 interface QuizResult { band: { title: string; text: string }; disclaimer: string; reward: Reward }
@@ -24,7 +25,7 @@ function Player({ quiz, scale, onDone }: { quiz: QuizDef; scale: { ru: string; s
     const total = next.reduce((s, v) => s + v, 0)
     try {
       const r = await req<QuizResult>('/activities/quiz', { quizId: quiz.id, score: total })
-      applyReward(r.reward, 'Спасибо, что прислушался(ась) к себе 💛')
+      applyReward(r.reward, t('Спасибо, что прислушался(ась) к себе 💛'))
       setResult(r)
     } catch { onDone() }
     setBusy(false)
@@ -37,14 +38,14 @@ function Player({ quiz, scale, onDone }: { quiz: QuizDef; scale: { ru: string; s
         <h2 style={{ margin: '6px 0' }}>{result.band.title}</h2>
         <p style={{ lineHeight: 1.5 }}>{result.band.text}</p>
         <p style={{ fontSize: 12, color: 'var(--ink-soft)', marginTop: 14, fontStyle: 'italic' }}>{result.disclaimer}</p>
-        <button className="btn" style={{ marginTop: 8 }} onClick={onDone}>Готово</button>
+        <button className="btn" style={{ marginTop: 8 }} onClick={onDone}>{t('Готово')}</button>
       </div>
     )
   }
 
   return (
     <div className="card">
-      <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)', marginBottom: 8 }}>Вопрос {qIdx + 1} из {quiz.questions.length}</div>
+      <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)', marginBottom: 8 }}>{t('Вопрос')} {qIdx + 1} {t('из')} {quiz.questions.length}</div>
       <p style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.4, minHeight: 70 }}>{quiz.questions[qIdx]}</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 8 }}>
         {scale.map(opt => (
@@ -63,11 +64,11 @@ export function Quizzes({ onBack }: { onBack(): void }) {
   const content = useContent()
   const [quiz, setQuiz] = useState<QuizDef | null>(null)
 
-  if (!content) return <Sub title="Викторины" onBack={onBack}><Loading /></Sub>
+  if (!content) return <Sub title={t('Викторины')} onBack={onBack}><Loading /></Sub>
   if (!content.quizzes) {
     return (
-      <Sub title="Викторины" onBack={onBack}>
-        <div className="card"><p style={{ color: 'var(--ink-soft)' }}>Викторины выключены. Включи их в Настройках, если хочешь мягкие самопроверки.</p></div>
+      <Sub title={t('Викторины')} onBack={onBack}>
+        <div className="card"><p style={{ color: 'var(--ink-soft)' }}>{t('Викторины выключены. Включи их в Настройках, если хочешь мягкие самопроверки.')}</p></div>
       </Sub>
     )
   }
@@ -80,7 +81,7 @@ export function Quizzes({ onBack }: { onBack(): void }) {
   }
 
   return (
-    <Sub title="Викторины" onBack={onBack}>
+    <Sub title={t('Викторины')} onBack={onBack}>
       <div className="card" style={{ background: 'var(--card-shade)' }}>
         <p style={{ margin: 0, fontSize: 13, color: 'var(--ink-soft)' }}>{disclaimer}</p>
       </div>
@@ -95,7 +96,7 @@ export function Quizzes({ onBack }: { onBack(): void }) {
             <span style={{ fontSize: 24 }}>📋</span>
             <span style={{ flex: 1 }}>
               <span style={{ fontWeight: 800, display: 'block' }}>{q.name}{locked ? ' 🔒' : ''}</span>
-              <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{q.questions.length} вопросов</span>
+              <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{q.questions.length} {t('вопросов')}</span>
             </span>
           </button>
         )

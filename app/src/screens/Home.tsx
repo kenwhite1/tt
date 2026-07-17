@@ -11,6 +11,7 @@ import { playSfx } from '../sound'
 import { track } from '../analytics'
 import { WalkChat } from './travel/WalkChat'
 import { DailyDig } from './home/DailyDig'
+import { t } from '../i18n'
 
 function WalkCountdown({ endsTs }: { endsTs: number }) {
   const [, force] = useState(0)
@@ -18,7 +19,7 @@ function WalkCountdown({ endsTs }: { endsTs: number }) {
   const left = Math.max(0, endsTs - Date.now())
   const h = Math.floor(left / 3_600_000)
   const m = Math.floor((left % 3_600_000) / 60_000)
-  return <span>{h > 0 ? `${h} ч ` : ''}{m} мин</span>
+  return <span>{h > 0 ? `${h} ${t('ч')} ` : ''}{m} {t('мин')}</span>
 }
 
 const MOODS = ['😞', '😕', '😐', '🙂', '😄']
@@ -73,7 +74,7 @@ export function Home() {
     const r = e.currentTarget.getBoundingClientRect()
     const reward = await completeGoal(id)
     const bits: string[] = []
-    if (reward.walkMinutesReduced) bits.push(`🚶 −${reward.walkMinutesReduced} мин`)
+    if (reward.walkMinutesReduced) bits.push(`🚶 −${reward.walkMinutesReduced} ${t('мин')}`)
     else { if (reward.energy) bits.push(`+${reward.energy}⚡`); if (reward.stones) bits.push(`+${reward.stones}🦴`) }
     const el = document.createElement('div')
     el.className = 'reward-pop'
@@ -113,24 +114,24 @@ export function Home() {
               </div>
             )}
           </RoomScene>
-          <button className="round-btn" style={{ position: 'absolute', top: 8, left: 10 }} onClick={() => useStore.getState().setMenuOpen(true)} aria-label="Меню">☰</button>
-          <button className="round-btn" style={{ position: 'absolute', top: 8, right: 10 }} onClick={() => setShowMood(true)} aria-label="Настроение">
+          <button className="round-btn" style={{ position: 'absolute', top: 8, left: 10 }} onClick={() => useStore.getState().setMenuOpen(true)} aria-label={t('Меню')}>☰</button>
+          <button className="round-btn" style={{ position: 'absolute', top: 8, right: 10 }} onClick={() => setShowMood(true)} aria-label={t('Настроение')}>
             {state.moodToday ? MOODS[state.moodToday - 1] : '🙂'}
           </button>
         </div>
 
-        {/* adventure / energy card — sits below the room */}
+        {/* adventure / energy card - sits below the room */}
         <div className="adv-card">
           <div className="adv-bolt"><BoltIcon /></div>
           <div style={{ flex: 1 }}>
             <div style={{ fontWeight: 800, marginBottom: 6 }}>
-              {walking ? `${pet.name} на прогулке`
-                : walkReady ? 'Готовы гулять!'
-                : walk && walk.completed ? 'Сегодня уже гуляли 🌙'
-                : 'Копим энергию на прогулку'}
+              {walking ? `${pet.name} ${t('на прогулке')}`
+                : walkReady ? t('Готовы гулять!')
+                : walk && walk.completed ? t('Сегодня уже гуляли 🌙')
+                : t('Копим энергию на прогулку')}
             </div>
             {walking ? (
-              <div style={{ fontSize: 14, opacity: 0.9 }}>Вернётся через <WalkCountdown endsTs={walk.endsTs} /></div>
+              <div style={{ fontSize: 14, opacity: 0.9 }}>{t('Вернётся через')} <WalkCountdown endsTs={walk.endsTs} /></div>
             ) : (
               <div className="adv-track">
                 <div className="adv-fill" style={{ width: `${Math.min(100, (energy / energyMax) * 100)}%` }} />
@@ -145,13 +146,13 @@ export function Home() {
         )}
 
         {walkReady && (
-          <button className="btn accent" style={{ width: '100%', marginBottom: 14 }} onClick={() => void onWalk()}>На прогулку!</button>
+          <button className="btn accent" style={{ width: '100%', marginBottom: 14 }} onClick={() => void onWalk()}>{t('На прогулку!')}</button>
         )}
 
         {!walking && !walkReady && walk && walk.completed && walk.chatDone && (
           <div className="card" style={{ display: 'flex', gap: 10, alignItems: 'center', background: '#eef3f7' }}>
             <span style={{ fontSize: 22 }}>🌙</span>
-            <div style={{ fontSize: 14, color: 'var(--ink-soft)' }}>Сегодня вы уже гуляли вместе. Энергия копится дальше, а новая прогулка будет завтра.</div>
+            <div style={{ fontSize: 14, color: 'var(--ink-soft)' }}>{t('Сегодня вы уже гуляли вместе. Энергия копится дальше, а новая прогулка будет завтра.')}</div>
           </div>
         )}
 
@@ -159,22 +160,22 @@ export function Home() {
           <div className="card" style={{ background: '#fdeceb', display: 'flex', gap: 10, alignItems: 'center' }}>
             <span style={{ fontSize: 26 }}>⛑️</span>
             <div>
-              <b>Аптечка</b>
-              <div style={{ fontSize: 14, color: 'var(--ink-soft)' }}>Сегодня можно полегче. Загляни сюда, если тяжело.</div>
+              <b>{t('Аптечка')}</b>
+              <div style={{ fontSize: 14, color: 'var(--ink-soft)' }}>{t('Сегодня можно полегче. Загляни сюда, если тяжело.')}</div>
             </div>
           </div>
         )}
 
-        {/* «Косточка дня» — daily dig */}
+        {/* «Косточка дня» - daily dig */}
         <div style={{ marginBottom: 14 }}><DailyDig /></div>
 
         {/* goals header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '4px 4px 12px' }}>
           <span style={{ fontSize: 20 }}>🗓️</span>
-          <h2 style={{ flex: 1 }}>{left > 0 ? `Целей на сегодня: ${left}` : 'Все цели сделаны! 🎉'}</h2>
+          <h2 style={{ flex: 1 }}>{left > 0 ? `${t('Целей на сегодня:')} ${left}` : t('Все цели сделаны! 🎉')}</h2>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '0 6px 10px' }}>
-          <span style={{ fontWeight: 800, color: 'var(--ink-soft)' }}>Начни день</span>
+          <span style={{ fontWeight: 800, color: 'var(--ink-soft)' }}>{t('Начни день')}</span>
           <span style={{ flex: 1, height: 2, background: 'var(--card-shade)', borderRadius: 2 }} />
         </div>
 
@@ -202,13 +203,13 @@ export function Home() {
           <div className="card" style={{ display: 'flex', gap: 8 }}>
             <input
               autoFocus value={title} onChange={e => setTitle(e.target.value)}
-              placeholder="Например: выпить воды"
+              placeholder={t('Например: выпить воды')}
               style={{ flex: 1, border: '2px solid var(--gold)', borderRadius: 12, padding: '10px 12px', fontSize: 16, fontFamily: 'inherit' }}
             />
             <button className="btn" onClick={() => { if (title.trim()) { void addGoal(title.trim()); setTitle(''); setAdding(false) } }}>+</button>
           </div>
         ) : (
-          <button className="btn ghost" style={{ width: '100%' }} onClick={() => setAdding(true)}>+ Добавить цель</button>
+          <button className="btn ghost" style={{ width: '100%' }} onClick={() => setAdding(true)}>+ {t('Добавить цель')}</button>
         )}
       </div>
 
@@ -218,7 +219,7 @@ export function Home() {
           onClick={() => setShowMood(false)}
         >
           <div className="card sheet" style={{ width: '100%', borderRadius: '26px 26px 0 0', margin: 0, paddingBottom: 'calc(20px + var(--safe-bottom))' }} onClick={e => e.stopPropagation()}>
-            <h2 style={{ textAlign: 'center', marginBottom: 14 }}>Как ты сейчас?</h2>
+            <h2 style={{ textAlign: 'center', marginBottom: 14 }}>{t('Как ты сейчас?')}</h2>
             <div style={{ display: 'flex', justifyContent: 'space-around' }}>
               {MOODS.map((m, i) => (
                 <button
@@ -227,7 +228,7 @@ export function Home() {
                   onClick={async () => {
                     // await so a failed save surfaces a toast instead of silently closing the sheet
                     try { await logMood(i + 1); setShowMood(false) }
-                    catch { useStore.getState().showToast('Не получилось записать настроение, попробуй ещё раз') }
+                    catch { useStore.getState().showToast(t('Не получилось записать настроение, попробуй ещё раз')) }
                   }}
                 >{m}</button>
               ))}

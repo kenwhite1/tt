@@ -4,6 +4,7 @@ import { req } from '../../api'
 import { haptic } from '../../telegram'
 import { applyReward } from './ui'
 import type { PromptFull, Reward } from './types'
+import { t } from '../../i18n'
 
 const VALENCES = [
  { v: -1, emoji: '🌧', ru: 'Тяжело' },
@@ -32,7 +33,7 @@ export function ReflectionEditor({ prompt, onDone }: { prompt: PromptFull | null
  const r = await req<{ reward: Reward }>('/activities/reflect', {
  promptId: prompt?.id, text, valence: valence ?? undefined,
  })
- applyReward(r.reward, 'Записано 💛')
+ applyReward(r.reward, t('Записано 💛'))
  onDone()
  } catch {
  setBusy(false)
@@ -42,7 +43,7 @@ export function ReflectionEditor({ prompt, onDone }: { prompt: PromptFull | null
  if (phase === 'valence') {
  return (
  <div className="card" style={{ textAlign: 'center' }}>
- <h2 style={{ marginBottom: 6 }}>Какое чувство осталось после записи?</h2>
+ <h2 style={{ marginBottom: 6 }}>{t('Какое чувство осталось после записи?')}</h2>
  <div style={{ display: 'flex', justifyContent: 'space-around', margin: '14px 0' }}>
  {VALENCES.map(o => (
  <button
@@ -54,14 +55,14 @@ export function ReflectionEditor({ prompt, onDone }: { prompt: PromptFull | null
  }}
  >
  <div style={{ fontSize: 30 }}>{o.emoji}</div>
- <div style={{ fontWeight: 800, fontSize: 13 }}>{o.ru}</div>
+ <div style={{ fontWeight: 800, fontSize: 13 }}>{t(o.ru)}</div>
  </button>
  ))}
  </div>
- <button className="btn" disabled={busy} onClick={() => void save()}>Сохранить</button>
+ <button className="btn" disabled={busy} onClick={() => void save()}>{t('Сохранить')}</button>
  <div style={{ marginTop: 8 }}>
  <button className="btn ghost" style={{ padding: '6px 14px', fontSize: 14 }} disabled={busy} onClick={() => void save()}>
- Пропустить и сохранить
+ {t('Пропустить и сохранить')}
  </button>
  </div>
  </div>
@@ -71,9 +72,9 @@ export function ReflectionEditor({ prompt, onDone }: { prompt: PromptFull | null
  return (
  <>
  <div className="card">
- <h2>{prompt ? prompt.title : 'Свободная запись'}</h2>
+ <h2>{prompt ? prompt.title : t('Свободная запись')}</h2>
  <p style={{ color: 'var(--ink-soft)', margin: '6px 0 0' }}>
- {prompt ? prompt.intro : 'Пиши о чём угодно, я просто рядом и слушаю. Чем больше напишешь, тем больше энергии (4-8⚡).'}
+ {prompt ? prompt.intro : t('Пиши о чём угодно, я просто рядом и слушаю. Чем больше напишешь, тем больше энергии (4-8⚡).')}
  </p>
  {prompt && <p style={{ margin: '8px 0 0', fontWeight: 800 }}>⚡ {prompt.energy}</p>}
  </div>
@@ -81,25 +82,25 @@ export function ReflectionEditor({ prompt, onDone }: { prompt: PromptFull | null
  {prompt ? (
  <div className="card">
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', fontWeight: 800, marginBottom: 6 }}>
- Шаг {idx + 1} из {steps.length}
+ {t('Шаг')} {idx + 1} {t('из')} {steps.length}
  </div>
  <p style={{ margin: '0 0 10px', fontWeight: 800 }}>{steps[idx]}</p>
  <textarea
  value={answers[idx]}
  onChange={e => setAnswers(a => a.map((x, i) => (i === idx ? e.target.value : x)))}
- placeholder="Напиши пару строк…"
+ placeholder={t('Напиши пару строк…')}
  style={{
  width: '100%', minHeight: 110, border: '2px solid var(--gold)', borderRadius: 12,
  padding: 10, fontSize: 16, fontFamily: 'inherit', resize: 'vertical', background: '#fff', color: 'var(--ink)',
  }}
  />
  <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
- {idx > 0 && <button className="btn ghost" onClick={() => setIdx(i => i - 1)}>Назад</button>}
+ {idx > 0 && <button className="btn ghost" onClick={() => setIdx(i => i - 1)}>{t('Назад')}</button>}
  <button
  className="btn" style={{ flex: 1 }} disabled={!canNext}
  onClick={() => { haptic('tap'); idx < steps.length - 1 ? setIdx(i => i + 1) : setPhase('valence') }}
  >
- {idx < steps.length - 1 ? 'Дальше' : 'Готово'}
+ {idx < steps.length - 1 ? t('Дальше') : t('Готово')}
  </button>
  </div>
  </div>
@@ -109,14 +110,14 @@ export function ReflectionEditor({ prompt, onDone }: { prompt: PromptFull | null
  autoFocus
  value={freeText}
  onChange={e => setFreeText(e.target.value)}
- placeholder="Сегодня я…"
+ placeholder={t('Сегодня я…')}
  style={{
  width: '100%', minHeight: 180, border: '2px solid var(--gold)', borderRadius: 12,
  padding: 10, fontSize: 16, fontFamily: 'inherit', resize: 'vertical', background: '#fff', color: 'var(--ink)',
  }}
  />
  <button className="btn" style={{ width: '100%', marginTop: 10 }} disabled={!canNext} onClick={() => setPhase('valence')}>
- Готово
+ {t('Готово')}
  </button>
  </div>
  )}

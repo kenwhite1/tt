@@ -100,7 +100,7 @@ function startFlightWalk(userId: number, locationId: string, stage: Stage, day: 
  db.prepare('INSERT INTO walks (user_id, day, location_id, started_ts, ends_ts) VALUES (?,?,?,?,?)')
  .run(userId, day, locationId, start, ends)
  // The flight IS the day's walk, so it spends a bar's worth of energy like a normal
- // walk (energy now carries over across days — see ensureFresh).
+ // walk (energy now carries over across days - see ensureFresh).
  db.prepare('UPDATE users SET location_id=?, queued_flight=NULL, energy=energy-? WHERE id=?')
  .run(locationId, C.ENERGY_BAR[stage], userId)
  db.prepare('INSERT OR IGNORE INTO location_progress (user_id, location_id, first_visit_day) VALUES (?,?,?)')

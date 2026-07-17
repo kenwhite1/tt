@@ -106,7 +106,7 @@ api.post('/onboarding/survey', async c => {
 
 api.get('/state', c => c.json({ state: getState(c.get('user')) }))
 
-// allow the bot to DM this user (reminders) — called after the Telegram
+// allow the bot to DM this user (reminders) - called after the Telegram
 // write-access grant, since that grant alone never reaches the server.
 api.post('/notifications/enable', c => {
  db.prepare('UPDATE users SET write_access=1 WHERE id=?').run(c.get('user').id)

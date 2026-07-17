@@ -7,6 +7,7 @@ import { useStore } from '../../store'
 import { haptic } from '../../telegram'
 import type { FriendsPayload } from './api'
 import { Sheet } from './ui'
+import { t } from '../../i18n'
 
 export function SettingsSheet({ data, onClose }: { data: FriendsPayload; onClose: () => void }) {
  const [notify, setNotify] = useState(data.settings.notifySocial)
@@ -19,30 +20,30 @@ export function SettingsSheet({ data, onClose }: { data: FriendsPayload; onClose
  try {
  await req('/activities/settings', { settings: { notifications: { social: next } } })
  } catch {
- setNotify(!next); haptic('warn'); useStore.getState().showToast('Не сохранилось')
+ setNotify(!next); haptic('warn'); useStore.getState().showToast(t('Не сохранилось'))
  } finally { setBusy(false) }
  }
 
  return (
  <Sheet onClose={onClose}>
- <h2 style={{ textAlign: 'center', marginBottom: 16 }}>⚙️ Настройки Дворика</h2>
+ <h2 style={{ textAlign: 'center', marginBottom: 16 }}>{t('⚙️ Настройки Дворика')}</h2>
 
  <label className="goal-row" style={{ cursor: 'pointer' }}>
  <div style={{ flex: 1 }}>
- <div style={{ fontWeight: 800 }}>Уведомления о Дворике</div>
- <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>Лучики, обнимашки, заявки в друзья</div>
+ <div style={{ fontWeight: 800 }}>{t('Уведомления о Дворике')}</div>
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{t('Лучики, обнимашки, заявки в друзья')}</div>
  </div>
  <input type="checkbox" checked={notify} onChange={() => void toggleNotify()} style={{ width: 22, height: 22 }} />
  </label>
 
  <div className="card" style={{ background: 'var(--card-shade)', padding: 12 }}>
  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', fontWeight: 700 }}>
- <span>Принимаю тёплые лучики</span>
- <span>{data.settings.allowVibes ? 'да 💛' : 'нет'}</span>
+ <span>{t('Принимаю тёплые лучики')}</span>
+ <span>{data.settings.allowVibes ? t('да 💛') : t('нет')}</span>
  </div>
  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', fontWeight: 700 }}>
- <span>Принимаю заявки в друзья</span>
- <span>{data.settings.allowRequests ? 'да 💛' : 'нет'}</span>
+ <span>{t('Принимаю заявки в друзья')}</span>
+ <span>{data.settings.allowRequests ? t('да 💛') : t('нет')}</span>
  </div>
  </div>
  </Sheet>

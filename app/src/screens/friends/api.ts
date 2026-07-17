@@ -105,16 +105,16 @@ export const social = {
   buddyDecline: (mailId: number) => req<{ ok: boolean }>('/social/buddy/decline', { mailId }),
   kudos: (goalId: number, ownerId: number) =>
     req<{ ok: boolean }>(`/social/goals/${goalId}/kudos`, { ownerId }),
-  // Feature 3 — giftable streak-freeze
+  // Feature 3 - giftable streak-freeze
   giftFreeze: (friendId: number, buy?: boolean) =>
     req<{ ok: boolean; usedBanked: boolean }>('/social/gift-freeze', { friendId, buy }),
-  // Feature 4 — compliments
+  // Feature 4 - compliments
   compliments: () => req<{ compliments: Compliment[]; anonAllowed: boolean; isMinor: boolean }>('/social/compliments'),
   compliment: (body: { friendId?: number; external?: boolean; messageId: string; anon?: boolean }) =>
     req<{ ok?: boolean; first?: boolean; reward?: VibeReward; external?: boolean; link?: string; text?: string }>('/social/compliment', body),
   appreciationWeek: () =>
     req<{ count: number; items: { ru: string; emoji: string; from: string | null; ts: number }[] }>('/social/appreciation/week'),
-  // safety — report
+  // safety - report
   report: (body: { targetId?: number; kind: 'user' | 'vibe' | 'message' | 'coop' | 'other'; ref?: string; reason: string; note?: string }) =>
     req<{ ok: boolean }>('/social/report', body),
 }

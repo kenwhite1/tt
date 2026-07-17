@@ -1,4 +1,4 @@
-// Procedural micropet sprite — original flat-cozy creatures with soft shaded volume.
+// Procedural micropet sprite - original flat-cozy creatures with soft shaded volume.
 // Deterministic per speciesId: the hash picks a body archetype; a radial gradient + ground
 // shadow + highlight give it depth, tinted by the variant colour.
 import { useId } from 'react'

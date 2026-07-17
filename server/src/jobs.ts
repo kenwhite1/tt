@@ -151,11 +151,11 @@ function collectDue(): { userId: number; text: string }[] {
  // «Вечерний сбор», только для тех, кто сам выбрал час (opt-in, без серий и таймеров)
  const eh = eveningHourOf(u)
  if (eh != null && within(eh * 60))
- queue(u, 'evening_collect', day, pick(pool('evening_collect')) || 'Вечер тихонько наступает 🌙 Загляни — уложим щенков вместе и выдохнем.')
+ queue(u, 'evening_collect', day, pick(pool('evening_collect')) || 'Вечер тихонько наступает 🌙 Загляни - уложим щенков вместе и выдохнем.')
  }
 
  // «Содружок»: DM the partner who hasn't shown up yet today, when the other one has.
- // From the puppy, gentle (encouragement to nudge — never a loss). Toggle: notif_coop_nudge.
+ // From the puppy, gentle (encouragement to nudge - never a loss). Toggle: notif_coop_nudge.
  const coopBonds = db.prepare("SELECT id, name FROM coop_pets WHERE status='active'").all() as { id: number; name: string }[]
  for (const b of coopBonds) {
  const mems = db.prepare('SELECT user_id FROM coop_members WHERE coop_id=?').all(b.id) as { user_id: number }[]
@@ -178,7 +178,7 @@ function collectDue(): { userId: number; text: string }[] {
  const tl = localNow(tu.tz)
  if (Math.abs(tl.minutes - C.COOP_STREAK_NUDGE_HOUR * 60) > 1) continue
  if (logInsert.run(tu.id, 'coop_nudge', target.day).changes === 0) continue
- sends.push({ userId: tu.id, text: `${partner.u.name || 'Друг'} уже позаботился о нашем щенке ${b.name} 🐾 Остался только ты — забеги на минутку, и мы подрастём вместе 💛` })
+ sends.push({ userId: tu.id, text: `${partner.u.name || 'Друг'} уже позаботился о нашем щенке ${b.name} 🐾 Остался только ты - забеги на минутку, и мы подрастём вместе 💛` })
  }
 
  // Возвращение с прогулки: прогулка кончилась, разговор ещё не состоялся

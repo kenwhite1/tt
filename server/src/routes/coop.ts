@@ -1,6 +1,6 @@
-// «Содружок» / co-op puppy — a second, SHARED puppy co-raised by 2 users.
+// «Содружок» / co-op puppy - a second, SHARED puppy co-raised by 2 users.
 // Interdependent (grows only when BOTH contribute that day), additive-only, no-punishment.
-// The shared bar is DERIVED each read from goal_completions — never stored. See docs/SPEC-COOP-PUPPY.md.
+// The shared bar is DERIVED each read from goal_completions - never stored. See docs/SPEC-COOP-PUPPY.md.
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { readFileSync } from 'node:fs'
@@ -253,7 +253,7 @@ coopRoutes.post('/create', async c => {
       mailTo(toId, 'coop_invite', `${me.name} зовёт завести общего щенка! 🐾`,
         `Вы будете растить ${name} вдвоём, по очереди заботясь о нём. Открой «Друзья», чтобы согласиться 💛`,
         { coopId, code, fromId: me.id })
-      sendDM(toId, `${me.name} зовёт тебя завести общего щенка 🐾 Откройте «Друзья» — там ждёт ${name}.`)
+      sendDM(toId, `${me.name} зовёт тебя завести общего щенка 🐾 Откройте «Друзья» - там ждёт ${name}.`)
     }
   })()
   logEvent(me.id, 'coop_create', { hasFriend: !!body.data.friendId })
@@ -289,8 +289,8 @@ coopRoutes.post('/accept', async c => {
     const cp = q.coop.get(invite.coop_id) as CoopRow
     if (founder) {
       mailTo(invite.from_id, 'system', `${me.name} согласился(ась)! Вы вместе растите ${cp.name} 🐣`,
-        'Общий щенок вылупился. Кормите его вдвоём — он растёт, только когда оба заходят 💛', { coopId: invite.coop_id })
-      sendDM(invite.from_id, `${me.name} принял(а) приглашение — ваш общий щенок ${cp.name} вылупился! 🐣`)
+        'Общий щенок вылупился. Кормите его вдвоём - он растёт, только когда оба заходят 💛', { coopId: invite.coop_id })
+      sendDM(invite.from_id, `${me.name} принял(а) приглашение - ваш общий щенок ${cp.name} вылупился! 🐣`)
     }
   })()
   // co-op also feeds the referral ladder if the accepter is a fresh invite from a link
@@ -362,7 +362,7 @@ coopRoutes.post('/walk/claim', async c => {
   })
 })
 
-// shared pat — cosmetic only (hearts on the client), no stat behind it
+// shared pat - cosmetic only (hearts on the client), no stat behind it
 coopRoutes.post('/pet', async c => {
   const me = ensureFresh(c.get('user'))
   const body = z.object({ coopId: z.number().int() }).safeParse(await c.req.json().catch(() => null))
@@ -371,7 +371,7 @@ coopRoutes.post('/pet', async c => {
   return c.json({ ok: true })
 })
 
-// rename — both members must agree (lightweight propose→confirm handshake via settings)
+// rename - both members must agree (lightweight propose→confirm handshake via settings)
 coopRoutes.post('/rename', async c => {
   const me = ensureFresh(c.get('user'))
   const body = z.object({ coopId: z.number().int(), name: z.string().min(1).max(30), confirm: z.boolean().optional() })
@@ -404,7 +404,7 @@ coopRoutes.post('/rename', async c => {
   return c.json({ ok: true, applied: false, pending: true })
 })
 
-// «Пауза двора» — cosmetic dormant toggle (grants/removes nothing)
+// «Пауза двора» - cosmetic dormant toggle (grants/removes nothing)
 coopRoutes.post('/pause', async c => {
   const me = ensureFresh(c.get('user'))
   const body = z.object({ coopId: z.number().int(), pause: z.boolean() }).safeParse(await c.req.json().catch(() => null))
@@ -415,7 +415,7 @@ coopRoutes.post('/pause', async c => {
   return c.json({ coop: buildDto(body.data.coopId, me.id, me.last_day!) })
 })
 
-// leave — never deletes the shared puppy; the surviving member keeps it (read-only) and may re-invite
+// leave - never deletes the shared puppy; the surviving member keeps it (read-only) and may re-invite
 coopRoutes.post('/leave', async c => {
   const me = ensureFresh(c.get('user'))
   const body = z.object({ coopId: z.number().int() }).safeParse(await c.req.json().catch(() => null))

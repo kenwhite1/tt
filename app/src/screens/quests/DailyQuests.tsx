@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { haptic } from '../../telegram'
+import { t } from '../../i18n'
 import type { DailyQuestDto } from './types'
 
 const TYPE_EMOJI: Record<string, string> = {
@@ -22,7 +23,7 @@ export function DailyQuests({ daily, onClaim, onDone, onAnswer }: Props) {
 
  return (
  <>
- <h2 style={{ margin: '6px 4px 10px' }}>Ежедневные задания</h2>
+ <h2 style={{ margin: '6px 4px 10px' }}>{t('Ежедневные задания')}</h2>
  {daily.map(quest => {
  const expanded = open === quest.id
  return (
@@ -39,7 +40,7 @@ export function DailyQuests({ daily, onClaim, onDone, onAnswer }: Props) {
  <span style={{ fontWeight: 800, color: 'var(--ink-soft)', whiteSpace: 'nowrap' }}>✓ {quest.reward} 🦴</span>
  ) : quest.done ? (
  <button className="btn accent" style={{ padding: '8px 14px', fontSize: 14, whiteSpace: 'nowrap' }} onClick={() => onClaim(quest.id)}>
- Забрать {quest.reward} 🦴
+ {t('Забрать')} {quest.reward} 🦴
  </button>
  ) : quest.type === 'answer_friends' || quest.type === 'affirmation' || quest.manual ? (
  <button
@@ -47,7 +48,7 @@ export function DailyQuests({ daily, onClaim, onDone, onAnswer }: Props) {
  style={{ padding: '8px 12px', fontSize: 14, whiteSpace: 'nowrap' }}
  onClick={() => { haptic('tap'); setAffTaps(0); setOpen(expanded ? null : quest.id) }}
  >
- {expanded ? 'Свернуть' : 'Открыть'}
+ {expanded ? t('Свернуть') : t('Открыть')}
  </button>
  ) : (
  <span style={{ color: 'var(--ink-soft)', fontSize: 13, whiteSpace: 'nowrap' }}>+{quest.reward} 🦴</span>
@@ -67,7 +68,7 @@ export function DailyQuests({ daily, onClaim, onDone, onAnswer }: Props) {
  {opt}
  </button>
  ))}
- <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>Друзья увидят, что ты тоже ответил(а) на вопрос дня 💛</div>
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{t('Друзья увидят, что ты тоже ответил(а) на вопрос дня 💛')}</div>
  </div>
  )}
 
@@ -75,7 +76,7 @@ export function DailyQuests({ daily, onClaim, onDone, onAnswer }: Props) {
  <div style={{ marginTop: 12, textAlign: 'center' }}>
  <div style={{ fontWeight: 800, fontSize: 17, margin: '4px 0 10px' }}>«{quest.affirmation}»</div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', marginBottom: 10 }}>
- Произнеси вслух или про себя, и нажми после каждого раза
+ {t('Произнеси вслух или про себя, и нажми после каждого раза')}
  </div>
  <button
  className="btn"
@@ -86,7 +87,7 @@ export function DailyQuests({ daily, onClaim, onDone, onAnswer }: Props) {
  if (n >= 3) { onDone(quest.id); setOpen(null) }
  }}
  >
- Повторяю 🌞 {affTaps} / 3
+ {t('Повторяю 🌞')} {affTaps} / 3
  </button>
  </div>
  )}
@@ -95,11 +96,11 @@ export function DailyQuests({ daily, onClaim, onDone, onAnswer }: Props) {
  <div style={{ marginTop: 12, textAlign: 'center' }}>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', marginBottom: 10 }}>
  {quest.type === 'change_outfit'
- ? 'Загляни в Сумку → Одежда, переодень питомца, а потом вернись сюда.'
- : 'Загляни в Сумку → Мебель, поменяй что-нибудь в домике, а потом вернись сюда.'}
+ ? t('Загляни в Сумку → Одежда, переодень питомца, а потом вернись сюда.')
+ : t('Загляни в Сумку → Мебель, поменяй что-нибудь в домике, а потом вернись сюда.')}
  </div>
  <button className="btn" onClick={() => { onDone(quest.id); setOpen(null) }}>
- Отметить выполненным
+ {t('Отметить выполненным')}
  </button>
  </div>
  )}

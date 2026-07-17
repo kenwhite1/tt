@@ -1,4 +1,4 @@
-// «Витрина» — milestone share cards. The card is composed on an offscreen <canvas>
+// «Витрина» - milestone share cards. The card is composed on an offscreen <canvas>
 // (mascot art + headline + pet name + CTA), rasterized to PNG, uploaded to /api/share/card,
 // then posted to a Telegram Story / forwarded into a chat / saved. See SPEC-VIRAL-FEATURES §1.
 import { useEffect, useState } from 'react'
@@ -6,6 +6,7 @@ import { shareApi } from './screens/friends/api'
 import { Sheet } from './screens/friends/ui'
 import { shareStory, shareCard, shareLink, haptic } from './telegram'
 import { useStore } from './store'
+import { t } from './i18n'
 
 const DOG = new Set(['dog', ''])
 function mascotSrc(species: string): string {
@@ -85,7 +86,7 @@ export async function renderCardPng(opts: ShareCardOpts): Promise<string> {
   if (opts.subtitle) { ctx.fillText(opts.subtitle, W / 2, y + 8); y += 70 }
   // CTA footer
   ctx.fillStyle = '#5a3d12'; ctx.font = '700 40px Nunito, system-ui, sans-serif'
-  ctx.fillText('🐾 Шарик · заведи своего щенка', W / 2, H - 150)
+  ctx.fillText(t('🐾 Шарик · заведи своего щенка'), W / 2, H - 150)
   return canvas.toDataURL('image/png')
 }
 
@@ -110,7 +111,7 @@ export function ShareSheet({ opts, text, onClose }: { opts: ShareCardOpts; text:
     if (hosted) return hosted
     if (!preview) throw new Error('no_preview')
     const r = await shareApi.card({ kind: opts.kind, ref: opts.ref, png: preview, text })
-    if (r.rewarded > 0) useStore.getState().showToast(`+${r.rewarded}🦴 за то, что поделился 💛`)
+    if (r.rewarded > 0) useStore.getState().showToast(`+${r.rewarded}🦴 ${t('за то, что поделился 💛')}`)
     const h = { url: r.url, preparedId: r.preparedId, link: r.link }
     setHosted(h); return h
   }
@@ -119,9 +120,9 @@ export function ShareSheet({ opts, text, onClose }: { opts: ShareCardOpts; text:
     setBusy(true); haptic('tap')
     try {
       const h = await ensureHosted()
-      shareStory(h.url, text, { url: h.link, name: 'Открыть Шарика' })
+      shareStory(h.url, text, { url: h.link, name: t('Открыть Шарика') })
       void shareApi.log({ kind: opts.kind, ref: opts.ref, surface: 'story' })
-    } catch { useStore.getState().showToast('Не получилось, попробуй ещё раз') }
+    } catch { useStore.getState().showToast(t('Не получилось, попробуй ещё раз')) }
     setBusy(false)
   }
 
@@ -132,7 +133,7 @@ export function ShareSheet({ opts, text, onClose }: { opts: ShareCardOpts; text:
       const sent = h.preparedId ? await shareCard(h.preparedId, h.link, text) : false
       if (!sent) shareLink(h.link, text)
       void shareApi.log({ kind: opts.kind, ref: opts.ref, surface: h.preparedId ? 'message' : 'link' })
-    } catch { useStore.getState().showToast('Не получилось, попробуй ещё раз') }
+    } catch { useStore.getState().showToast(t('Не получилось, попробуй ещё раз')) }
     setBusy(false)
   }
 
@@ -144,15 +145,15 @@ export function ShareSheet({ opts, text, onClose }: { opts: ShareCardOpts; text:
 
   return (
     <Sheet onClose={onClose} z={70}>
-      <h2 style={{ textAlign: 'center', marginBottom: 12 }}>Поделиться 💛</h2>
+      <h2 style={{ textAlign: 'center', marginBottom: 12 }}>{t('Поделиться 💛')}</h2>
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 14 }}>
         {preview
           ? <img src={preview} alt="" style={{ width: 200, borderRadius: 18, boxShadow: 'var(--shadow-lip)' }} />
           : <div style={{ width: 200, height: 250, borderRadius: 18, background: 'var(--card-shade)' }} />}
       </div>
-      <button className="btn" style={{ width: '100%', marginBottom: 8 }} disabled={busy || !preview} onClick={() => void toStory()}>В историю</button>
-      <button className="btn accent" style={{ width: '100%', marginBottom: 8 }} disabled={busy || !preview} onClick={() => void toChat()}>Отправить другу</button>
-      <button className="btn ghost" style={{ width: '100%' }} disabled={!preview} onClick={save}>Сохранить картинку</button>
+      <button className="btn" style={{ width: '100%', marginBottom: 8 }} disabled={busy || !preview} onClick={() => void toStory()}>{t('В историю')}</button>
+      <button className="btn accent" style={{ width: '100%', marginBottom: 8 }} disabled={busy || !preview} onClick={() => void toChat()}>{t('Отправить другу')}</button>
+      <button className="btn ghost" style={{ width: '100%' }} disabled={!preview} onClick={save}>{t('Сохранить картинку')}</button>
     </Sheet>
   )
 }

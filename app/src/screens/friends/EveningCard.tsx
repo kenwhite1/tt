@@ -1,4 +1,4 @@
-// «Вечерний сбор» — a gentle wind-down moment. Opt-in (set your hour), no streak, no timer.
+// «Вечерний сбор» - a gentle wind-down moment. Opt-in (set your hour), no streak, no timer.
 // Shows who's around in your window and lets you check in. See SPEC-VIRAL-FEATURES §6.
 import { useEffect, useState } from 'react'
 import { evening } from './api'
@@ -6,6 +6,7 @@ import { Sheet } from './ui'
 import { Mascot } from '../../art/Mascot'
 import { haptic } from '../../telegram'
 import { useStore } from '../../store'
+import { t } from '../../i18n'
 
 type Now = { inWindow: boolean; hour: number; windowMin: number; checkedIn: boolean; present: { name: string; petName: string; species: string }[] }
 
@@ -20,7 +21,7 @@ export function EveningCard() {
   if (!now.inWindow && now.present.length === 0) {
     return (
       <button className="btn ghost" style={{ width: '100%', marginBottom: 12, fontSize: 13 }} onClick={() => { haptic('tap'); setSettings(true) }}>
-        🌙 Вечерний сбор в {String(now.hour).padStart(2, '0')}:00 · настроить
+        {t('🌙 Вечерний сбор в')} {String(now.hour).padStart(2, '0')}:00 {t('· настроить')}
         {settings && <HourSheet hour={now.hour} onClose={() => setSettings(false)} onSaved={reload} />}
       </button>
     )
@@ -31,9 +32,9 @@ export function EveningCard() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <span style={{ fontSize: 26 }}>🌙</span>
         <div style={{ flex: 1 }}>
-          <b>Вечерний сбор</b>
+          <b>{t('Вечерний сбор')}</b>
           <div style={{ fontSize: 13, opacity: 0.85 }}>
-            {now.present.length > 0 ? `${now.present.length} друзей укладывают щенков` : 'Тихо выдохнуть перед сном'}
+            {now.present.length > 0 ? `${now.present.length} ${t('друзей укладывают щенков')}` : t('Тихо выдохнуть перед сном')}
           </div>
         </div>
         <button className="btn ghost" style={{ padding: '6px 10px', color: '#fff' }} onClick={() => { haptic('tap'); setSettings(true) }}>⚙️</button>
@@ -49,13 +50,13 @@ export function EveningCard() {
         </div>
       )}
       <button className="btn" style={{ width: '100%', marginTop: 10 }} disabled={now.checkedIn}
-        onClick={async () => { await evening.checkin(); haptic('success'); useStore.getState().showToast('Спокойной ночи 🌙'); reload() }}>
-        {now.checkedIn ? 'Ты здесь 💛' : 'Я укладываю щенка 🌙'}
+        onClick={async () => { await evening.checkin(); haptic('success'); useStore.getState().showToast(t('Спокойной ночи 🌙')); reload() }}>
+        {now.checkedIn ? t('Ты здесь 💛') : t('Я укладываю щенка 🌙')}
       </button>
       {now.present.length > 0 && (
         <button className="btn ghost" style={{ width: '100%', marginTop: 8, color: '#fff', borderColor: 'rgba(255,255,255,0.4)' }}
-          onClick={async () => { const r = await evening.wave(); haptic('success'); useStore.getState().showToast(r.reached > 0 ? `Помахал(а) ${r.reached} друзьям 🌙` : 'Пока никого рядом') }}>
-          👋 Пожелать всем спокойной ночи
+          onClick={async () => { const r = await evening.wave(); haptic('success'); useStore.getState().showToast(r.reached > 0 ? `${t('Помахал(а)')} ${r.reached} ${t('друзьям 🌙')}` : t('Пока никого рядом')) }}>
+          {t('👋 Пожелать всем спокойной ночи')}
         </button>
       )}
       {settings && <HourSheet hour={now.hour} onClose={() => setSettings(false)} onSaved={reload} />}
@@ -67,8 +68,8 @@ function HourSheet({ hour, onClose, onSaved }: { hour: number; onClose: () => vo
   const HOURS = [18, 19, 20, 21, 22, 23]
   return (
     <Sheet onClose={onClose} z={60}>
-      <h2 style={{ textAlign: 'center', marginBottom: 4 }}>Когда вам собираться?</h2>
-      <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 14px' }}>Мягкое окно на 1.5 часа. Без серий и обратного отсчёта — просто вместе выдохнуть.</p>
+      <h2 style={{ textAlign: 'center', marginBottom: 4 }}>{t('Когда вам собираться?')}</h2>
+      <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 14px' }}>{t('Мягкое окно на 1.5 часа. Без серий и обратного отсчёта - просто вместе выдохнуть.')}</p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
         {HOURS.map(h => (
           <button key={h} className={`btn ${h === hour ? '' : 'ghost'}`} onClick={async () => { await evening.setHour(h); haptic('tap'); onSaved(); onClose() }}>

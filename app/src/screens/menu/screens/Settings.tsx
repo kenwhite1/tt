@@ -8,6 +8,7 @@ import { invalidateContent } from '../ui'
 import type { AppSettings, SettingsDto } from '../types'
 import { isSoundOn, setSoundOn, playSfx } from '../../../sound'
 import { getThemePref, setThemePref, type ThemePref } from '../../../themeMode'
+import { t } from '../../../i18n'
 
 const THEMES: [ThemePref, string][] = [['auto', 'Авто'], ['light', 'Светлая'], ['dark', 'Тёмная']]
 
@@ -55,16 +56,16 @@ export function Settings({ onBack }: { onBack(): void }) {
 
   useEffect(() => { req<SettingsDto>('/activities/settings').then(setD).catch(() => {}) }, [])
 
-  async function save(patch: Record<string, unknown>, toast = 'Сохранено 💛') {
+  async function save(patch: Record<string, unknown>, toast = t('Сохранено 💛')) {
     try {
       await req('/activities/settings', patch)
       haptic('success')
       useStore.getState().showToast(toast)
       void useStore.getState().refresh()
-    } catch { useStore.getState().showToast('Не получилось') }
+    } catch { useStore.getState().showToast(t('Не получилось')) }
   }
 
-  if (!d) return <Sub title="Настройки" onBack={onBack}><Loading /></Sub>
+  if (!d) return <Sub title={t('Настройки')} onBack={onBack}><Loading /></Sub>
   const s = d.settings
   const allOn = NOTIF.every(n => s.notifications[n.key])
 
@@ -80,11 +81,11 @@ export function Settings({ onBack }: { onBack(): void }) {
   }
 
   return (
-    <Sub title="Настройки" onBack={onBack}>
+    <Sub title={t('Настройки')} onBack={onBack}>
       {/* profile */}
       <div className="card">
-        <h2 style={{ marginBottom: 10 }}>Профиль</h2>
-        <label style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)' }}>Как тебя зовут</label>
+        <h2 style={{ marginBottom: 10 }}>{t('Профиль')}</h2>
+        <label style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)' }}>{t('Как тебя зовут')}</label>
         <input
           defaultValue={d.userName}
           onBlur={e => { const v = e.target.value.trim(); if (v && v !== d.userName) { setD({ ...d, userName: v }); void save({ userName: v }) } }}
@@ -94,84 +95,84 @@ export function Settings({ onBack }: { onBack(): void }) {
 
       {/* pet */}
       <div className="card">
-        <h2 style={{ marginBottom: 10 }}>Шарик</h2>
-        <label style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)' }}>Имя питомца</label>
+        <h2 style={{ marginBottom: 10 }}>{t('Шарик')}</h2>
+        <label style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)' }}>{t('Имя питомца')}</label>
         <input
           defaultValue={d.petName}
           onBlur={e => { const v = e.target.value.trim(); if (v && v !== d.petName) { setD({ ...d, petName: v }); void save({ petName: v }) } }}
           style={inputStyle}
         />
-        <label style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)', display: 'block', marginTop: 8 }}>Местоимения</label>
+        <label style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)', display: 'block', marginTop: 8 }}>{t('Местоимения')}</label>
         <div style={{ display: 'flex', gap: 6, marginTop: 4 }}>
           {PRONOUNS.map(p => (
             <button key={p.v} onClick={() => { setD({ ...d, petPronouns: p.v }); void save({ petPronouns: p.v }) }}
-              style={pillStyle(d.petPronouns === p.v)}>{p.ru}</button>
+              style={pillStyle(d.petPronouns === p.v)}>{t(p.ru)}</button>
           ))}
         </div>
       </div>
 
       {/* day mode */}
       <div className="card">
-        <h2 style={{ marginBottom: 6 }}>Режим дня</h2>
-        <p style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '0 0 4px' }}>День Шарика начинается за пару часов до пробуждения.</p>
-        <TimePicker label="🌅 Подъём" value={d.wakeMin} onChange={v => { setD({ ...d, wakeMin: v }); void save({ wakeMin: v }) }} />
-        <TimePicker label="🌙 Отбой" value={d.sleepMin} onChange={v => { setD({ ...d, sleepMin: v }); void save({ sleepMin: v }) }} />
-        <div style={{ fontSize: 13, color: 'var(--ink-soft)', marginTop: 4 }}>Сейчас: подъём {HH(d.wakeMin)}:{MM(d.wakeMin)}, отбой {HH(d.sleepMin)}:{MM(d.sleepMin)} · {d.tz}</div>
+        <h2 style={{ marginBottom: 6 }}>{t('Режим дня')}</h2>
+        <p style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '0 0 4px' }}>{t('День Шарика начинается за пару часов до пробуждения.')}</p>
+        <TimePicker label={t('🌅 Подъём')} value={d.wakeMin} onChange={v => { setD({ ...d, wakeMin: v }); void save({ wakeMin: v }) }} />
+        <TimePicker label={t('🌙 Отбой')} value={d.sleepMin} onChange={v => { setD({ ...d, sleepMin: v }); void save({ sleepMin: v }) }} />
+        <div style={{ fontSize: 13, color: 'var(--ink-soft)', marginTop: 4 }}>{t('Сейчас: подъём')} {HH(d.wakeMin)}:{MM(d.wakeMin)}, {t('отбой')} {HH(d.sleepMin)}:{MM(d.sleepMin)} · {d.tz}</div>
       </div>
 
       {/* notifications */}
       <div className="card">
-        <h2 style={{ marginBottom: 6 }}>Уведомления</h2>
-        <Toggle label="Все уведомления" value={allOn} onChange={v => {
+        <h2 style={{ marginBottom: 6 }}>{t('Уведомления')}</h2>
+        <Toggle label={t('Все уведомления')} value={allOn} onChange={v => {
           const next = Object.fromEntries(NOTIF.map(n => [n.key, v])) as AppSettings['notifications']
           setD({ ...d, settings: { ...s, notifications: next } }); void save({ settings: { notifications: next } })
           if (v) void req('/notifications/enable', {}).catch(() => {}) // ensure the bot may DM
         }} />
         <div style={{ height: 1, background: 'var(--card-shade)', margin: '6px 0' }} />
         {NOTIF.map(n => (
-          <Toggle key={n.key} label={n.ru} value={s.notifications[n.key]} onChange={v => patchNotif({ [n.key]: v })} />
+          <Toggle key={n.key} label={t(n.ru)} value={s.notifications[n.key]} onChange={v => patchNotif({ [n.key]: v })} />
         ))}
       </div>
 
       {/* preferences */}
       <div className="card">
-        <h2 style={{ marginBottom: 6 }}>Предпочтения</h2>
-        <Toggle label="Викторины-самопроверки" sub="Мягкие опросники о самочувствии" value={s.quizzes}
+        <h2 style={{ marginBottom: 6 }}>{t('Предпочтения')}</h2>
+        <Toggle label={t('Викторины-самопроверки')} sub={t('Мягкие опросники о самочувствии')} value={s.quizzes}
           onChange={v => { invalidateContent(); patchSettings({ quizzes: v }) }} />
-        <Toggle label="Сезонные события" sub="Праздничные ивенты и наряды" value={s.seasonal} onChange={v => patchSettings({ seasonal: v })} />
-        <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)', margin: '10px 2px 6px' }}>Как отмечать выполнение цели</div>
+        <Toggle label={t('Сезонные события')} sub={t('Праздничные ивенты и наряды')} value={s.seasonal} onChange={v => patchSettings({ seasonal: v })} />
+        <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)', margin: '10px 2px 6px' }}>{t('Как отмечать выполнение цели')}</div>
         <div style={{ display: 'flex', gap: 6 }}>
-          <button onClick={() => patchSettings({ celebration: 'cheers' })} style={pillStyle(s.celebration === 'cheers')}>🎉 Радоваться</button>
-          <button onClick={() => patchSettings({ celebration: 'reflect' })} style={pillStyle(s.celebration === 'reflect')}>🌿 Спокойно</button>
+          <button onClick={() => patchSettings({ celebration: 'cheers' })} style={pillStyle(s.celebration === 'cheers')}>{t('🎉 Радоваться')}</button>
+          <button onClick={() => patchSettings({ celebration: 'reflect' })} style={pillStyle(s.celebration === 'reflect')}>{t('🌿 Спокойно')}</button>
         </div>
       </div>
 
       {/* sound + theme (client-side, stored locally) */}
       <div className="card">
-        <h2 style={{ marginBottom: 6 }}>Звук и тема</h2>
-        <Toggle label="Звуки" sub="Тихие звуки заботы о Шарике" value={soundOn}
+        <h2 style={{ marginBottom: 6 }}>{t('Звук и тема')}</h2>
+        <Toggle label={t('Звуки')} sub={t('Тихие звуки заботы о Шарике')} value={soundOn}
           onChange={v => { setSoundOn(v); setSoundOnState(v); if (v) playSfx('complete') }} />
-        <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)', margin: '10px 2px 6px' }}>Тема оформления</div>
+        <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)', margin: '10px 2px 6px' }}>{t('Тема оформления')}</div>
         <div style={{ display: 'flex', gap: 6 }}>
           {THEMES.map(([v, ru]) => (
-            <button key={v} onClick={() => { haptic('tap'); setThemePref(v); setThemePrefState(v) }} style={pillStyle(themePref === v)}>{ru}</button>
+            <button key={v} onClick={() => { haptic('tap'); setThemePref(v); setThemePrefState(v) }} style={pillStyle(themePref === v)}>{t(ru)}</button>
           ))}
         </div>
       </div>
 
       {/* retake the onboarding quiz (keeps all progress) */}
       <div className="card">
-        <h2 style={{ marginBottom: 6 }}>Знакомство</h2>
+        <h2 style={{ marginBottom: 6 }}>{t('Знакомство')}</h2>
         <button className="btn ghost" style={{ width: '100%' }} onClick={() => useStore.getState().restartOnboarding()}>
-          🔄 Пройти знакомство заново
+          {t('🔄 Пройти знакомство заново')}
         </button>
         <p style={{ fontSize: 12.5, color: 'var(--ink-soft)', margin: '8px 2px 0' }}>
-          Заново выбрать питомца и ответить на вопросы. Весь прогресс сохранится.
+          {t('Заново выбрать питомца и ответить на вопросы. Весь прогресс сохранится.')}
         </p>
       </div>
 
       <p style={{ fontSize: 11.5, lineHeight: 1.45, color: 'var(--ink-soft)', textAlign: 'center', margin: '6px 8px 4px' }}>
-        Шарик это развлекательное приложение для заботы о себе. Не является медицинской или психологической услугой и не заменяет консультацию специалиста.
+        {t('Шарик это развлекательное приложение для заботы о себе. Не является медицинской или психологической услугой и не заменяет консультацию специалиста.')}
       </p>
     </Sub>
   )

@@ -5,6 +5,7 @@ import { Puppy } from '../../art/Puppy'
 import type { DyePart, PuppyState } from '../../art/Puppy'
 import type { Stage } from '@shared/constants'
 import { C } from '@shared/constants'
+import { t } from '../../i18n'
 
 // box-color id → body hex (mirrors Onboarding palette); accepts a raw hex too.
 const COLOR_HEX: Record<string, string> = {
@@ -34,7 +35,7 @@ export const FRIENDSHIP_NAMES = [
  'Не разлей вода', 'Закадычные', 'Родственные души', 'Половинки', 'Навсегда вместе',
 ]
 export function levelName(level: number): string {
- return FRIENDSHIP_NAMES[Math.min(FRIENDSHIP_NAMES.length, Math.max(1, level)) - 1]
+ return t(FRIENDSHIP_NAMES[Math.min(FRIENDSHIP_NAMES.length, Math.max(1, level)) - 1])
 }
 // progress (0..1) toward the next level for the heart bar
 export function levelProgress(pts: number, level: number): { ratio: number; next: number | null } {
@@ -49,12 +50,12 @@ export function levelProgress(pts: number, level: number): { ratio: number; next
 export function timeAgo(ts: number): string {
  const diff = Date.now() - ts
  const m = Math.floor(diff / 60_000)
- if (m < 1) return 'только что'
- if (m < 60) return `${m} мин назад`
+ if (m < 1) return t('только что')
+ if (m < 60) return `${m} ${t('мин назад')}`
  const h = Math.floor(m / 60)
- if (h < 24) return `${h} ч назад`
+ if (h < 24) return `${h} ${t('ч назад')}`
  const d = Math.floor(h / 24)
- return `${d} дн назад`
+ return `${d} ${t('дн назад')}`
 }
 
 export function PuppyMini({ stage, color, dyes, size = 70, state = 'idle' as PuppyState }:

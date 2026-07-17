@@ -5,6 +5,7 @@ import { req } from '../../api'
 import { haptic } from '../../telegram'
 import { useStore } from '../../store'
 import { BOX_COLORS, errRu } from './types'
+import { t } from '../../i18n'
 import type { GiftTargetDto } from './types'
 
 export type GiftMode =
@@ -41,7 +42,7 @@ export function GiftModal({ mode, itemRu, onClose, onDone }: {
  await req('/shop/gift-own', { kind: mode.kind, itemId: mode.itemId, colorId: mode.colorId, friendId, boxColor: box })
  }
  haptic('success')
- showToast('Подарок отправлен! 🎁')
+ showToast(t('Подарок отправлен! 🎁'))
  void useStore.getState().refresh()
  onDone()
  } catch (e) {
@@ -54,13 +55,13 @@ export function GiftModal({ mode, itemRu, onClose, onDone }: {
  return (
  <div style={{ position: 'fixed', inset: 0, background: 'rgba(60,40,20,0.45)', zIndex: 45, display: 'flex', alignItems: 'flex-end' }} onClick={onClose}>
  <div className="card" style={{ width: '100%', borderRadius: '26px 26px 0 0', margin: 0, maxHeight: '78vh', overflowY: 'auto', paddingBottom: 'calc(20px + var(--safe-bottom))' }} onClick={e => e.stopPropagation()}>
- <h2 style={{ textAlign: 'center' }}>🎁 Подарить</h2>
+ <h2 style={{ textAlign: 'center' }}>{t('🎁 Подарить')}</h2>
  <p style={{ textAlign: 'center', color: 'var(--ink-soft)', margin: '6px 0 12px' }}>{itemRu}</p>
 
- <h3 style={{ fontSize: 15, margin: '0 0 8px' }}>Кому подарим?</h3>
- {friends === null && <p style={{ color: 'var(--ink-soft)' }}>Зову друзей…</p>}
+ <h3 style={{ fontSize: 15, margin: '0 0 8px' }}>{t('Кому подарим?')}</h3>
+ {friends === null && <p style={{ color: 'var(--ink-soft)' }}>{t('Зову друзей…')}</p>}
  {friends !== null && friends.length === 0 && (
- <p style={{ color: 'var(--ink-soft)' }}>Пока некому дарить, загляни во «Дворик» и добавь друзей 💛</p>
+ <p style={{ color: 'var(--ink-soft)' }}>{t('Пока некому дарить, загляни во «Дворик» и добавь друзей 💛')}</p>
  )}
  {friends?.map(f => {
  const blocked = f.owned || f.giftedToday
@@ -74,20 +75,20 @@ export function GiftModal({ mode, itemRu, onClose, onDone }: {
  >
  <span style={{ fontSize: 22 }}>💛</span>
  <span style={{ flex: 1, fontWeight: 800 }}>{f.name}</span>
- {f.owned && <span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>уже есть</span>}
- {!f.owned && f.giftedToday && <span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>уже подарено</span>}
+ {f.owned && <span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{t('уже есть')}</span>}
+ {!f.owned && f.giftedToday && <span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{t('уже подарено')}</span>}
  {friendId === f.id && <span>✓</span>}
  </button>
  )
  })}
 
- <h3 style={{ fontSize: 15, margin: '12px 0 8px' }}>Цвет коробочки</h3>
+ <h3 style={{ fontSize: 15, margin: '12px 0 8px' }}>{t('Цвет коробочки')}</h3>
  <div style={{ display: 'flex', gap: 10, marginBottom: 14 }}>
  {BOX_COLORS.map(b => (
  <button
  key={b.id}
  onClick={() => setBox(b.id)}
- aria-label={b.ru}
+ aria-label={t(b.ru)}
  style={{
  width: 44, height: 44, borderRadius: 12, background: b.hex, cursor: 'pointer',
  border: box === b.id ? '3px solid var(--brown-deep)' : '3px solid transparent',
@@ -97,10 +98,10 @@ export function GiftModal({ mode, itemRu, onClose, onDone }: {
  </div>
 
  <button className="btn accent" style={{ width: '100%' }} disabled={friendId === null || busy} onClick={() => void send()}>
- Отправить за {cost} 🦴
+ {t('Отправить за')} {cost} 🦴
  </button>
  <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--ink-soft)', marginTop: 8 }}>
- {mode.type === 'slot' ? `Цена вещи + ${C.GIFT_FEE} 🦴 за доставку` : `Вещь уйдёт из твоей сумки, доставка ${C.GIFT_FEE} 🦴`}
+ {mode.type === 'slot' ? `${t('Цена вещи +')} ${C.GIFT_FEE} ${t('🦴 за доставку')}` : `${t('Вещь уйдёт из твоей сумки, доставка')} ${C.GIFT_FEE} 🦴`}
  </p>
  </div>
  </div>

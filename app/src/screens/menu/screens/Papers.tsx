@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { req } from '../../../api'
 import { Loading, MOOD_EMOJI, Sub, fmtDay } from '../ui'
 import type { PapersDto } from '../types'
+import { t } from '../../../i18n'
 
 const trend = (now: number, prev: number) => now > prev ? '↑' : now < prev ? '↓' : '→'
 
@@ -12,7 +13,7 @@ export function Papers({ onBack, onPlus }: { onBack(): void; onPlus(): void }) {
  const [open, setOpen] = useState<{ title: string; body: string } | null>(null)
  useEffect(() => { req<PapersDto>('/activities/papers').then(setData).catch(() => {}) }, [])
 
- if (!data) return <Sub title="Газеты" onBack={onBack}><Loading /></Sub>
+ if (!data) return <Sub title={t('Газеты')} onBack={onBack}><Loading /></Sub>
 
  if (open) {
  return (
@@ -26,24 +27,24 @@ export function Papers({ onBack, onPlus }: { onBack(): void; onPlus(): void }) {
  const moods = Object.entries(st.moodByDay).sort(([a], [b]) => a.localeCompare(b))
 
  return (
- <Sub title="Газеты" onBack={onBack}>
+ <Sub title={t('Газеты')} onBack={onBack}>
  <div className="card" style={{ background: 'linear-gradient(135deg, #fbe3b2, #f8d77e)' }}>
- <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--brown)' }}>📰 СВЕЖИЙ ВЫПУСК · {fmtDay(data.live.day)}</div>
+ <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--brown)' }}>📰 {t('СВЕЖИЙ ВЫПУСК')} · {fmtDay(data.live.day)}</div>
  <h2 style={{ margin: '4px 0 10px' }}>{data.live.title}</h2>
  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
  {moods.length === 0
- ? <span style={{ color: 'var(--brown)', fontSize: 14 }}>На этой неделе ещё нет отметок настроения.</span>
+ ? <span style={{ color: 'var(--brown)', fontSize: 14 }}>{t('На этой неделе ещё нет отметок настроения.')}</span>
  : moods.map(([d, v]) => <span key={d} style={{ fontSize: 22 }} title={d}>{MOOD_EMOJI[v - 1] ?? '·'}</span>)}
  </div>
  <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', fontWeight: 800, color: 'var(--brown-deep)' }}>
- <span>📅 отметок: {st.checkinsThisWeek} {trend(st.checkinsThisWeek, st.checkinsLastWeek)}</span>
- <span>✅ целей: {st.goalsThisWeek}</span>
- <span>📝 записей: {st.reflectionsThisWeek}</span>
+ <span>📅 {t('отметок:')} {st.checkinsThisWeek} {trend(st.checkinsThisWeek, st.checkinsLastWeek)}</span>
+ <span>✅ {t('целей:')} {st.goalsThisWeek}</span>
+ <span>📝 {t('записей:')} {st.reflectionsThisWeek}</span>
  </div>
  </div>
 
- <h2 style={{ margin: '6px 4px 8px' }}>Архив</h2>
- {data.archive.length === 0 && <p style={{ color: 'var(--ink-soft)', textAlign: 'center' }}>Прошлые выпуски появятся здесь по понедельникам.</p>}
+ <h2 style={{ margin: '6px 4px 8px' }}>{t('Архив')}</h2>
+ {data.archive.length === 0 && <p style={{ color: 'var(--ink-soft)', textAlign: 'center' }}>{t('Прошлые выпуски появятся здесь по понедельникам.')}</p>}
  {data.archive.map(p => (
  <button key={p.id} className="goal-row" style={{ width: '100%', border: 'none', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', fontSize: 16 }} onClick={() => setOpen({ title: p.title, body: p.body })}>
  <span style={{ fontSize: 24 }}>💌</span>
@@ -56,8 +57,8 @@ export function Papers({ onBack, onPlus }: { onBack(): void; onPlus(): void }) {
 
  {!data.plus && (
  <button className="card" style={{ width: '100%', textAlign: 'left', border: 'none', cursor: 'pointer', fontFamily: 'inherit', background: 'var(--card-shade)' }} onClick={onPlus}>
- <b>🔒 Весь архив и все 4 газеты в неделю</b>
- <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>Открой в Шарик Плюс, старые выпуски и больше рубрик.</div>
+ <b>🔒 {t('Весь архив и все 4 газеты в неделю')}</b>
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{t('Открой в Шарик Плюс, старые выпуски и больше рубрик.')}</div>
  </button>
  )}
  </Sub>

@@ -1,4 +1,4 @@
-// Tiny synthesized sound effects via WebAudio — no asset files, works offline.
+// Tiny synthesized sound effects via WebAudio - no asset files, works offline.
 // Respects a mute flag stored in localStorage; created lazily on first play
 // (after a user gesture, which Telegram's webview requires).
 let ctx: AudioContext | null = null
@@ -34,7 +34,7 @@ function blip(c: AudioContext, freq: number, at: number, dur: number, type: Osci
 
 export type Sfx = 'pat' | 'complete' | 'hatch' | 'level'
 
-// Soft, warm cues — short and quiet so they never feel like a game-show.
+// Soft, warm cues - short and quiet so they never feel like a game-show.
 export function playSfx(name: Sfx): void {
   const c = audioCtx()
   if (!c) return

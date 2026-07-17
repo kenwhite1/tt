@@ -1,4 +1,6 @@
 // DTO types for the economy module (mirrors server/src/routes/shop.ts responses).
+import { t } from '../../i18n'
+
 export interface PaletteColor { id: string; ru: string; hex: string }
 
 export interface ListingDto {
@@ -126,5 +128,5 @@ export const ERRORS_RU: Record<string, string> = {
 
 export function errRu(e: unknown): string {
  const code = (e as { data?: { error?: string } })?.data?.error ?? (e as Error)?.message
- return ERRORS_RU[code ?? ''] ?? 'Что-то пошло не так, попробуй ещё раз'
+ return t(ERRORS_RU[code ?? ''] ?? 'Что-то пошло не так, попробуй ещё раз')
 }

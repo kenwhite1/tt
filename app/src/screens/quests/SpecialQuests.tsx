@@ -1,3 +1,4 @@
+import { t } from '../../i18n'
 import type { SpecialDto } from './types'
 
 const METRIC_EMOJI: Record<string, string> = {
@@ -12,9 +13,9 @@ interface Props {
 export function SpecialQuests({ special, onClaim }: Props) {
  return (
  <>
- <h2 style={{ margin: '14px 4px 4px' }}>Особые задания</h2>
+ <h2 style={{ margin: '14px 4px 4px' }}>{t('Особые задания')}</h2>
  <p style={{ margin: '0 4px 10px', fontSize: 13, color: 'var(--ink-soft)' }}>
- Долгие цели, по {special[0]?.reward ?? 100} 🦴 за каждый уровень
+ {t('Долгие цели, по')} {special[0]?.reward ?? 100} {t('🦴 за каждый уровень')}
  </p>
  {special.map(track => {
  const allDone = track.target == null
@@ -30,7 +31,7 @@ export function SpecialQuests({ special, onClaim }: Props) {
  style={{ padding: '8px 14px', fontSize: 14, whiteSpace: 'nowrap' }}
  onClick={() => onClaim(track.id)}
  >
- Забрать {track.reward} 🦴
+ {t('Забрать')} {track.reward} 🦴
  </button>
  )}
  </div>
@@ -39,11 +40,11 @@ export function SpecialQuests({ special, onClaim }: Props) {
  </div>
  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--ink-soft)', fontWeight: 700 }}>
  {allDone ? (
- <span>Все уровни пройдены, ты чудо! 🎉</span>
+ <span>{t('Все уровни пройдены, ты чудо! 🎉')}</span>
  ) : (
  <span>{Math.min(track.value, track.target!)} / {track.target}</span>
  )}
- <span>уровень {Math.min(track.tier + 1, track.totalTiers)} из {track.totalTiers}</span>
+ <span>{t('уровень')} {Math.min(track.tier + 1, track.totalTiers)} {t('из')} {track.totalTiers}</span>
  </div>
  </div>
  )

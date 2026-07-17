@@ -52,7 +52,7 @@ const STAGE_RU: Record<Stage, string> = { baby: 'Малыш', toddler: 'Крох
 
 // Location exclusives have no slot in content, infer from RU name keywords (cosmetic only).
 // Order matters (first match wins). Stems are kept specific so a substring of one
-// garment can't steal another's slot — e.g. "очки" (glasses) is anchored to a word
+// garment can't steal another's slot - e.g. "очки" (glasses) is anchored to a word
 // start so "носОЧКИ"/"тапОЧКИ"/"ботинОЧКИ" stay on the feet, not the face.
 const CLOTHING_KEYWORDS: [RegExp, string][] = [
  [/костюм|кигуруми|юката|ханбок|саронг|чапан|туник|джеллаб|комбинезон|кимоно/i, 'full'],

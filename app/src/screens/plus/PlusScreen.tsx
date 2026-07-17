@@ -5,6 +5,7 @@ import { req } from '../../api'
 import { tg } from '../../telegram'
 import { useStore } from '../../store'
 import { track } from '../../analytics'
+import { t } from '../../i18n'
 
 interface ConfigDto { enforced: boolean; monthStars: number; yearStars: number }
 
@@ -35,12 +36,12 @@ export function PlusScreen({ onClose }: { onClose(): void }) {
  const r = await req<{ link?: string; dev?: boolean }>('/payments/subscribe', { plan })
  if (r.link && tg?.openInvoice) {
  tg.openInvoice(r.link, status => {
- if (status === 'paid') { showToast('Спасибо! Шарик Плюс активирован 💛'); void useStore.getState().refresh(); onClose() }
+ if (status === 'paid') { showToast(t('Спасибо! Шарик Плюс активирован 💛')); void useStore.getState().refresh(); onClose() }
  })
  } else {
- showToast('Оплата пока недоступна')
+ showToast(t('Оплата пока недоступна'))
  }
- } catch { showToast('Не получилось открыть оплату') }
+ } catch { showToast(t('Не получилось открыть оплату')) }
  setBusy(false)
  }
 
@@ -48,39 +49,39 @@ export function PlusScreen({ onClose }: { onClose(): void }) {
  <div style={{ position: 'fixed', inset: 0, background: 'var(--bg)', zIndex: 70, display: 'flex', flexDirection: 'column', paddingTop: 'calc(var(--safe-top) + 8px)' }}>
  <header style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 14px 8px' }}>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={onClose}>✕</button>
- <h1 style={{ flex: 1 }}>Шарик Плюс</h1>
+ <h1 style={{ flex: 1 }}>{t('Шарик Плюс')}</h1>
  </header>
 
  <div className="scroll">
  <div className="card" style={{ textAlign: 'center', background: 'linear-gradient(135deg, #fbe3b2, #f8d77e)' }}>
  <div style={{ fontSize: 52 }}>💛</div>
- <h2>Поддержи Шарика и получи больше уюта</h2>
+ <h2>{t('Поддержи Шарика и получи больше уюта')}</h2>
  <p style={{ color: 'var(--brown)', margin: '6px 0 0', fontSize: 14 }}>
- Все важные вещи заботы о себе всегда бесплатны. Плюс, это удобство и красота, а не стена.
+ {t('Все важные вещи заботы о себе всегда бесплатны. Плюс, это удобство и красота, а не стена.')}
  </p>
  </div>
 
  {BENEFITS.map((b, i) => (
  <div key={i} className="goal-row">
  <span style={{ fontSize: 22 }}>{b.emoji}</span>
- <span style={{ flex: 1, fontWeight: 700, fontSize: 14 }}>{b.ru}</span>
+ <span style={{ flex: 1, fontWeight: 700, fontSize: 14 }}>{t(b.ru)}</span>
  </div>
  ))}
 
  {cfg && !cfg.enforced ? (
  <div className="card" style={{ textAlign: 'center', background: '#eef6e3', marginTop: 8 }}>
- <h2>Сейчас всё открыто бесплатно 💛</h2>
+ <h2>{t('Сейчас всё открыто бесплатно 💛')}</h2>
  <p style={{ color: 'var(--ink-soft)', margin: '6px 0 0', fontSize: 14 }}>
- Мы ещё не включили подписку, наслаждайся всеми возможностями без ограничений.
+ {t('Мы ещё не включили подписку, наслаждайся всеми возможностями без ограничений.')}
  </p>
  </div>
  ) : cfg ? (
  <div style={{ display: 'flex', gap: 10, margin: '14px 0' }}>
  <button className="btn ghost" style={{ flex: 1, flexDirection: 'column' }} disabled={busy} onClick={() => void subscribe('month')}>
- <b>{cfg.monthStars} ⭐</b><span style={{ fontSize: 12 }}>в месяц</span>
+ <b>{cfg.monthStars} ⭐</b><span style={{ fontSize: 12 }}>{t('в месяц')}</span>
  </button>
  <button className="btn accent" style={{ flex: 1, flexDirection: 'column' }} disabled={busy} onClick={() => void subscribe('year')}>
- <b>{cfg.yearStars} ⭐</b><span style={{ fontSize: 12 }}>на год · выгоднее</span>
+ <b>{cfg.yearStars} ⭐</b><span style={{ fontSize: 12 }}>{t('на год · выгоднее')}</span>
  </button>
  </div>
  ) : null}

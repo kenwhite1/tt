@@ -7,6 +7,7 @@ import type { FriendsPayload, InboxGroup, InboxPayload, Vibe } from './api'
 import { social } from './api'
 import { Sheet, timeAgo } from './ui'
 import { VibePicker } from './VibePicker'
+import { t } from '../../i18n'
 
 export function InboxSheet({ data, onClose, reload }:
   { data: FriendsPayload; onClose: () => void; reload: () => void }) {
@@ -33,12 +34,12 @@ export function InboxSheet({ data, onClose, reload }:
       if (r.reward?.stones) bits.push(`+${r.reward.stones}🦴`)
       useStore.getState().showToast(
         r.visit
-          ? `Позвал(а) ${target.name} в гости на час 🏡  ${bits.join('  ')}`.trim()
-          : `Лучик ${v.emoji} в ответ!  ${bits.join('  ')}`.trim(),
+          ? `${t('Позвал(а)')} ${target.name} ${t('в гости на час 🏡')}  ${bits.join('  ')}`.trim()
+          : `${t('Лучик')} ${v.emoji} ${t('в ответ!')}  ${bits.join('  ')}`.trim(),
       )
       if (r.reward?.energy || r.reward?.stones) void useStore.getState().refresh()
       setInvite(false); load(); reload()
-    } catch { haptic('warn'); useStore.getState().showToast('Не вышло ответить') }
+    } catch { haptic('warn'); useStore.getState().showToast(t('Не вышло ответить')) }
   }
 
   async function clearGroup(g: InboxGroup) {
@@ -49,13 +50,13 @@ export function InboxSheet({ data, onClose, reload }:
   }
 
   async function accept(fromId: number) {
-    try { await social.accept(fromId); haptic('success'); useStore.getState().showToast('Теперь вы друзья! 💛'); reload() } catch { haptic('warn') }
+    try { await social.accept(fromId); haptic('success'); useStore.getState().showToast(t('Теперь вы друзья! 💛')); reload() } catch { haptic('warn') }
   }
   async function decline(fromId: number) {
     try { await social.decline(fromId); haptic('tap'); reload() } catch { haptic('warn') }
   }
   async function buddyAccept(mailId: number) {
-    try { await social.buddyAccept(mailId); haptic('success'); useStore.getState().showToast('Принял(а) вызов! 🤝'); void useStore.getState().refresh(); reload() } catch { haptic('warn'); useStore.getState().showToast('Приглашение уже неактуально') }
+    try { await social.buddyAccept(mailId); haptic('success'); useStore.getState().showToast(t('Принял(а) вызов! 🤝')); void useStore.getState().refresh(); reload() } catch { haptic('warn'); useStore.getState().showToast(t('Приглашение уже неактуально')) }
   }
   async function buddyDecline(mailId: number) {
     try { await social.buddyDecline(mailId); haptic('tap'); reload() } catch { haptic('warn') }
@@ -66,18 +67,18 @@ export function InboxSheet({ data, onClose, reload }:
 
   return (
     <Sheet onClose={onClose}>
-      <h2 style={{ textAlign: 'center', marginBottom: 14 }}>❤️ Тёплые лучики</h2>
+      <h2 style={{ textAlign: 'center', marginBottom: 14 }}>{t('❤️ Тёплые лучики')}</h2>
 
       {/* friend requests */}
       {data.requests.length > 0 && (
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--ink-soft)', margin: '0 4px 6px' }}>ЗАЯВКИ В ДРУЗЬЯ</div>
+          <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--ink-soft)', margin: '0 4px 6px' }}>{t('ЗАЯВКИ В ДРУЗЬЯ')}</div>
           {data.requests.map(r => (
             <div key={r.fromId} className="goal-row">
               <span style={{ fontSize: 24 }}>💛</span>
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: 800 }}>{r.name}</div>
-                <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>питомец {r.petName} · хочет дружить</div>
+                <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{t('питомец')} {r.petName} {t('· хочет дружить')}</div>
               </div>
               <button className="btn" style={{ padding: '8px 12px' }} onClick={() => void accept(r.fromId)}>✓</button>
               <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={() => void decline(r.fromId)}>✕</button>
@@ -89,13 +90,13 @@ export function InboxSheet({ data, onClose, reload }:
       {/* buddy invites */}
       {data.buddyInvites.length > 0 && (
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--ink-soft)', margin: '0 4px 6px' }}>ПРИГЛАШЕНИЯ К ОБЩЕЙ ЦЕЛИ</div>
+          <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--ink-soft)', margin: '0 4px 6px' }}>{t('ПРИГЛАШЕНИЯ К ОБЩЕЙ ЦЕЛИ')}</div>
           {data.buddyInvites.map(b => (
             <div key={b.mailId} className="goal-row">
               <span style={{ fontSize: 24 }}>{b.emoji || '🤝'}</span>
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: 800 }}>{b.title}</div>
-                <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{b.fromName} зовёт к общей цели</div>
+                <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{b.fromName} {t('зовёт к общей цели')}</div>
               </div>
               <button className="btn" style={{ padding: '8px 12px' }} onClick={() => void buddyAccept(b.mailId)}>✓</button>
               <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={() => void buddyDecline(b.mailId)}>✕</button>
@@ -105,35 +106,35 @@ export function InboxSheet({ data, onClose, reload }:
       )}
 
       {loading ? (
-        <div style={{ textAlign: 'center', color: 'var(--ink-soft)', padding: 20 }}>Загружаю…</div>
+        <div style={{ textAlign: 'center', color: 'var(--ink-soft)', padding: 20 }}>{t('Загружаю…')}</div>
       ) : !hasGroups && data.requests.length === 0 && data.buddyInvites.length === 0 ? (
         <div style={{ textAlign: 'center', color: 'var(--ink-soft)', padding: '20px 0' }}>
           <div style={{ fontSize: 40 }}>💛</div>
-          Пока никто не присылал лучиков. Пошли первым!
+          {t('Пока никто не присылал лучиков. Пошли первым!')}
         </div>
       ) : hasGroups ? (
         <>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 4px 6px' }}>
-            <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--ink-soft)' }}>ЛУЧИКИ</div>
-            <button className="btn ghost" style={{ padding: '6px 12px', fontSize: 13 }} onClick={() => void clearAll()}>Очистить всё</button>
+            <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--ink-soft)' }}>{t('ЛУЧИКИ')}</div>
+            <button className="btn ghost" style={{ padding: '6px 12px', fontSize: 13 }} onClick={() => void clearAll()}>{t('Очистить всё')}</button>
           </div>
           {groups.map(g => (
             <div key={g.fromId} className="card" style={{ padding: 12, marginBottom: 10 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                 <div style={{ fontWeight: 800 }}>{g.name}</div>
-                <button className="btn ghost" style={{ padding: '6px 10px', fontSize: 12 }} onClick={() => void clearGroup(g)}>Прочитано</button>
+                <button className="btn ghost" style={{ padding: '6px 10px', fontSize: 12 }} onClick={() => void clearGroup(g)}>{t('Прочитано')}</button>
               </div>
               <div style={{ fontSize: 13, color: 'var(--ink-soft)', marginBottom: 8 }}>{g.flavor}</div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                 {g.vibes.map(v => (
                   <div key={v.id} style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'var(--card-shade)', borderRadius: 999, padding: '4px 10px', fontSize: 13, fontWeight: 700 }}>
-                    <span style={{ fontSize: 16 }}>{v.emoji}</span>{v.ru}
+                    <span style={{ fontSize: 16 }}>{v.emoji}</span>{t(v.ru)}
                     <span style={{ color: 'var(--ink-soft)', fontWeight: 600, marginLeft: 2 }}>· {timeAgo(v.ts)}</span>
                   </div>
                 ))}
               </div>
               <button className="btn accent" style={{ width: '100%', marginTop: 10 }} onClick={() => { setInvite(false); setAnswering({ vibeId: g.vibes[0].id, name: g.name }) }}>
-                Ответить лучиком 🌟
+                {t('Ответить лучиком 🌟')}
               </button>
             </div>
           ))}
@@ -144,13 +145,13 @@ export function InboxSheet({ data, onClose, reload }:
         <Sheet onClose={() => setAnswering(null)} z={60}>
           <label style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', marginBottom: 12, fontWeight: 700 }}>
             <input type="checkbox" checked={invite} onChange={e => setInvite(e.target.checked)} style={{ width: 18, height: 18 }} />
-            Позвать в гости на час 🏡
+            {t('Позвать в гости на час 🏡')}
           </label>
           <VibePicker
             vibes={inbox?.vibeTypes ?? data.vibeTypes}
             plus={inbox?.plus ?? data.plus}
             onPick={v => void answerWith(v)}
-            title={`Ответить ${answering.name}`}
+            title={`${t('Ответить')} ${answering.name}`}
           />
         </Sheet>
       )}

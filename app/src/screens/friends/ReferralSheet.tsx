@@ -5,6 +5,7 @@ import { haptic } from '../../telegram'
 import type { Referrals } from './api'
 import { social } from './api'
 import { Sheet } from './ui'
+import { t } from '../../i18n'
 
 export function ReferralSheet({ onClose }: { onClose: () => void }) {
  const [data, setData] = useState<Referrals | null>(null)
@@ -17,7 +18,7 @@ export function ReferralSheet({ onClose }: { onClose: () => void }) {
  function shareLink() {
  if (!data) return
  haptic('tap')
- const url = `https://t.me/share/url?url=${encodeURIComponent(data.link)}&text=${encodeURIComponent('Заходи растить питомца вместе со мной! 💛')}`
+ const url = `https://t.me/share/url?url=${encodeURIComponent(data.link)}&text=${encodeURIComponent(t('Заходи растить питомца вместе со мной! 💛'))}`
  window.open(url, '_blank')
  }
 
@@ -25,18 +26,18 @@ export function ReferralSheet({ onClose }: { onClose: () => void }) {
  <Sheet onClose={onClose}>
  <div style={{ textAlign: 'center', marginBottom: 14 }}>
  <div style={{ fontSize: 44 }}>🐮</div>
- <h2>Корова Печенька ждёт тебя</h2>
- <p style={{ color: 'var(--ink-soft)', fontSize: 14, margin: '4px 0 0' }}>Позови друзей, и получи микропитомцев по дороге</p>
+ <h2>{t('Корова Печенька ждёт тебя')}</h2>
+ <p style={{ color: 'var(--ink-soft)', fontSize: 14, margin: '4px 0 0' }}>{t('Позови друзей, и получи микропитомцев по дороге')}</p>
  </div>
 
  {loading ? (
- <div style={{ textAlign: 'center', color: 'var(--ink-soft)', padding: 16 }}>Загружаю…</div>
+ <div style={{ textAlign: 'center', color: 'var(--ink-soft)', padding: 16 }}>{t('Загружаю…')}</div>
  ) : !data ? (
- <div style={{ textAlign: 'center', color: 'var(--ink-soft)', padding: 16 }}>Не удалось загрузить</div>
+ <div style={{ textAlign: 'center', color: 'var(--ink-soft)', padding: 16 }}>{t('Не удалось загрузить')}</div>
  ) : (
  <>
  <div style={{ textAlign: 'center', fontWeight: 800, marginBottom: 14 }}>
- Друзей пришло: {data.count} / {data.max}
+ {t('Друзей пришло:')} {data.count} / {data.max}
  </div>
  {data.ladder.map(step => {
  const reached = data.count >= step.tier
@@ -48,8 +49,8 @@ export function ReferralSheet({ onClose }: { onClose: () => void }) {
  background: step.done ? 'var(--green)' : 'var(--card-shade)', color: step.done ? '#fff' : 'var(--brown)',
  }}>{step.done ? '✓' : step.tier}</span>
  <div style={{ flex: 1 }}>
- <div style={{ fontWeight: 800 }}>{step.ru}</div>
- <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{step.tier} {step.tier === 1 ? 'друг' : 'друга'}</div>
+ <div style={{ fontWeight: 800 }}>{t(step.ru)}</div>
+ <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{step.tier} {step.tier === 1 ? t('друг') : t('друга')}</div>
  </div>
  </div>
  )
@@ -57,7 +58,7 @@ export function ReferralSheet({ onClose }: { onClose: () => void }) {
  <div className="card" style={{ background: 'var(--card-shade)', fontSize: 13, color: 'var(--ink-soft)', textAlign: 'center', marginTop: 4 }}>
  {data.inviteeGift}
  </div>
- <button className="btn accent" style={{ width: '100%' }} onClick={shareLink}>📨 Позвать друга</button>
+ <button className="btn accent" style={{ width: '100%' }} onClick={shareLink}>{t('📨 Позвать друга')}</button>
  </>
  )}
  </Sheet>

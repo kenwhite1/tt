@@ -1,6 +1,6 @@
 // Room-scale furniture for the baked slots (window / dresser / door / lamp), drawn directly
 // in RoomScene's 320×250 coordinate space and tinted by the equipped item's colour. These
-// render ONLY when an item is equipped in that slot — otherwise RoomScene keeps its crafted
+// render ONLY when an item is equipped in that slot - otherwise RoomScene keeps its crafted
 // default art, so the default room is unchanged.
 import type { JSX } from 'react'
 import { shade } from './hash'

@@ -4,6 +4,7 @@ import { req } from '../../../api'
 import { useStore } from '../../../store'
 import { haptic } from '../../../telegram'
 import { Chip, ChipRow, Loading, Sub } from '../ui'
+import { t } from '../../../i18n'
 import type { GoalIdeasDto } from '../types'
 
 export function GoalIdeas({ onBack }: { onBack(): void }) {
@@ -23,24 +24,24 @@ export function GoalIdeas({ onBack }: { onBack(): void }) {
  setAdded(s => new Set(s).add(g.id))
  try {
  await req('/goals', { title: g.ru, emoji: g.emoji })
- useStore.getState().showToast('Цель добавлена 💛')
+ useStore.getState().showToast(t('Цель добавлена 💛'))
  void useStore.getState().refresh()
  } catch {
  setAdded(s => { const n = new Set(s); n.delete(g.id); return n })
- useStore.getState().showToast('Не получилось добавить')
+ useStore.getState().showToast(t('Не получилось добавить'))
  }
  }
 
- if (!data) return <Sub title="Идеи целей" onBack={onBack}><Loading /></Sub>
+ if (!data) return <Sub title={t('Идеи целей')} onBack={onBack}><Loading /></Sub>
  const goals = data.goals.filter(g => g.category === cat)
 
  return (
- <Sub title="Идеи целей" onBack={onBack}>
- <p style={{ color: 'var(--ink-soft)', margin: '0 4px 8px' }}>Не знаешь, с чего начать? Бери готовую, одним касанием.</p>
+ <Sub title={t('Идеи целей')} onBack={onBack}>
+ <p style={{ color: 'var(--ink-soft)', margin: '0 4px 8px' }}>{t('Не знаешь, с чего начать? Бери готовую, одним касанием.')}</p>
  <ChipRow>
  {data.categories.map(c => <Chip key={c.id} active={cat === c.id} onClick={() => setCat(c.id)}>{c.ru}</Chip>)}
  </ChipRow>
- {goals.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Здесь пока пусто.</p>}
+ {goals.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Здесь пока пусто.')}</p>}
  {goals.map(g => {
  const done = added.has(g.id)
  return (
@@ -51,7 +52,7 @@ export function GoalIdeas({ onBack }: { onBack(): void }) {
  className={done ? 'btn ghost' : 'btn'} disabled={done}
  style={{ padding: '8px 14px', fontSize: 14 }}
  onClick={() => void add(g)}
- >{done ? '✓ В целях' : '+ Добавить'}</button>
+ >{done ? t('✓ В целях') : t('+ Добавить')}</button>
  </div>
  )
  })}

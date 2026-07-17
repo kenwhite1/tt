@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { req } from '../../../api'
 import { haptic } from '../../../telegram'
 import { Loading, Sub, applyReward, useContent } from '../ui'
+import { t } from '../../../i18n'
 import type { MovementSet, Reward } from '../types'
 
 const KIND_RU: Record<string, string> = { stretch: 'Растяжка', yoga: 'Йога', exercise: 'Зарядка' }
@@ -37,7 +38,7 @@ function Player({ set, onDone }: { set: MovementSet; onDone(): void }) {
  const minutes = Math.max(1, Math.round(totalSec / 60))
  try {
  const r = await req<{ reward: Reward }>('/activities/log', { kind: 'movement', refId: set.id, minutes })
- applyReward(r.reward, 'Размялись! 💛')
+ applyReward(r.reward, t('Размялись! 💛'))
  } catch { /* let out anyway */ }
  onDone()
  }
@@ -47,7 +48,7 @@ function Player({ set, onDone }: { set: MovementSet; onDone(): void }) {
 
  return (
  <div className="card" style={{ textAlign: 'center', padding: '24px 16px' }}>
- <p style={{ fontWeight: 800, color: 'var(--ink-soft)', marginTop: 0 }}>Движение {idx + 1} из {set.moves.length}</p>
+ <p style={{ fontWeight: 800, color: 'var(--ink-soft)', marginTop: 0 }}>{t('Движение')} {idx + 1} {t('из')} {set.moves.length}</p>
  <div style={{ fontSize: 56, margin: '8px 0' }}>{KIND_EMOJI[set.kind] ?? '🤸'}</div>
  <h2 style={{ marginBottom: 12 }}>{move.name}</h2>
  <div style={{ fontSize: 40, fontWeight: 800, color: 'var(--brown-deep)' }}>{left}</div>
@@ -55,8 +56,8 @@ function Player({ set, onDone }: { set: MovementSet; onDone(): void }) {
  <div className="energy-fill" style={{ width: `${pct}%` }} />
  </div>
  <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 14 }}>
- <button className="btn ghost" onClick={() => { if (idx < set.moves.length - 1) setIdx(i => i + 1); else void finish() }}>Дальше ›</button>
- <button className="btn ghost" onClick={() => void finish()}>Закончить</button>
+ <button className="btn ghost" onClick={() => { if (idx < set.moves.length - 1) setIdx(i => i + 1); else void finish() }}>{t('Дальше')} ›</button>
+ <button className="btn ghost" onClick={() => void finish()}>{t('Закончить')}</button>
  </div>
  </div>
  )
@@ -67,7 +68,7 @@ export function Movement({ onBack }: { onBack(): void }) {
  const [set, setSet] = useState<MovementSet | null>(null)
  const kindsRef = useRef<string[]>([])
 
- if (!content) return <Sub title="Движение" onBack={onBack}><Loading /></Sub>
+ if (!content) return <Sub title={t('Движение')} onBack={onBack}><Loading /></Sub>
  const plus = content.plus
 
  if (set) {
@@ -82,11 +83,11 @@ export function Movement({ onBack }: { onBack(): void }) {
  kindsRef.current = kinds
 
  return (
- <Sub title="Движение" onBack={onBack}>
- <p style={{ color: 'var(--ink-soft)', margin: '0 4px 10px' }}>Мягко подвигаться вместе с Шариком, 30 секунд на каждое движение.</p>
+ <Sub title={t('Движение')} onBack={onBack}>
+ <p style={{ color: 'var(--ink-soft)', margin: '0 4px 10px' }}>{t('Мягко подвигаться вместе с Шариком, 30 секунд на каждое движение.')}</p>
  {kinds.map(k => (
  <div key={k}>
- <h2 style={{ margin: '6px 4px 8px' }}>{KIND_EMOJI[k] ?? '🤸'} {KIND_RU[k] ?? k}</h2>
+ <h2 style={{ margin: '6px 4px 8px' }}>{KIND_EMOJI[k] ?? '🤸'} {KIND_RU[k] ? t(KIND_RU[k]) : k}</h2>
  {content.movements.filter(m => m.kind === k).map(m => {
  const locked = m.plus && !plus
  return (
@@ -97,7 +98,7 @@ export function Movement({ onBack }: { onBack(): void }) {
  >
  <span style={{ flex: 1 }}>
  <span style={{ fontWeight: 800, display: 'block' }}>{m.name}{locked ? ' 🔒' : ''}</span>
- <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{m.moves.length} движений</span>
+ <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{m.moves.length} {t('движений')}</span>
  </span>
  </button>
  )

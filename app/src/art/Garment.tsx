@@ -1,4 +1,4 @@
-// Procedural vector garments — a cute flat-shaded SVG per archetype, tinted by the item's
+// Procedural vector garments - a cute flat-shaded SVG per archetype, tinted by the item's
 // actual colour. Replaces the per-slot emoji stickers so every clothing item renders as
 // itself, in its colour. Archetype per item comes from garmentMap.ts (GARMENT_ART).
 import type { JSX } from 'react'
@@ -271,7 +271,7 @@ const ART: Record<string, (k: K) => JSX.Element> = {
     <path d="M50 50 V84" stroke={dark} strokeWidth="3" />
     <circle cx="50" cy="62" r="2.4" fill={dark} /><circle cx="50" cy="72" r="2.4" fill={dark} />
   </>,
-  // feet — (gloves/mittens live in the feet slot; reuse socks elsewhere)
+  // feet - (gloves/mittens live in the feet slot; reuse socks elsewhere)
   // back
   skis: ({ base, dark }) => <>
     <path d="M40 26 Q44 22 47 27 L50 80 L42 80 Z" fill={base} />

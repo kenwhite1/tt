@@ -1,7 +1,7 @@
 // Thin typed wrapper over the Telegram WebApp bridge; safe no-ops outside Telegram.
 interface TgWebApp {
   initData: string
-  initDataUnsafe: { user?: { id: number; first_name: string }; start_param?: string }
+  initDataUnsafe: { user?: { id: number; first_name: string; language_code?: string }; start_param?: string }
   colorScheme: 'light' | 'dark'
   ready(): void
   expand(): void
@@ -42,9 +42,9 @@ export function initTelegram() {
     tg.setHeaderColor('#F3E2BC')
     tg.setBackgroundColor('#F3E2BC')
     if (tg.isVersionAtLeast('7.7')) tg.disableVerticalSwipes?.()
-    // NOTE: no requestFullscreen() — fullscreen makes the webview draw *under*
+    // NOTE: no requestFullscreen() - fullscreen makes the webview draw *under*
     // Telegram's floating Close/⋯ controls, which then overlap the app header.
-    // Standard (expanded) mode keeps Telegram's header above the app — no collision.
+    // Standard (expanded) mode keeps Telegram's header above the app - no collision.
   } catch { /* older clients */ }
 }
 
@@ -78,7 +78,7 @@ export function addToHomeScreen(): void {
 }
 
 // ─── Share surfaces (Feature 1 «Витрина») ───────────────────────────────
-// Open a t.me/share/url forward dialog — the universal fallback that works on every client.
+// Open a t.me/share/url forward dialog - the universal fallback that works on every client.
 export function shareLink(url: string, text: string): void {
   const u = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`
   try {

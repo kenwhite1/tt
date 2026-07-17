@@ -4,6 +4,7 @@ import { req } from '../../api'
 import { useStore } from '../../store'
 import { haptic } from '../../telegram'
 import { LocationScene } from '../../art/LocationScene'
+import { t } from '../../i18n'
 
 interface ItemPreview { ruName: string; price: number }
 interface Dest {
@@ -41,7 +42,7 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  const r = await req<FlyRes>('/travel/fly', { locationId: dest.id })
  haptic('success')
  useStore.getState().showToast(
- r.departed ? `Полетели в ${r.destination.ruName}! ✈️` : `Билет куплен! Летим, как наберётся энергия ✈️`,
+ r.departed ? `${t('Полетели в')} ${r.destination.ruName}! ✈️` : t('Билет куплен! Летим, как наберётся энергия ✈️'),
  )
  setConfirm(null)
  load()
@@ -49,9 +50,9 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  } catch (e) {
  const err = (e as { data?: { error?: string } }).data?.error
  useStore.getState().showToast(
- err === 'not_enough_stones' ? 'Не хватает косточек 🦴' :
- err === 'flight_already_queued' ? 'Билет уже куплен, сначала долетим!' :
- 'Не получилось купить билет',
+ err === 'not_enough_stones' ? t('Не хватает косточек 🦴') :
+ err === 'flight_already_queued' ? t('Билет уже куплен, сначала долетим!') :
+ t('Не получилось купить билет'),
  )
  } finally {
  setBuying(false)
@@ -62,33 +63,33 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  <div style={{ position: 'fixed', inset: 0, background: 'var(--bg)', zIndex: 30, display: 'flex', flexDirection: 'column', paddingTop: 'calc(var(--safe-top) + 8px)' }}>
  <header style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '4px 14px 8px' }}>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={onBack}>‹</button>
- <h1 style={{ flex: 1 }}>Хвост-трэвел</h1>
+ <h1 style={{ flex: 1 }}>{t('Хвост-трэвел')}</h1>
  <div className="card" style={{ margin: 0, padding: '8px 14px', fontWeight: 800 }}>🦴 {data?.stones ?? '…'}</div>
  </header>
 
  <div className="scroll">
  {!data ? (
- <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Сасси раскладывает билеты…</p>
+ <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Сасси раскладывает билеты…')}</p>
  ) : !data.unlocked ? (
  <div className="card" style={{ textAlign: 'center' }}>
  <div style={{ fontSize: 52 }}>🐈✈️</div>
- <h2 style={{ margin: '8px 0' }}>Турбюро пока закрыто</h2>
+ <h2 style={{ margin: '8px 0' }}>{t('Турбюро пока закрыто')}</h2>
  <p style={{ color: 'var(--ink-soft)', margin: '0 0 10px' }}>
- Сасси откроет двери, когда питомец немного подрастёт и сможет летать.
+ {t('Сасси откроет двери, когда питомец немного подрастёт и сможет летать.')}
  </p>
  <div className="energy-track" style={{ margin: '0 12px' }}>
  <div className="energy-fill" style={{ width: `${Math.min(100, ((data.walksNow ?? 0) / (data.walksNeed ?? 1)) * 100)}%` }} />
  </div>
- <p style={{ fontWeight: 800, margin: '6px 0 0' }}>🚶 {data.walksNow} / {data.walksNeed} прогулок</p>
+ <p style={{ fontWeight: 800, margin: '6px 0 0' }}>🚶 {data.walksNow} / {data.walksNeed} {t('прогулок')}</p>
  </div>
  ) : (
  <>
  <div className="card" style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
  <span style={{ fontSize: 38 }}>🐈</span>
  <div>
- <b>Сасси</b>
+ <b>{t('Сасси')}</b>
  <div style={{ fontSize: 14, color: 'var(--ink-soft)' }}>
- Мяу! Вот сегодняшние направления. Завтра подберу новые, я кошка непредсказуемая.
+ {t('Мяу! Вот сегодняшние направления. Завтра подберу новые, я кошка непредсказуемая.')}
  </div>
  </div>
  </div>
@@ -97,9 +98,9 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  <div className="card" style={{ background: '#e3eefb', display: 'flex', gap: 10, alignItems: 'center' }}>
  <span style={{ fontSize: 26 }}>🎫</span>
  <div>
- <b>Билет в {data.queued.ruName} куплен!</b>
+ <b>{t('Билет в')} {data.queued.ruName} {t('куплен!')}</b>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
- Полетим, как только питомец наберёт энергию на прогулку.
+ {t('Полетим, как только питомец наберёт энергию на прогулку.')}
  </div>
  </div>
  </div>
@@ -108,13 +109,13 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  {data.firstFlightFree && !data.queued && (
  <div className="card" style={{ background: '#fdf3d7', display: 'flex', gap: 10, alignItems: 'center' }}>
  <span style={{ fontSize: 26 }}>🎉</span>
- <div><b>Первый полёт, за счёт Сасси!</b></div>
+ <div><b>{t('Первый полёт, за счёт Сасси!')}</b></div>
  </div>
  )}
 
  {data.current && (
  <p style={{ margin: '2px 4px 12px', color: 'var(--ink-soft)', fontWeight: 800 }}>
- 📍 Сейчас вы в: {data.current.ruName} · открыто {data.current.pct}%
+ 📍 {t('Сейчас вы в:')} {data.current.ruName} · {t('открыто')} {data.current.pct}%
  </p>
  )}
 
@@ -124,23 +125,23 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  <div style={{ padding: '18px 0', fontSize: 36 }}>🏙️</div>
  </LocationScene>
  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', margin: '10px 2px 2px' }}>
- <h2>{d.ruName}</h2>
- <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{d.regionRu}</span>
+ <h2>{t(d.ruName)}</h2>
+ <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{t(d.regionRu)}</span>
  </div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '0 2px 8px' }}>
- Открыто {d.pct}% · открытий: {d.discoveriesFound}
+ {t('Открыто')} {d.pct}% · {t('открытий:')} {d.discoveriesFound}
  </div>
  <div style={{ fontSize: 13, margin: '0 2px 10px' }}>
- <b>Только здесь:</b>{' '}
- {[...d.clothing, ...d.furniture].map(i => i.ruName).join(' · ')}
+ <b>{t('Только здесь:')}</b>{' '}
+ {[...d.clothing, ...d.furniture].map(i => t(i.ruName)).join(' · ')}
  </div>
  <button className="btn accent" style={{ width: '100%' }} disabled={!!data.queued || buying} onClick={() => setConfirm(d)}>
- {d.price === 0 ? '✈️ Лететь бесплатно' : `✈️ Билет за ${d.price} 🦴`}
+ {d.price === 0 ? t('✈️ Лететь бесплатно') : `${t('✈️ Билет за')} ${d.price} 🦴`}
  </button>
  </div>
  ))}
  <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--ink-soft)', margin: '4px 0 16px' }}>
- Направления меняются раз в день, обновить за косточки нельзя.
+ {t('Направления меняются раз в день, обновить за косточки нельзя.')}
  </p>
  </>
  )}
@@ -156,17 +157,16 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  style={{ width: '100%', borderRadius: '26px 26px 0 0', margin: 0, paddingBottom: 'calc(20px + var(--safe-bottom))' }}
  onClick={e => e.stopPropagation()}
  >
- <h2 style={{ textAlign: 'center', marginBottom: 10 }}>Летим в {confirm.ruName}?</h2>
+ <h2 style={{ textAlign: 'center', marginBottom: 10 }}>{t('Летим в')} {t(confirm.ruName)}?</h2>
  <p style={{ color: 'var(--ink-soft)', margin: '0 4px 12px', lineHeight: 1.4 }}>
- ⚠️ Билет в один конец: вернуться можно будет, только когда город снова появится у Сасси.
- Полёт займёт место сегодняшней прогулки (или завтрашней, если питомец уже гулял).
+ {t('⚠️ Билет в один конец: вернуться можно будет, только когда город снова появится у Сасси. Полёт займёт место сегодняшней прогулки (или завтрашней, если питомец уже гулял).')}
  </p>
  <p style={{ textAlign: 'center', fontWeight: 800, marginBottom: 12 }}>
- {confirm.price === 0 ? 'Бесплатно, первый полёт 🎉' : `Стоимость: ${confirm.price} 🦴`}
+ {confirm.price === 0 ? t('Бесплатно, первый полёт 🎉') : `${t('Стоимость:')} ${confirm.price} 🦴`}
  </p>
  <div style={{ display: 'flex', gap: 10 }}>
- <button className="btn ghost" style={{ flex: 1 }} onClick={() => setConfirm(null)}>Остаться</button>
- <button className="btn accent" style={{ flex: 1 }} disabled={buying} onClick={() => void fly(confirm)}>Летим! ✈️</button>
+ <button className="btn ghost" style={{ flex: 1 }} onClick={() => setConfirm(null)}>{t('Остаться')}</button>
+ <button className="btn accent" style={{ flex: 1 }} disabled={buying} onClick={() => void fly(confirm)}>{t('Летим! ✈️')}</button>
  </div>
  </div>
  </div>

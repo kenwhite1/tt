@@ -5,6 +5,7 @@ import { coop } from './screens/friends/api'
 import { resolveTheme } from './themeMode'
 import { track } from './analytics'
 import { TabIcons } from './art/icons'
+import { t, useLang } from './i18n'
 import { Home } from './screens/Home'
 import { Onboarding } from './screens/Onboarding'
 import { Quests } from './screens/Quests'
@@ -38,6 +39,7 @@ const TAB_BG: Record<Tab, string> = {
 let coopHandled = false
 
 export function App() {
+  useLang() // re-render whole tree on language switch
   const { phase, tab, setTab, boot, toast, menuOpen, setMenuOpen } = useStore()
 
   useEffect(() => { void boot() }, [boot])
@@ -67,7 +69,7 @@ export function App() {
     return (
       <div className="screen" style={{ alignItems: 'center', justifyContent: 'center' }}>
         <div className="puppy-bob"><Puppy state="happy" /></div>
-        <h2 style={{ marginTop: 12 }}>Шарик просыпается…</h2>
+        <h2 style={{ marginTop: 12 }}>{t('Шарик просыпается…')}</h2>
       </div>
     )
   }
@@ -76,8 +78,8 @@ export function App() {
     return (
       <div className="screen" style={{ alignItems: 'center', justifyContent: 'center', gap: 12 }}>
         <Puppy state="sleeping" />
-        <h2>Не получилось подключиться</h2>
-        <button className="btn" onClick={() => location.reload()}>Попробовать ещё раз</button>
+        <h2>{t('Не получилось подключиться')}</h2>
+        <button className="btn" onClick={() => location.reload()}>{t('Попробовать ещё раз')}</button>
       </div>
     )
   }
@@ -97,10 +99,10 @@ export function App() {
         {tab === 'pet' && <Pet />}
       </div>
       <nav className="tabbar">
-        {TABS.map(t => (
-          <button key={t.key} className={`tab ${tab === t.key ? 'active' : ''}`} onClick={() => setTab(t.key)}>
-            {TabIcons[t.key]}
-            <span>{t.ru}</span>
+        {TABS.map(tb => (
+          <button key={tb.key} className={`tab ${tab === tb.key ? 'active' : ''}`} onClick={() => setTab(tb.key)}>
+            {TabIcons[tb.key]}
+            <span>{t(tb.ru)}</span>
           </button>
         ))}
       </nav>

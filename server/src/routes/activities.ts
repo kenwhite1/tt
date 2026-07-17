@@ -238,7 +238,7 @@ activitiesRoutes.post('/reflect', async c => {
  }
  const r = db.prepare('INSERT INTO reflections (user_id, day, prompt_id, text, valence, ts) VALUES (?,?,?,?,?,?)')
  .run(user.id, day, promptId, body.data.text, body.data.valence ?? null, Date.now())
- // Reflections are energy-only (Finch parity) — they no longer also pay 🦴.
+ // Reflections are energy-only (Finch parity) - they no longer also pay 🦴.
  const reward = awardEnergy(user, energy)
  logActivity(user.id, day, 'reflection', promptId, energy)
  return c.json({ id: Number(r.lastInsertRowid), reward })

@@ -5,16 +5,19 @@
 import { Puppy, type PuppyState, type OutfitSlot } from './Puppy'
 import { Garment } from './Garment'
 import { GARMENT_ART, CLOTHING_PALETTE } from './garmentMap'
+import { t } from '../i18n'
 
 export type Species = 'dog' | 'turtle' | 'owl' | 'elephant' | 'cat' | 'alpaca'
 
+// `ru`/`blurb` are getters so t() runs at property-access (render) time, keeping the
+// species picker reactive to live language switches instead of freezing at import.
 export const MASCOTS: { id: Species; ru: string; emoji: string; blurb: string }[] = [
-  { id: 'dog', ru: 'Щенок', emoji: '🐶', blurb: 'Тёплый, преданный и любопытный' },
-  { id: 'cat', ru: 'Котёнок', emoji: '🐱', blurb: 'Ласковый, спокойный и независимый' },
-  { id: 'owl', ru: 'Совёнок', emoji: '🦉', blurb: 'Мудрый, внимательный и чуткий' },
-  { id: 'turtle', ru: 'Черепашка', emoji: '🐢', blurb: 'Неспешная, надёжная и стойкая' },
-  { id: 'elephant', ru: 'Слонёнок', emoji: '🐘', blurb: 'Добрый, чуткий и заботливый' },
-  { id: 'alpaca', ru: 'Альпака', emoji: '🦙', blurb: 'Мягкая, дружелюбная и забавная' },
+  { id: 'dog', get ru() { return t('Щенок') }, emoji: '🐶', get blurb() { return t('Тёплый, преданный и любопытный') } },
+  { id: 'cat', get ru() { return t('Котёнок') }, emoji: '🐱', get blurb() { return t('Ласковый, спокойный и независимый') } },
+  { id: 'owl', get ru() { return t('Совёнок') }, emoji: '🦉', get blurb() { return t('Мудрый, внимательный и чуткий') } },
+  { id: 'turtle', get ru() { return t('Черепашка') }, emoji: '🐢', get blurb() { return t('Неспешная, надёжная и стойкая') } },
+  { id: 'elephant', get ru() { return t('Слонёнок') }, emoji: '🐘', get blurb() { return t('Добрый, чуткий и заботливый') } },
+  { id: 'alpaca', get ru() { return t('Альпака') }, emoji: '🦙', get blurb() { return t('Мягкая, дружелюбная и забавная') } },
 ]
 
 const IMG_SPECIES = new Set(['cat', 'owl', 'turtle', 'elephant', 'alpaca'])
@@ -38,8 +41,8 @@ export function preloadMascots(): void {
 // colour, positioned over the pet. `size` is the garment SVG size as a fraction of the pet.
 // `top`/`left` are percentages of the square pet box and mark the CENTRE of the garment
 // (each garment span is translate(-50%,-50%)). Every species is drawn at different
-// proportions — the owl is nearly all head, the cat has no visible torso, the elephant's
-// crown is pinched between wide ears, the alpaca's eyes sit low — so each gets its own
+// proportions - the owl is nearly all head, the cat has no visible torso, the elephant's
+// crown is pinched between wide ears, the alpaca's eyes sit low - so each gets its own
 // anchor map. Tuned against app/public/mascots/<id>.png with a temporary visual harness.
 type Pos = Partial<Record<OutfitSlot, { top: string; left: string; size: number }>>
 

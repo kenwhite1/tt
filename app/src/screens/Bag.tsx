@@ -4,6 +4,7 @@ import { C } from '@shared/constants'
 import { req } from '../api'
 import { haptic } from '../telegram'
 import { useStore } from '../store'
+import { t } from '../i18n'
 import { Mascot } from '../art/Mascot'
 import { MicropetsSection } from './micropets/MicropetsSection'
 import { collectibles, social, type Friend } from './friends/api'
@@ -39,13 +40,13 @@ function BagMenu({ onOpen }: { onOpen(v: View): void }) {
  return (
  <div className="scroll" style={{ paddingTop: 8 }}>
  <div style={{ textAlign: 'center', fontSize: 56, marginBottom: 4 }}>🎒</div>
- <h1 style={{ textAlign: 'center', marginBottom: 16 }}>Сумка питомца</h1>
+ <h1 style={{ textAlign: 'center', marginBottom: 16 }}>{t('Сумка питомца')}</h1>
  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
  {SECTIONS.map(s => (
  <button key={s.id} className="card shop-tile" onClick={() => onOpen(s.id)}
  style={{ margin: 0, textAlign: 'center', border: 'none', cursor: 'pointer', gridColumn: s.full ? '1 / -1' : undefined, position: 'relative' }}>
  <div style={{ marginBottom: 8 }}><span className="emoji-medallion">{s.emoji}</span></div>
- <h2>{s.ru}</h2>
+ <h2>{t(s.ru)}</h2>
  {s.id === 'mail' && unread > 0 && (
  <span style={{ position: 'absolute', top: 12, right: 16, background: 'var(--red)', color: '#fff', borderRadius: 999, padding: '2px 9px', fontWeight: 800, fontSize: 13 }}>{unread}</span>
  )}
@@ -72,7 +73,7 @@ function MailView({ onBack }: { onBack(): void }) {
  try {
  const r = await req<{ ru?: string; duplicate?: boolean; stones?: number }>(`/shop/gifts/${giftId}/claim`, {})
  haptic('success')
- showToast(r.duplicate ? `Уже есть, продали за ${r.stones} 🦴` : `Получено: ${r.ru} 🎁`)
+ showToast(r.duplicate ? `${t('Уже есть, продали за')} ${r.stones} 🦴` : `${t('Получено:')} ${r.ru} 🎁`)
  void useStore.getState().refresh(); load()
  } catch (e) { showToast(errRu(e)) }
  }
@@ -80,17 +81,17 @@ function MailView({ onBack }: { onBack(): void }) {
  const fromId = m.data.fromId
  if (typeof fromId !== 'number') return
  await req(`/social/requests/${fromId}/${accept ? 'accept' : 'decline'}`, {}).catch(() => {})
- haptic(accept ? 'success' : 'tap'); showToast(accept ? 'Теперь вы друзья! 💛' : 'Отклонено'); load()
+ haptic(accept ? 'success' : 'tap'); showToast(accept ? t('Теперь вы друзья! 💛') : t('Отклонено')); load()
  }
 
  return (
  <div className="scroll" style={{ paddingTop: 8 }}>
  <header style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={onBack}>‹</button>
- <h1>Почта</h1>
+ <h1>{t('Почта')}</h1>
  </header>
- {!mail && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Открываю ящик…</p>}
- {mail && mail.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)', marginTop: 20 }}>Почта пустая 📭</p>}
+ {!mail && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Открываю ящик…')}</p>}
+ {mail && mail.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)', marginTop: 20 }}>{t('Почта пустая 📭')}</p>}
  {mail?.map(m => (
  <div key={m.id} className="card" style={{ background: m.read ? 'var(--card)' : '#eef6fb' }} onClick={() => void read(m)}>
  <div style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
@@ -99,12 +100,12 @@ function MailView({ onBack }: { onBack(): void }) {
  </div>
  {m.body && <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 6, whiteSpace: 'pre-wrap' }}>{m.body}</div>}
  {m.kind === 'gift' && typeof m.data.giftId === 'number' && (
- <button className="btn accent" style={{ marginTop: 10 }} onClick={e => { e.stopPropagation(); void claimGift(m) }}>Открыть подарок</button>
+ <button className="btn accent" style={{ marginTop: 10 }} onClick={e => { e.stopPropagation(); void claimGift(m) }}>{t('Открыть подарок')}</button>
  )}
  {m.kind === 'friend_request' && typeof m.data.fromId === 'number' && (
  <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
- <button className="btn" style={{ flex: 1 }} onClick={e => { e.stopPropagation(); void respondRequest(m, true) }}>Принять</button>
- <button className="btn ghost" style={{ flex: 1 }} onClick={e => { e.stopPropagation(); void respondRequest(m, false) }}>Отклонить</button>
+ <button className="btn" style={{ flex: 1 }} onClick={e => { e.stopPropagation(); void respondRequest(m, true) }}>{t('Принять')}</button>
+ <button className="btn ghost" style={{ flex: 1 }} onClick={e => { e.stopPropagation(); void respondRequest(m, false) }}>{t('Отклонить')}</button>
  </div>
  )}
  </div>
@@ -127,7 +128,7 @@ function CollectiblesView({ onBack }: { onBack(): void }) {
  setBusy(d.id); haptic('tap')
  try {
  const r = await collectibles.claim(d.id)
- haptic('success'); showToast(`Твой экземпляр №${r.edition}! 🏆`)
+ haptic('success'); showToast(`${t('Твой экземпляр №')}${r.edition}! 🏆`)
  void useStore.getState().refresh(); load()
  } catch (e) { haptic('warn'); showToast(errRu(e)) }
  setBusy(null)
@@ -137,12 +138,12 @@ function CollectiblesView({ onBack }: { onBack(): void }) {
  <div className="scroll" style={{ paddingTop: 8 }}>
  <header style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={onBack}>‹</button>
- <h1>Коллекция 🏆</h1>
+ <h1>{t('Коллекция')} 🏆</h1>
  </header>
  <p style={{ color: 'var(--ink-soft)', fontSize: 13, margin: '0 4px 12px' }}>
- Особые вещицы ограниченного тиража. У каждой свой номер. Прозрачно: видно, сколько уже разобрали. Можно подарить другу.
+ {t('Особые вещицы ограниченного тиража. У каждой свой номер. Прозрачно: видно, сколько уже разобрали. Можно подарить другу.')}
  </p>
- {!data && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Открываю витрину…</p>}
+ {!data && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Открываю витрину…')}</p>}
  {data?.drops.map(d => {
  const soldOut = d.minted >= d.cap
  const owned = d.ownedEdition != null
@@ -152,7 +153,7 @@ function CollectiblesView({ onBack }: { onBack(): void }) {
  <span style={{ fontSize: 34 }}>{d.emoji}</span>
  <div style={{ flex: 1, minWidth: 0 }}>
  <b>{d.ru}</b>
- <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>Разобрано {d.minted} из {d.cap}</div>
+ <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{t('Разобрано')} {d.minted} {t('из')} {d.cap}</div>
  <div style={{ height: 6, background: 'var(--card-shade)', borderRadius: 4, marginTop: 4, overflow: 'hidden' }}>
  <div style={{ width: `${Math.min(100, (d.minted / d.cap) * 100)}%`, height: '100%', background: 'var(--gold)' }} />
  </div>
@@ -160,8 +161,8 @@ function CollectiblesView({ onBack }: { onBack(): void }) {
  <div style={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'flex-end' }}>
  {owned
  ? <span style={{ fontWeight: 800, color: 'var(--accent-deep)', whiteSpace: 'nowrap' }}>№{d.ownedEdition}</span>
- : <button className="btn" disabled={soldOut || !canAfford || busy === d.id} onClick={() => void claim(d)} style={{ whiteSpace: 'nowrap', padding: '6px 12px' }}>{soldOut ? 'Разобрали' : `${d.price}🦴`}</button>}
- {!soldOut && <button className="btn ghost" style={{ padding: '4px 10px', fontSize: 12 }} onClick={() => { haptic('tap'); setGift(d) }}>🎁 Подарить</button>}
+ : <button className="btn" disabled={soldOut || !canAfford || busy === d.id} onClick={() => void claim(d)} style={{ whiteSpace: 'nowrap', padding: '6px 12px' }}>{soldOut ? t('Разобрали') : `${d.price}🦴`}</button>}
+ {!soldOut && <button className="btn ghost" style={{ padding: '4px 10px', fontSize: 12 }} onClick={() => { haptic('tap'); setGift(d) }}>🎁 {t('Подарить')}</button>}
  </div>
  </div>
  )
@@ -178,16 +179,16 @@ function GiftCollectibleSheet({ drop, onClose, onDone }: { drop: Drop; onClose()
  async function give(f: Friend) {
  try {
  const r = await collectibles.gift(drop.id, f.id)
- haptic('success'); showToast(`Подарок №${r.edition} отправлен ${f.name} 🎁`)
+ haptic('success'); showToast(`${t('Подарок №')}${r.edition} ${t('отправлен')} ${f.name} 🎁`)
  void useStore.getState().refresh(); onDone(); onClose()
  } catch (e) { haptic('warn'); showToast(errRu(e)) }
  }
  return (
  <Sheet onClose={onClose}>
- <h2 style={{ textAlign: 'center', marginBottom: 4 }}>Подарить «{drop.ru}» {drop.emoji}</h2>
- <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 12px' }}>Другу достанется свежий экземпляр со своим номером. Цена подарка {C.COLLECTIBLE_GIFT_FEE}🦴.</p>
- {!friends && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Загружаю друзей…</p>}
- {friends && friends.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Сначала заведи друга во Дворике 💛</p>}
+ <h2 style={{ textAlign: 'center', marginBottom: 4 }}>{t('Подарить')} «{drop.ru}» {drop.emoji}</h2>
+ <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 12px' }}>{t('Другу достанется свежий экземпляр со своим номером. Цена подарка')} {C.COLLECTIBLE_GIFT_FEE}🦴.</p>
+ {!friends && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Загружаю друзей…')}</p>}
+ {friends && friends.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Сначала заведи друга во Дворике 💛')}</p>}
  {friends?.map(f => (
  <button key={f.id} className="goal-row" style={{ width: '100%', border: 'none', cursor: 'pointer', textAlign: 'left' }} onClick={() => void give(f)}>
  <span style={{ flex: 1, fontWeight: 700 }}>{f.emoji ? `${f.emoji} ` : ''}{f.name}</span>
@@ -207,7 +208,7 @@ function DressView({ kind, onBack }: { kind: 'outfits' | 'furniture' | 'colors';
  const load = useCallback(() => { void req<BagDto>('/shop/bag').then(setBag) }, [])
  useEffect(load, [load])
 
- const title = kind === 'outfits' ? 'Примерочная' : kind === 'furniture' ? 'Домик' : 'Окрасы'
+ const title = kind === 'outfits' ? t('Примерочная') : kind === 'furniture' ? t('Домик') : t('Окрасы')
  const equipKind = kind === 'outfits' ? 'outfit' : kind === 'furniture' ? 'room' : 'dye'
 
  async function equip(slot: string, itemId: string | null, colorId: string) {
@@ -220,7 +221,7 @@ function DressView({ kind, onBack }: { kind: 'outfits' | 'furniture' | 'colors';
  if (!bag) return (
  <div className="scroll" style={{ paddingTop: 8 }}>
  <header style={{ display: 'flex', alignItems: 'center', gap: 8 }}><button className="btn ghost" style={{ padding: '8px 12px' }} onClick={onBack}>‹</button><h1>{title}</h1></header>
- <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Открываю сумку…</p>
+ <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Открываю сумку…')}</p>
  </div>
  )
 
@@ -260,13 +261,13 @@ function DressView({ kind, onBack }: { kind: 'outfits' | 'furniture' | 'colors';
  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: owned.length ? 10 : 0 }}>
  <h2>{s.ru}{part && !part.unlocked ? ` 🔒` : ''}</h2>
  {(equippedItem(s.id)) && (
- <button className="btn ghost" style={{ padding: '4px 10px', fontSize: 13 }} onClick={() => void equip(s.id, null, '')}>Снять</button>
+ <button className="btn ghost" style={{ padding: '4px 10px', fontSize: 13 }} onClick={() => void equip(s.id, null, '')}>{t('Снять')}</button>
  )}
  </div>
  {part && !part.unlocked ? (
- <p style={{ fontSize: 13, color: 'var(--ink-soft)', margin: 0 }}>Откроется на стадии «{part.stageRu}»</p>
+ <p style={{ fontSize: 13, color: 'var(--ink-soft)', margin: 0 }}>{t('Откроется на стадии')} «{part.stageRu}»</p>
  ) : owned.length === 0 ? (
- <p style={{ fontSize: 13, color: 'var(--ink-soft)', margin: 0 }}>Пока ничего нет, загляни в магазин 🛍️</p>
+ <p style={{ fontSize: 13, color: 'var(--ink-soft)', margin: 0 }}>{t('Пока ничего нет, загляни в магазин 🛍️')}</p>
  ) : (
  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
  {owned.map(it => {

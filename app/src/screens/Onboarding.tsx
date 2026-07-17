@@ -5,6 +5,7 @@ import { api } from '../api'
 import { track } from '../analytics'
 import { Mascot, MASCOTS, preloadMascots, type Species } from '../art/Mascot'
 import { declineName } from '../ru'
+import { t } from '../i18n'
 import { haptic, requestWriteAccess, addToHomeScreen, tg } from '../telegram'
 
 /* ── content ─────────────────────────────────────────────────────────── */
@@ -100,7 +101,7 @@ type Step = typeof ORDER[number]
 export function Onboarding() {
   const { finishOnboarding, enterApp, tgName } = useStore()
   const goals = useStore(s => s.state?.goals)
-  // When retaking from Settings the user is already registered — prefill the
+  // When retaking from Settings the user is already registered - prefill the
   // current pet so tapping straight through changes nothing by accident.
   const pet = useStore(s => s.state?.pet)
   const meName = useStore(s => s.state?.user.name)
@@ -116,7 +117,7 @@ export function Onboarding() {
   const advTimer = useRef<ReturnType<typeof setTimeout>>()
 
   const sp = MASCOTS.find(m => m.id === species) ?? MASCOTS[0]
-  const name = petName.trim() || 'малыш'
+  const name = petName.trim() || t('малыш')
   const i = ORDER.indexOf(step)
   const go = (s: Step) => { haptic('tap'); setStep(s) }
   const next = () => go(ORDER[Math.min(ORDER.length - 1, i + 1)])
@@ -163,7 +164,7 @@ export function Onboarding() {
   }
   async function enableReminders() {
     setBusy(true)
-    // the Telegram grant alone never reaches the server — tell it explicitly so DMs start
+    // the Telegram grant alone never reaches the server - tell it explicitly so DMs start
     try { if (await requestWriteAccess()) await api.enableNotifications().catch(() => {}) } catch { /* ignore */ }
     setBusy(false); next()
   }
@@ -216,13 +217,13 @@ export function Onboarding() {
     const multiSel = Array.isArray(selected) ? selected : []
     return (
       <Shell
-        top={<><button className="onb-chev" onClick={back} aria-label="Назад">‹</button><Progress sec={q.sec} within={within} count={sec.count} /></>}
-        foot={q.multi ? <button className="onb-btn" disabled={multiSel.length === 0} onClick={next}>Дальше</button> : undefined}
+        top={<><button className="onb-chev" onClick={back} aria-label={t('Назад')}>‹</button><Progress sec={q.sec} within={within} count={sec.count} /></>}
+        foot={q.multi ? <button className="onb-btn" disabled={multiSel.length === 0} onClick={next}>{t('Дальше')}</button> : undefined}
       >
-        <span className="onb-eyebrow">{sec.label}</span>
+        <span className="onb-eyebrow">{t(sec.label)}</span>
         <Pet species={species} size={120} badge="?" />
-        <h1 className="onb-h1">{q.q}</h1>
-        {q.sub && <p className="onb-sub">{q.sub}</p>}
+        <h1 className="onb-h1">{t(q.q)}</h1>
+        {q.sub && <p className="onb-sub">{t(q.sub)}</p>}
         <div className="onb-opts">
           {q.opts.map((o, idx) => {
             const on = q.multi ? multiSel.includes(idx) : selected === idx
@@ -230,7 +231,7 @@ export function Onboarding() {
               <button key={idx} className={`onb-opt${on ? ' sel' : ''}`}
                 onClick={() => (q.multi ? toggleMulti(q.id, idx) : pickSingle(q.id, idx))}>
                 {o.em && <span className="em">{o.em}</span>}
-                <span className="lbl">{o.lbl}</span>
+                <span className="lbl">{t(o.lbl)}</span>
                 {q.multi
                   ? <span className="plus">{on ? '✓' : '+'}</span>
                   : on && <span className="chk">✓</span>}
@@ -238,7 +239,7 @@ export function Onboarding() {
             )
           })}
         </div>
-        {q.skip && <button className="onb-link muted" onClick={() => { setAns(a => ({ ...a, [q.id]: -1 })); next() }}>{q.skip}</button>}
+        {q.skip && <button className="onb-link muted" onClick={() => { setAns(a => ({ ...a, [q.id]: -1 })); next() }}>{t(q.skip)}</button>}
       </Shell>
     )
   }
@@ -248,26 +249,26 @@ export function Onboarding() {
       return (
         <Shell foot={
           <>
-            <button className="onb-btn" onClick={next}>Завести питомца</button>
-            <p className="onb-fine">Шарик это развлекательное приложение для заботы о себе в игровой форме. Это не медицинская или психологическая услуга, и оно не заменяет консультацию специалиста. Если тебе тяжело, пожалуйста, обратись за профессиональной помощью.</p>
+            <button className="onb-btn" onClick={next}>{t('Завести питомца')}</button>
+            <p className="onb-fine">{t('Шарик это развлекательное приложение для заботы о себе в игровой форме. Это не медицинская или психологическая услуга, и оно не заменяет консультацию специалиста. Если тебе тяжело, пожалуйста, обратись за профессиональной помощью.')}</p>
           </>}>
           <Pet species={species} size={150} state="happy" />
-          <h1 className="onb-h1" style={{ fontSize: 34 }}>Шарик</h1>
-          <p className="onb-sub">Твой новый друг для заботы о себе.</p>
+          <h1 className="onb-h1" style={{ fontSize: 34 }}>{t('Шарик')}</h1>
+          <p className="onb-sub">{t('Твой новый друг для заботы о себе.')}</p>
         </Shell>
       )
 
     case 'species':
       return (
-        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
-          <h1 className="onb-h1">Кто будет твоим питомцем?</h1>
-          <p className="onb-sub">Выбери друга, который будет расти вместе с тобой.</p>
+        <Shell foot={<button className="onb-btn" onClick={next}>{t('Дальше')}</button>}>
+          <h1 className="onb-h1">{t('Кто будет твоим питомцем?')}</h1>
+          <p className="onb-sub">{t('Выбери друга, который будет расти вместе с тобой.')}</p>
           <div className="onb-species">
             {MASCOTS.map(m => (
               <button key={m.id} className={`onb-spec${species === m.id ? ' sel' : ''}`}
-                onClick={() => { haptic('tap'); setSpecies(m.id) }} aria-label={m.ru}>
+                onClick={() => { haptic('tap'); setSpecies(m.id) }} aria-label={t(m.ru)}>
                 <Mascot species={m.id} size={84} />
-                <span className="nm">{m.ru}</span>
+                <span className="nm">{t(m.ru)}</span>
                 {species === m.id && <span className="onb-spec-chk">✓</span>}
               </button>
             ))}
@@ -277,17 +278,17 @@ export function Onboarding() {
 
     case 'pronouns':
       return (
-        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
+        <Shell foot={<button className="onb-btn" onClick={next}>{t('Дальше')}</button>}>
           <Pet species={species} size={140} state="happy" />
-          <h1 className="onb-h1">Теперь {name} с тобой!</h1>
-          <p className="onb-sub" style={{ fontWeight: 800, color: 'var(--oink)' }}>Местоимения питомца</p>
+          <h1 className="onb-h1">{t('Теперь')} {name} {t('с тобой!')}</h1>
+          <p className="onb-sub" style={{ fontWeight: 800, color: 'var(--oink)' }}>{t('Местоимения питомца')}</p>
           <div className="onb-opts">
             {PRONOUNS.map(pn => {
               const on = pronouns === pn.id
               return (
                 <button key={pn.id} className={`onb-opt heart${on ? ' sel' : ''}`} onClick={() => { haptic('tap'); setPronouns(pn.id) }}>
                   <span className="em">{on ? pn.heart : '🤍'}</span>
-                  <span className="lbl">{pn.ru}</span>
+                  <span className="lbl">{t(pn.ru)}</span>
                   {on && <span className="chk" style={{ background: 'var(--ob)' }}>✓</span>}
                 </button>
               )
@@ -300,29 +301,29 @@ export function Onboarding() {
       return (
         <Shell foot={
           <div className="onb-inrow">
-            <button className="onb-btn sec" onClick={() => { haptic('tap'); setPetName(PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)]) }}>Перемешать</button>
-            <button className="onb-btn" disabled={!petName.trim()} onClick={next}>Дальше</button>
+            <button className="onb-btn sec" onClick={() => { haptic('tap'); setPetName(PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)]) }}>{t('Перемешать')}</button>
+            <button className="onb-btn" disabled={!petName.trim()} onClick={next}>{t('Дальше')}</button>
           </div>}>
           <Pet species={species} size={120} />
-          <h1 className="onb-h1">Как назовём питомца?</h1>
-          <p className="onb-sub">Это можно поменять позже.</p>
+          <h1 className="onb-h1">{t('Как назовём питомца?')}</h1>
+          <p className="onb-sub">{t('Это можно поменять позже.')}</p>
           <input className="onb-input" value={petName} onChange={e => setPetName(e.target.value)} maxLength={24} />
         </Shell>
       )
 
     case 'trait':
       return (
-        <Shell foot={<button className="onb-btn" disabled={!trait} onClick={next}>Дальше</button>}>
+        <Shell foot={<button className="onb-btn" disabled={!trait} onClick={next}>{t('Дальше')}</button>}>
           <Pet species={species} size={120} state="happy" />
-          <h1 className="onb-h1">Выбери черту для {declineName(name, 'gen')}</h1>
-          <p className="onb-sub" style={{ fontWeight: 800, color: 'var(--oink)' }}>{name} ценит…</p>
+          <h1 className="onb-h1">{t('Выбери черту для')} {declineName(name, 'gen')}</h1>
+          <p className="onb-sub" style={{ fontWeight: 800, color: 'var(--oink)' }}>{name} {t('ценит…')}</p>
           <div className="onb-opts">
-            {TRAITS.map(t => {
-              const on = trait === t.id
+            {TRAITS.map(tr => {
+              const on = trait === tr.id
               return (
-                <button key={t.id} className={`onb-opt${on ? ' sel' : ''}`} onClick={() => { haptic('tap'); setTrait(t.id) }}>
-                  <span className="em">{t.em}</span>
-                  <span className="lbl">{t.ru}</span>
+                <button key={tr.id} className={`onb-opt${on ? ' sel' : ''}`} onClick={() => { haptic('tap'); setTrait(tr.id) }}>
+                  <span className="em">{tr.em}</span>
+                  <span className="lbl">{t(tr.ru)}</span>
                   {on && <span className="chk">✓</span>}
                 </button>
               )
@@ -333,34 +334,34 @@ export function Onboarding() {
 
     case 'uname':
       return (
-        <Shell foot={<button className="onb-btn" disabled={!userName.trim()} onClick={next}>Дальше</button>}>
-          <div className="onb-bubble tail">Привет! Спасибо, что выбрал(а) меня! Меня зовут {name}, а тебя как?</div>
+        <Shell foot={<button className="onb-btn" disabled={!userName.trim()} onClick={next}>{t('Дальше')}</button>}>
+          <div className="onb-bubble tail">{t('Привет! Спасибо, что выбрал(а) меня! Меня зовут')} {name}{t(', а тебя как?')}</div>
           <Pet species={species} size={120} />
-          <input className="onb-input" value={userName} onChange={e => setUserName(e.target.value)} placeholder="Твоё имя" maxLength={32} />
+          <input className="onb-input" value={userName} onChange={e => setUserName(e.target.value)} placeholder={t('Твоё имя')} maxLength={32} />
         </Shell>
       )
 
     case 'whatcare':
       return (
         <Shell>
-          <div className="onb-bubble tail">Приятно познакомиться, {userName.trim() || 'друг'}! Меня называют питомцем заботы о себе. А что такое забота о себе?</div>
+          <div className="onb-bubble tail">{t('Приятно познакомиться,')} {userName.trim() || t('друг')}{t('! Меня называют питомцем заботы о себе. А что такое забота о себе?')}</div>
           <Pet species={species} size={120} badge="?" />
           <div className="onb-opts" style={{ marginTop: 8 }}>
-            <button className="onb-answer orange" onClick={next}>Забота о себе это когда заботишься о теле, разуме и отношениях и при этом радуешься жизни!</button>
-            <button className="onb-answer pink" onClick={next}>Забота о себе это когда делаешь, что можешь, даже когда тебе непросто.</button>
+            <button className="onb-answer orange" onClick={next}>{t('Забота о себе это когда заботишься о теле, разуме и отношениях и при этом радуешься жизни!')}</button>
+            <button className="onb-answer pink" onClick={next}>{t('Забота о себе это когда делаешь, что можешь, даже когда тебе непросто.')}</button>
           </div>
         </Shell>
       )
 
     case 'affirm': {
-      const tr = TRAITS.find(t => t.id === trait) ?? TRAITS[0]
+      const tr = TRAITS.find(x => x.id === trait) ?? TRAITS[0]
       return (
-        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
-          <div className="onb-bubble tail">Ух ты! Когда ты заботишься о себе, ты заботишься и обо мне! Давай вместе!</div>
+        <Shell foot={<button className="onb-btn" onClick={next}>{t('Дальше')}</button>}>
+          <div className="onb-bubble tail">{t('Ух ты! Когда ты заботишься о себе, ты заботишься и обо мне! Давай вместе!')}</div>
           <Pet species={species} size={130} state="happy" hold="❤️" />
           <div className="onb-stat">
             <span className="em">{tr.em}</span>
-            <div><b>{name} получил(а)</b><span>+5.9 {tr.ru}</span></div>
+            <div><b>{name} {t('получил(а)')}</b><span>+5.9 {t(tr.ru)}</span></div>
           </div>
         </Shell>
       )
@@ -370,17 +371,17 @@ export function Onboarding() {
       return (
         <Shell foot={
           <>
-            <button className="onb-btn" disabled={busy} onClick={enableReminders}>Включить напоминания</button>
-            <button className="onb-btn sec" disabled={busy} onClick={next}>Может позже</button>
+            <button className="onb-btn" disabled={busy} onClick={enableReminders}>{t('Включить напоминания')}</button>
+            <button className="onb-btn sec" disabled={busy} onClick={next}>{t('Может позже')}</button>
           </>}>
-          <h1 className="onb-h1">Напоминания от {declineName(name, 'gen')}</h1>
+          <h1 className="onb-h1">{t('Напоминания от')} {declineName(name, 'gen')}</h1>
           <div className="onb-noti">
             <span className="onb-noti-emoji" aria-hidden>{sp.emoji}</span>
             <div>
-              <div className="nt">От {declineName(name, 'gen')}</div>
-              <div className="nb">Не забудь попить воды!</div>
+              <div className="nt">{t('От')} {declineName(name, 'gen')}</div>
+              <div className="nb">{t('Не забудь попить воды!')}</div>
             </div>
-            <span className="when">сейчас</span>
+            <span className="when">{t('сейчас')}</span>
           </div>
           <Pet species={species} size={140} state="walking" />
         </Shell>
@@ -388,10 +389,10 @@ export function Onboarding() {
 
     case 'learnyou':
       return (
-        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
+        <Shell foot={<button className="onb-btn" onClick={next}>{t('Дальше')}</button>}>
           <Pet species={species} size={130} />
-          <h1 className="onb-h1">Давай узнаем тебя получше!</h1>
-          <p className="onb-sub">{name} хочет понять, как расти вместе с тобой.</p>
+          <h1 className="onb-h1">{t('Давай узнаем тебя получше!')}</h1>
+          <p className="onb-sub">{name} {t('хочет понять, как расти вместе с тобой.')}</p>
         </Shell>
       )
 
@@ -399,19 +400,19 @@ export function Onboarding() {
       return (
         <Shell>
           <div className="onb-pop"><Pet species={species} size={150} state="happy" /></div>
-          <h1 className="onb-h1">Готовлю ваш дом…</h1>
+          <h1 className="onb-h1">{t('Готовлю ваш дом…')}</h1>
         </Shell>
       )
 
     case 'plan':
       return (
-        <Shell foot={<button className="onb-btn" onClick={next}>Поехали!</button>}>
-          <div className="onb-bubble tail">У тебя всё получится!</div>
+        <Shell foot={<button className="onb-btn" onClick={next}>{t('Поехали!')}</button>}>
+          <div className="onb-bubble tail">{t('У тебя всё получится!')}</div>
           <Pet species={species} size={110} />
           <div className="onb-pad">
             <div className="onb-pad-tabs">{Array.from({ length: 5 }).map((_, k) => <i key={k} />)}</div>
-            <h3>Стартовый план {userName.trim() || ''}</h3>
-            <div className="cap">Попробуй эти простые цели с {declineName(name, 'ins')}!</div>
+            <h3>{t('Стартовый план')} {userName.trim() || ''}</h3>
+            <div className="cap">{t('Попробуй эти простые цели с')} {declineName(name, 'ins')}!</div>
             {(goals ?? []).slice(0, 7).map(g => (
               <div key={g.id} className="row"><span className="em">{g.emoji}</span><span>{g.title}</span></div>
             ))}
@@ -421,15 +422,15 @@ export function Onboarding() {
 
     case 'plus1':
       return (
-        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
-          <p className="onb-sub">Шарик бесплатный навсегда</p>
-          <h1 className="onb-h1">А с <span className="onb-accent">Шарик Плюс</span> заботы ещё больше</h1>
+        <Shell foot={<button className="onb-btn" onClick={next}>{t('Дальше')}</button>}>
+          <p className="onb-sub">{t('Шарик бесплатный навсегда')}</p>
+          <h1 className="onb-h1">{t('А с')} <span className="onb-accent">{t('Шарик Плюс')}</span> {t('заботы ещё больше')}</h1>
           <Pet species={species} size={104} state="happy" hold="❤️" />
           <div className="onb-opts" style={{ marginTop: 4 }}>
             {PLUS_PERKS.map((p, idx) => (
               <div key={idx} className="onb-opt">
                 <span className="em">{p.em}</span>
-                <span className="lbl">{p.ru}</span>
+                <span className="lbl">{t(p.ru)}</span>
               </div>
             ))}
           </div>
@@ -438,11 +439,11 @@ export function Onboarding() {
 
     case 'plus2':
       return (
-        <Shell foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
-          <p className="onb-sub">Без скрытых платежей</p>
-          <h1 className="onb-h1">Ничего не спишется <span className="onb-accent">само</span></h1>
+        <Shell foot={<button className="onb-btn" onClick={next}>{t('Дальше')}</button>}>
+          <p className="onb-sub">{t('Без скрытых платежей')}</p>
+          <h1 className="onb-h1">{t('Ничего не спишется')} <span className="onb-accent">{t('само')}</span></h1>
           <Pet species={species} size={150} badge="⭐" />
-          <p className="onb-sub">Шарик Плюс оплачивается звёздами Telegram и только когда ты сам(а) захочешь. Никаких автосписаний и карт.</p>
+          <p className="onb-sub">{t('Шарик Плюс оплачивается звёздами Telegram и только когда ты сам(а) захочешь. Никаких автосписаний и карт.')}</p>
         </Shell>
       )
 
@@ -451,17 +452,17 @@ export function Onboarding() {
       return (
         <Shell foot={
           <>
-            <button className="onb-btn" disabled={busy} onClick={() => void buyPlus('year')}>Оформить за {C.PLUS_YEAR_STARS} ⭐ на год</button>
-            <button className="onb-link muted" onClick={next}>Пропустить</button>
+            <button className="onb-btn" disabled={busy} onClick={() => void buyPlus('year')}>{t('Оформить за')} {C.PLUS_YEAR_STARS} {t('⭐ на год')}</button>
+            <button className="onb-link muted" onClick={next}>{t('Пропустить')}</button>
           </>}>
-          <p className="onb-sub"><span className="onb-accent" style={{ fontWeight: 800 }}>Лучшая цена</span></p>
-          <h1 className="onb-h1">Шарик Плюс на целый год</h1>
+          <p className="onb-sub"><span className="onb-accent" style={{ fontWeight: 800 }}>{t('Лучшая цена')}</span></p>
+          <h1 className="onb-h1">{t('Шарик Плюс на целый год')}</h1>
           <Pet species={species} size={138} state="happy" badge="😎" />
           <div className="onb-stat" style={{ background: '#f2a93b' }}>
             <span className="em">⭐</span>
-            <div><b>{C.PLUS_YEAR_STARS} звёзд за весь год</b><span>≈ {perMonth} ⭐/мес вместо {C.PLUS_MONTH_STARS} ⭐/мес</span></div>
+            <div><b>{C.PLUS_YEAR_STARS} {t('звёзд за весь год')}</b><span>≈ {perMonth} {t('⭐/мес вместо')} {C.PLUS_MONTH_STARS} {t('⭐/мес')}</span></div>
           </div>
-          <p className="onb-sub">Это разовая оплата за 365 дней, не ежемесячно. Отменять ничего не нужно.</p>
+          <p className="onb-sub">{t('Это разовая оплата за 365 дней, не ежемесячно. Отменять ничего не нужно.')}</p>
         </Shell>
       )
     }
@@ -469,12 +470,12 @@ export function Onboarding() {
     case 'hear': {
       const sel = ans['hear']
       return (
-        <Shell foot={<button className="onb-btn" disabled={typeof sel !== 'number'} onClick={next}>Продолжить</button>}>
-          <h1 className="onb-h1">Откуда ты узнал(а) о нас?</h1>
+        <Shell foot={<button className="onb-btn" disabled={typeof sel !== 'number'} onClick={next}>{t('Продолжить')}</button>}>
+          <h1 className="onb-h1">{t('Откуда ты узнал(а) о нас?')}</h1>
           <div className="onb-opts">
             {HEAR.map((h, idx) => (
               <button key={idx} className={`onb-opt${sel === idx ? ' sel' : ''}`} onClick={() => { haptic('tap'); setAns(a => ({ ...a, hear: idx })) }}>
-                <span className="em">{h.em}</span><span className="lbl">{h.lbl}</span>{sel === idx && <span className="chk">✓</span>}
+                <span className="em">{h.em}</span><span className="lbl">{t(h.lbl)}</span>{sel === idx && <span className="chk">✓</span>}
               </button>
             ))}
           </div>
@@ -484,13 +485,13 @@ export function Onboarding() {
 
     case 'streak':
       return (
-        <Shell blue foot={<button className="onb-btn" onClick={next}>Дальше</button>}>
+        <Shell blue foot={<button className="onb-btn" onClick={next}>{t('Дальше')}</button>}>
           <div className="onb-float"><Pet species={species} size={150} state="happy" /></div>
           <div className="onb-big">1</div>
-          <div className="onb-streak-label">ДЕНЬ ПОДРЯД</div>
+          <div className="onb-streak-label">{t('ДЕНЬ ПОДРЯД')}</div>
           <div className="onb-week">
             {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d, k) => (
-              <div key={d} className="d"><span>{d}</span><span className={`dot${k === 0 ? ' on' : ''}`}>{k === 0 ? '✓' : ''}</span></div>
+              <div key={d} className="d"><span>{t(d)}</span><span className={`dot${k === 0 ? ' on' : ''}`}>{k === 0 ? '✓' : ''}</span></div>
             ))}
           </div>
         </Shell>
@@ -498,16 +499,16 @@ export function Onboarding() {
 
     case 'commit':
       return (
-        <Shell blue foot={<button className="onb-btn" disabled={commit === null} onClick={next}>Беру на себя!</button>}>
-          <h1 className="onb-h1">Сколько дней подряд ты будешь заботиться о {declineName(name, 'prep')}?</h1>
+        <Shell blue foot={<button className="onb-btn" disabled={commit === null} onClick={next}>{t('Беру на себя!')}</button>}>
+          <h1 className="onb-h1">{t('Сколько дней подряд ты будешь заботиться о')} {declineName(name, 'prep')}?</h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Pet species={species} size={84} badge="?" />
-            <div className="onb-bubble tail" style={{ fontSize: 15 }}>У тебя получится!</div>
+            <div className="onb-bubble tail" style={{ fontSize: 15 }}>{t('У тебя получится!')}</div>
           </div>
           <div className="onb-opts">
             {COMMIT.map((c, idx) => (
               <button key={idx} className={`onb-opt${commit === idx ? ' sel' : ''}`} onClick={() => { haptic('tap'); setCommit(idx) }}>
-                <span className="em">{c.em}</span><span className="lbl">{c.ru}</span><span className="end">{c.end}</span>
+                <span className="em">{c.em}</span><span className="lbl">{t(c.ru)}</span><span className="end">{t(c.end)}</span>
               </button>
             ))}
           </div>
@@ -518,11 +519,11 @@ export function Onboarding() {
       return (
         <Shell foot={
           <>
-            <button className="onb-btn" disabled={busy} onClick={async () => { setBusy(true); try { addToHomeScreen() } catch { /* ignore */ } setBusy(false); finish() }}>Добавить на главный экран</button>
-            <button className="onb-btn sec" onClick={finish}>Не сейчас</button>
+            <button className="onb-btn" disabled={busy} onClick={async () => { setBusy(true); try { addToHomeScreen() } catch { /* ignore */ } setBusy(false); finish() }}>{t('Добавить на главный экран')}</button>
+            <button className="onb-btn sec" onClick={finish}>{t('Не сейчас')}</button>
           </>}>
-          <h1 className="onb-h1">Закрепи свою привычку!</h1>
-          <p className="onb-sub">С приложением на главном экране держать привычки <span className="onb-accent" style={{ fontWeight: 800 }}>в 4 раза проще.</span></p>
+          <h1 className="onb-h1">{t('Закрепи свою привычку!')}</h1>
+          <p className="onb-sub">{t('С приложением на главном экране держать привычки')} <span className="onb-accent" style={{ fontWeight: 800 }}>{t('в 4 раза проще.')}</span></p>
           <div className="onb-phone">
             <div className="scr">
               <div className="wdg">{sp.emoji}</div>

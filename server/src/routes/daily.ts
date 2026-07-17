@@ -1,4 +1,4 @@
-// «Косточка дня» — one shared daily dig. The pool is global per game-day; each user's
+// «Косточка дня» - one shared daily dig. The pool is global per game-day; each user's
 // result is deterministic (stable on re-read) and persisted. 1/day, resets at wake−2h.
 // All rewards are косточки (never desyncs other modules). See docs/SPEC-VIRAL-FEATURES.md §2.
 import { Hono } from 'hono'
@@ -96,7 +96,7 @@ dailyRoutes.post('/dig', c => {
   return c.json({ result, alreadyDug: false, streak: digStreak(me.id, day) })
 })
 
-// what friends dug today — a gentle conversation starter (best-effort, same calendar day)
+// what friends dug today - a gentle conversation starter (best-effort, same calendar day)
 dailyRoutes.get('/friends', c => {
   const me = ensureFresh(c.get('user'))
   const day = me.last_day!

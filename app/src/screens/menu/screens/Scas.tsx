@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { req } from '../../../api'
 import { Loading, Sub } from '../ui'
 import type { ScasDto } from '../types'
+import { t } from '../../../i18n'
 
 const WEEK_RU = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 
@@ -19,13 +20,13 @@ export function Scas({ onBack }: { onBack(): void }) {
  const [data, setData] = useState<ScasDto | null>(null)
  useEffect(() => { req<ScasDto>('/activities/scas').then(setData).catch(() => {}) }, [])
 
- if (!data) return <Sub title="Сферы заботы" onBack={onBack}><Loading /></Sub>
+ if (!data) return <Sub title={t('Сферы заботы')} onBack={onBack}><Loading /></Sub>
  const dates = weekDates(data.monday)
 
  return (
- <Sub title="Сферы заботы" onBack={onBack}>
- <p style={{ color: 'var(--ink-soft)', margin: '0 4px 10px' }}>Из чего складывается твоя забота о себе на этой неделе.</p>
- {data.scas.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Привяжи цели к сферам заботы, чтобы видеть прогресс.</p>}
+ <Sub title={t('Сферы заботы')} onBack={onBack}>
+ <p style={{ color: 'var(--ink-soft)', margin: '0 4px 10px' }}>{t('Из чего складывается твоя забота о себе на этой неделе.')}</p>
+ {data.scas.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Привяжи цели к сферам заботы, чтобы видеть прогресс.')}</p>}
  {data.scas.map(s => {
  const hit = new Set(s.weekDays)
  return (
@@ -33,8 +34,8 @@ export function Scas({ onBack }: { onBack(): void }) {
  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
  <span style={{ width: 36, height: 36, borderRadius: '50%', background: s.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>{s.emoji}</span>
  <div style={{ flex: 1 }}>
- <div style={{ fontWeight: 800 }}>{s.ru}</div>
- <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{s.goals} {s.goals === 1 ? 'цель' : 'целей'} · {s.weekDays.length} дн. на неделе</div>
+ <div style={{ fontWeight: 800 }}>{t(s.ru)}</div>
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{s.goals} {s.goals === 1 ? t('цель') : t('целей')} · {s.weekDays.length} {t('дн. на неделе')}</div>
  </div>
  </div>
  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -47,7 +48,7 @@ export function Scas({ onBack }: { onBack(): void }) {
  background: on ? s.color : 'var(--card-shade)',
  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: on ? 'var(--brown-deep)' : 'var(--ink-soft)',
  }}>{on ? '✓' : ''}</div>
- <div style={{ fontSize: 11, color: 'var(--ink-soft)', marginTop: 2 }}>{WEEK_RU[i]}</div>
+ <div style={{ fontSize: 11, color: 'var(--ink-soft)', marginTop: 2 }}>{t(WEEK_RU[i])}</div>
  </div>
  )
  })}

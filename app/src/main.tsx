@@ -3,8 +3,10 @@ import { App } from './App'
 import { initTelegram } from './telegram'
 import { applyTheme } from './themeMode'
 import { initAnalytics } from './analytics'
+import { initLang } from './i18n'
 import './theme.css'
 
+initLang()
 initTelegram()
 applyTheme() // set light/dark before first paint (no flash)
 initAnalytics() // capture client errors from the start

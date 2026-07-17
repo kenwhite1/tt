@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { req } from '../../../api'
 import { haptic } from '../../../telegram'
 import { Chip, ChipRow, Loading, Sub, applyReward, useContent } from '../ui'
+import { t } from '../../../i18n'
 import type { BreathPattern, Reward } from '../types'
 
 const TAB_RU: Record<string, string> = {
@@ -11,7 +12,7 @@ const TAB_RU: Record<string, string> = {
 const TAB_ORDER = ['calm', 'focus', 'morning', 'energize', 'night']
 
 function Player({ pattern, minutes, onDone }: { pattern: BreathPattern; minutes: number; onDone(): void }) {
- const phases = pattern.phases.length ? pattern.phases : [{ label: 'вдох', seconds: 4 }, { label: 'выдох', seconds: 4 }]
+ const phases = pattern.phases.length ? pattern.phases : [{ label: t('вдох'), seconds: 4 }, { label: t('выдох'), seconds: 4 }]
  const [phaseIdx, setPhaseIdx] = useState(0)
  const [remaining, setRemaining] = useState(minutes * 60)
  const [done, setDone] = useState(false)
@@ -46,7 +47,7 @@ function Player({ pattern, minutes, onDone }: { pattern: BreathPattern; minutes:
  setDone(true)
  try {
  const r = await req<{ reward: Reward }>('/activities/log', { kind: 'breathing', refId: pattern.id, minutes })
- applyReward(r.reward, 'Дыхание завершено 💛')
+ applyReward(r.reward, t('Дыхание завершено 💛'))
  } catch { /* still let the user out */ }
  onDone()
  }
@@ -75,7 +76,7 @@ function Player({ pattern, minutes, onDone }: { pattern: BreathPattern; minutes:
  <span style={{ fontWeight: 800, fontSize: 22, color: '#fff' }}>{cur.label}</span>
  </div>
  </div>
- <button className="btn ghost" style={{ marginTop: 18 }} onClick={() => void finish()}>Закончить</button>
+ <button className="btn ghost" style={{ marginTop: 18 }} onClick={() => void finish()}>{t('Закончить')}</button>
  </div>
  )
 }
@@ -86,7 +87,7 @@ export function Breathing({ onBack }: { onBack(): void }) {
  const [pattern, setPattern] = useState<BreathPattern | null>(null)
  const [minutes, setMinutes] = useState(1)
 
- if (!content) return <Sub title="Дыхание" onBack={onBack}><Loading /></Sub>
+ if (!content) return <Sub title={t('Дыхание')} onBack={onBack}><Loading /></Sub>
  const plus = content.plus
  const free = content.breathing.durations.free
  const allDur = [...new Set([...content.breathing.durations.free, ...content.breathing.durations.plus])].sort((a, b) => a - b)
@@ -102,18 +103,18 @@ export function Breathing({ onBack }: { onBack(): void }) {
  const list = content.breathing.patterns.filter(p => p.tabs.includes(tab))
 
  return (
- <Sub title="Дыхание" onBack={onBack}>
- <p style={{ color: 'var(--ink-soft)', margin: '0 4px 8px' }}>Подыши вместе со мной, круг покажет ритм.</p>
+ <Sub title={t('Дыхание')} onBack={onBack}>
+ <p style={{ color: 'var(--ink-soft)', margin: '0 4px 8px' }}>{t('Подыши вместе со мной, круг покажет ритм.')}</p>
 
  <ChipRow>
- {TAB_ORDER.map(t => <Chip key={t} active={tab === t} onClick={() => setTab(t)}>{TAB_RU[t]}</Chip>)}
+ {TAB_ORDER.map(tabId => <Chip key={tabId} active={tab === tabId} onClick={() => setTab(tabId)}>{t(TAB_RU[tabId])}</Chip>)}
  </ChipRow>
 
- <div style={{ fontWeight: 800, margin: '4px 4px 8px', color: 'var(--ink-soft)', fontSize: 14 }}>Сколько минут</div>
+ <div style={{ fontWeight: 800, margin: '4px 4px 8px', color: 'var(--ink-soft)', fontSize: 14 }}>{t('Сколько минут')}</div>
  <ChipRow>
  {allDur.map(m => {
  const locked = !free.includes(m) && !plus
- return <Chip key={m} active={minutes === m} locked={locked} onClick={() => !locked && setMinutes(m)}>{m} мин</Chip>
+ return <Chip key={m} active={minutes === m} locked={locked} onClick={() => !locked && setMinutes(m)}>{m} {t('мин')}</Chip>
  })}
  </ChipRow>
 
@@ -128,7 +129,7 @@ export function Breathing({ onBack }: { onBack(): void }) {
  <span style={{ fontSize: 24 }}>🫧</span>
  <span style={{ flex: 1 }}>
  <span style={{ fontWeight: 800, display: 'block' }}>{p.name}{locked ? ' 🔒' : ''}</span>
- <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{p.phases.map(ph => `${ph.label} ${ph.seconds}с`).join(' · ')}</span>
+ <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{p.phases.map(ph => `${ph.label} ${ph.seconds}${t('с')}`).join(' · ')}</span>
  </span>
  </button>
  )

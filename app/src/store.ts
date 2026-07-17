@@ -2,6 +2,8 @@ import { create } from 'zustand'
 import type { StateDto, RewardDto } from '@shared/types'
 import { api } from './api'
 import { haptic } from './telegram'
+import { t } from './i18n'
+import { reportSession } from './gg'
 
 export type Tab = 'home' | 'quests' | 'shop' | 'friends' | 'bag' | 'pet'
 type Phase = 'loading' | 'onboarding' | 'ready' | 'error'
@@ -31,8 +33,22 @@ interface Store {
 
 let toastTimer: ReturnType<typeof setTimeout> | undefined
 
+// Report today's self-care session to the «game is game» hub (best-effort, never
+// throws, no-op outside the hub). The hub dedups per player+game-day, so calling
+// this on every goal completion still credits G at most once per day. The score
+// is the honest count of goal completions logged today.
+function reportPlaySession(state: StateDto): void {
+  const score = state.goals.reduce((n, g) => n + g.doneToday, 0)
+  void reportSession({
+    userId: state.user.id,
+    day: state.day,
+    score,
+    stats: { goals: score, energy: state.energy, streak: state.user.streak },
+  }).catch(() => { /* hub reporting is best-effort */ })
+}
+
 // A walk is completed server-side lazily, on any /state call. So we must re-fetch
-// state when the user returns or when a walk's timer crosses the finish line —
+// state when the user returns or when a walk's timer crosses the finish line -
 // otherwise growth/stones silently stall until the next manual reopen.
 let autoRefreshArmed = false
 function armAutoRefresh() {
@@ -67,7 +83,7 @@ export const useStore = create<Store>((set, get) => ({
 
   showToast(msg) {
     clearTimeout(toastTimer)
-    set({ toast: msg })
+    set({ toast: t(msg) })
     toastTimer = setTimeout(() => set({ toast: null }), 2200)
   },
 
@@ -111,6 +127,7 @@ export const useStore = create<Store>((set, get) => ({
     const { reward, state } = await api.completeGoal(id)
     haptic('success')
     set({ state })
+    reportPlaySession(state) // tell the hub the user did self-care today (earns G)
     return reward // Home floats the exact reward from the tap point
   },
 
@@ -122,7 +139,7 @@ export const useStore = create<Store>((set, get) => ({
   async startWalk() {
     const { state } = await api.startWalk()
     haptic('success')
-    get().showToast(`${state.pet.name} на прогулке!`)
+    get().showToast(`${state.pet.name} ${t('на прогулке!')}`)
     set({ state })
   },
 

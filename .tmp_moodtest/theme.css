@@ -34,7 +34,7 @@ body {
   user-select: none;
 }
 
-/* Form controls reset font in browsers — force them to use the app font everywhere. */
+/* Form controls reset font in browsers - force them to use the app font everywhere. */
 button, input, textarea, select {
   font-family: inherit;
 }
@@ -177,7 +177,7 @@ h2 { font-size: 18px; }
 
 /* white headers/labels on the dark-coloured tabs; light surfaces keep dark text */
 .tab-quests, .tab-shop, .tab-friends, .tab-bag { color: #fff; }
-/* secondary text sitting directly on the blue shop bg must stay legible —
+/* secondary text sitting directly on the blue shop bg must stay legible -
    override inline var(--ink-soft) (muted brown) which is unreadable on blue.
    Only hits top-level paragraphs; muted text inside white cards is untouched. */
 .tab-shop .scroll > p { color: rgba(255, 255, 255, 0.9) !important; }
@@ -254,7 +254,7 @@ h2 { font-size: 18px; }
 }
 .walk-out { animation: walk-out 0.85s cubic-bezier(0.4, 0, 0.7, 0.4) forwards; }
 
-/* the pet artwork (raster) — kept exactly as the source image; only gentle transforms
+/* the pet artwork (raster) - kept exactly as the source image; only gentle transforms
    give it life. It rests in its bed, so it breathes softly (no bob) with an occasional
    tail-wag wiggle on the wrapper, and a small hop for celebrations. */
 .pet-img {
@@ -287,18 +287,18 @@ h2 { font-size: 18px; }
 }
 .pet-img.sleep { filter: saturate(0.82) brightness(0.94) drop-shadow(0 3px 3px rgba(20, 40, 50, 0.12)); animation: pet-breathe 5.6s ease-in-out infinite; }
 
-/* the pet's rug — a flat mat it lies on; entirely BEHIND the pet so paws stay visible */
+/* the pet's rug - a flat mat it lies on; entirely BEHIND the pet so paws stay visible */
 .petrug { position: relative; width: 150px; }
 .petrug-pet { position: relative; z-index: 2; }
 .petrug-mat    { position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%); width: 168px; z-index: 1; }
 .petrug-shadow { position: absolute; left: 50%; bottom: -15px; transform: translateX(-50%); width: 162px; height: 26px; border-radius: 50%; z-index: 0; background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(16, 46, 52, 0.30), rgba(16, 46, 52, 0) 72%); }
 
-/* the hanging lamp sways gently — a little ambient room life */
+/* the hanging lamp sways gently - a little ambient room life */
 .rs-lamp { transform-box: view-box; transform-origin: 178px 2px; animation: lamp-sway 5.6s ease-in-out infinite; }
 @keyframes lamp-sway { 0%, 100% { transform: rotate(-1.3deg); } 50% { transform: rotate(1.3deg); } }
 
 /* ============================================================
-   Finch-style onboarding — clean white + green, 1:1 layout
+   Finch-style onboarding - clean white + green, 1:1 layout
    ============================================================ */
 .onb {
   --og: #57bf6a; --og-deep: #46a557; --ob: #36a9e1; --ob-deep: #2b8fc4;
@@ -348,7 +348,7 @@ h2 { font-size: 18px; }
 .onb-opt.heart .em { color: #cfd6dd; }
 .onb-opt.heart.sel .em { color: var(--ob); }
 
-/* species picker — choose which mascot hatches */
+/* species picker - choose which mascot hatches */
 .onb-species { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
 .onb-spec { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px;
   background: #fff; border: 1.6px solid var(--oline); border-radius: 18px; padding: 14px 8px 12px;
@@ -437,7 +437,7 @@ h2 { font-size: 18px; }
 .onb.blue .onb-btn { background: #fff; color: var(--ob-deep); box-shadow: 0 4px 0 rgba(0,0,0,.14); }
 .onb.blue .onb-btn.sec { background: rgba(255,255,255,.16); color: #fff; box-shadow: 0 4px 0 rgba(0,0,0,.14); }
 .onb.blue .onb-opt { background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.28); color: #fff; }
-/* selected option on the blue commit screen — needs higher specificity than the rule
+/* selected option on the blue commit screen - needs higher specificity than the rule
    above, which would otherwise override the green .sel border and hide the selection. */
 .onb.blue .onb-opt.sel { border-color: #fff; background: rgba(255,255,255,.30); }
 .onb.blue .onb-opt .end { color: rgba(255,255,255,.82); }
@@ -485,13 +485,13 @@ h2 { font-size: 18px; }
   --adv-deep: #2c6b75;
 }
 
-/* — room ambient: twinkling stars + breathing moon glow — */
+/* - room ambient: twinkling stars + breathing moon glow - */
 .rs-stars circle { opacity: 0.35; animation: rs-twinkle 7s ease-in-out infinite; animation-delay: var(--td, 0s); }
 @keyframes rs-twinkle { 0%, 100% { opacity: 0.18; } 50% { opacity: 0.9; } }
 .rs-moonglow { transform-box: fill-box; transform-origin: center; animation: rs-moonglow 8s ease-in-out infinite; }
 @keyframes rs-moonglow { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
 
-/* — warm hero glow strictly behind the pet (z0) + layered contact shadow — */
+/* - warm hero glow strictly behind the pet (z0) + layered contact shadow - */
 .petrug-glow {
   position: absolute; left: 50%; bottom: -4px; transform: translateX(-50%);
   width: 150px; height: 110px; z-index: 0; pointer-events: none;
@@ -515,13 +515,13 @@ h2 { font-size: 18px; }
   50%      { transform: translateX(-50%) scale(0.965, 0.92); opacity: 0.94; }
 }
 
-/* — surfaces: top-light bevel + layered ambient shadow + hairline — */
+/* - surfaces: top-light bevel + layered ambient shadow + hairline - */
 .card { box-shadow: inset 0 1px 0 var(--highlight), var(--shadow-md), 0 0 0 1px var(--hairline); }
 .tab-quests .card, .tab-shop .card, .tab-friends .card, .tab-bag .card {
   box-shadow: inset 0 1px 0 var(--highlight), var(--shadow-md), 0 0 0 1px rgba(255,255,255,.12);
 }
 
-/* — buttons: top sheen + focus ring (the 0 4px 0 lip-press is preserved) — */
+/* - buttons: top sheen + focus ring (the 0 4px 0 lip-press is preserved) - */
 .btn { position: relative; }
 .btn::before {
   content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
@@ -532,7 +532,7 @@ h2 { font-size: 18px; }
 .btn:focus-visible { outline: none; box-shadow: 0 4px 0 var(--green-deep), 0 0 0 3px rgba(242,169,59,.45); }
 .btn.accent:focus-visible { outline: none; box-shadow: 0 4px 0 var(--accent-deep), 0 0 0 3px rgba(242,169,59,.5); }
 
-/* — bottom-nav: tactile active pill + one-shot icon hop — */
+/* - bottom-nav: tactile active pill + one-shot icon hop - */
 .tab { transition: color .18s ease, background .18s ease; position: relative; }
 .tab.active {
   color: var(--brown-deep);
@@ -542,7 +542,7 @@ h2 { font-size: 18px; }
 .tab.active > svg { animation: tab-pop .32s cubic-bezier(.2,.8,.3,1.5); }
 @keyframes tab-pop { 0% { transform: scale(1); } 45% { transform: scale(1.16) translateY(-1px); } 100% { transform: scale(1); } }
 
-/* — glossy progress bars (gloss layers under the existing shine sweep) — */
+/* - glossy progress bars (gloss layers under the existing shine sweep) - */
 .adv-track { box-shadow: inset 0 2px 4px rgba(0,0,0,.16), inset 0 0 0 1px rgba(0,0,0,.05); }
 .energy-track { box-shadow: inset 0 2px 4px rgba(122,79,42,.18), inset 0 0 0 1px var(--hairline); }
 .adv-fill, .energy-fill {
@@ -550,16 +550,16 @@ h2 { font-size: 18px; }
   box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 3px rgba(0,0,0,.10);
 }
 
-/* — goal tiles: bevels + tappable empty check + green done gradient — */
+/* - goal tiles: bevels + tappable empty check + green done gradient - */
 .goal-icon, .goal-check { box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 0 0 1px var(--hairline); }
 .goal-check:not(.done) { box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 0 0 1.5px rgba(122,79,42,.18); }
 .goal-check.done { background: linear-gradient(180deg, #93c178, var(--green-deep)); box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
 
-/* — adventure card dimensional lift — */
+/* - adventure card dimensional lift - */
 .adv-card { background: linear-gradient(180deg, var(--adv-deep), var(--adv)); box-shadow: inset 0 1px 0 rgba(255,255,255,.10), var(--shadow-lg); }
 .adv-bolt { background: radial-gradient(circle at 50% 38%, #4a98a3, #3a828d 70%); box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 10px rgba(255,210,120,.35); }
 
-/* — type rung — */
+/* - type rung - */
 .caption { font-size: 13px; font-weight: 700; color: var(--ink-soft); }
 h1 { letter-spacing: -.01em; }
 h2 { letter-spacing: -.005em; }
@@ -569,7 +569,7 @@ h2 { letter-spacing: -.005em; }
 }
 
 /* ============================================================
-   Tab glow-ups — shared premium utilities (reuse design tokens)
+   Tab glow-ups - shared premium utilities (reuse design tokens)
    ============================================================ */
 /* sculpted niche behind the pet portrait */
 .portrait-frame {
@@ -663,9 +663,9 @@ h2 { letter-spacing: -.005em; }
 }
 
 /* ============================================================
-   Tab glow-ups — deeper layer (richer, taste-judged)
+   Tab glow-ups - deeper layer (richer, taste-judged)
    ============================================================ */
-/* glossy enamel color bead — every flat hex chip (shop / dressing room / gift) */
+/* glossy enamel color bead - every flat hex chip (shop / dressing room / gift) */
 .swatch { position: relative; transition: box-shadow .16s ease, transform .12s ease;
   box-shadow: inset 0 2px 3px rgba(255,255,255,.55), inset 0 -3px 5px rgba(28,18,8,.16), 0 0 0 1px var(--hairline), var(--shadow-sm); }
 .swatch::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
@@ -691,7 +691,7 @@ h2 { letter-spacing: -.005em; }
   animation: gift-burst .8s ease-out both; }
 @keyframes gift-burst { 0% { transform: translateX(-50%) scale(.4) rotate(0); opacity: 0; } 40% { opacity: .9; } 100% { transform: translateX(-50%) scale(1) rotate(22deg); opacity: .55; } }
 
-/* friends courtyard — grounded avatars, jewel badges, glossy heart bar, sunbeam tiles, premium referral */
+/* friends courtyard - grounded avatars, jewel badges, glossy heart bar, sunbeam tiles, premium referral */
 .yard-buddy { position: relative; transition: transform .12s ease; }
 .yard-buddy::before { content: ''; position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
   width: 52px; height: 14px; z-index: 0; pointer-events: none;
@@ -714,7 +714,7 @@ h2 { letter-spacing: -.005em; }
 .referral-card .chev { display: inline-block; animation: ref-nudge 2.6s ease-in-out infinite; }
 @keyframes ref-nudge { 0%, 70%, 100% { transform: translateX(0); } 82% { transform: translateX(4px); } }
 
-/* micropets — meadow, breathing egg, hatch confetti, collection sheen, portrait halo */
+/* micropets - meadow, breathing egg, hatch confetti, collection sheen, portrait halo */
 .mp-meadow { position: relative; box-shadow: inset 0 1px 0 var(--highlight), var(--shadow-md), 0 0 0 1px var(--hairline); }
 .mp-meadow::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit;
   background: radial-gradient(120% 70% at 78% 6%, rgba(255,243,200,.55), rgba(255,243,200,0) 55%),
@@ -747,7 +747,7 @@ h2 { letter-spacing: -.005em; }
   animation: mp-halo 4.6s ease-in-out infinite; }
 @keyframes mp-halo { 0%, 100% { opacity: .8; transform: translate(-50%,-50%) scale(1); } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.06); } }
 
-/* quests — gold claimable ring + star twinkle + earned-badge shine + heart glow */
+/* quests - gold claimable ring + star twinkle + earned-badge shine + heart glow */
 .is-claimable.is-gold { animation-name: is-claimable-gold; }
 @keyframes is-claimable-gold { 0%, 100% { box-shadow: 0 0 0 0 rgba(248,196,90,.6); } 50% { box-shadow: 0 0 0 7px rgba(248,196,90,0); } }
 .star-twinkle { display: inline-block; animation: star-twinkle 2.4s ease-in-out infinite; }
@@ -792,7 +792,7 @@ h2 { letter-spacing: -.005em; }
 .goal-check { width: 42px; height: 42px; }
 .round-btn { width: 44px; height: 44px; }
 
-/* dark theme — follows the Telegram colour scheme; override in Settings */
+/* dark theme - follows the Telegram colour scheme; override in Settings */
 html[data-theme="dark"] {
   --bg: #18130f; --bg-deep: #110d0a;
   --card: #271f1a; --card-shade: #1f1813;

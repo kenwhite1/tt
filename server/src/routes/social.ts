@@ -809,7 +809,7 @@ socialRoutes.post('/referral', async c => {
 })
 
 // =====================================================================
-// Viral additions — giftable streak-freeze (F3), compliments (F4), reports (safety)
+// Viral additions - giftable streak-freeze (F3), compliments (F4), reports (safety)
 // =====================================================================
 
 const compliments = JSON.parse(

@@ -6,6 +6,7 @@ import { C } from '@shared/constants'
 import { req } from '../api'
 import { useStore } from '../store'
 import { haptic } from '../telegram'
+import { t } from '../i18n'
 import { Mascot } from '../art/Mascot'
 import { Micropet } from '../art/Micropet'
 import { Micropedia } from './micropets/Micropedia'
@@ -104,19 +105,19 @@ export function Pet() {
  <div className="scroll" style={{ paddingTop: 8 }}>
  <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '4px 2px 12px' }}>
  <button className="btn ghost" style={{ padding: '8px 14px' }} onClick={() => setView('main')}>‹</button>
- <h1 style={{ flex: 1 }}>🔍 Открытия</h1>
+ <h1 style={{ flex: 1 }}>🔍 {t('Открытия')}</h1>
  <span style={{ fontWeight: 800, color: 'var(--brown)' }}>{list.length}</span>
  </div>
  <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 10 }}>
  {cats.map(cat => (
  <button key={cat} className={dCat === cat ? 'btn' : 'btn ghost'} style={{ padding: '8px 14px', whiteSpace: 'nowrap' }} onClick={() => { haptic('tap'); setDCat(cat) }}>
- {cat === 'all' ? 'Все' : (CATEGORY_RU[cat] ?? cat)}
+ {cat === 'all' ? t('Все') : (CATEGORY_RU[cat] ? t(CATEGORY_RU[cat]) : cat)}
  </button>
  ))}
  </div>
  {shown.length === 0 && (
  <div className="card" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>
- Пока пусто, открытия появляются после прогулок и бесед с питомцем ✨
+ {t('Пока пусто, открытия появляются после прогулок и бесед с питомцем ✨')}
  </div>
  )}
  {shown.map((d, i) => {
@@ -127,7 +128,7 @@ export function Pet() {
  <div style={{ flex: 1 }}>
  <div style={{ fontWeight: 800 }}>{d.ruName ?? d.ru_name ?? d.name ?? d.id}</div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
- {(d.category && (CATEGORY_RU[d.category] ?? d.category)) ?? ''} · {liked ? 'нравится' : 'не нравится'}
+ {(d.category && (CATEGORY_RU[d.category] ? t(CATEGORY_RU[d.category]) : d.category)) ?? ''} · {liked ? t('нравится') : t('не нравится')}
  </div>
  </div>
  </div>
@@ -150,11 +151,11 @@ export function Pet() {
  try {
  await req('/activities/streak/repair', {})
  haptic('success')
- showToast('Серия восстановлена! 🌞')
+ showToast(t('Серия восстановлена! 🌞'))
  await useStore.getState().refresh()
  } catch {
  haptic('warn')
- showToast('Пока не получилось починить серию')
+ showToast(t('Пока не получилось починить серию'))
  } finally {
  setRepairing(false)
  }
@@ -164,7 +165,7 @@ export function Pet() {
  haptic('tap')
  try {
  void navigator.clipboard?.writeText(user.friendCode)
- showToast('Код друга скопирован ⧉')
+ showToast(t('Код друга скопирован ⧉'))
  } catch { /* clipboard unavailable */ }
  }
 
@@ -177,10 +178,10 @@ export function Pet() {
  <Mascot species={pet.species} size={104} outfit={pet.outfit} />
  </div>
  <div style={{ flex: 1 }}>
- <h1>{STAGE_RU[pet.stage]} {pet.name}</h1>
- <div style={{ color: 'var(--ink-soft)', fontWeight: 700 }}>{PRONOUN_RU[pet.pronouns]}</div>
+ <h1>{STAGE_RU[pet.stage] ? t(STAGE_RU[pet.stage]) : ''} {pet.name}</h1>
+ <div style={{ color: 'var(--ink-soft)', fontWeight: 700 }}>{PRONOUN_RU[pet.pronouns] ? t(PRONOUN_RU[pet.pronouns]) : ''}</div>
  <button onClick={copyCode} style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left' }}>
- <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent-deep)', marginTop: 8 }}>КОД ДРУГА</div>
+ <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent-deep)', marginTop: 8 }}>{t('КОД ДРУГА')}</div>
  <div className="copy-chip">{user.friendCode} ⧉</div>
  </button>
  </div>
@@ -189,23 +190,23 @@ export function Pet() {
  <div style={{ display: 'flex', gap: 6, margin: '14px 0 10px' }}>
  {([['about', 'О питомце'], ['details', 'Детали'], ['traits', 'Характер']] as const).map(([id, ru]) => (
  <button key={id} className={tab === id ? 'btn' : 'btn ghost'} style={{ flex: 1, padding: '8px 0', fontSize: 14 }} onClick={() => { haptic('tap'); setTab(id) }}>
- {ru}
+ {t(ru)}
  </button>
  ))}
  </div>
 
  {tab === 'about' && (
  <div style={{ display: 'grid', gap: 8 }}>
- <Row label="🎂 День рождения" value={ruDate(pet.hatchDay)} />
- <Row label="🌱 Возраст" value={`${ageDays} ${plural(ageDays, ['день', 'дня', 'дней'])}`} />
- <Row label="🌳 Прогулок" value={String(pet.walks)} />
+ <Row label={t('🎂 День рождения')} value={ruDate(pet.hatchDay)} />
+ <Row label={t('🌱 Возраст')} value={`${ageDays} ${plural(ageDays, [t('день'), t('дня'), t('дней')])}`} />
+ <Row label={t('🌳 Прогулок')} value={String(pet.walks)} />
  </div>
  )}
  {tab === 'details' && (
  <div style={{ display: 'grid', gap: 8 }}>
- <Row label="💫 Характер" value={TRAIT_RU[pet.trait] ?? pet.trait} />
- <Row label="🦴 Косточек собрано" value={profile ? String(profile.lifetimeStones) : '…'} />
- <Row label="🌞 Лучшая серия" value={`${user.streakBest} ${plural(user.streakBest, ['день', 'дня', 'дней'])}`} />
+ <Row label={t('💫 Характер')} value={TRAIT_RU[pet.trait] ? t(TRAIT_RU[pet.trait]) : pet.trait} />
+ <Row label={t('🦴 Косточек собрано')} value={profile ? String(profile.lifetimeStones) : '…'} />
+ <Row label={t('🌞 Лучшая серия')} value={`${user.streakBest} ${plural(user.streakBest, [t('день'), t('дня'), t('дней')])}`} />
  </div>
  )}
  {tab === 'traits' && (
@@ -215,7 +216,7 @@ export function Pet() {
  return (
  <div key={d}>
  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, fontWeight: 800, marginBottom: 3 }}>
- <span>{DIM_RU[d]}</span><span style={{ color: 'var(--ink-soft)' }}>{v}</span>
+ <span>{DIM_RU[d] ? t(DIM_RU[d]) : d}</span><span style={{ color: 'var(--ink-soft)' }}>{v}</span>
  </div>
  <div className="energy-track" style={{ height: 10 }}>
  <div className="energy-fill" style={{ width: `${Math.min(100, (v / maxDim) * 100)}%` }} />
@@ -223,7 +224,7 @@ export function Pet() {
  </div>
  )
  })}
- <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>Характер растёт из твоих ответов на прогулках ✨</div>
+ <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{t('Характер растёт из твоих ответов на прогулках ✨')}</div>
  </div>
  )}
  </div>
@@ -234,26 +235,26 @@ export function Pet() {
  <span className="stat-orb">🌞</span>
  <div style={{ flex: 1 }}>
  <b style={{ fontSize: 20 }}>{user.streak} </b>
- {plural(user.streak, ['день подряд', 'дня подряд', 'дней подряд'])}
- <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>Лучшая серия заботы о себе: {user.streakBest}</div>
+ {plural(user.streak, [t('день подряд'), t('дня подряд'), t('дней подряд')])}
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{t('Лучшая серия заботы о себе:')} {user.streakBest}</div>
  </div>
  <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)' }}>🔧 {user.repairs}</span>
  </div>
  {streakBroke && (
  <div style={{ marginTop: 10, background: 'var(--card-shade)', borderRadius: 14, padding: 12 }}>
- <div style={{ fontWeight: 800, marginBottom: 6 }}>Серия прервалась, бывает! 💛</div>
+ <div style={{ fontWeight: 800, marginBottom: 6 }}>{t('Серия прервалась, бывает! 💛')}</div>
  <button className="btn accent" style={{ width: '100%' }} disabled={user.repairs === 0 || repairing} onClick={() => void repairStreak()}>
- 🔧 Починить серию ({user.repairs} {plural(user.repairs, ['починка', 'починки', 'починок'])})
+ 🔧 {t('Починить серию')} ({user.repairs} {plural(user.repairs, [t('починка'), t('починки'), t('починок')])})
  </button>
  </div>
  )}
  </div>
 
- <h2 style={{ margin: '8px 4px 10px' }}>Коллекция</h2>
+ <h2 style={{ margin: '8px 4px 10px' }}>{t('Коллекция')}</h2>
 
  {/* micropets → micropedia */}
  <button className="card" style={{ width: '100%', border: 'none', textAlign: 'left', cursor: 'pointer' }} onClick={() => { haptic('tap'); setView('pedia') }}>
- <h2 style={{ marginBottom: 10 }}>Микропитомцы</h2>
+ <h2 style={{ marginBottom: 10 }}>{t('Микропитомцы')}</h2>
  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
  {[0, 1, 2].map(i => {
  const p = previewPets[i]
@@ -271,7 +272,7 @@ export function Pet() {
 
  {/* locations preview */}
  <div className="card">
- <h2 style={{ marginBottom: 10 }}>Локации</h2>
+ <h2 style={{ marginBottom: 10 }}>{t('Локации')}</h2>
  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
  <div className="slot-live" style={{ fontSize: 26 }}>
  🌲
@@ -282,7 +283,7 @@ export function Pet() {
  ))}
  </div>
  <div style={{ fontSize: 13, textAlign: 'center', marginTop: 6, fontWeight: 700 }}>
- {logbook?.firstName ?? 'Тёплый лес'}, {logbook?.firstPct ?? 1}%
+ {logbook?.firstName ?? t('Тёплый лес')}, {logbook?.firstPct ?? 1}%
  </div>
  <div style={{ textAlign: 'center', marginTop: 6, fontWeight: 800, color: 'var(--brown)' }}>
  {logbook?.visited ?? 1} / {logbook?.total ?? 27} ›
@@ -291,9 +292,9 @@ export function Pet() {
 
  {/* discoveries */}
  <button className="card" style={{ width: '100%', border: 'none', textAlign: 'left', cursor: 'pointer' }} onClick={() => { haptic('tap'); setView('discoveries') }}>
- <h2 style={{ marginBottom: 6 }}>Открытия</h2>
+ <h2 style={{ marginBottom: 6 }}>{t('Открытия')}</h2>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
- Что питомец любит и не любит, узнаётся в беседах после прогулок
+ {t('Что питомец любит и не любит, узнаётся в беседах после прогулок')}
  </div>
  <div style={{ textAlign: 'center', marginTop: 10, fontWeight: 800, color: 'var(--brown)' }}>
  {discoveries?.length ?? 0} ›
@@ -302,9 +303,9 @@ export function Pet() {
 
  {/* badges */}
  <div className="card">
- <h2 style={{ marginBottom: 10 }}>Значки испытаний</h2>
+ <h2 style={{ marginBottom: 10 }}>{t('Значки испытаний')}</h2>
  {badges.length === 0 ? (
- <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>Пока нет значков, загляни в задания, там ждут испытания! 🏅</div>
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{t('Пока нет значков, загляни в задания, там ждут испытания! 🏅')}</div>
  ) : (
  <div style={{ display: 'flex', gap: 10, overflowX: 'auto' }}>
  {badges.map(b => (

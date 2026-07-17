@@ -1,4 +1,4 @@
-// «Коллекция» — limited-supply cosmetic collectible puppy items (Feature 5B).
+// «Коллекция» - limited-supply cosmetic collectible puppy items (Feature 5B).
 // Earned with косточки, transparent minted/cap counts, serial edition number. No gambling,
 // no paid randomness, no airdrop. One edition per user per drop. See SPEC-VIRAL-FEATURES §5B.
 import { Hono } from 'hono'

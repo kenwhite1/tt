@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { C } from '@shared/constants'
 import { haptic } from '../../telegram'
+import { t } from '../../i18n'
 import type { ChallengeDto } from './types'
 
 interface Props {
@@ -15,7 +16,7 @@ export function ChallengeSection({ challenges, onJoin, onCheck }: Props) {
 
  return (
  <>
- <h2 style={{ margin: '6px 4px 10px' }}>Испытание месяца</h2>
+ <h2 style={{ margin: '6px 4px 10px' }}>{t('Испытание месяца')}</h2>
  {challenges.map(ch => {
  const expanded = open === ch.id
  const doneCount = ch.doneIdx.length
@@ -29,12 +30,12 @@ export function ChallengeSection({ challenges, onJoin, onCheck }: Props) {
  <div style={{ flex: 1 }}>
  <div style={{ fontWeight: 800 }}>{ch.name}</div>
  {ch.completed ? (
- <div style={{ fontSize: 13, color: 'var(--brown-deep)', fontWeight: 800 }}>Пройдено! Значок твой 🏅</div>
+ <div style={{ fontSize: 13, color: 'var(--brown-deep)', fontWeight: 800 }}>{t('Пройдено! Значок твой 🏅')}</div>
  ) : ch.joined ? (
- <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{doneCount} из {C.CHALLENGE_GOALS}</div>
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{doneCount} {t('из')} {C.CHALLENGE_GOALS}</div>
  ) : (
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
- {ch.joinable ? `${C.CHALLENGE_GOALS} маленьких дел за месяц` : `Присоединиться можно до ${C.CHALLENGE_JOIN_BY_DAY}-го числа, увидимся в следующем месяце 💛`}
+ {ch.joinable ? `${C.CHALLENGE_GOALS} ${t('маленьких дел за месяц')}` : `${t('Присоединиться можно до')} ${C.CHALLENGE_JOIN_BY_DAY}${t('-го числа, увидимся в следующем месяце 💛')}`}
  </div>
  )}
  </div>
@@ -53,13 +54,13 @@ export function ChallengeSection({ challenges, onJoin, onCheck }: Props) {
 
  {!ch.joined && ch.joinable && (
  <button className="btn" style={{ width: '100%', marginBottom: 10 }} onClick={() => onJoin(ch.id)}>
- Присоединиться
+ {t('Присоединиться')}
  </button>
  )}
 
  {ch.joined && !ch.completed && ch.checkedToday && (
  <div style={{ fontSize: 13, color: 'var(--green-deep)', fontWeight: 800, marginBottom: 10 }}>
- Сегодня уже отмечено, продолжим завтра 💛
+ {t('Сегодня уже отмечено, продолжим завтра 💛')}
  </div>
  )}
 
@@ -90,7 +91,7 @@ export function ChallengeSection({ challenges, onJoin, onCheck }: Props) {
 
  {!ch.joined && (
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', marginTop: 8 }}>
- Одно дело в день, в любом порядке. Пройдёшь все {C.CHALLENGE_GOALS}, получишь значок и памятную табличку для домика.
+ {t('Одно дело в день, в любом порядке. Пройдёшь все')} {C.CHALLENGE_GOALS}{t(', получишь значок и памятную табличку для домика.')}
  </div>
  )}
  </div>

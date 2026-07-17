@@ -9,6 +9,7 @@ import { playSfx } from '../../sound'
 import { Micropet } from '../../art/Micropet'
 import { Mascot } from '../../art/Mascot'
 import { Micropedia } from './Micropedia'
+import { t } from '../../i18n'
 
 export interface MicropetDto {
  id: number; speciesId: string; speciesName: string; speciesRu: string
@@ -81,7 +82,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  async function equip(p: MicropetDto) {
  await req(`/micropets/${p.id}/equip`, { on: !p.equipped })
  haptic('success')
- showToast(p.equipped ? `${p.name} останется дома 🏡` : `${p.name} пойдёт на прогулку! 🌳`)
+ showToast(p.equipped ? `${p.name} ${t('останется дома 🏡')}` : `${p.name} ${t('пойдёт на прогулку! 🌳')}`)
  reload()
  }
 
@@ -90,7 +91,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  if (!name) return
  await req(`/micropets/${p.id}/rename`, { name, pronouns: editPronouns })
  haptic('success')
- showToast('Сохранено 💛')
+ showToast(t('Сохранено 💛'))
  setGear(false)
  reload()
  }
@@ -104,7 +105,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  async function release(p: MicropetDto) {
  await req(`/micropets/${p.id}/release`, {})
  haptic('warn')
- showToast(`${p.name} отправился на волю. Спасибо за всё! 🌿`)
+ showToast(`${p.name} ${t('отправился на волю. Спасибо за всё! 🌿')}`)
  setSelectedId(null)
  reload()
  }
@@ -112,7 +113,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  async function linkGoal(goalId: number) {
  const r = await req<{ egg: EggDto }>('/micropets/egg/link', { goalId })
  haptic('success')
- showToast('Коробочка привязана к цели! 🎁')
+ showToast(t('Коробочка привязана к цели! 🎁'))
  setPendingGoalId(null)
  setData(d => (d ? { ...d, egg: r.egg } : d))
  }
@@ -132,9 +133,9 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <>
  <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '4px 2px 12px' }}>
  <button className="btn ghost" style={{ padding: '8px 14px' }} onClick={onBack}>‹</button>
- <h1>💛 Микропитомцы</h1>
+ <h1>💛 {t('Микропитомцы')}</h1>
  </div>
- <div className="card" style={{ textAlign: 'center' }}>Загружаю…</div>
+ <div className="card" style={{ textAlign: 'center' }}>{t('Загружаю…')}</div>
  </>
  )
  }
@@ -148,14 +149,13 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <>
  <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '4px 2px 12px' }}>
  <button className="btn ghost" style={{ padding: '8px 14px' }} onClick={() => setView('playland')}>‹</button>
- <h1>🐐 Лаборатория профессора Овса</h1>
+ <h1>🐐 {t('Лаборатория профессора Овса')}</h1>
  </div>
 
  <div className="card" style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
  <span style={{ fontSize: 44 }}>🐐</span>
  <div style={{ fontSize: 14, color: 'var(--ink-soft)', fontWeight: 600 }}>
- «Привет! Привяжи коробочку-сюрприз к одной из своих целей. Выполни её {egg.target} раз -
- и внутри окажется новый друг. Кто именно, сюрприз даже для меня!»
+ {t('«Привет! Привяжи коробочку-сюрприз к одной из своих целей. Выполни её')} {egg.target} {t('раз - и внутри окажется новый друг. Кто именно, сюрприз даже для меня!»')}
  </div>
  </div>
 
@@ -170,21 +170,21 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <div style={{ fontWeight: 800, marginTop: 6 }}>{egg.progress} / {egg.target}</div>
  {egg.canHatch && (
  <button className="btn accent" style={{ marginTop: 10 }} onClick={() => void hatch()}>
- ✨ Открыть!
+ {t('✨ Открыть!')}
  </button>
  )}
  </>
  ) : (
  <div style={{ color: 'var(--ink-soft)', fontWeight: 700, marginTop: 4 }}>
- Коробочка ждёт, пока ты выберешь цель ниже
+ {t('Коробочка ждёт, пока ты выберешь цель ниже')}
  </div>
  )}
  </div>
 
- <h2 style={{ margin: '4px 4px 10px' }}>Привязать к цели</h2>
+ <h2 style={{ margin: '4px 4px 10px' }}>{t('Привязать к цели')}</h2>
  {goals.length === 0 && (
  <div className="card" style={{ color: 'var(--ink-soft)' }}>
- Сначала добавь цель на главном экране, и возвращайся!
+ {t('Сначала добавь цель на главном экране, и возвращайся!')}
  </div>
  )}
  {goals.map(g => {
@@ -202,20 +202,20 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  >
  <span style={{ fontSize: 22 }}>{g.emoji}</span>
  <span style={{ flex: 1, fontWeight: 800 }}>{g.title}</span>
- {linked && <span style={{ fontWeight: 800, color: 'var(--accent-deep)' }}>🎁 привязано</span>}
+ {linked && <span style={{ fontWeight: 800, color: 'var(--accent-deep)' }}>{t('🎁 привязано')}</span>}
  </button>
  )
  })}
 
  {pendingGoal && (
  <div className="card" style={{ background: '#fdeceb' }}>
- <b>Перепривязать коробочку к «{pendingGoal.title}»?</b>
+ <b>{t('Перепривязать коробочку к «')}{pendingGoal.title}{t('»?')}</b>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '6px 0 10px' }}>
- Прогресс коробочки сбросится до 0 / {egg.target}.
+ {t('Прогресс коробочки сбросится до 0 /')} {egg.target}.
  </div>
  <div style={{ display: 'flex', gap: 8 }}>
- <button className="btn" onClick={() => void linkGoal(pendingGoal.id)}>Да, перепривязать</button>
- <button className="btn ghost" onClick={() => setPendingGoalId(null)}>Отмена</button>
+ <button className="btn" onClick={() => void linkGoal(pendingGoal.id)}>{t('Да, перепривязать')}</button>
+ <button className="btn ghost" onClick={() => setPendingGoalId(null)}>{t('Отмена')}</button>
  </div>
  </div>
  )}
@@ -232,7 +232,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <style>{ROAM_CSS}</style>
  <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '4px 2px 12px' }}>
  <button className="btn ghost" style={{ padding: '8px 14px' }} onClick={onBack}>‹</button>
- <h1 style={{ flex: 1 }}>💛 Микропитомцы</h1>
+ <h1 style={{ flex: 1 }}>💛 {t('Микропитомцы')}</h1>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={() => { haptic('tap'); setView('lab') }}>🐐</button>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={() => { haptic('tap'); setView('pedia') }}>📖</button>
  </div>
@@ -271,15 +271,15 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  })}
  {pets.length === 0 && (
  <div style={{ position: 'absolute', top: 14, width: '100%', textAlign: 'center', fontWeight: 800, color: 'var(--brown-deep)' }}>
- Пока тут только твой питомец, получи первого друга!
+ {t('Пока тут только твой питомец, получи первого друга!')}
  </div>
  )}
  </div>
 
  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 4px 10px' }}>
- <h2>Твои питомцы ({pets.length})</h2>
+ <h2>{t('Твои питомцы')} ({pets.length})</h2>
  <button className="btn ghost" style={{ padding: '6px 12px' }} onClick={() => { haptic('tap'); setAsList(v => !v) }}>
- {asList ? '▦ Сетка' : '☰ Список'}
+ {asList ? t('▦ Сетка') : t('☰ Список')}
  </button>
  </div>
 
@@ -288,7 +288,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <button className="goal-row" style={{ width: '100%', border: 'none', cursor: 'pointer', textAlign: 'left' }} onClick={() => setView('lab')}>
  <span style={{ fontSize: 26 }}>🎁</span>
  <div style={{ flex: 1 }}>
- <div style={{ fontWeight: 800 }}>Коробочка</div>
+ <div style={{ fontWeight: 800 }}>{t('Коробочка')}</div>
  <EggBar egg={egg} />
  </div>
  <span style={{ fontWeight: 800 }}>{egg.progress}/{egg.target}</span>
@@ -297,8 +297,8 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <button key={p.id} className="goal-row" style={{ width: '100%', border: 'none', cursor: 'pointer', textAlign: 'left' }} onClick={() => openDetail(p)}>
  <Micropet speciesId={p.speciesId} variantHex={p.variantHex} adult={p.adult} size={40} />
  <div style={{ flex: 1 }}>
- <div style={{ fontWeight: 800 }}>{p.name} {p.equipped ? '🌳' : ''}</div>
- <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{p.adult ? 'Взрослый' : 'Малыш'} · прогулок: {p.walks}</div>
+ <div style={{ fontWeight: 800 }}>{t(p.name)} {p.equipped ? '🌳' : ''}</div>
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{p.adult ? t('Взрослый') : t('Малыш')} · {t('прогулок:')} {p.walks}</div>
  </div>
  <span style={{ color: 'var(--ink-soft)' }}>›</span>
  </button>
@@ -314,7 +314,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  {pets.map(p => (
  <button key={p.id} className="card" style={{ margin: 0, padding: 10, border: 'none', textAlign: 'center', background: '#eaf3da', cursor: 'pointer' }} onClick={() => openDetail(p)}>
  <Micropet speciesId={p.speciesId} variantHex={p.variantHex} adult={p.adult} size={46} />
- <div style={{ fontWeight: 800, fontSize: 13, marginTop: 4 }}>{p.name} {p.equipped ? '🌳' : ''}</div>
+ <div style={{ fontWeight: 800, fontSize: 13, marginTop: 4 }}>{t(p.name)} {p.equipped ? '🌳' : ''}</div>
  </button>
  ))}
  </div>
@@ -334,26 +334,26 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
  <span className="mp-portrait"><Micropet speciesId={selected.speciesId} variantHex={selected.variantHex} adult={selected.adult} size={84} /></span>
  <div style={{ flex: 1 }}>
- <h2>{selected.name} {selected.emoji}</h2>
+ <h2>{t(selected.name)} {selected.emoji}</h2>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', fontWeight: 700 }}>
- {selected.speciesRu} · {selected.variantColor} · {PRONOUN_RU[selected.pronouns] ?? selected.pronouns}
+ {t(selected.speciesRu)} · {t(selected.variantColor)} · {t(PRONOUN_RU[selected.pronouns] ?? selected.pronouns)}
  </div>
  <div style={{ fontSize: 13, fontWeight: 800, marginTop: 4 }}>
- {selected.adult ? '🌟 Взрослый' : '🍼 Малыш'} · 🌳 прогулок: {selected.walks}
+ {selected.adult ? t('🌟 Взрослый') : t('🍼 Малыш')} · 🌳 {t('прогулок:')} {selected.walks}
  {!selected.adult && !selected.foreverBaby && ` / ${C.MICROPET_ADULT_WALKS}`}
  </div>
  <div style={{ fontSize: 13, color: 'var(--accent-deep)', fontWeight: 800, marginTop: 2 }}>
- Характер: {selected.nature || '-'}
+ {t('Характер:')} {t(selected.nature) || '-'}
  </div>
  </div>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={() => { haptic('tap'); setGear(g => !g); setConfirmRelease(false) }}>⚙️</button>
  </div>
 
- <p style={{ fontSize: 14, color: 'var(--ink-soft)', margin: '10px 0' }}>{selected.description}</p>
+ <p style={{ fontSize: 14, color: 'var(--ink-soft)', margin: '10px 0' }}>{t(selected.description)}</p>
 
  {!gear ? (
  <button className={selected.equipped ? 'btn ghost' : 'btn accent'} style={{ width: '100%' }} onClick={() => void equip(selected)}>
- {selected.equipped ? '🏡 Оставить дома' : '🌳 Взять на прогулку'}
+ {selected.equipped ? t('🏡 Оставить дома') : t('🌳 Взять на прогулку')}
  </button>
  ) : (
  <div>
@@ -367,26 +367,26 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
  {(['he', 'she', 'they'] as const).map(p => (
  <button key={p} className={editPronouns === p ? 'btn' : 'btn ghost'} style={{ flex: 1, padding: '8px 0' }} onClick={() => setEditPronouns(p)}>
- {PRONOUN_RU[p]}
+ {t(PRONOUN_RU[p])}
  </button>
  ))}
  </div>
  {!selected.adult && (
  <button className="btn ghost" style={{ width: '100%', marginBottom: 10 }} onClick={() => void toggleForeverBaby(selected)}>
- {selected.foreverBaby ? '🍼 Вечный малыш: вкл, выключить' : '🍼 Вечный малыш: выкл, включить'}
+ {selected.foreverBaby ? t('🍼 Вечный малыш: вкл, выключить') : t('🍼 Вечный малыш: выкл, включить')}
  </button>
  )}
  {!confirmRelease ? (
  <button className="btn ghost" style={{ width: '100%', color: 'var(--red)' }} onClick={() => setConfirmRelease(true)}>
- 🌿 Отпустить на волю
+ {t('🌿 Отпустить на волю')}
  </button>
  ) : (
  <div className="card" style={{ background: '#fdeceb', margin: 0 }}>
- <b>Точно отпустить {selected.name}?</b>
- <div style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '6px 0 10px' }}>Вернуть питомца будет нельзя.</div>
+ <b>{t('Точно отпустить')} {t(selected.name)}?</b>
+ <div style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '6px 0 10px' }}>{t('Вернуть питомца будет нельзя.')}</div>
  <div style={{ display: 'flex', gap: 8 }}>
- <button className="btn" style={{ background: 'var(--red)', boxShadow: '0 4px 0 #b03c33' }} onClick={() => void release(selected)}>Отпустить</button>
- <button className="btn ghost" onClick={() => setConfirmRelease(false)}>Оставить</button>
+ <button className="btn" style={{ background: 'var(--red)', boxShadow: '0 4px 0 #b03c33' }} onClick={() => void release(selected)}>{t('Отпустить')}</button>
+ <button className="btn ghost" onClick={() => setConfirmRelease(false)}>{t('Оставить')}</button>
  </div>
  </div>
  )}
@@ -410,14 +410,14 @@ function HatchReveal({ pet, onClose }: { pet: MicropetDto; onClose(): void }) {
  <div className="card" style={{ width: '100%', textAlign: 'center', margin: 0, position: 'relative', overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
  <div className="confetti" aria-hidden>{Array.from({ length: 11 }).map((_, i) => (<i key={i} style={{ left: `${6 + i * 8}%`, ['--cd' as never]: `${(i % 5) * 0.08}s`, background: ['var(--gold)', 'var(--accent)', 'var(--green)', 'var(--red)', 'var(--accent-deep)'][i % 5] }} />))}</div>
  <div style={{ fontSize: 40 }}>🎁✨</div>
- <h2 style={{ margin: '8px 0' }}>Кто-то появился!</h2>
+ <h2 style={{ margin: '8px 0' }}>{t('Кто-то появился!')}</h2>
  <span className="mp-portrait"><Micropet speciesId={pet.speciesId} variantHex={pet.variantHex} size={96} /></span>
- <h1 style={{ margin: '8px 0 2px' }}>{pet.name} {pet.emoji}</h1>
+ <h1 style={{ margin: '8px 0 2px' }}>{t(pet.name)} {pet.emoji}</h1>
  <div style={{ fontWeight: 700, color: 'var(--ink-soft)' }}>
- {pet.speciesRu} · {pet.variantColor} · характер: {pet.nature}
+ {t(pet.speciesRu)} · {t(pet.variantColor)} · {t('характер:')} {t(pet.nature)}
  </div>
- <p style={{ fontSize: 14, color: 'var(--ink-soft)' }}>{pet.description}</p>
- <button className="btn accent" style={{ width: '100%' }} onClick={onClose}>Ура! 🎉</button>
+ <p style={{ fontSize: 14, color: 'var(--ink-soft)' }}>{t(pet.description)}</p>
+ <button className="btn accent" style={{ width: '100%' }} onClick={onClose}>{t('Ура! 🎉')}</button>
  </div>
  </div>
  )

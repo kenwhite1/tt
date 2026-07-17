@@ -17,7 +17,7 @@ const WEBHOOK_PATH = `/bot/${process.env.WEBHOOK_SECRET ?? 'hook'}`
 const hook = botWebhook
 if (hook) app.post(WEBHOOK_PATH, c => hook(c))
 
-// hosted milestone share cards (Feature 1) — written by routes/share.ts into DATA_DIR/cards
+// hosted milestone share cards (Feature 1) - written by routes/share.ts into DATA_DIR/cards
 const here = dirname(fileURLToPath(import.meta.url))
 const dataDir = process.env.DATA_DIR ?? join(here, '..', '..', 'data')
 app.use('/cards/*', serveStatic({ root: relative(process.cwd(), dataDir) }))

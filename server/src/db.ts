@@ -35,7 +35,7 @@ migrate()
 
 // ---- automated daily backups (online snapshot + 7-day rotation) ----
 // Guards against DB corruption / a bad deploy. NOTE: backups live on the same
-// volume, so this does not protect against volume loss — for that, ship them
+// volume, so this does not protect against volume loss - for that, ship them
 // off-box (e.g. S3) which needs storage creds.
 const backupDir = join(dataDir, 'backups')
 export async function backupNow(): Promise<string> {

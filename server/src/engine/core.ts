@@ -92,8 +92,8 @@ function completeWalk(user: UserRow, w: WalkRow): WalkRow {
 
 // Credit every finished-but-uncredited walk for this user, regardless of which game
 // day it was started on. Growth (pet.walks), stones and friendship are banked only
-// here, so this must NOT be day-scoped: a walk that ends after the day rolls over —
-// or is only first seen on a later day — must still count. Returns the count credited.
+// here, so this must NOT be day-scoped: a walk that ends after the day rolls over -
+// or is only first seen on a later day - must still count. Returns the count credited.
 export function sweepDueWalks(user: UserRow): number {
   const due = db.prepare(
     'SELECT * FROM walks WHERE user_id=? AND completed=0 AND ends_ts<=? ORDER BY id',

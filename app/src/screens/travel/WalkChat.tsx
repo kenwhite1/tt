@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { req } from '../../api'
 import { useStore } from '../../store'
 import { haptic } from '../../telegram'
+import { t } from '../../i18n'
 
 interface ChatStory { ruText: string; replies: string[]; customAllowed: boolean }
 interface ChatGetRes { done: boolean; story?: ChatStory }
@@ -18,7 +19,7 @@ const CAT_RU: Record<string, string> = {
 }
 
 export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void }) {
- const petName = useStore(s => s.state?.pet.name ?? 'Шарик')
+ const petName = useStore(s => s.state?.pet.name ?? t('Шарик'))
  const [open, setOpen] = useState(false)
  const [story, setStory] = useState<ChatStory | null>(null)
  const [customMode, setCustomMode] = useState(false)
@@ -41,7 +42,7 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  haptic('success')
  setResult(r)
  // Don't refresh() here: it flips walk.chatDone in the store, and Home gates this
- // component on !chatDone — refreshing now would unmount the reward/discovery reveal
+ // component on !chatDone - refreshing now would unmount the reward/discovery reveal
  // before the user sees it. close() → onDone() refreshes after «Обнять питомца».
  } catch {
  setSending(false)
@@ -58,7 +59,7 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  if (!open) {
  return (
  <button className="btn accent" style={{ marginTop: 8 }} onClick={() => { haptic('tap'); setOpen(true) }}>
- 💬 Поговорить с питомцем
+ 💬 {t('Поговорить с питомцем')}
  </button>
  )
  }
@@ -75,7 +76,7 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  >
  {!result ? (
  <>
- <h2 style={{ marginBottom: 10 }}>💛 {petName} вернулся с прогулки!</h2>
+ <h2 style={{ marginBottom: 10 }}>💛 {petName} {t('вернулся с прогулки!')}</h2>
  <div className="card" style={{ background: 'var(--card-shade)', marginBottom: 12 }}>
  <p style={{ margin: 0, lineHeight: 1.45 }}>{story.ruText}</p>
  </div>
@@ -96,20 +97,20 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  style={{ width: '100%', color: 'var(--ink-soft)' }}
  disabled={sending}
  onClick={() => setCustomMode(true)}
- >✍️ Свой ответ</button>
+ >{t('✍️ Свой ответ')}</button>
  )}
  </>
  ) : (
  <>
  <p style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '0 2px 8px' }}>
- Свой ответ останется между вами, открытие в дневник не запишется.
+ {t('Свой ответ останется между вами, открытие в дневник не запишется.')}
  </p>
  <div style={{ display: 'flex', gap: 8 }}>
  <input
  autoFocus
  value={customText}
  onChange={e => setCustomText(e.target.value)}
- placeholder="Напиши питомцу…"
+ placeholder={t('Напиши питомцу…')}
  style={{ flex: 1, border: '2px solid var(--gold)', borderRadius: 12, padding: '10px 12px', fontSize: 16, fontFamily: 'inherit' }}
  />
  <button
@@ -122,7 +123,7 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  className="btn ghost"
  style={{ width: '100%', marginTop: 8, color: 'var(--ink-soft)' }}
  onClick={() => setCustomMode(false)}
- >← Назад к вариантам</button>
+ >{t('← Назад к вариантам')}</button>
  </>
  )}
  </>
@@ -139,22 +140,22 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  }}
  >
  <div style={{ fontSize: 44 }}>{CAT_EMOJI[result.discovery.category] ?? '✨'}</div>
- <h2 style={{ margin: '6px 0 4px' }}>Открытие: {result.discovery.ruName}</h2>
+ <h2 style={{ margin: '6px 0 4px' }}>{t('Открытие:')} {t(result.discovery.ruName)}</h2>
  <div style={{ fontWeight: 800, color: result.discovery.liked ? '#4f86c6' : 'var(--red)' }}>
- {result.discovery.liked ? `${petName} в восторге! 💙` : `${petName} не оценил… ❤️‍🩹`}
+ {result.discovery.liked ? `${petName} ${t('в восторге! 💙')}` : `${petName} ${t('не оценил… ❤️‍🩹')}`}
  </div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', marginTop: 4 }}>
- {CAT_RU[result.discovery.category] ?? 'Открытие'} · записано в дневник открытий
+ {t(CAT_RU[result.discovery.category] ?? 'Открытие')} · {t('записано в дневник открытий')}
  </div>
  </div>
  ) : (
  <div className="card" style={{ textAlign: 'center', background: 'var(--card-shade)', marginBottom: 12 }}>
  <div style={{ fontSize: 40 }}>✨💛</div>
- <p style={{ margin: '6px 0 0', fontWeight: 800 }}>Питомцу было важно поделиться этим с тобой.</p>
+ <p style={{ margin: '6px 0 0', fontWeight: 800 }}>{t('Питомцу было важно поделиться этим с тобой.')}</p>
  </div>
  )}
- <p style={{ textAlign: 'center', fontWeight: 800, margin: '0 0 12px' }}>+{result.stones} 🦴 за тёплый разговор</p>
- <button className="btn accent" style={{ width: '100%' }} onClick={close}>Обнять питомца 🤗</button>
+ <p style={{ textAlign: 'center', fontWeight: 800, margin: '0 0 12px' }}>+{result.stones} 🦴 {t('за тёплый разговор')}</p>
+ <button className="btn accent" style={{ width: '100%' }} onClick={close}>{t('Обнять питомца 🤗')}</button>
  </>
  )}
  </div>

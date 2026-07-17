@@ -16,6 +16,7 @@ import { ReferralSheet } from './friends/ReferralSheet'
 import { SettingsSheet } from './friends/SettingsSheet'
 import { CoopSection } from './friends/coop/CoopSection'
 import { EveningCard } from './friends/EveningCard'
+import { t } from '../i18n'
 
 // fixed slots around the central nest (percentages within the scene box)
 const SLOTS = [
@@ -49,10 +50,10 @@ export function Friends() {
  if (error) {
  return (
  <div className="scroll" style={{ paddingTop: 8, textAlign: 'center' }}>
- <h1 style={{ marginBottom: 14 }}>Дворик</h1>
+ <h1 style={{ marginBottom: 14 }}>{t('Дворик')}</h1>
  <div className="card" style={{ color: 'var(--ink-soft)' }}>
- Не удалось загрузить Дворик 🌿
- <button className="btn ghost" style={{ marginTop: 12 }} onClick={reload}>Обновить</button>
+ {t('Не удалось загрузить Дворик 🌿')}
+ <button className="btn ghost" style={{ marginTop: 12 }} onClick={reload}>{t('Обновить')}</button>
  </div>
  </div>
  )
@@ -60,8 +61,8 @@ export function Friends() {
  if (!data) {
  return (
  <div className="scroll" style={{ paddingTop: 8, textAlign: 'center' }}>
- <h1 style={{ marginBottom: 14 }}>Дворик</h1>
- <div className="card" style={{ color: 'var(--ink-soft)', minHeight: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Загружаю…</div>
+ <h1 style={{ marginBottom: 14 }}>{t('Дворик')}</h1>
+ <div className="card" style={{ color: 'var(--ink-soft)', minHeight: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{t('Загружаю…')}</div>
  </div>
  )
  }
@@ -82,9 +83,9 @@ export function Friends() {
  try {
  const r = await social.hug()
  haptic('success')
- useStore.getState().showToast(r.notified > 0 ? `Обнимашка разлетелась ${r.notified} друзьям 🤗` : 'Обнимашка отправлена 🤗 (друзей пока нет)')
+ useStore.getState().showToast(r.notified > 0 ? `${t('Обнимашка разлетелась')} ${r.notified} ${t('друзьям 🤗')}` : t('Обнимашка отправлена 🤗 (друзей пока нет)'))
  reload()
- } catch { haptic('warn'); useStore.getState().showToast('Сегодня уже обнимались 🤗'); setHugBusy(false) }
+ } catch { haptic('warn'); useStore.getState().showToast(t('Сегодня уже обнимались 🤗')); setHugBusy(false) }
  }
 
  function answerNudge() {
@@ -97,10 +98,10 @@ export function Friends() {
  return (
  <div className="scroll" style={{ paddingTop: 4 }}>
  <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 0 8px' }}>
- <button className="btn ghost" style={{ padding: '8px 12px', position: 'relative' }} onClick={() => void doHug()} disabled={hugBusy} title="Попросить обнимашку">
- 🤗 {!data.hugAvailable && <span style={{ fontSize: 11, color: 'var(--ink-soft)' }}>·1/день</span>}
+ <button className="btn ghost" style={{ padding: '8px 12px', position: 'relative' }} onClick={() => void doHug()} disabled={hugBusy} title={t('Попросить обнимашку')}>
+ 🤗 {!data.hugAvailable && <span style={{ fontSize: 11, color: 'var(--ink-soft)' }}>{t('·1/день')}</span>}
  </button>
- <h1>Дворик</h1>
+ <h1>{t('Дворик')}</h1>
  <div style={{ display: 'flex', gap: 6 }}>
  <button className="btn ghost" style={{ padding: '8px 12px', position: 'relative' }} onClick={() => setOpen('inbox')}>
  ❤️
@@ -154,7 +155,7 @@ export function Friends() {
  <div style={{ fontSize: 30, marginBottom: -14 }}>🪺</div>
  <Mascot species={data.me.species} size={96} state="idle" />
  <div style={{ fontSize: 12, fontWeight: 800, color: '#3d5c2e', background: 'rgba(255,255,255,0.8)', borderRadius: 999, padding: '1px 10px', display: 'inline-block' }}>
- {data.me.petName || 'Шарик'} (ты)
+ {data.me.petName || t('Шарик')} {t('(ты)')}
  </div>
  </div>
  </div>
@@ -172,7 +173,7 @@ export function Friends() {
  {data.visit && visitLeftMin > 0 && (
  <div className="card" style={{ background: '#fbf0d6', display: 'flex', gap: 10, alignItems: 'center' }}>
  <span style={{ fontSize: 24 }}>🏡</span>
- <div style={{ fontSize: 14 }}><b>{data.visit.name}</b> в гостях ещё {visitLeftMin} мин, загляни в комнату!</div>
+ <div style={{ fontSize: 14 }}><b>{data.visit.name}</b> {t('в гостях ещё')} {visitLeftMin} {t('мин, загляни в комнату!')}</div>
  </div>
  )}
 
@@ -180,17 +181,17 @@ export function Friends() {
  {data.nudge && (
  <div className="card" style={{ background: '#fff3e0', display: 'flex', gap: 10, alignItems: 'center' }}>
  <span style={{ fontSize: 24 }}>💌</span>
- <div style={{ flex: 1, fontSize: 14 }}><b>{data.nudge.name}</b> ждёт ответа на лучик уже {C.VIBE_NUDGE_DAYS} дня</div>
- <button className="btn accent" style={{ padding: '8px 14px' }} onClick={() => void answerNudge()}>Ответить</button>
+ <div style={{ flex: 1, fontSize: 14 }}><b>{data.nudge.name}</b> {t('ждёт ответа на лучик уже')} {C.VIBE_NUDGE_DAYS} {t('дня')}</div>
+ <button className="btn accent" style={{ padding: '8px 14px' }} onClick={() => void answerNudge()}>{t('Ответить')}</button>
  </div>
  )}
 
- <button className="btn" style={{ width: '100%', marginBottom: 12 }} onClick={() => setOpen('add')}>＋ Добавить друга</button>
+ <button className="btn" style={{ width: '100%', marginBottom: 12 }} onClick={() => setOpen('add')}>{t('＋ Добавить друга')}</button>
 
  {/* «Содружок» / our shared puppy */}
  <CoopSection friends={d.friends} mySpecies={d.me.species} openAdoptSignal={adoptSignal} />
 
- {/* «Вечерний сбор» — gentle wind-down */}
+ {/* «Вечерний сбор» - gentle wind-down */}
  <EveningCard />
 
  {/* referral banner */}
@@ -201,8 +202,8 @@ export function Friends() {
  >
  <span style={{ fontSize: 34 }}>🐮</span>
  <div style={{ flex: 1 }}>
- <b style={{ color: 'var(--gold)' }}>Познакомься с Коровой Печенькой</b>
- <div style={{ fontSize: 13, opacity: 0.92 }}>Зови друзей, награды не кончаются · приглашено: {data.referral.count}</div>
+ <b style={{ color: 'var(--gold)' }}>{t('Познакомься с Коровой Печенькой')}</b>
+ <div style={{ fontSize: 13, opacity: 0.92 }}>{t('Зови друзей, награды не кончаются · приглашено:')} {data.referral.count}</div>
  </div>
  <span style={{ fontSize: 22, color: 'var(--gold)' }}>›</span>
  </button>

@@ -1,4 +1,4 @@
-// Procedural vector furniture — a cute color-tinted SVG per archetype, layered into the
+// Procedural vector furniture - a cute color-tinted SVG per archetype, layered into the
 // crafted RoomScene (additive: keeps the hand-drawn room, adds equipped pieces in free areas).
 import type { JSX } from 'react'
 import { shade } from './hash'

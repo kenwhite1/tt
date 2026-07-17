@@ -6,6 +6,7 @@ import { useStore } from '../../store'
 import { haptic } from '../../telegram'
 import { LocationScene } from '../../art/LocationScene'
 import { PlusScreen } from '../plus/PlusScreen'
+import { t } from '../../i18n'
 
 type CellState = 'locked' | 'claimable' | 'pending' | 'claimed' | 'plus_locked'
 interface Spec { kind: string; amount?: number; itemName?: string }
@@ -115,7 +116,7 @@ export function EventCalendar() {
  if ('stones' in r) {
  setModal(null)
  haptic('success')
- useStore.getState().showToast(`+${r.stones}🦴${'fromChest' in r && r.fromChest ? ' из сундука!' : ''}`)
+ useStore.getState().showToast(`+${r.stones}🦴${'fromChest' in r && r.fromChest ? t(' из сундука!') : ''}`)
  await useStore.getState().refresh()
  await load(month)
  } else if ('pet' in r) {
@@ -132,7 +133,7 @@ export function EventCalendar() {
  setModal(null)
  const err = e as { data?: { error?: string } }
  if (err.data?.error === 'plus_only') setShowPlus(true)
- else useStore.getState().showToast('Не получилось забрать, попробуй ещё раз')
+ else useStore.getState().showToast(t('Не получилось забрать, попробуй ещё раз'))
  }
  }
 
@@ -142,11 +143,11 @@ export function EventCalendar() {
  day, column, colorId, month: event.isCurrent ? undefined : event.month,
  })
  haptic('success')
- useStore.getState().showToast(`${r.item.ru_name} (${r.color.ru.toLowerCase()}), в сумке! 🎉`)
+ useStore.getState().showToast(`${t(r.item.ru_name)} (${t(r.color.ru).toLowerCase()})${t(', в сумке! 🎉')}`)
  setModal(null)
  await load(month)
  } catch {
- useStore.getState().showToast('Не получилось выбрать цвет')
+ useStore.getState().showToast(t('Не получилось выбрать цвет'))
  }
  }
 
@@ -176,20 +177,20 @@ export function EventCalendar() {
  <div className="ev-banner" onClick={() => { haptic('tap'); setExpanded(x => !x) }} style={{ cursor: 'pointer' }}>
  <LocationScene sky="#ffe9b8" ground="#cdeaa5">
  <div style={{ fontSize: 34 }}>🌞🍉⛱️</div>
- <h2 style={{ margin: '4px 0' }}>{event.name}</h2>
+ <h2 style={{ margin: '4px 0' }}>{t(event.name)}</h2>
  {!event.isCurrent && event.deadline && (
  <p style={{ margin: '0 0 6px', fontSize: 13, color: 'var(--brown-deep)', fontWeight: 800 }}>
- Прошлое событие, награды можно забрать до {event.deadline.slice(8, 10)}.{event.deadline.slice(5, 7)}
+ {t('Прошлое событие, награды можно забрать до')} {event.deadline.slice(8, 10)}.{event.deadline.slice(5, 7)}
  </p>
  )}
  <div className="energy-track" style={{ margin: '6px 18px' }}>
  <div className="energy-fill" style={{ width: `${(event.day / event.totalDays) * 100}%` }} />
  </div>
  <p style={{ margin: '4px 0 2px', fontWeight: 800, color: 'var(--brown-deep)' }}>
- День {event.day} из {event.totalDays} · заработано наград: {daysEarned}
+ {t('День')} {event.day} {t('из')} {event.totalDays} · {t('заработано наград:')} {daysEarned}
  </p>
  <p style={{ margin: 0, fontSize: 13, color: 'var(--ink-soft)' }}>
- Гуляй со своим питомцем каждый день, каждая прогулка открывает награду {expanded ? '▲' : '▼'}
+ {t('Гуляй со своим питомцем каждый день, каждая прогулка открывает награду')} {expanded ? '▲' : '▼'}
  </p>
  </LocationScene>
  </div>
@@ -202,21 +203,21 @@ export function EventCalendar() {
  style={{ width: '100%', marginBottom: 10, fontSize: 14 }}
  onClick={() => setMonth(data.past!.month)}
  >
- 🎁 Остались награды прошлого месяца: {data.past.unclaimed}, забрать
+ 🎁 {t('Остались награды прошлого месяца:')} {data.past.unclaimed}{t(', забрать')}
  </button>
  )}
  {!event.isCurrent && (
  <button className="btn ghost" style={{ width: '100%', marginBottom: 10, fontSize: 14 }} onClick={() => setMonth(undefined)}>
- ← Вернуться к текущему событию
+ {t('← Вернуться к текущему событию')}
  </button>
  )}
 
  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, marginBottom: 6, paddingRight: 2 }}>
- <span style={{ width: 52, textAlign: 'center', fontSize: 11, fontWeight: 800, color: 'var(--ink-soft)' }}>МОЯ</span>
+ <span style={{ width: 52, textAlign: 'center', fontSize: 11, fontWeight: 800, color: 'var(--ink-soft)' }}>{t('МОЯ')}</span>
  <span
  style={{ width: 52, textAlign: 'center', fontSize: 11, fontWeight: 800, color: plus ? 'var(--accent-deep)' : 'var(--ink-soft)', cursor: 'pointer' }}
  onClick={() => !plus && setShowPlus(true)}
- >ПЛЮС{plus ? '' : ' 🔒'}</span>
+ >{t('ПЛЮС')}{plus ? '' : ' 🔒'}</span>
  </div>
 
  {days.map(d => (
@@ -230,8 +231,8 @@ export function EventCalendar() {
  }}>{d.day}</span>
  <div style={{ flex: 1, fontSize: 12, color: 'var(--ink-soft)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
  {d.free.kind === 'micropet' || d.plus.kind === 'micropet'
- ? `Микропитомец: ${data.micropet?.name ?? ''}`
- : d.plus.kind === 'item' ? d.plus.itemName : ''}
+ ? `${t('Микропитомец:')} ${data.micropet?.name ?? ''}`
+ : d.plus.kind === 'item' ? (d.plus.itemName ? t(d.plus.itemName) : '') : ''}
  </div>
  <RewardCell spec={d.free} state={d.freeState} petEmoji={petEmoji} onClick={() => void claim(d.day, 'free', d.freeState, d.free)} />
  <RewardCell spec={d.plus} state={d.plusState} petEmoji={petEmoji} onClick={() => void claim(d.day, 'plus', d.plusState, d.plus)} />
@@ -240,7 +241,7 @@ export function EventCalendar() {
 
  {!plus && (
  <button className="btn accent" style={{ width: '100%', marginTop: 6 }} onClick={() => setShowPlus(true)}>
- ✨ Открыть колонку Плюс
+ {t('✨ Открыть колонку Плюс')}
  </button>
  )}
  </div>
@@ -256,7 +257,7 @@ export function EventCalendar() {
  {modal.phase === 'opening' && (
  <>
  <div style={{ fontSize: 64, animation: 'chest-shake 0.9s ease infinite' }}>🎁</div>
- <p style={{ fontWeight: 800 }}>Открываем сундук…</p>
+ <p style={{ fontWeight: 800 }}>{t('Открываем сундук…')}</p>
  </>
  )}
  {modal.phase === 'choose' && modal.item && modal.colors && (
@@ -264,15 +265,15 @@ export function EventCalendar() {
  <div style={{ fontSize: 54, animation: 'reveal-pop 0.4s ease' }}>
  {modal.item.kind === 'clothing' ? '👒' : '🛋️'}
  </div>
- <h2 style={{ margin: '6px 0' }}>{modal.item.ru_name}</h2>
+ <h2 style={{ margin: '6px 0' }}>{t(modal.item.ru_name)}</h2>
  <p style={{ color: 'var(--ink-soft)', fontSize: 14, margin: '0 0 12px' }}>
- Выбери цвет, какой тебе по душе?
+ {t('Выбери цвет, какой тебе по душе?')}
  </p>
  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
  {modal.colors.map(col => (
  <button
  key={col.id}
- title={col.ru}
+ title={t(col.ru)}
  onClick={() => void pickColor(modal.day, modal.column, col.id)}
  style={{
  width: 40, height: 40, borderRadius: '50%', cursor: 'pointer',
@@ -287,11 +288,11 @@ export function EventCalendar() {
  {modal.phase === 'pet' && (
  <>
  <div style={{ fontSize: 64, animation: 'reveal-pop 0.5s ease' }}>{modal.pet.emoji}</div>
- <h2 style={{ margin: '6px 0' }}>{modal.pet.name}</h2>
+ <h2 style={{ margin: '6px 0' }}>{t(modal.pet.name)}</h2>
  <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>
- Новый микропитомец ({modal.pet.variant.ru}) поселился у тебя! Загляни в Сумку → Микропитомцы 💛
+ {t('Новый микропитомец (')}{t(modal.pet.variant.ru)}{t(') поселился у тебя! Загляни в Сумку → Микропитомцы 💛')}
  </p>
- <button className="btn" style={{ marginTop: 8 }} onClick={() => setModal(null)}>Ура!</button>
+ <button className="btn" style={{ marginTop: 8 }} onClick={() => setModal(null)}>{t('Ура!')}</button>
  </>
  )}
  </div>

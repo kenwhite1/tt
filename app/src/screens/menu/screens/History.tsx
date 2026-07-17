@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { req } from '../../../api'
 import { Loading, MOOD_EMOJI, Sub, VALENCE_EMOJI, fmtDay, fmtTime, shiftDay } from '../ui'
 import type { HistoryDto } from '../types'
+import { t } from '../../../i18n'
 
 const KIND_RU: Record<string, string> = {
   breathing: '🫧 Дыхание', meditation: '🧘 Медитация', focus: '🎯 Фокус', movement: '🤸 Движение',
@@ -28,7 +29,7 @@ export function History({ onBack }: { onBack(): void }) {
   const empty = data && data.completions.length === 0 && data.moods.length === 0 && data.reflections.length === 0 && data.activities.length === 0 && !data.walk
 
   return (
-    <Sub title="История" onBack={onBack}>
+    <Sub title={t('История')} onBack={onBack}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
         <button className="btn ghost" style={{ padding: '8px 14px' }} onClick={() => cur && setDay(shiftDay(cur, -1))}>←</button>
         <div style={{ flex: 1, textAlign: 'center', fontWeight: 800 }}>{cur ? fmtDay(cur) : '…'}</div>
@@ -36,12 +37,12 @@ export function History({ onBack }: { onBack(): void }) {
       </div>
 
       {!data ? <Loading /> : empty ? (
-        <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>В этот день записей нет. Это тоже нормально 💛</p>
+        <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('В этот день записей нет. Это тоже нормально 💛')}</p>
       ) : (
         <>
           {data.moods.length > 0 && (
             <div className="card">
-              <h2 style={{ marginBottom: 8 }}>Настроение</h2>
+              <h2 style={{ marginBottom: 8 }}>{t('Настроение')}</h2>
               {data.moods.map((m, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '3px 0' }}>
                   <span style={{ fontSize: 22 }}>{MOOD_EMOJI[m.value - 1]}</span>
@@ -54,7 +55,7 @@ export function History({ onBack }: { onBack(): void }) {
 
           {data.completions.length > 0 && (
             <div className="card">
-              <h2 style={{ marginBottom: 8 }}>Цели</h2>
+              <h2 style={{ marginBottom: 8 }}>{t('Цели')}</h2>
               {data.completions.map((g, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '3px 0' }}>
                   <span>{g.emoji}</span><span style={{ flex: 1 }}>{g.title}</span>
@@ -66,7 +67,7 @@ export function History({ onBack }: { onBack(): void }) {
 
           {data.reflections.length > 0 && (
             <div className="card">
-              <h2 style={{ marginBottom: 8 }}>Размышления</h2>
+              <h2 style={{ marginBottom: 8 }}>{t('Размышления')}</h2>
               {data.reflections.map(r => (
                 <div key={r.id} style={{ padding: '4px 0' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -80,10 +81,10 @@ export function History({ onBack }: { onBack(): void }) {
 
           {data.activities.length > 0 && (
             <div className="card">
-              <h2 style={{ marginBottom: 8 }}>Активности</h2>
+              <h2 style={{ marginBottom: 8 }}>{t('Активности')}</h2>
               {data.activities.map((a, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '3px 0' }}>
-                  <span style={{ flex: 1 }}>{KIND_RU[a.kind] ?? a.kind}</span>
+                  <span style={{ flex: 1 }}>{KIND_RU[a.kind] ? t(KIND_RU[a.kind]) : a.kind}</span>
                   {a.energy > 0 && <span style={{ color: 'var(--ink-soft)' }}>+{a.energy}⚡</span>}
                   <span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{fmtTime(a.ts)}</span>
                 </div>
@@ -93,8 +94,8 @@ export function History({ onBack }: { onBack(): void }) {
 
           {data.walk && (
             <div className="card">
-              <h2 style={{ marginBottom: 6 }}>Прогулка</h2>
-              <p style={{ margin: 0, color: 'var(--ink-soft)' }}>{data.walk.completed ? '🌳 Прогулка состоялась' : '🌳 Прогулка началась'} в {fmtTime(data.walk.started_ts)}</p>
+              <h2 style={{ marginBottom: 6 }}>{t('Прогулка')}</h2>
+              <p style={{ margin: 0, color: 'var(--ink-soft)' }}>{data.walk.completed ? t('🌳 Прогулка состоялась') : t('🌳 Прогулка началась')} {t('в')} {fmtTime(data.walk.started_ts)}</p>
             </div>
           )}
         </>

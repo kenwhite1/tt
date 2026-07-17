@@ -4,6 +4,7 @@ import { req } from '../../api'
 import { useStore } from '../../store'
 import { haptic } from '../../telegram'
 import type { ContentDto, Reward } from './types'
+import { t } from '../../i18n'
 
 export function Sub({ title, onBack, children }: { title: string; onBack(): void; children: ReactNode }) {
   return (
@@ -80,12 +81,12 @@ export function ChipRow({ children }: { children: ReactNode }) {
 }
 
 // Toast a reward + refresh global state (stones/energy changed server-side).
-export function applyReward(r: Reward | undefined, fallback = 'Готово! 💛') {
+export function applyReward(r: Reward | undefined, fallback = t('Готово! 💛')) {
   haptic('success')
   const bits: string[] = []
   if (r?.energy) bits.push(`+${r.energy}⚡`)
   if (r?.stones) bits.push(`+${r.stones}🦴`)
-  if (r?.walkMinutesReduced) bits.push(`прогулка −${r.walkMinutesReduced} мин`)
+  if (r?.walkMinutesReduced) bits.push(`${t('прогулка')} −${r.walkMinutesReduced} ${t('мин')}`)
   useStore.getState().showToast(bits.join('  ') || fallback)
   void useStore.getState().refresh()
 }
@@ -105,7 +106,7 @@ export function useContent(): ContentDto | null {
 }
 
 export function Loading() {
-  return <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontWeight: 800 }}>Загружаю…</p>
+  return <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontWeight: 800 }}>{t('Загружаю…')}</p>
 }
 
 export const fmtTime = (ts: number) =>

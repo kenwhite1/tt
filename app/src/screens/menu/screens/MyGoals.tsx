@@ -6,6 +6,7 @@ import { useStore } from '../../../store'
 import { haptic } from '../../../telegram'
 import { Loading, Sub } from '../ui'
 import type { MyGoal, MyGoalsDto, Sca } from '../types'
+import { t } from '../../../i18n'
 
 function EditSheet({ goal, scas, onClose, onChanged }: { goal: MyGoal; scas: Sca[]; onClose(): void; onChanged(): void }) {
  const [title, setTitle] = useState(goal.title)
@@ -26,7 +27,7 @@ function EditSheet({ goal, scas, onClose, onChanged }: { goal: MyGoal; scas: Sca
  onChanged()
  } catch (e) {
  const msg = (e as { data?: { error?: string } }).data?.error
- useStore.getState().showToast(msg === 'plus_required' ? 'Свои эмодзи, в Плюсе' : 'Не получилось')
+ useStore.getState().showToast(msg === 'plus_required' ? t('Свои эмодзи, в Плюсе') : t('Не получилось'))
  setBusy(false)
  }
  }
@@ -37,7 +38,7 @@ function EditSheet({ goal, scas, onClose, onChanged }: { goal: MyGoal; scas: Sca
  try {
  await req(`/activities/goals/${goal.id}/delete`, {})
  haptic('warn')
- useStore.getState().showToast('Цель удалена')
+ useStore.getState().showToast(t('Цель удалена'))
  void useStore.getState().refresh()
  onChanged()
  } catch { setBusy(false) }
@@ -46,7 +47,7 @@ function EditSheet({ goal, scas, onClose, onChanged }: { goal: MyGoal; scas: Sca
  return (
  <div style={{ position: 'fixed', inset: 0, background: 'rgba(60,40,20,0.45)', zIndex: 65, display: 'flex', alignItems: 'flex-end' }} onClick={onClose}>
  <div className="card" style={{ width: '100%', borderRadius: '26px 26px 0 0', margin: 0, paddingBottom: 'calc(20px + var(--safe-bottom))', maxHeight: '88vh', overflowY: 'auto' }} onClick={e => e.stopPropagation()}>
- <h2 style={{ textAlign: 'center', marginBottom: 14 }}>Цель</h2>
+ <h2 style={{ textAlign: 'center', marginBottom: 14 }}>{t('Цель')}</h2>
 
  <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
  <input
@@ -59,42 +60,42 @@ function EditSheet({ goal, scas, onClose, onChanged }: { goal: MyGoal; scas: Sca
  />
  </div>
 
- <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--ink-soft)', margin: '8px 2px 6px' }}>Сфера заботы</div>
+ <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--ink-soft)', margin: '8px 2px 6px' }}>{t('Сфера заботы')}</div>
  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
- <button onClick={() => setSca(null)} style={chip(sca === null)}>- нет -</button>
- {scas.map(s => <button key={s.id} onClick={() => setSca(s.id)} style={chip(sca === s.id)}>{s.emoji} {s.ru}</button>)}
+ <button onClick={() => setSca(null)} style={chip(sca === null)}>{t('- нет -')}</button>
+ {scas.map(s => <button key={s.id} onClick={() => setSca(s.id)} style={chip(sca === s.id)}>{s.emoji} {t(s.ru)}</button>)}
  </div>
 
  <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '14px 2px 4px' }}>
- <div style={{ flex: 1, fontWeight: 800 }}>Раз в день: {times}</div>
- <button className="btn ghost" style={{ padding: '6px 14px' }} onClick={() => setTimes(t => Math.max(1, t - 1))}>−</button>
- <button className="btn ghost" style={{ padding: '6px 14px' }} onClick={() => setTimes(t => Math.min(20, t + 1))}>+</button>
+ <div style={{ flex: 1, fontWeight: 800 }}>{t('Раз в день:')} {times}</div>
+ <button className="btn ghost" style={{ padding: '6px 14px' }} onClick={() => setTimes(n => Math.max(1, n - 1))}>−</button>
+ <button className="btn ghost" style={{ padding: '6px 14px' }} onClick={() => setTimes(n => Math.min(20, n + 1))}>+</button>
  </div>
 
  <button className="btn" style={{ width: '100%', marginTop: 12 }} disabled={busy}
- onClick={() => void patch({ title: title.trim() || goal.title, emoji, sca, timesPerDay: times }, 'Сохранено 💛')}>
- Сохранить
+ onClick={() => void patch({ title: title.trim() || goal.title, emoji, sca, timesPerDay: times }, t('Сохранено 💛'))}>
+ {t('Сохранить')}
  </button>
 
  <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
- <button className="btn ghost" style={{ flex: 1 }} disabled={busy} onClick={() => void patch({ paused: !goal.paused }, goal.paused ? 'Цель снова активна' : 'Цель на паузе')}>
- {goal.paused ? '▶ Возобновить' : '⏸ Пауза'}
+ <button className="btn ghost" style={{ flex: 1 }} disabled={busy} onClick={() => void patch({ paused: !goal.paused }, goal.paused ? t('Цель снова активна') : t('Цель на паузе'))}>
+ {goal.paused ? t('▶ Возобновить') : t('⏸ Пауза')}
  </button>
- <button className="btn ghost" style={{ flex: 1 }} disabled={busy} onClick={() => void patch({ archived: !goal.archived }, goal.archived ? 'Из архива' : 'В архив')}>
- {goal.archived ? '↩ Вернуть' : '🗄 В архив'}
+ <button className="btn ghost" style={{ flex: 1 }} disabled={busy} onClick={() => void patch({ archived: !goal.archived }, goal.archived ? t('Из архива') : t('В архив'))}>
+ {goal.archived ? t('↩ Вернуть') : t('🗄 В архив')}
  </button>
  </div>
 
  {confirmDel ? (
  <div style={{ marginTop: 10, textAlign: 'center' }}>
- <p style={{ fontSize: 13, color: 'var(--ink-soft)' }}>Удалить совсем? История этой цели исчезнет.</p>
+ <p style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{t('Удалить совсем? История этой цели исчезнет.')}</p>
  <div style={{ display: 'flex', gap: 8 }}>
- <button className="btn ghost" style={{ flex: 1 }} onClick={() => setConfirmDel(false)}>Отмена</button>
- <button className="btn" style={{ flex: 1, background: 'var(--red)', boxShadow: '0 4px 0 #b8392f' }} disabled={busy} onClick={() => void del()}>Удалить</button>
+ <button className="btn ghost" style={{ flex: 1 }} onClick={() => setConfirmDel(false)}>{t('Отмена')}</button>
+ <button className="btn" style={{ flex: 1, background: 'var(--red)', boxShadow: '0 4px 0 #b8392f' }} disabled={busy} onClick={() => void del()}>{t('Удалить')}</button>
  </div>
  </div>
  ) : (
- <button className="btn ghost" style={{ width: '100%', marginTop: 10, color: 'var(--red)' }} onClick={() => setConfirmDel(true)}>Удалить цель</button>
+ <button className="btn ghost" style={{ width: '100%', marginTop: 10, color: 'var(--red)' }} onClick={() => setConfirmDel(true)}>{t('Удалить цель')}</button>
  )}
  </div>
  </div>
@@ -115,7 +116,7 @@ export function MyGoals({ onBack }: { onBack(): void }) {
  const load = () => { req<MyGoalsDto>('/activities/goals').then(setData).catch(() => {}) }
  useEffect(load, [])
 
- if (!data) return <Sub title="Мои цели" onBack={onBack}><Loading /></Sub>
+ if (!data) return <Sub title={t('Мои цели')} onBack={onBack}><Loading /></Sub>
 
  const active = data.goals.filter(g => !g.paused && !g.archived)
  const paused = data.goals.filter(g => g.paused && !g.archived)
@@ -130,7 +131,7 @@ export function MyGoals({ onBack }: { onBack(): void }) {
  <span style={{ flex: 1 }}>
  <span style={{ fontWeight: 800, display: 'block' }}>{g.title}</span>
  <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
- {g.timesPerDay > 1 ? `${g.doneToday}/${g.timesPerDay} сегодня` : (g.doneToday > 0 ? 'сделано сегодня' : 'раз в день')}
+ {g.timesPerDay > 1 ? `${g.doneToday}/${g.timesPerDay} ${t('сегодня')}` : (g.doneToday > 0 ? t('сделано сегодня') : t('раз в день'))}
  </span>
  </span>
  <span style={{ color: 'var(--ink-soft)', fontWeight: 800 }}>✎</span>
@@ -140,11 +141,11 @@ export function MyGoals({ onBack }: { onBack(): void }) {
  )
 
  return (
- <Sub title="Мои цели" onBack={onBack}>
- {data.goals.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>Целей пока нет. Добавь их на главном экране или из «Идей целей».</p>}
- <Group ru="Активные" list={active} />
- <Group ru="На паузе" list={paused} />
- <Group ru="Архив" list={archived} />
+ <Sub title={t('Мои цели')} onBack={onBack}>
+ {data.goals.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Целей пока нет. Добавь их на главном экране или из «Идей целей».')}</p>}
+ <Group ru={t('Активные')} list={active} />
+ <Group ru={t('На паузе')} list={paused} />
+ <Group ru={t('Архив')} list={archived} />
  {editing && <EditSheet goal={editing} scas={data.scas} onClose={() => setEditing(null)} onChanged={() => { setEditing(null); load() }} />}
  </Sub>
  )

@@ -1,5 +1,5 @@
 // A flat round rug the pet lies on. It sits ENTIRELY BEHIND the pet (no element ever
-// overlaps the dog), so the paws and heart tag stay fully visible — the pose reads as
+// overlaps the dog), so the paws and heart tag stay fully visible - the pose reads as
 // "puppy resting on its mat" instead of floating on bare floor. Sized in px to stay
 // proportional to the fixed-size raster pet.
 interface Props { children: React.ReactNode }
