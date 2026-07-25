@@ -1,6 +1,7 @@
 // «＋ Добавить друга», invite a new friend (share link), enter a friend code, or
 // show my own code to copy.
 import { useState } from 'react'
+import { HubInvite } from '../HubInvite'
 import { useStore } from '../../store'
 import { haptic } from '../../telegram'
 import type { FriendsPayload } from './api'
@@ -60,6 +61,7 @@ export function AddFriendSheet({ data, onClose, reload, onCoop }:
  <>
  <h2 style={{ textAlign: 'center', marginBottom: 16 }}>{t('Добавить друга')}</h2>
  <button className="btn accent" style={{ width: '100%', marginBottom: 10 }} onClick={shareLink}>{t('📨 Пригласить нового')}</button>
+ <HubInvite note={t('Заходи в Шарик, покажу своего питомца!')} />
  <button className="btn ghost" style={{ width: '100%', marginBottom: 10 }} onClick={() => setMode('code')}>{t('🔢 Ввести код друга')}</button>
  <button className="btn ghost" style={{ width: '100%', marginBottom: 10 }} onClick={() => setMode('mine')}>{t('🪪 Показать мой код')}</button>
  {onCoop && (

@@ -75,7 +75,7 @@ export function Home() {
     const reward = await completeGoal(id)
     const bits: string[] = []
     if (reward.walkMinutesReduced) bits.push(`🚶 −${reward.walkMinutesReduced} ${t('мин')}`)
-    else { if (reward.energy) bits.push(`+${reward.energy}⚡`); if (reward.stones) bits.push(`+${reward.stones}🦴`) }
+    else { if (reward.energy) bits.push(`+${reward.energy}⚡`); if (reward.stones) bits.push(`+${reward.stones} G`) }
     const el = document.createElement('div')
     el.className = 'reward-pop'
     el.textContent = bits.join('  ') || '✓'

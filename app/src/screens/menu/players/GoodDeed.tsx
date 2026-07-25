@@ -7,7 +7,7 @@ import { t } from '../../../i18n'
 import type { GoalIdeasDto, Reward } from '../types'
 
 // Warm fallback ideas in case the kindness category is sparse.
-const FALLBACK = [
+const FALLBACK = () => [
  { id: 'kd_message', ru: t('написать кому-то тёплое сообщение'), emoji: '💌' },
  { id: 'kd_thanks', ru: t('поблагодарить близкого человека'), emoji: '🙏' },
  { id: 'kd_help', ru: t('предложить помощь тому, кому трудно'), emoji: '🤝' },
@@ -23,9 +23,9 @@ export function GoodDeed({ onBack }: { onBack(): void }) {
  req<GoalIdeasDto>('/activities/goal-ideas')
  .then(d => {
  const kind = d.goals.filter(g => g.category === 'kindness').map(g => ({ id: g.id, ru: g.ru, emoji: g.emoji }))
- setIdeas(kind.length ? kind : FALLBACK)
+ setIdeas(kind.length ? kind : FALLBACK())
  })
- .catch(() => setIdeas(FALLBACK))
+ .catch(() => setIdeas(FALLBACK()))
  }, [])
 
  async function didIt(id: string) {

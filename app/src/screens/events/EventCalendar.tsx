@@ -43,7 +43,7 @@ function RewardCell({ spec, state, petEmoji, onClick }: {
  const plusLocked = state === 'plus_locked'
  const chest = CHEST_STYLE[spec.kind]
  const inner = spec.kind === 'stones'
- ? <span style={{ fontWeight: 800, fontSize: 13 }}>🦴{spec.amount}</span>
+ ? <span style={{ fontWeight: 800, fontSize: 13 }}>{spec.amount} G</span>
  : spec.kind === 'micropet'
  ? <span style={{ fontSize: 20 }}>{petEmoji}</span>
  : spec.kind === 'item'
@@ -116,7 +116,7 @@ export function EventCalendar() {
  if ('stones' in r) {
  setModal(null)
  haptic('success')
- useStore.getState().showToast(`+${r.stones}🦴${'fromChest' in r && r.fromChest ? t(' из сундука!') : ''}`)
+ useStore.getState().showToast(`+${r.stones} G${'fromChest' in r && r.fromChest ? t(' из сундука!') : ''}`)
  await useStore.getState().refresh()
  await load(month)
  } else if ('pet' in r) {

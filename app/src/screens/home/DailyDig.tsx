@@ -60,7 +60,7 @@ export function DailyDig() {
         <div style={{ flex: 1 }}>
           <b>{petName} {t('выкопал')} {result?.ru ? t(result.ru) : t('косточку')}</b>
           <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
-            {result ? t(TIER_RU[result.tier]) : ''} · +{result?.stones ?? 0}🦴{streak > 1 ? ` · ${streak} ${t('дн подряд')}` : ''}
+            {result ? t(TIER_RU[result.tier]) : ''} · +{result?.stones ?? 0} G{streak > 1 ? ` · ${streak} ${t('дн подряд')}` : ''}
           </div>
         </div>
         <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={() => { haptic('tap'); setShare(true) }}>{t('Поделиться')}</button>

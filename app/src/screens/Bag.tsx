@@ -73,7 +73,7 @@ function MailView({ onBack }: { onBack(): void }) {
  try {
  const r = await req<{ ru?: string; duplicate?: boolean; stones?: number }>(`/shop/gifts/${giftId}/claim`, {})
  haptic('success')
- showToast(r.duplicate ? `${t('Уже есть, продали за')} ${r.stones} 🦴` : `${t('Получено:')} ${r.ru} 🎁`)
+ showToast(r.duplicate ? `${t('Уже есть, продали за')} ${r.stones} G` : `${t('Получено:')} ${r.ru} 🎁`)
  void useStore.getState().refresh(); load()
  } catch (e) { showToast(errRu(e)) }
  }
@@ -161,7 +161,7 @@ function CollectiblesView({ onBack }: { onBack(): void }) {
  <div style={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'flex-end' }}>
  {owned
  ? <span style={{ fontWeight: 800, color: 'var(--accent-deep)', whiteSpace: 'nowrap' }}>№{d.ownedEdition}</span>
- : <button className="btn" disabled={soldOut || !canAfford || busy === d.id} onClick={() => void claim(d)} style={{ whiteSpace: 'nowrap', padding: '6px 12px' }}>{soldOut ? t('Разобрали') : `${d.price}🦴`}</button>}
+ : <button className="btn" disabled={soldOut || !canAfford || busy === d.id} onClick={() => void claim(d)} style={{ whiteSpace: 'nowrap', padding: '6px 12px' }}>{soldOut ? t('Разобрали') : `${d.price} G`}</button>}
  {!soldOut && <button className="btn ghost" style={{ padding: '4px 10px', fontSize: 12 }} onClick={() => { haptic('tap'); setGift(d) }}>🎁 {t('Подарить')}</button>}
  </div>
  </div>
@@ -186,7 +186,7 @@ function GiftCollectibleSheet({ drop, onClose, onDone }: { drop: Drop; onClose()
  return (
  <Sheet onClose={onClose}>
  <h2 style={{ textAlign: 'center', marginBottom: 4 }}>{t('Подарить')} «{drop.ru}» {drop.emoji}</h2>
- <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 12px' }}>{t('Другу достанется свежий экземпляр со своим номером. Цена подарка')} {C.COLLECTIBLE_GIFT_FEE}🦴.</p>
+ <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 12px' }}>{t('Другу достанется свежий экземпляр со своим номером. Цена подарка')} {C.COLLECTIBLE_GIFT_FEE} G.</p>
  {!friends && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Загружаю друзей…')}</p>}
  {friends && friends.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Сначала заведи друга во Дворике 💛')}</p>}
  {friends?.map(f => (

@@ -154,7 +154,7 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  <p style={{ margin: '6px 0 0', fontWeight: 800 }}>{t('Питомцу было важно поделиться этим с тобой.')}</p>
  </div>
  )}
- <p style={{ textAlign: 'center', fontWeight: 800, margin: '0 0 12px' }}>+{result.stones} 🦴 {t('за тёплый разговор')}</p>
+ <p style={{ textAlign: 'center', fontWeight: 800, margin: '0 0 12px' }}>+{result.stones} G {t('за тёплый разговор')}</p>
  <button className="btn accent" style={{ width: '100%' }} onClick={close}>{t('Обнять питомца 🤗')}</button>
  </>
  )}

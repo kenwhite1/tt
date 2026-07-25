@@ -98,10 +98,10 @@ export function GiftModal({ mode, itemRu, onClose, onDone }: {
  </div>
 
  <button className="btn accent" style={{ width: '100%' }} disabled={friendId === null || busy} onClick={() => void send()}>
- {t('Отправить за')} {cost} 🦴
+ {t('Отправить за')} {cost} G
  </button>
  <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--ink-soft)', marginTop: 8 }}>
- {mode.type === 'slot' ? `${t('Цена вещи +')} ${C.GIFT_FEE} ${t('🦴 за доставку')}` : `${t('Вещь уйдёт из твоей сумки, доставка')} ${C.GIFT_FEE} 🦴`}
+ {mode.type === 'slot' ? `${t('Цена вещи +')} ${C.GIFT_FEE} ${t('G за доставку')}` : `${t('Вещь уйдёт из твоей сумки, доставка')} ${C.GIFT_FEE} G`}
  </p>
  </div>
  </div>

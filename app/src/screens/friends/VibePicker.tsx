@@ -9,7 +9,7 @@ export function VibePicker({ vibes, plus, onPick, title = t('Пошли тёпл
  <>
  <h2 style={{ textAlign: 'center', marginBottom: 4 }}>{title}</h2>
  <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 14px' }}>
- {t('Тёплый лучик согреет друга, а тебе за первый за день:')} +{2}🦴
+ {t('Тёплый лучик согреет друга, а тебе за первый за день:')} +{2} G
  </p>
  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
  {vibes.map(v => {

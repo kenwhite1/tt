@@ -21,6 +21,7 @@ import { collectiblesRoutes } from './routes/collectibles'
 import type { UserRow } from './engine/rows'
 import { db } from './db'
 import { logEvent, logFirst } from './engine/analytics'
+import { storeLaunchToken, flushPendingLaunchToken, syncHubBalance, hubFriends, inviteHubFriends } from './gg'
 
 export const api = new Hono<Env>()
 
@@ -30,6 +31,7 @@ api.post('/auth', async c => {
  const v = validateInitData(body.initData ?? '')
  if (!v) return c.json({ error: 'invalid_init_data' }, 401)
  let user = getUser(v.user.id)
+ storeLaunchToken(v.user.id, v.startParam) // hub launch → remember the token for G wallet proxying
  const token = await issueToken(v.user.id)
  return c.json({ token, registered: !!user, tg: { id: v.user.id, name: v.user.first_name } })
 })
@@ -65,6 +67,7 @@ api.post('/onboard', async c => {
  if (!body.success) return c.json({ error: 'bad_request' }, 400)
  const { petName, pronouns, trait, species, userName, tz, areas } = body.data
  const user = bootstrapUser(uid, userName, { petName, pronouns, trait, species, tz })
+ flushPendingLaunchToken(user.id) // /auth ran before the users row existed
  for (const g of starterGoals(areas)) addGoal(user.id, g.ru, g.emoji, g.sca)
  return c.json({ state: getState(user) })
 })
@@ -104,7 +107,12 @@ api.post('/onboarding/survey', async c => {
   return c.json({ ok: true })
 })
 
-api.get('/state', c => c.json({ state: getState(c.get('user')) }))
+// /state reconciles the local G mirror from the hub wallet first (fail-soft:
+// standalone / hub down → the cached local value is served as-is).
+api.get('/state', async c => {
+ await syncHubBalance(c.get('user').id)
+ return c.json({ state: getState(getUser(c.get('user').id)!) })
+})
 
 // allow the bot to DM this user (reminders) - called after the Telegram
 // write-access grant, since that grant alone never reaches the server.
@@ -204,3 +212,17 @@ api.route('/daily', dailyRoutes)
 api.route('/share', shareRoutes)
 api.route('/evening', eveningRoutes)
 api.route('/collectibles', collectiblesRoutes)
+
+// Друзья из хаба: список для панели «позвать» и сама рассылка приглашений.
+api.get('/friends/hub', async c => {
+  const friends = await hubFriends((c as unknown as { uid: number }).uid).catch(() => [])
+  return c.json({ friends })
+})
+api.post('/friends/invite', async c => {
+  type InviteBody = { friendIds?: number[]; note?: string }
+  const body = await c.req.json<InviteBody>().catch((): InviteBody => ({}))
+  const ids = Array.isArray(body.friendIds) ? body.friendIds.slice(0, 20) : []
+  if (ids.length === 0) return c.json({ error: 'bad_request' }, 400)
+  const sent = await inviteHubFriends((c as unknown as { uid: number }).uid, ids, body.note).catch(() => 0)
+  return c.json({ sent })
+})

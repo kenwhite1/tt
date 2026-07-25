@@ -115,7 +115,7 @@ function CoopCard({ bond, onOpen, reload }: { bond: CoopDto; onOpen: () => void;
       const r = await coop.walkClaim(bond.id)
       if (r.claimed) {
         haptic('success')
-        useStore.getState().showToast(r.leveledTo ? `${t('Мы подросли - теперь')} ${t(STAGE_RU[r.leveledTo])}! 💛` : `${t('Прогулка!')} +${r.reward?.stones}🦴 ${t('каждому 🦴')}`)
+        useStore.getState().showToast(r.leveledTo ? `${t('Мы подросли - теперь')} ${t(STAGE_RU[r.leveledTo])}! 💛` : `${t('Прогулка!')} +${r.reward?.stones} G ${t('каждому')}`)
         // §6.3 auto-offer a milestone story card on stage-up or a streak milestone
         const st = r.coop.streak
         if (r.leveledTo) setShare({ kind: 'coop', ref: `stage_${bond.id}_${r.leveledTo}`, species: bond.species, headline: `${bond.name} ${t('подрос(ла) до')} «${t(STAGE_RU[r.leveledTo])}»!`, subtitle: t('Мы растим его вдвоём'), emoji: '🎉', text: `${t('Наш общий щенок')} ${bond.name} ${t('подрос в Шарике! 🎉')}` })
@@ -146,7 +146,7 @@ function CoopCard({ bond, onOpen, reload }: { bond: CoopDto; onOpen: () => void;
         {bond.walk ? (
           <button className="btn ghost" style={{ width: '100%' }} disabled>{t('На прогулке')} · {remainingText(bond.walk.endsTs)}</button>
         ) : bond.walkClaimable ? (
-          <button className="btn accent" style={{ width: '100%' }} disabled={busy} onClick={() => void claim()}>{t('Забрать прогулку 🦴')}</button>
+          <button className="btn accent" style={{ width: '100%' }} disabled={busy} onClick={() => void claim()}>{t('Забрать прогулку 💛')}</button>
         ) : bond.walkReady ? (
           <button className="btn" style={{ width: '100%' }} disabled={busy} onClick={() => void startWalk()}>{t('Гулять вместе 🐾')}</button>
         ) : (

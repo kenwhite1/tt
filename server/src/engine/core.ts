@@ -1,6 +1,7 @@
 import { C, stageForWalks, friendshipLevel } from '../../../shared/constants'
 import type { GoalDto, RewardDto, StateDto } from '../../../shared/types'
 import { db } from '../db'
+import { mirrorLedgerEntry } from '../gg'
 import { ensureFresh, gameDay } from './day'
 import type { GoalRow, PetRow, UserRow, WalkRow } from './rows'
 
@@ -18,9 +19,14 @@ export function getUser(id: number): UserRow | undefined {
   return q.user.get(id) as UserRow | undefined
 }
 
+// Single choke point for ALL G movement. The hub wallet is the source of truth
+// («game is game» shared currency); the local column is a sync mirror so
+// gameplay transactions stay synchronous. Every entry is mirrored to the hub
+// (earn/spend, idempotent per ledger row) - fail-soft, fire-and-forget.
 export function addStones(userId: number, delta: number, reason: string) {
   db.prepare('UPDATE users SET stones=stones+? WHERE id=?').run(delta, userId)
-  db.prepare('INSERT INTO ledger (user_id, delta, reason, ts) VALUES (?,?,?,?)').run(userId, delta, reason, Date.now())
+  const r = db.prepare('INSERT INTO ledger (user_id, delta, reason, ts) VALUES (?,?,?,?)').run(userId, delta, reason, Date.now())
+  mirrorLedgerEntry(userId, delta, reason, Number(r.lastInsertRowid))
 }
 
 function genFriendCode(): string {

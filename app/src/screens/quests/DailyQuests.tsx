@@ -37,10 +37,10 @@ export function DailyQuests({ daily, onClaim, onDone, onAnswer }: Props) {
  </div>
  <div style={{ flex: 1, fontWeight: 800, fontSize: 15 }}>{quest.ru}</div>
  {quest.claimed ? (
- <span style={{ fontWeight: 800, color: 'var(--ink-soft)', whiteSpace: 'nowrap' }}>✓ {quest.reward} 🦴</span>
+ <span style={{ fontWeight: 800, color: 'var(--ink-soft)', whiteSpace: 'nowrap' }}>✓ {quest.reward} G</span>
  ) : quest.done ? (
  <button className="btn accent" style={{ padding: '8px 14px', fontSize: 14, whiteSpace: 'nowrap' }} onClick={() => onClaim(quest.id)}>
- {t('Забрать')} {quest.reward} 🦴
+ {t('Забрать')} {quest.reward} G
  </button>
  ) : quest.type === 'answer_friends' || quest.type === 'affirmation' || quest.manual ? (
  <button
@@ -51,7 +51,7 @@ export function DailyQuests({ daily, onClaim, onDone, onAnswer }: Props) {
  {expanded ? t('Свернуть') : t('Открыть')}
  </button>
  ) : (
- <span style={{ color: 'var(--ink-soft)', fontSize: 13, whiteSpace: 'nowrap' }}>+{quest.reward} 🦴</span>
+ <span style={{ color: 'var(--ink-soft)', fontSize: 13, whiteSpace: 'nowrap' }}>+{quest.reward} G</span>
  )}
  </div>
 

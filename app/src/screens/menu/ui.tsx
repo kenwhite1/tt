@@ -85,7 +85,7 @@ export function applyReward(r: Reward | undefined, fallback = t('Готово! �
   haptic('success')
   const bits: string[] = []
   if (r?.energy) bits.push(`+${r.energy}⚡`)
-  if (r?.stones) bits.push(`+${r.stones}🦴`)
+  if (r?.stones) bits.push(`+${r.stones} G`)
   if (r?.walkMinutesReduced) bits.push(`${t('прогулка')} −${r.walkMinutesReduced} ${t('мин')}`)
   useStore.getState().showToast(bits.join('  ') || fallback)
   void useStore.getState().refresh()

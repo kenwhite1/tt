@@ -25,7 +25,7 @@ export function Quests() {
  setQs(r.state)
  if (r.reward) {
  haptic('success')
- useStore.getState().showToast(`+${r.reward} 🦴`)
+ useStore.getState().showToast(`+${r.reward} G`)
  void useStore.getState().refresh()
  }
  return r

@@ -110,7 +110,7 @@ export const BOX_COLORS: { id: string; ru: string; hex: string }[] = [
 ]
 
 export const ERRORS_RU: Record<string, string> = {
- not_enough_stones: 'Не хватает косточек 🦴',
+ not_enough_stones: 'Не хватает G',
  owned: 'У тебя уже есть эта вещь в этом цвете',
  owned_gift_blocked: 'Эта вещь уже есть у тебя, подарить из витрины нельзя',
  friend_owns: 'У друга уже есть эта вещь',

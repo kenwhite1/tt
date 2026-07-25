@@ -34,7 +34,7 @@ export function Catalog({ shop, onBack }: { shop: ShopKind; onBack(): void }) {
  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
  <h2>{p.ru}</h2>
  <span style={{ fontSize: 12, color: p.unlocked ? 'var(--green-deep)' : 'var(--ink-soft)' }}>
- {p.unlocked ? `${p.price} 🦴` : `${t('c «')}${p.stageRu}»`}
+ {p.unlocked ? `${p.price} G` : `${t('c «')}${p.stageRu}»`}
  </span>
  </div>
  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 10 }}>
@@ -62,7 +62,7 @@ export function Catalog({ shop, onBack }: { shop: ShopKind; onBack(): void }) {
  <span style={{ flex: 1, fontWeight: 800 }}>
  {it.ru} {it.ownedColors.length > 0 && <span style={{ color: 'var(--green-deep)', fontSize: 12 }}>· {t('есть')} {it.ownedColors.length}</span>}
  </span>
- <span style={{ color: 'var(--ink-soft)' }}>{it.price} 🦴</span>
+ <span style={{ color: 'var(--ink-soft)' }}>{it.price} G</span>
  </div>
  ))}
  </div>

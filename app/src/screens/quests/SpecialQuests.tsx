@@ -15,7 +15,7 @@ export function SpecialQuests({ special, onClaim }: Props) {
  <>
  <h2 style={{ margin: '14px 4px 4px' }}>{t('Особые задания')}</h2>
  <p style={{ margin: '0 4px 10px', fontSize: 13, color: 'var(--ink-soft)' }}>
- {t('Долгие цели, по')} {special[0]?.reward ?? 100} {t('🦴 за каждый уровень')}
+ {t('Долгие цели, по')} {special[0]?.reward ?? 100} {t('G за каждый уровень')}
  </p>
  {special.map(track => {
  const allDone = track.target == null
@@ -31,7 +31,7 @@ export function SpecialQuests({ special, onClaim }: Props) {
  style={{ padding: '8px 14px', fontSize: 14, whiteSpace: 'nowrap' }}
  onClick={() => onClaim(track.id)}
  >
- {t('Забрать')} {track.reward} 🦴
+ {t('Забрать')} {track.reward} G
  </button>
  )}
  </div>

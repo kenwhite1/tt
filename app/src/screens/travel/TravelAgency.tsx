@@ -50,7 +50,7 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  } catch (e) {
  const err = (e as { data?: { error?: string } }).data?.error
  useStore.getState().showToast(
- err === 'not_enough_stones' ? t('Не хватает косточек 🦴') :
+ err === 'not_enough_stones' ? t('Не хватает G') :
  err === 'flight_already_queued' ? t('Билет уже куплен, сначала долетим!') :
  t('Не получилось купить билет'),
  )
@@ -64,7 +64,7 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  <header style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '4px 14px 8px' }}>
  <button className="btn ghost" style={{ padding: '8px 12px' }} onClick={onBack}>‹</button>
  <h1 style={{ flex: 1 }}>{t('Хвост-трэвел')}</h1>
- <div className="card" style={{ margin: 0, padding: '8px 14px', fontWeight: 800 }}>🦴 {data?.stones ?? '…'}</div>
+ <div className="card" style={{ margin: 0, padding: '8px 14px', fontWeight: 800 }}>G {data?.stones ?? '…'}</div>
  </header>
 
  <div className="scroll">
@@ -136,12 +136,12 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  {[...d.clothing, ...d.furniture].map(i => t(i.ruName)).join(' · ')}
  </div>
  <button className="btn accent" style={{ width: '100%' }} disabled={!!data.queued || buying} onClick={() => setConfirm(d)}>
- {d.price === 0 ? t('✈️ Лететь бесплатно') : `${t('✈️ Билет за')} ${d.price} 🦴`}
+ {d.price === 0 ? t('✈️ Лететь бесплатно') : `${t('✈️ Билет за')} ${d.price} G`}
  </button>
  </div>
  ))}
  <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--ink-soft)', margin: '4px 0 16px' }}>
- {t('Направления меняются раз в день, обновить за косточки нельзя.')}
+ {t('Направления меняются раз в день, обновить за G нельзя.')}
  </p>
  </>
  )}
@@ -162,7 +162,7 @@ export function TravelAgency({ onBack }: { onBack(): void }) {
  {t('⚠️ Билет в один конец: вернуться можно будет, только когда город снова появится у Сасси. Полёт займёт место сегодняшней прогулки (или завтрашней, если питомец уже гулял).')}
  </p>
  <p style={{ textAlign: 'center', fontWeight: 800, marginBottom: 12 }}>
- {confirm.price === 0 ? t('Бесплатно, первый полёт 🎉') : `${t('Стоимость:')} ${confirm.price} 🦴`}
+ {confirm.price === 0 ? t('Бесплатно, первый полёт 🎉') : `${t('Стоимость:')} ${confirm.price} G`}
  </p>
  <div style={{ display: 'flex', gap: 10 }}>
  <button className="btn ghost" style={{ flex: 1 }} onClick={() => setConfirm(null)}>{t('Остаться')}</button>

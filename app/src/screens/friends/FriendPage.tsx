@@ -45,7 +45,7 @@ export function FriendPage({ data, friend, onBack, reload }:
  } catch (e) {
  haptic('warn')
  const er = (e as { data?: { error?: string } })?.data?.error
- useStore.getState().showToast(er === 'not_enough_stones' ? t('Не хватает 🦴') : er === 'sent_today' ? t('Сегодня уже дарил(а)') : t('Не вышло'))
+ useStore.getState().showToast(er === 'not_enough_stones' ? t('Не хватает G') : er === 'sent_today' ? t('Сегодня уже дарил(а)') : t('Не вышло'))
  }
  setFreezeBusy(false)
  }
@@ -57,7 +57,7 @@ export function FriendPage({ data, friend, onBack, reload }:
  haptic('success')
  const bits: string[] = []
  if (r.reward.energy) bits.push(`+${r.reward.energy}⚡`)
- if (r.reward.stones) bits.push(`+${r.reward.stones}🦴`)
+ if (r.reward.stones) bits.push(`+${r.reward.stones} G`)
  if (r.reward.walkMinutesReduced) bits.push(`${t('прогулка')} −${r.reward.walkMinutesReduced} ${t('мин')}`)
  useStore.getState().showToast(`${t('Лучик')} ${v.emoji} ${t('полетел к')} ${friend.name}! ${bits.join(' ')}`.trim())
  if (r.reward.energy || r.reward.stones || r.reward.walkMinutesReduced) void useStore.getState().refresh()

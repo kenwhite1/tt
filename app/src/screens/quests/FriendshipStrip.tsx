@@ -21,7 +21,7 @@ export function FriendshipStrip() {
  <div style={{ fontWeight: 800 }}>{t('Дружба с')} {pet.name}</div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
  {t('Уровень')} {level} {t('из')} {C.FRIENDSHIP_PTS.length}
- {next != null && <> · {t('следующий за')} {C.FRIENDSHIP_LEVEL_STONES} 🦴</>}
+ {next != null && <> · {t('следующий за')} {C.FRIENDSHIP_LEVEL_STONES} G</>}
  </div>
  </div>
  </div>

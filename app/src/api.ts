@@ -18,6 +18,8 @@ export async function req<T>(path: string, body?: unknown): Promise<T> {
 }
 
 export const api = {
+  hubFriends: () => req<{ friends: { id: number; name: string; color: string; face: string }[] }>('/friends/hub'),
+  inviteFriends: (friendIds: number[], note?: string) => req<{ sent: number }>('/friends/invite', { friendIds, note }),
   async auth(): Promise<{ registered: boolean; tg: { id: number; name: string } }> {
     const r = await req<{ token: string; registered: boolean; tg: { id: number; name: string } }>(
       '/auth', { initData: getInitData() },

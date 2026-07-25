@@ -205,7 +205,7 @@ export function Pet() {
  {tab === 'details' && (
  <div style={{ display: 'grid', gap: 8 }}>
  <Row label={t('💫 Характер')} value={TRAIT_RU[pet.trait] ? t(TRAIT_RU[pet.trait]) : pet.trait} />
- <Row label={t('🦴 Косточек собрано')} value={profile ? String(profile.lifetimeStones) : '…'} />
+ <Row label={t('G собрано')} value={profile ? String(profile.lifetimeStones) : '…'} />
  <Row label={t('🌞 Лучшая серия')} value={`${user.streakBest} ${plural(user.streakBest, [t('день'), t('дня'), t('дней')])}`} />
  </div>
  )}

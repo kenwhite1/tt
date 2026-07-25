@@ -217,7 +217,7 @@ function settleOne(p: PendingRef) {
  addStones(inviter.id, REFERRAL_TIER1_STONES, 'referral_t1')
  db.prepare('INSERT OR IGNORE INTO items_owned (user_id, kind, item_id, color_id, acquired_ts) VALUES (?,?,?,?,?)')
  .run(inviter.id, 'clothing', REFERRAL_HOOD, '', now)
- rewardText = `${REFERRAL_TIER1_STONES}🦴 и уютный капюшончик`
+ rewardText = `${REFERRAL_TIER1_STONES} G и уютный капюшончик`
  } else if (tier === 2) {
  db.prepare('INSERT OR IGNORE INTO items_owned (user_id, kind, item_id, color_id, acquired_ts) VALUES (?,?,?,?,?)')
  .run(inviter.id, 'plushie', REFERRAL_PLUSHIE, '', now)
@@ -229,7 +229,7 @@ function settleOne(p: PendingRef) {
  // tier 4+: косточки taper but never reach zero, plus a surprise micropet every Nth friend
  const stones = Math.max(C.REFERRAL_TAIL_MIN_STONES, C.REFERRAL_TAIL_BASE_STONES - (tier - 4) * C.REFERRAL_TAIL_STEP)
  addStones(inviter.id, stones, 'referral_tail')
- rewardText = `${stones}🦴`
+ rewardText = `${stones} G`
  if (tier % C.REFERRAL_EGG_EVERY === 0) {
  const commons = content.micropets.species.filter(s => s.origin === 'common')
  const sp = commons[Math.floor(Math.random() * commons.length)]
@@ -780,10 +780,10 @@ socialRoutes.get('/referrals', c => {
  link,
  botUsername: BOT_USERNAME,
  ladder: [
- { tier: 1, ru: `${REFERRAL_TIER1_STONES}🦴 и капюшончик для питомца`, done: fresh.referral_rewards >= 1 },
+ { tier: 1, ru: `${REFERRAL_TIER1_STONES} G и капюшончик для питомца`, done: fresh.referral_rewards >= 1 },
  { tier: 2, ru: 'Плюшевый кот Лоскуток', done: fresh.referral_rewards >= 2 },
  { tier: 3, ru: 'Микропитомец Корова Печенька 🐮', done: fresh.referral_rewards >= 3 },
- { tier: 4, ru: `И дальше без конца: косточки за каждого друга и новый малыш каждые ${C.REFERRAL_EGG_EVERY} 🥚`, done: fresh.referral_rewards >= 4 },
+ { tier: 4, ru: `И дальше без конца: G за каждого друга и новый малыш каждые ${C.REFERRAL_EGG_EVERY} 🥚`, done: fresh.referral_rewards >= 4 },
  ],
  unlimited: true,
  inviteeGift: `Твой друг сразу получит микропитомца ${speciesName(INVITEE_GIFT_SPECIES)} 🎁`,

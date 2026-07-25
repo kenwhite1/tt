@@ -31,7 +31,7 @@ export function InboxSheet({ data, onClose, reload }:
       haptic('success')
       const bits: string[] = []
       if (r.reward?.energy) bits.push(`+${r.reward.energy}⚡`)
-      if (r.reward?.stones) bits.push(`+${r.reward.stones}🦴`)
+      if (r.reward?.stones) bits.push(`+${r.reward.stones} G`)
       useStore.getState().showToast(
         r.visit
           ? `${t('Позвал(а)')} ${target.name} ${t('в гости на час 🏡')}  ${bits.join('  ')}`.trim()

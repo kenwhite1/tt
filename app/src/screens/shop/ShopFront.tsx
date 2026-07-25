@@ -10,7 +10,7 @@ import { SellScreen } from './SellScreen'
 import { GiftModal } from './GiftModal'
 import type { GiftMode } from './GiftModal'
 import { errRu } from './types'
-import { BoneIcon } from '../../art/icons'
+import { GIcon } from '../../art/icons'
 import { t } from '../../i18n'
 import type { EverydayDto, FloorDto, ListingDto, ShopDto, WallpaperDto } from './types'
 
@@ -83,7 +83,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  <h1 style={{ flex: 1 }}>{shop === 'outfit' ? t('Одежда') : shop === 'furniture' ? t('БУДКЕА') : t('Студия окраса')}</h1>
  <button className="btn ghost" style={{ padding: '8px 12px' }} title={t('Каталог')} onClick={() => setSub('catalog')}>📖</button>
  <button className="btn ghost" style={{ padding: '8px 12px' }} title={t('Продать')} onClick={() => setSub('sell')}>💰</button>
- <div className="card" style={{ margin: 0, padding: '8px 12px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: 6 }}><BoneIcon size={18} /> {data?.stones ?? '…'}</div>
+ <div className="card" style={{ margin: 0, padding: '8px 12px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: 6 }}><GIcon size={18} /> {data?.stones ?? '…'}</div>
  </header>
 
  {/* NPC greeting */}
@@ -111,7 +111,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  <b>{t('−50% сегодня:')} {data.discount.ru}</b>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{data.discount.colorRu}</div>
  </div>
- <b>{data.discount.sold ? t('КУПЛЕНО') : `${data.discount.price} 🦴`}</b>
+ <b>{data.discount.sold ? t('КУПЛЕНО') : `${data.discount.price} G`}</b>
  </button>
  ) : (
  <div className="card" style={{ background: 'var(--card-shade)', fontSize: 14, color: 'var(--ink-soft)' }}>
@@ -121,7 +121,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
 
  {/* refresh */}
  <button className="btn ghost" style={{ width: '100%', marginBottom: 14 }} disabled={busy} onClick={() => void refreshSlots()}>
- {t('🔄 Обновить витрину')} {data.nextRefreshCost === 0 ? t('(бесплатно)') : `(${data.nextRefreshCost} 🦴)`}
+ {t('🔄 Обновить витрину')} {data.nextRefreshCost === 0 ? t('(бесплатно)') : `(${data.nextRefreshCost} G)`}
  </button>
 
  {/* 12 slots */}
@@ -151,7 +151,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  <button key={it.id} className="goal-row" style={{ width: '100%', cursor: 'pointer', textAlign: 'left' }} onClick={() => { setEverydaySheet(it); setPickedColor(null) }}>
  <span style={{ fontSize: 22 }}>{shop === 'outfit' ? '👕' : '🛋️'}</span>
  <span style={{ flex: 1, fontWeight: 800 }}>{it.ru}</span>
- <b>{it.price} 🦴</b>
+ <b>{it.price} G</b>
  </button>
  ))}
  </>
@@ -178,8 +178,8 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  <span className="gift-burst" aria-hidden />
  <div style={{ fontSize: 52 }}>🦔</div>
  <h2>{t('Подарочек от Колюча!')}</h2>
- <p style={{ color: 'var(--ink-soft)' }}>{t('«Рад тебя видеть! Держи горсть косточек, заходи почаще.»')}</p>
- <p style={{ fontSize: 26, fontWeight: 800, margin: '8px 0' }}>+{giftCard} 🦴</p>
+ <p style={{ color: 'var(--ink-soft)' }}>{t('«Рад тебя видеть! Держи горсть G, заходи почаще.»')}</p>
+ <p style={{ fontSize: 26, fontWeight: 800, margin: '8px 0' }}>+{giftCard} G</p>
  <button className="btn accent" onClick={() => setGiftCard(null)}>{t('Спасибо!')}</button>
  </div>
  </div>
@@ -204,7 +204,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  ) : (
  <button className="btn accent" style={{ width: '100%', marginTop: 12 }} disabled={busy || sheet.listing.stageLocked}
  onClick={() => void buy({ slot: sheet.slot })}>
- {t('Купить за')} {sheet.listing.price} 🦴
+ {t('Купить за')} {sheet.listing.price} G
  </button>
  )}
  {shop !== 'color' && !sheet.listing.sold && (
@@ -243,7 +243,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  </div>
  <button className="btn accent" style={{ width: '100%' }} disabled={!pickedColor || busy}
  onClick={() => pickedColor && void buy({ itemId: everydaySheet.id, colorId: pickedColor })}>
- {t('Купить за')} {everydaySheet.price} 🦴
+ {t('Купить за')} {everydaySheet.price} G
  </button>
  </div>
  </div>
@@ -268,7 +268,7 @@ function SlotCard({ l, onTap }: { l: ListingDto; onTap(): void }) {
  <div style={{ fontWeight: 800, fontSize: 13, minHeight: 34, marginTop: 6 }}>{l.ru}</div>
  <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{l.colorRu}</div>
  <div style={{ fontWeight: 800, marginTop: 4 }}>
- {l.sold ? t('КУПЛЕНО') : l.locked ? t('Плюс ⭐') : `${l.price} 🦴`}
+ {l.sold ? t('КУПЛЕНО') : l.locked ? t('Плюс ⭐') : `${l.price} G`}
  </div>
  {l.stageLocked && !l.locked && <div style={{ fontSize: 11, color: 'var(--red)' }}>{t('с стадии «')}{l.stageRu}»</div>}
  </button>
@@ -292,7 +292,7 @@ function SwatchGrid({ items, onBuy }: {
  {open === it.id && !it.owned && (
  <span className="btn accent" style={{ display: 'block', fontSize: 11, padding: '4px 2px', marginTop: 4 }}
  onClick={e => { e.stopPropagation(); onBuy(it.id); setOpen(null) }}>
- {it.price}🦴
+ {it.price} G
  </span>
  )}
  {open === it.id && it.owned && <span style={{ fontSize: 10, fontWeight: 800 }}>{t('есть')}</span>}

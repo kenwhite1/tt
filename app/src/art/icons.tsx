@@ -56,14 +56,14 @@ export function BoltIcon({ size = 20 }: { size?: number }) {
     </svg>
   )
 }
-export function BoneIcon({ size = 20 }: { size?: number }) {
+// The shared «game is game» currency G: a golden coin with a bold G. One glyph
+// across the whole ecosystem - the wallet lives in the hub, not in this game.
+export function GIcon({ size = 20 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden style={{ display: 'block' }}>
-      <g transform="rotate(-20 12 12)" fill="#D9B05A">
-        <circle cx="6.6" cy="9.4" r="3.2" /><circle cx="6.6" cy="14.6" r="3.2" />
-        <circle cx="17.4" cy="9.4" r="3.2" /><circle cx="17.4" cy="14.6" r="3.2" />
-        <rect x="6" y="9" width="12" height="6" rx="3" />
-      </g>
+      <circle cx="12" cy="12" r="10" fill="#F2C14E" stroke="#E0A42B" strokeWidth="1.4" />
+      <circle cx="12" cy="12" r="7.2" fill="none" stroke="#E0A42B" strokeWidth="1" opacity="0.55" />
+      <text x="12" y="16.6" textAnchor="middle" fontFamily="Nunito, sans-serif" fontWeight="900" fontSize="13" fill="#8A5A33">G</text>
     </svg>
   )
 }

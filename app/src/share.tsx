@@ -111,7 +111,7 @@ export function ShareSheet({ opts, text, onClose }: { opts: ShareCardOpts; text:
     if (hosted) return hosted
     if (!preview) throw new Error('no_preview')
     const r = await shareApi.card({ kind: opts.kind, ref: opts.ref, png: preview, text })
-    if (r.rewarded > 0) useStore.getState().showToast(`+${r.rewarded}🦴 ${t('за то, что поделился 💛')}`)
+    if (r.rewarded > 0) useStore.getState().showToast(`+${r.rewarded} G ${t('за то, что поделился 💛')}`)
     const h = { url: r.url, preparedId: r.preparedId, link: r.link }
     setHosted(h); return h
   }
