@@ -1,3 +1,4 @@
+import { displayText } from "../../../i18n"
 // Идеи целей: browse goal suggestions by category, one-tap add via the core /goals endpoint.
 import { useEffect, useState } from 'react'
 import { req } from '../../../api'
@@ -39,7 +40,7 @@ export function GoalIdeas({ onBack }: { onBack(): void }) {
  <Sub title={t('Идеи целей')} onBack={onBack}>
  <p style={{ color: 'var(--ink-soft)', margin: '0 4px 8px' }}>{t('Не знаешь, с чего начать? Бери готовую, одним касанием.')}</p>
  <ChipRow>
- {data.categories.map(c => <Chip key={c.id} active={cat === c.id} onClick={() => setCat(c.id)}>{c.ru}</Chip>)}
+ {data.categories.map(c => <Chip key={c.id} active={cat === c.id} onClick={() => setCat(c.id)}>{displayText(c.ru)}</Chip>)}
  </ChipRow>
  {goals.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Здесь пока пусто.')}</p>}
  {goals.map(g => {
@@ -47,7 +48,7 @@ export function GoalIdeas({ onBack }: { onBack(): void }) {
  return (
  <div key={g.id} className="goal-row">
  <span style={{ fontSize: 24 }}>{g.emoji}</span>
- <span style={{ flex: 1, fontWeight: 800 }}>{g.ru}</span>
+ <span style={{ flex: 1, fontWeight: 800 }}>{displayText(g.ru)}</span>
  <button
  className={done ? 'btn ghost' : 'btn'} disabled={done}
  style={{ padding: '8px 14px', fontSize: 14 }}

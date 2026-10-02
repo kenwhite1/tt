@@ -17,12 +17,12 @@ import { Menu } from './screens/menu/Menu'
 import { Puppy } from './art/Puppy'
 
 const TABS: { key: Tab; ru: string }[] = [
-  { key: 'home', ru: 'Дом' },
-  { key: 'quests', ru: 'Задания' },
-  { key: 'shop', ru: 'Магазин' },
-  { key: 'friends', ru: 'Друзья' },
-  { key: 'bag', ru: 'Сумка' },
-  { key: 'pet', ru: 'Питомец' },
+  { key: 'home', ru: "Дом" },
+  { key: 'quests', ru: "Задания" },
+  { key: 'shop', ru: "Магазин" },
+  { key: 'friends', ru: "Друзья" },
+  { key: 'bag', ru: "Сумка" },
+  { key: 'pet', ru: "Питомец" },
 ]
 
 // per-tab page colour (drives the screen background + Telegram chrome)
@@ -52,7 +52,7 @@ export function App() {
     if (!sp || !sp.startsWith('coop_')) return
     coopHandled = true
     coop.accept(sp.slice(5)).then(r => {
-      if (r.coop) { setTab('friends'); useStore.getState().showToast('Щенок вылупился! 🐣') }
+      if (r.coop) { setTab('friends'); useStore.getState().showToast(t("Щенок вылупился! 🐣")) }
     }).catch(() => { /* invite gone / already member */ })
   }, [phase, setTab])
 

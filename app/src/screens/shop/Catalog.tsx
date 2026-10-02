@@ -1,3 +1,4 @@
+import { displayText } from "../../i18n"
 // Browse-only catalogue: every item in the game by category, with owned-colour markers.
 // You can't buy here, items must rotate into the shop (everyday collection excepted).
 import { useEffect, useState } from 'react'
@@ -32,7 +33,7 @@ export function Catalog({ shop, onBack }: { shop: ShopKind; onBack(): void }) {
  {data?.parts?.map(p => (
  <div key={p.id} className="card">
  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
- <h2>{p.ru}</h2>
+ <h2>{displayText(p.ru)}</h2>
  <span style={{ fontSize: 12, color: p.unlocked ? 'var(--green-deep)' : 'var(--ink-soft)' }}>
  {p.unlocked ? `${p.price} G` : `${t('c «')}${p.stageRu}»`}
  </span>
@@ -51,7 +52,7 @@ export function Catalog({ shop, onBack }: { shop: ShopKind; onBack(): void }) {
  <div key={g.id} className="card">
  <button onClick={() => setOpen(open === g.id ? null : g.id)}
  style={{ width: '100%', background: 'none', border: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', padding: 0 }}>
- <h2>{g.ru}</h2>
+ <h2>{displayText(g.ru)}</h2>
  <span style={{ color: 'var(--ink-soft)' }}>{g.items.length} · {open === g.id ? '▲' : '▼'}</span>
  </button>
  {open === g.id && (
@@ -60,7 +61,7 @@ export function Catalog({ shop, onBack }: { shop: ShopKind; onBack(): void }) {
  <div key={it.id} className="goal-row" style={{ marginBottom: 8 }}>
  <span style={{ fontSize: 20 }}>{shop === 'furniture' ? '🛋️' : '👕'}</span>
  <span style={{ flex: 1, fontWeight: 800 }}>
- {it.ru} {it.ownedColors.length > 0 && <span style={{ color: 'var(--green-deep)', fontSize: 12 }}>· {t('есть')} {it.ownedColors.length}</span>}
+ {displayText(it.ru)} {it.ownedColors.length > 0 && <span style={{ color: 'var(--green-deep)', fontSize: 12 }}>· {t('есть')} {it.ownedColors.length}</span>}
  </span>
  <span style={{ color: 'var(--ink-soft)' }}>{it.price} G</span>
  </div>

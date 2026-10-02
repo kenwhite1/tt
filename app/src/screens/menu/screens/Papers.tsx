@@ -1,3 +1,4 @@
+import { displayText } from "../../../i18n"
 // Газеты: live weekly digest («Недельные чувства») + archived newsletters.
 // Free tier: latest issue only; older archive shows a Plus lock → PlusScreen.
 import { useEffect, useState } from 'react'
@@ -30,7 +31,7 @@ export function Papers({ onBack, onPlus }: { onBack(): void; onPlus(): void }) {
  <Sub title={t('Газеты')} onBack={onBack}>
  <div className="card" style={{ background: 'linear-gradient(135deg, #fbe3b2, #f8d77e)' }}>
  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--brown)' }}>📰 {t('СВЕЖИЙ ВЫПУСК')} · {fmtDay(data.live.day)}</div>
- <h2 style={{ margin: '4px 0 10px' }}>{data.live.title}</h2>
+ <h2 style={{ margin: '4px 0 10px' }}>{displayText(data.live.title)}</h2>
  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
  {moods.length === 0
  ? <span style={{ color: 'var(--brown)', fontSize: 14 }}>{t('На этой неделе ещё нет отметок настроения.')}</span>
@@ -49,7 +50,7 @@ export function Papers({ onBack, onPlus }: { onBack(): void; onPlus(): void }) {
  <button key={p.id} className="goal-row" style={{ width: '100%', border: 'none', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', fontSize: 16 }} onClick={() => setOpen({ title: p.title, body: p.body })}>
  <span style={{ fontSize: 24 }}>💌</span>
  <span style={{ flex: 1 }}>
- <span style={{ fontWeight: 800, display: 'block' }}>{p.title}</span>
+ <span style={{ fontWeight: 800, display: 'block' }}>{displayText(p.title)}</span>
  <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{fmtDay(new Date(p.ts).toISOString().slice(0, 10))}</span>
  </span>
  </button>

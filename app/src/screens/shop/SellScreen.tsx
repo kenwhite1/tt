@@ -1,3 +1,4 @@
+import { displayText } from "../../i18n"
 // Sell owned items back for 50% of their price. Worn dyes can't be sold.
 import { useCallback, useEffect, useState } from 'react'
 import { req } from '../../api'
@@ -8,11 +9,11 @@ import { t } from '../../i18n'
 import type { BagDto, OwnedItemDto } from './types'
 
 const SECTIONS: { key: keyof BagDto['owned']; ru: string; emoji: string }[] = [
-  { key: 'clothing', ru: 'Одежда', emoji: '👕' },
-  { key: 'furniture', ru: 'Мебель', emoji: '🛋️' },
-  { key: 'floors', ru: 'Полы', emoji: '🟫' },
-  { key: 'wallpapers', ru: 'Обои', emoji: '🧱' },
-  { key: 'dyes', ru: 'Краски', emoji: '🎨' },
+  { key: 'clothing', ru: "Одежда", emoji: '👕' },
+  { key: 'furniture', ru: "Мебель", emoji: '🛋️' },
+  { key: 'floors', ru: "Полы", emoji: '🟫' },
+  { key: 'wallpapers', ru: "Обои", emoji: '🧱' },
+  { key: 'dyes', ru: "Краски", emoji: '🎨' },
 ]
 
 export function SellScreen({ onBack }: { onBack(): void }) {
@@ -60,7 +61,7 @@ export function SellScreen({ onBack }: { onBack(): void }) {
             {items.map(it => (
               <button key={`${it.itemId}:${it.colorId}`} className="goal-row" style={{ width: '100%', cursor: 'pointer', textAlign: 'left' }} onClick={() => setConfirm(it)}>
                 <span style={{ width: 30, height: 30, borderRadius: 8, background: it.hex, flexShrink: 0 }} />
-                <span style={{ flex: 1, fontWeight: 800 }}>{it.ru} <span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{it.colorRu}</span></span>
+                <span style={{ flex: 1, fontWeight: 800 }}>{displayText(it.ru)} <span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{it.colorRu}</span></span>
                 <b style={{ color: 'var(--green-deep)' }}>+{Math.floor(it.price / 2)} G</b>
               </button>
             ))}
@@ -75,7 +76,7 @@ export function SellScreen({ onBack }: { onBack(): void }) {
       {confirm && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(60,40,20,0.45)', zIndex: 46, display: 'flex', alignItems: 'flex-end' }} onClick={() => setConfirm(null)}>
           <div className="card" style={{ width: '100%', borderRadius: '26px 26px 0 0', margin: 0, paddingBottom: 'calc(20px + var(--safe-bottom))' }} onClick={e => e.stopPropagation()}>
-            <h2 style={{ textAlign: 'center' }}>{t('Продать «')}{confirm.ru}»?</h2>
+            <h2 style={{ textAlign: 'center' }}>{t('Продать «')}{displayText(confirm.ru)}»?</h2>
             <p style={{ textAlign: 'center', color: 'var(--ink-soft)', margin: '6px 0 14px' }}>
               {t('Вернётся')} {Math.floor(confirm.price / 2)} {t('G. Вещь уйдёт из сумки.')}
             </p>

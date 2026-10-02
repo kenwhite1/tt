@@ -31,8 +31,8 @@ export function puppyDyes(color: string, dyesJson?: string): Partial<Record<DyeP
 
 // Warm RU friendship-level names, one per FRIENDSHIP_PTS threshold (level 1..10).
 export const FRIENDSHIP_NAMES = [
- 'Приятели', 'Дружочки', 'Кореша', 'Лучшие друзья', 'Друзья навек',
- 'Не разлей вода', 'Закадычные', 'Родственные души', 'Половинки', 'Навсегда вместе',
+ "Приятели", "Дружочки", "Кореша", "Лучшие друзья", "Друзья навек",
+ "Не разлей вода", "Закадычные", "Родственные души", "Половинки", "Навсегда вместе",
 ]
 export function levelName(level: number): string {
  return t(FRIENDSHIP_NAMES[Math.min(FRIENDSHIP_NAMES.length, Math.max(1, level)) - 1])

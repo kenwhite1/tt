@@ -1,3 +1,4 @@
+import { displayText } from "../../../i18n"
 // Назови эмоцию: valence → subgroup → word. Logs an emotion activity on pick.
 import { useState } from 'react'
 import { req } from '../../../api'
@@ -81,7 +82,7 @@ export function NameEmotion({ onBack }: { onBack(): void }) {
  style={{ width: '100%', border: 'none', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', fontSize: 16 }}
  onClick={() => { haptic('tap'); setSubIdx(i) }}
  >
- <span style={{ flex: 1, fontWeight: 800 }}>{s.ru}</span>
+ <span style={{ flex: 1, fontWeight: 800 }}>{displayText(s.ru)}</span>
  <span style={{ color: 'var(--ink-soft)', fontWeight: 800 }}>›</span>
  </button>
  ))}
@@ -100,7 +101,7 @@ export function NameEmotion({ onBack }: { onBack(): void }) {
  onClick={() => { haptic('tap'); setValence(v) }}
  >
  <span style={{ fontSize: 26 }}>{VAL_EMOJI[v.id] ?? VALENCE_EMOJI[String(0)]}</span>
- <span style={{ flex: 1, fontWeight: 800 }}>{v.ru}</span>
+ <span style={{ flex: 1, fontWeight: 800 }}>{displayText(v.ru)}</span>
  <span style={{ color: 'var(--ink-soft)', fontWeight: 800 }}>›</span>
  </button>
  ))}

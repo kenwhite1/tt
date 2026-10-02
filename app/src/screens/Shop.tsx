@@ -8,9 +8,9 @@ import { GIcon } from '../art/icons'
 import { t } from '../i18n'
 
 const SHOPS: { id: ShopKind; ru: string; emoji: string; npc: string }[] = [
- { id: 'outfit', ru: 'Одежда', emoji: '🦔', npc: 'Ёж Колюч' },
- { id: 'furniture', ru: 'Мебель', emoji: '🐦‍⬛', npc: 'БУДКЕА' },
- { id: 'color', ru: 'Окрас', emoji: '🦎', npc: 'Студия Тео' },
+ { id: 'outfit', ru: "Одежда", emoji: '🦔', npc: "Ёж Колюч" },
+ { id: 'furniture', ru: "Мебель", emoji: '🐦‍⬛', npc: "БУДКЕА" },
+ { id: 'color', ru: "Окрас", emoji: '🦎', npc: "Студия Тео" },
 ]
 
 type View = 'menu' | ShopKind | 'travel'

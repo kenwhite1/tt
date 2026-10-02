@@ -7,9 +7,9 @@ import type { PromptFull, Reward } from './types'
 import { t } from '../../i18n'
 
 const VALENCES = [
- { v: -1, emoji: '🌧', ru: 'Тяжело' },
- { v: 0, emoji: '😐', ru: 'Так себе' },
- { v: 1, emoji: '☀️', ru: 'Тепло' },
+ { v: -1, emoji: '🌧', ru: "Тяжело" },
+ { v: 0, emoji: '😐', ru: "Так себе" },
+ { v: 1, emoji: '☀️', ru: "Тепло" },
 ]
 
 export function ReflectionEditor({ prompt, onDone }: { prompt: PromptFull | null; onDone(): void }) {

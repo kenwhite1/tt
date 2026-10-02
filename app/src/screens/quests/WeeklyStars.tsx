@@ -1,3 +1,4 @@
+import { displayText } from "../../i18n"
 import { C } from '@shared/constants'
 import { t } from '../../i18n'
 import type { WeeklyDto } from './types'
@@ -32,7 +33,7 @@ export function WeeklyStars({ weekly, onClaim }: Props) {
  {w.emoji}
  </span>
  <div style={{ flex: 1 }}>
- <div style={{ fontWeight: 800 }}>{w.ru}</div>
+ <div style={{ fontWeight: 800 }}>{displayText(w.ru)}</div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
  {w.days} {plural(w.days)} {t('с целями на этой неделе')}
  </div>

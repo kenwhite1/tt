@@ -1,3 +1,4 @@
+import { displayText } from "../../i18n"
 import { useState } from 'react'
 import { haptic } from '../../telegram'
 import { t } from '../../i18n'
@@ -35,7 +36,7 @@ export function DailyQuests({ daily, onClaim, onDone, onAnswer }: Props) {
  >
  {quest.done ? '✓' : TYPE_EMOJI[quest.type] ?? '⭐'}
  </div>
- <div style={{ flex: 1, fontWeight: 800, fontSize: 15 }}>{quest.ru}</div>
+ <div style={{ flex: 1, fontWeight: 800, fontSize: 15 }}>{displayText(quest.ru)}</div>
  {quest.claimed ? (
  <span style={{ fontWeight: 800, color: 'var(--ink-soft)', whiteSpace: 'nowrap' }}>✓ {quest.reward} G</span>
  ) : quest.done ? (

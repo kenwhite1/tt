@@ -6,7 +6,7 @@ import { Loading, Sub, applyReward, useContent } from '../ui'
 import { t } from '../../../i18n'
 import type { MovementSet, Reward } from '../types'
 
-const KIND_RU: Record<string, string> = { stretch: 'Растяжка', yoga: 'Йога', exercise: 'Зарядка' }
+const KIND_RU: Record<string, string> = { stretch: "Растяжка", yoga: "Йога", exercise: "Зарядка" }
 const KIND_EMOJI: Record<string, string> = { stretch: '🧎', yoga: '🧘', exercise: '🤸' }
 
 function Player({ set, onDone }: { set: MovementSet; onDone(): void }) {

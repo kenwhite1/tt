@@ -1,3 +1,4 @@
+import { displayText } from "../../../i18n"
 // Доброе дело: suggestions list from goal ideas (kindness category); tap «Сделал(а)» logs it.
 import { useEffect, useState } from 'react'
 import { req } from '../../../api'
@@ -46,7 +47,7 @@ export function GoodDeed({ onBack }: { onBack(): void }) {
  {ideas?.map(g => (
  <div key={g.id} className="goal-row">
  <span style={{ fontSize: 24 }}>{g.emoji}</span>
- <span style={{ flex: 1, fontWeight: 800 }}>{g.ru}</span>
+ <span style={{ flex: 1, fontWeight: 800 }}>{displayText(g.ru)}</span>
  <button className="btn" style={{ padding: '8px 14px', fontSize: 14 }} disabled={busyId === g.id} onClick={() => void didIt(g.id)}>
  {t('Сделал(а)')}
  </button>

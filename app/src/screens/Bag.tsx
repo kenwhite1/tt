@@ -1,3 +1,4 @@
+import { displayText } from "../i18n"
 // Сумка питомца, Почта · Одежда (примерочная) · Мебель (домик) · Окрасы · Микропитомцы.
 import { useCallback, useEffect, useState } from 'react'
 import { C } from '@shared/constants'
@@ -30,12 +31,12 @@ function BagMenu({ onOpen }: { onOpen(v: View): void }) {
  const [unread, setUnread] = useState(0)
  useEffect(() => { void req<BagDto>('/shop/bag').then(b => setUnread(b.mailUnread)).catch(() => {}) }, [])
  const SECTIONS: { id: View; ru: string; emoji: string; full?: boolean }[] = [
- { id: 'mail', ru: 'Почта', emoji: '📮', full: true },
- { id: 'outfits', ru: 'Одежда', emoji: '👕' },
- { id: 'furniture', ru: 'Мебель', emoji: '🛋️' },
- { id: 'colors', ru: 'Окрасы', emoji: '🎨' },
- { id: 'micropets', ru: 'Микропитомцы', emoji: '💛' },
- { id: 'collectibles', ru: 'Коллекция', emoji: '🏆', full: true },
+ { id: 'mail', ru: t("Почта"), emoji: '📮', full: true },
+ { id: 'outfits', ru: t("Одежда"), emoji: '👕' },
+ { id: 'furniture', ru: t("Мебель"), emoji: '🛋️' },
+ { id: 'colors', ru: t("Окрасы"), emoji: '🎨' },
+ { id: 'micropets', ru: t("Микропитомцы"), emoji: '💛' },
+ { id: 'collectibles', ru: t("Коллекция"), emoji: '🏆', full: true },
  ]
  return (
  <div className="scroll" style={{ paddingTop: 8 }}>
@@ -95,7 +96,7 @@ function MailView({ onBack }: { onBack(): void }) {
  {mail?.map(m => (
  <div key={m.id} className="card" style={{ background: m.read ? 'var(--card)' : '#eef6fb' }} onClick={() => void read(m)}>
  <div style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
- <b style={{ flex: 1 }}>{m.kind === 'newsletter' ? '💌 ' : m.kind === 'gift' ? '🎁 ' : m.kind === 'friend_request' ? '🤝 ' : ''}{m.title}</b>
+ <b style={{ flex: 1 }}>{m.kind === 'newsletter' ? '💌 ' : m.kind === 'gift' ? '🎁 ' : m.kind === 'friend_request' ? '🤝 ' : ''}{displayText(m.title)}</b>
  {!m.read && <span style={{ width: 8, height: 8, borderRadius: 999, background: 'var(--accent)' }} />}
  </div>
  {m.body && <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginTop: 6, whiteSpace: 'pre-wrap' }}>{m.body}</div>}
@@ -152,7 +153,7 @@ function CollectiblesView({ onBack }: { onBack(): void }) {
  <div key={d.id} className="card" style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
  <span style={{ fontSize: 34 }}>{d.emoji}</span>
  <div style={{ flex: 1, minWidth: 0 }}>
- <b>{d.ru}</b>
+ <b>{displayText(d.ru)}</b>
  <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{t('Разобрано')} {d.minted} {t('из')} {d.cap}</div>
  <div style={{ height: 6, background: 'var(--card-shade)', borderRadius: 4, marginTop: 4, overflow: 'hidden' }}>
  <div style={{ width: `${Math.min(100, (d.minted / d.cap) * 100)}%`, height: '100%', background: 'var(--gold)' }} />
@@ -185,7 +186,7 @@ function GiftCollectibleSheet({ drop, onClose, onDone }: { drop: Drop; onClose()
  }
  return (
  <Sheet onClose={onClose}>
- <h2 style={{ textAlign: 'center', marginBottom: 4 }}>{t('Подарить')} «{drop.ru}» {drop.emoji}</h2>
+ <h2 style={{ textAlign: 'center', marginBottom: 4 }}>{t('Подарить')} «{displayText(drop.ru)}» {drop.emoji}</h2>
  <p style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 13, margin: '0 0 12px' }}>{t('Другу достанется свежий экземпляр со своим номером. Цена подарка')} {C.COLLECTIBLE_GIFT_FEE} G.</p>
  {!friends && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Загружаю друзей…')}</p>}
  {friends && friends.length === 0 && <p style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>{t('Сначала заведи друга во Дворике 💛')}</p>}
@@ -259,7 +260,7 @@ function DressView({ kind, onBack }: { kind: 'outfits' | 'furniture' | 'colors';
  return (
  <div key={s.id} className="card">
  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: owned.length ? 10 : 0 }}>
- <h2>{s.ru}{part && !part.unlocked ? ` 🔒` : ''}</h2>
+ <h2>{displayText(s.ru)}{part && !part.unlocked ? ` 🔒` : ''}</h2>
  {(equippedItem(s.id)) && (
  <button className="btn ghost" style={{ padding: '4px 10px', fontSize: 13 }} onClick={() => void equip(s.id, null, '')}>{t('Снять')}</button>
  )}

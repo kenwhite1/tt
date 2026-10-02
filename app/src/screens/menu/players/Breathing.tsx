@@ -1,3 +1,4 @@
+import { displayText } from "../../../i18n"
 // Дыхание: pick a pattern + duration, then an animated circle that scales per phase.
 import { useEffect, useRef, useState } from 'react'
 import { req } from '../../../api'
@@ -7,7 +8,7 @@ import { t } from '../../../i18n'
 import type { BreathPattern, Reward } from '../types'
 
 const TAB_RU: Record<string, string> = {
- calm: 'Спокойствие', focus: 'Фокус', morning: 'Утро', energize: 'Заряд', night: 'Вечер',
+ calm: "Спокойствие", focus: "Фокус", morning: "Утро", energize: "Заряд", night: "Вечер",
 }
 const TAB_ORDER = ['calm', 'focus', 'morning', 'energize', 'night']
 
@@ -54,8 +55,8 @@ function Player({ pattern, minutes, onDone }: { pattern: BreathPattern; minutes:
 
  const cur = phases[phaseIdx % phases.length]
  const label = (cur.label || '').toLowerCase()
- const big = label.includes('вдох')
- const small = label.includes('выдох')
+ const big = label.includes(t("вдох"))
+ const small = label.includes(t("выдох"))
  const scale = big ? 1.35 : small ? 0.75 : 1
  const mm = Math.floor(remaining / 60)
  const ss = String(remaining % 60).padStart(2, '0')
@@ -73,7 +74,7 @@ function Player({ pattern, minutes, onDone }: { pattern: BreathPattern; minutes:
  boxShadow: '0 8px 24px rgba(217,139,31,0.3)',
  }}
  >
- <span style={{ fontWeight: 800, fontSize: 22, color: '#fff' }}>{cur.label}</span>
+ <span style={{ fontWeight: 800, fontSize: 22, color: '#fff' }}>{displayText(cur.label)}</span>
  </div>
  </div>
  <button className="btn ghost" style={{ marginTop: 18 }} onClick={() => void finish()}>{t('Закончить')}</button>

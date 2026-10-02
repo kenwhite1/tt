@@ -13,20 +13,20 @@ import { Micropedia } from './micropets/Micropedia'
 import type { MicropetsDto } from './micropets/MicropetsSection'
 
 const STAGE_RU: Record<string, string> = {
- baby: 'Малыш', toddler: 'Кроха', child: 'Ребёнок', teen: 'Подросток', adult: 'Взрослый',
+ baby: "Малыш", toddler: "Кроха", child: "Ребёнок", teen: "Подросток", adult: "Взрослый",
 }
-const PRONOUN_RU: Record<string, string> = { he: 'Он', she: 'Она', they: 'Они' }
+const PRONOUN_RU: Record<string, string> = { he: "Он", she: "Она", they: "Они" }
 const TRAIT_RU: Record<string, string> = {
- curiosity: 'Любопытный', confidence: 'Смелый', compassion: 'Добрый',
- logic: 'Рассудительный', resilience: 'Стойкий', security: 'Спокойный',
+ curiosity: "Любопытный", confidence: "Смелый", compassion: "Добрый",
+ logic: "Рассудительный", resilience: "Стойкий", security: "Спокойный",
 }
 const DIM_RU: Record<string, string> = {
- confidence: 'Смелость', curiosity: 'Любопытство', security: 'Спокойствие',
- resilience: 'Стойкость', compassion: 'Доброта', logic: 'Рассудительность',
+ confidence: "Смелость", curiosity: "Любопытство", security: "Спокойствие",
+ resilience: "Стойкость", compassion: "Доброта", logic: "Рассудительность",
 }
 const DIMS = ['confidence', 'curiosity', 'security', 'resilience', 'compassion', 'logic']
 const CATEGORY_RU: Record<string, string> = {
- food: 'Еда', drinks: 'Напитки', music: 'Музыка', books: 'Книги', films: 'Фильмы',
+ food: "Еда", drinks: "Напитки", music: "Музыка", books: "Книги", films: "Фильмы",
 }
 
 function plural(n: number, forms: [string, string, string]): string {
@@ -58,7 +58,7 @@ function normalizeLogbook(r: unknown): LogbookInfo | null {
  return {
  visited: Math.max(1, visited.length),
  total: Number(o?.total) || list.length || 27,
- firstName: String(first?.ruName ?? first?.ru_name ?? first?.name ?? 'Тёплый лес'),
+ firstName: String(first?.ruName ?? first?.ru_name ?? first?.name ?? t("Тёплый лес")),
  firstPct: Math.round(Number(first?.pct) || 0),
  }
 }
@@ -188,7 +188,7 @@ export function Pet() {
  </div>
 
  <div style={{ display: 'flex', gap: 6, margin: '14px 0 10px' }}>
- {([['about', 'О питомце'], ['details', 'Детали'], ['traits', 'Характер']] as const).map(([id, ru]) => (
+ {([['about', t("О питомце")], ['details', t("Детали")], ['traits', t("Характер")]] as const).map(([id, ru]) => (
  <button key={id} className={tab === id ? 'btn' : 'btn ghost'} style={{ flex: 1, padding: '8px 0', fontSize: 14 }} onClick={() => { haptic('tap'); setTab(id) }}>
  {t(ru)}
  </button>

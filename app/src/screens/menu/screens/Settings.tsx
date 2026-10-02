@@ -10,7 +10,7 @@ import { isSoundOn, setSoundOn, playSfx } from '../../../sound'
 import { getThemePref, setThemePref, type ThemePref } from '../../../themeMode'
 import { t } from '../../../i18n'
 
-const THEMES: [ThemePref, string][] = [['auto', 'Авто'], ['light', 'Светлая'], ['dark', 'Тёмная']]
+const THEMES: [ThemePref, string][] = [['auto', "Авто"], ['light', "Светлая"], ['dark', "Тёмная"]]
 
 const HH = (min: number) => String(Math.floor(min / 60)).padStart(2, '0')
 const MM = (min: number) => String(min % 60).padStart(2, '0')
@@ -36,17 +36,17 @@ const selStyle: React.CSSProperties = {
 }
 
 const NOTIF: { key: keyof AppSettings['notifications']; ru: string }[] = [
-  { key: 'morning', ru: 'Утреннее «доброе утро»' },
-  { key: 'midday', ru: 'Поддержка среди дня' },
-  { key: 'evening', ru: 'Вечерняя отметка' },
-  { key: 'bedtime', ru: 'Перед сном' },
-  { key: 'streak', ru: 'Спасти серию' },
-  { key: 'walk', ru: 'Шарик вернулся с прогулки' },
-  { key: 'mail', ru: 'Новая почта и газеты' },
-  { key: 'social', ru: 'Друзья и лучики' },
+  { key: 'morning', ru: "Утреннее «доброе утро»" },
+  { key: 'midday', ru: "Поддержка среди дня" },
+  { key: 'evening', ru: "Вечерняя отметка" },
+  { key: 'bedtime', ru: "Перед сном" },
+  { key: 'streak', ru: "Спасти серию" },
+  { key: 'walk', ru: "Шарик вернулся с прогулки" },
+  { key: 'mail', ru: "Новая почта и газеты" },
+  { key: 'social', ru: "Друзья и лучики" },
 ]
 const PRONOUNS: { v: 'he' | 'she' | 'they'; ru: string }[] = [
-  { v: 'he', ru: 'он' }, { v: 'she', ru: 'она' }, { v: 'they', ru: 'они' },
+  { v: 'he', ru: "он" }, { v: 'she', ru: "она" }, { v: 'they', ru: "они" },
 ]
 
 export function Settings({ onBack }: { onBack(): void }) {

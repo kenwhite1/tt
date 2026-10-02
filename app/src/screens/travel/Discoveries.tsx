@@ -7,12 +7,12 @@ interface Disc { id: string; ruName: string; category: string; liked: boolean; d
 interface DiscoveriesRes { total: number; found: number; discoveries: Disc[] }
 
 const CATS = [
- { id: 'food', ru: 'Еда', emoji: '🍩' },
- { id: 'drinks', ru: 'Напитки', emoji: '🍹' },
- { id: 'music', ru: 'Музыка', emoji: '🎵' },
- { id: 'books', ru: 'Книги', emoji: '📚' },
- { id: 'films', ru: 'Фильмы', emoji: '🎬' },
- { id: 'activities', ru: 'Занятия', emoji: '🎈' },
+ { id: 'food', ru: "Еда", emoji: '🍩' },
+ { id: 'drinks', ru: "Напитки", emoji: '🍹' },
+ { id: 'music', ru: "Музыка", emoji: '🎵' },
+ { id: 'books', ru: "Книги", emoji: '📚' },
+ { id: 'films', ru: "Фильмы", emoji: '🎬' },
+ { id: 'activities', ru: "Занятия", emoji: '🎈' },
 ]
 
 export function Discoveries({ onBack }: { onBack(): void }) {

@@ -11,7 +11,7 @@ import { useStore } from '../../../store'
 import { ShareSheet } from '../../../share'
 import { t } from '../../../i18n'
 
-const STAGE_RU: Record<string, string> = { baby: 'малыш', toddler: 'карапуз', child: 'ребёнок', teen: 'подросток', adult: 'взрослый' }
+const STAGE_RU: Record<string, string> = { baby: "малыш", toddler: "карапуз", child: "ребёнок", teen: "подросток", adult: "взрослый" }
 
 function remainingText(endsTs: number): string {
   const ms = endsTs - Date.now()

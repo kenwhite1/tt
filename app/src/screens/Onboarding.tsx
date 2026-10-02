@@ -1,3 +1,4 @@
+import { displayText } from "../i18n"
 import { useEffect, useRef, useState } from 'react'
 import { C } from '@shared/constants'
 import { useStore } from '../store'
@@ -11,27 +12,27 @@ import { haptic, requestWriteAccess, addToHomeScreen, tg } from '../telegram'
 /* ── content ─────────────────────────────────────────────────────────── */
 
 const PRONOUNS = [
-  { id: 'he', heart: '💙', ru: 'Он' },
-  { id: 'she', heart: '💗', ru: 'Она' },
-  { id: 'they', heart: '💛', ru: 'Пусть будет тайной' },
+  { id: 'he', heart: '💙', ru: "Он" },
+  { id: 'she', heart: '💗', ru: "Она" },
+  { id: 'they', heart: '💛', ru: "Пусть будет тайной" },
 ] as const
 
 const TRAITS = [
-  { id: 'curiosity', em: '🤔', ru: 'Любопытство' },
-  { id: 'resilience', em: '😎', ru: 'Стойкость' },
-  { id: 'compassion', em: '😍', ru: 'Доброта' },
-  { id: 'logic', em: '🧐', ru: 'Логика' },
-  { id: 'confidence', em: '🤠', ru: 'Уверенность' },
-  { id: 'security', em: '😌', ru: 'Спокойствие' },
+  { id: 'curiosity', em: '🤔', ru: "Любопытство" },
+  { id: 'resilience', em: '😎', ru: "Стойкость" },
+  { id: 'compassion', em: '😍', ru: "Доброта" },
+  { id: 'logic', em: '🧐', ru: "Логика" },
+  { id: 'confidence', em: '🤠', ru: "Уверенность" },
+  { id: 'security', em: '😌', ru: "Спокойствие" },
 ]
 
-const PET_NAMES = ['Бублик', 'Тоша', 'Кнопа', 'Шуня', 'Барни', 'Соня', 'Пирожок', 'Луна', 'Персик', 'Марс']
+const PET_NAMES = ["Бублик", "Тоша", "Кнопа", "Шуня", "Барни", "Соня", "Пирожок", "Луна", "Персик", "Марс"]
 
 const SECTIONS = [
-  { key: 'about', label: 'О ТЕБЕ', count: 3 },
-  { key: 'energy', label: 'ЭНЕРГИЯ И АКТИВНОСТЬ', count: 3 },
-  { key: 'life', label: 'КАК ЖИЗНЬ', count: 3 },
-  { key: 'support', label: 'ПОДДЕРЖКА', count: 1 },
+  { key: 'about', label: "О ТЕБЕ", count: 3 },
+  { key: 'energy', label: "ЭНЕРГИЯ И АКТИВНОСТЬ", count: 3 },
+  { key: 'life', label: "КАК ЖИЗНЬ", count: 3 },
+  { key: 'support', label: "ПОДДЕРЖКА", count: 1 },
 ]
 
 type Q = {
@@ -39,33 +40,33 @@ type Q = {
   opts: { em?: string; lbl: string }[]; skip?: string
 }
 const QUESTIONS: Q[] = [
-  { id: 'age', sec: 0, q: 'Сколько тебе лет?', sub: 'Это поможет настроить всё под тебя',
-    opts: ['До 18', '18–24', '25–34', '35–44', '45–54', '55–64', '65 и старше'].map(lbl => ({ lbl })) },
-  { id: 'gender', sec: 0, q: 'Какой у тебя пол?', skip: 'Не хочу отвечать',
-    opts: ['Мужской', 'Женский', 'Небинарный'].map(lbl => ({ lbl })) },
-  { id: 'used', sec: 0, q: 'Пользовался(ась) такими приложениями раньше?',
-    opts: [{ em: '🍼', lbl: 'Нет, это впервые!' }, { em: '🍵', lbl: 'Да, но начинаю заново' }] },
-  { id: 'sleep', sec: 1, q: 'Сколько обычно спишь ночью?',
-    opts: [{ em: '😴', lbl: 'Меньше 5 часов' }, { em: '🛏️', lbl: '5–7 часов' }, { em: '🌙', lbl: '7–9 часов' }, { em: '☀️', lbl: 'Больше 9 часов' }] },
-  { id: 'bed', sec: 1, q: 'Легко ли тебе вставать с кровати?',
-    opts: [{ em: '🐬', lbl: 'Очень легко, встаю быстро' }, { em: '🥒', lbl: 'Иногда легко, иногда тяжело' }, { em: '🧸', lbl: 'Тяжело, часто встаю с трудом' }] },
-  { id: 'active', sec: 1, q: 'Насколько ты активен(на) днём?',
-    opts: [{ em: '🏃', lbl: 'В движении почти весь день' }, { em: '🚶', lbl: 'Баланс покоя и движения' }, { em: '🪑', lbl: 'Мало двигаюсь, хочу больше' }, { em: '🌻', lbl: 'Есть ограничения по движению' }] },
-  { id: 'overwhelm', sec: 2, q: 'Как часто ты чувствуешь себя перегруженным(ой)?',
-    opts: [{ em: '😫', lbl: 'Несколько раз в неделю' }, { em: '🙁', lbl: 'Пара стрессовых дней в месяц' }, { em: '😌', lbl: 'Хорошо справляюсь со стрессом' }] },
-  { id: 'support', sec: 2, q: 'На скольких людей можешь опереться в трудный момент?',
-    opts: [{ em: '🌳', lbl: '3 и больше' }, { em: '🌿', lbl: '2' }, { em: '🌱', lbl: '1' }, { em: '🍃', lbl: 'Только на себя' }] },
-  { id: 'routine', sec: 2, q: 'Насколько ты доволен(на) своим распорядком?',
-    opts: [{ em: '🥳', lbl: 'Полностью, забочусь о себе хорошо' }, { em: '😌', lbl: 'Немного, хочу кое-что улучшить' }, { em: '😮', lbl: 'Совсем нет, жду больших перемен' }] },
-  { id: 'areas', sec: 3, q: 'В каких сферах нужна поддержка?', multi: true,
-    opts: [{ em: '✨', lbl: 'У меня всё хорошо, помощь не нужна' }, { em: '🌱', lbl: 'Завести и держать распорядок' }, { em: '🏔️', lbl: 'Справляться со стрессом и тревогой' }, { em: '🍎', lbl: 'Здоровое питание' }, { em: '🌻', lbl: 'Принятие себя и уверенность' }, { em: '🪥', lbl: 'Свежесть и чистота' }, { em: '❤️', lbl: 'Социальные навыки и связи' }] },
+  { id: 'age', sec: 0, q: "Сколько тебе лет?", sub: "Это поможет настроить всё под тебя",
+    opts: ["До 18", '18–24', '25–34', '35–44', '45–54', '55–64', "65 и старше"].map(lbl => ({ lbl })) },
+  { id: 'gender', sec: 0, q: "Какой у тебя пол?", skip: "Не хочу отвечать",
+    opts: ["Мужской", "Женский", "Небинарный"].map(lbl => ({ lbl })) },
+  { id: 'used', sec: 0, q: "Пользовался(ась) такими приложениями раньше?",
+    opts: [{ em: '🍼', lbl: "Нет, это впервые!" }, { em: '🍵', lbl: "Да, но начинаю заново" }] },
+  { id: 'sleep', sec: 1, q: "Сколько обычно спишь ночью?",
+    opts: [{ em: '😴', lbl: "Меньше 5 часов" }, { em: '🛏️', lbl: "5–7 часов" }, { em: '🌙', lbl: "7–9 часов" }, { em: '☀️', lbl: "Больше 9 часов" }] },
+  { id: 'bed', sec: 1, q: "Легко ли тебе вставать с кровати?",
+    opts: [{ em: '🐬', lbl: "Очень легко, встаю быстро" }, { em: '🥒', lbl: "Иногда легко, иногда тяжело" }, { em: '🧸', lbl: "Тяжело, часто встаю с трудом" }] },
+  { id: 'active', sec: 1, q: "Насколько ты активен(на) днём?",
+    opts: [{ em: '🏃', lbl: "В движении почти весь день" }, { em: '🚶', lbl: "Баланс покоя и движения" }, { em: '🪑', lbl: "Мало двигаюсь, хочу больше" }, { em: '🌻', lbl: "Есть ограничения по движению" }] },
+  { id: 'overwhelm', sec: 2, q: "Как часто ты чувствуешь себя перегруженным(ой)?",
+    opts: [{ em: '😫', lbl: "Несколько раз в неделю" }, { em: '🙁', lbl: "Пара стрессовых дней в месяц" }, { em: '😌', lbl: "Хорошо справляюсь со стрессом" }] },
+  { id: 'support', sec: 2, q: "На скольких людей можешь опереться в трудный момент?",
+    opts: [{ em: '🌳', lbl: "3 и больше" }, { em: '🌿', lbl: '2' }, { em: '🌱', lbl: '1' }, { em: '🍃', lbl: "Только на себя" }] },
+  { id: 'routine', sec: 2, q: "Насколько ты доволен(на) своим распорядком?",
+    opts: [{ em: '🥳', lbl: "Полностью, забочусь о себе хорошо" }, { em: '😌', lbl: "Немного, хочу кое-что улучшить" }, { em: '😮', lbl: "Совсем нет, жду больших перемен" }] },
+  { id: 'areas', sec: 3, q: "В каких сферах нужна поддержка?", multi: true,
+    opts: [{ em: '✨', lbl: "У меня всё хорошо, помощь не нужна" }, { em: '🌱', lbl: "Завести и держать распорядок" }, { em: '🏔️', lbl: "Справляться со стрессом и тревогой" }, { em: '🍎', lbl: "Здоровое питание" }, { em: '🌻', lbl: "Принятие себя и уверенность" }, { em: '🪥', lbl: "Свежесть и чистота" }, { em: '❤️', lbl: "Социальные навыки и связи" }] },
 ]
 
 const HEAR = [
-  { em: '🎬', lbl: 'YouTube' }, { em: '👨‍👩‍👧', lbl: 'Друзья / семья' }, { em: '✈️', lbl: 'Telegram' },
-  { em: '📰', lbl: 'Новости / блоги' }, { em: '🎧', lbl: 'Подкасты' }, { em: '📺', lbl: 'Телевидение' },
-  { em: '📷', lbl: 'Instagram / Facebook' }, { em: '🔍', lbl: 'Нашёл(ла) в Google' }, { em: '🎮', lbl: 'Игры' },
-  { em: '🧑‍⚕️', lbl: 'Психолог / врач' },
+  { em: '🎬', lbl: 'YouTube' }, { em: '👨‍👩‍👧', lbl: "Друзья / семья" }, { em: '✈️', lbl: 'Telegram' },
+  { em: '📰', lbl: "Новости / блоги" }, { em: '🎧', lbl: "Подкасты" }, { em: '📺', lbl: "Телевидение" },
+  { em: '📷', lbl: 'Instagram / Facebook' }, { em: '🔍', lbl: "Нашёл(ла) в Google" }, { em: '🎮', lbl: "Игры" },
+  { em: '🧑‍⚕️', lbl: "Психолог / врач" },
 ]
 
 // survey "areas" option index → self-care area (sca); tailors the starter plan
@@ -73,20 +74,20 @@ const HEAR = [
 const AREA_SCA = ['', 'productivity', 'calm', 'nutrition', 'self_kindness', 'hygiene', 'connection']
 
 const COMMIT = [
-  { em: '🙌', days: 2, ru: '2 дня', end: 'Первые шаги' },
-  { em: '💪', days: 5, ru: '5 дней', end: 'Хороший старт' },
-  { em: '🎯', days: 7, ru: '7 дней', end: 'Серьёзный настрой' },
-  { em: '🔥', days: 14, ru: '14 дней', end: 'Несокрушимая серия' },
+  { em: '🙌', days: 2, ru: "2 дня", end: "Первые шаги" },
+  { em: '💪', days: 5, ru: "5 дней", end: "Хороший старт" },
+  { em: '🎯', days: 7, ru: "7 дней", end: "Серьёзный настрой" },
+  { em: '🔥', days: 14, ru: "14 дней", end: "Несокрушимая серия" },
 ]
 
 // Шарик Плюс perks shown in onboarding to sell the yearly plan (mirrors PlusScreen benefits)
 const PLUS_PERKS = [
-  { em: '🛍️', ru: 'Вдвое больше витрин в магазинах и вещь со скидкой −50% каждый день' },
-  { em: '✈️', ru: '9 направлений у Сасси для прогулок вместо 3' },
-  { em: '🎁', ru: 'Вторая колонка наград события и микропитомец на 5 дней раньше' },
-  { em: '🌈', ru: 'Полный набор вещей события и выбор из 10 цветов' },
-  { em: '💌', ru: 'Все газеты недели и весь архив' },
-  { em: '🧘', ru: 'Все упражнения, дыхания и длительности таймеров' },
+  { em: '🛍️', ru: "Вдвое больше витрин в магазинах и вещь со скидкой −50% каждый день" },
+  { em: '✈️', ru: "9 направлений у Сасси для прогулок вместо 3" },
+  { em: '🎁', ru: "Вторая колонка наград события и микропитомец на 5 дней раньше" },
+  { em: '🌈', ru: "Полный набор вещей события и выбор из 10 цветов" },
+  { em: '💌', ru: "Все газеты недели и весь архив" },
+  { em: '🧘', ru: "Все упражнения, дыхания и длительности таймеров" },
 ]
 
 const ORDER = [
@@ -135,7 +136,7 @@ export function Onboarding() {
     if (step !== 'creating') return
     let alive = true
     setBusy(true)
-    finishOnboarding({ petName: petName.trim(), pronouns, trait, species, userName: userName.trim() || 'Друг', areas: selectedAreas() })
+    finishOnboarding({ petName: petName.trim(), pronouns, trait, species, userName: userName.trim() || t("Друг"), areas: selectedAreas() })
       .then(() => { if (alive) { haptic('success'); void api.survey(buildSurvey()).catch(() => {}); setStep('plan') } })
       .catch(() => { if (alive) setStep('q:areas') })
       .finally(() => { if (alive) setBusy(false) })
@@ -414,7 +415,7 @@ export function Onboarding() {
             <h3>{t('Стартовый план')} {userName.trim() || ''}</h3>
             <div className="cap">{t('Попробуй эти простые цели с')} {declineName(name, 'ins')}!</div>
             {(goals ?? []).slice(0, 7).map(g => (
-              <div key={g.id} className="row"><span className="em">{g.emoji}</span><span>{g.title}</span></div>
+              <div key={g.id} className="row"><span className="em">{g.emoji}</span><span>{displayText(g.title)}</span></div>
             ))}
           </div>
         </Shell>
@@ -490,7 +491,7 @@ export function Onboarding() {
           <div className="onb-big">1</div>
           <div className="onb-streak-label">{t('ДЕНЬ ПОДРЯД')}</div>
           <div className="onb-week">
-            {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d, k) => (
+            {[t("Пн"), t("Вт"), t("Ср"), t("Чт"), t("Пт"), t("Сб"), t("Вс")].map((d, k) => (
               <div key={d} className="d"><span>{t(d)}</span><span className={`dot${k === 0 ? ' on' : ''}`}>{k === 0 ? '✓' : ''}</span></div>
             ))}
           </div>

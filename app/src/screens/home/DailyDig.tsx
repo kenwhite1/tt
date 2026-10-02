@@ -8,7 +8,7 @@ import { playSfx } from '../../sound'
 import { ShareSheet } from '../../share'
 import { t } from '../../i18n'
 
-const TIER_RU = ['Обычная находка', 'Редкая находка', 'Очень редкая находка!']
+const TIER_RU = ["Обычная находка", "Редкая находка", "Очень редкая находка!"]
 
 export function DailyDig() {
   const species = useStore(s => s.state?.pet.species ?? 'dog')

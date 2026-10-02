@@ -1,3 +1,4 @@
+import { displayText } from "../../../i18n"
 // Инсайты: mood calendar + goal stats + reflection valence over a chosen range.
 import { useEffect, useState } from 'react'
 import { req } from '../../../api'
@@ -6,12 +7,12 @@ import type { InsightsDto } from '../types'
 import { t } from '../../../i18n'
 
 const RANGES: { id: string; ru: string }[] = [
- { id: '2w', ru: '2 недели' }, { id: '1m', ru: 'Месяц' }, { id: '3m', ru: '3 месяца' }, { id: 'all', ru: 'Всё время' },
+ { id: '2w', ru: "2 недели" }, { id: '1m', ru: "Месяц" }, { id: '3m', ru: "3 месяца" }, { id: 'all', ru: "Всё время" },
 ]
 const KIND_RU: Record<string, string> = {
- breathing: 'Дыхание', meditation: 'Медитации', focus: 'Фокус', movement: 'Движение',
- grounding: 'Заземление', emotion: 'Эмоции', kindness: 'Добрые дела', affirmation: 'Тёплые слова',
- quiz: 'Викторины', reflection: 'Размышления',
+ breathing: "Дыхание", meditation: "Медитации", focus: "Фокус", movement: "Движение",
+ grounding: "Заземление", emotion: "Эмоции", kindness: "Добрые дела", affirmation: "Тёплые слова",
+ quiz: "Викторины", reflection: "Размышления",
 }
 
 export function Insights({ onBack }: { onBack(): void }) {
@@ -54,7 +55,7 @@ export function Insights({ onBack }: { onBack(): void }) {
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', fontWeight: 800, margin: '6px 0' }}>{t('Чаще всего')}</div>
  {data.goals.top.map((g, i) => (
  <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '3px 0' }}>
- <span>{g.emoji}</span><span style={{ flex: 1 }}>{g.title}</span><b>{g.n}</b>
+ <span>{g.emoji}</span><span style={{ flex: 1 }}>{displayText(g.title)}</span><b>{g.n}</b>
  </div>
  ))}
  </>
@@ -64,7 +65,7 @@ export function Insights({ onBack }: { onBack(): void }) {
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', fontWeight: 800, margin: '10px 0 6px' }}>{t('Просятся вернуться')}</div>
  {data.goals.missed.map((g, i) => (
  <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '3px 0' }}>
- <span>{g.emoji}</span><span style={{ flex: 1 }}>{g.title}</span><span style={{ color: 'var(--ink-soft)' }}>−{g.missedDays} {t('дн.')}</span>
+ <span>{g.emoji}</span><span style={{ flex: 1 }}>{displayText(g.title)}</span><span style={{ color: 'var(--ink-soft)' }}>−{g.missedDays} {t('дн.')}</span>
  </div>
  ))}
  </>

@@ -1,3 +1,4 @@
+import { displayText } from "../../i18n"
 // One shared shop front for the three item shops: Одежда (ёж Колюч), Мебель (сорока
 // Соро́ка, «БУДКЕА»), Окрас (хамелеон Тео). 12 rotating slots, refresh ladder, daily
 // gift, everyday collection, catalog + sell, buy/gift sheets.
@@ -17,9 +18,9 @@ import type { EverydayDto, FloorDto, ListingDto, ShopDto, WallpaperDto } from '.
 export type ShopKind = 'outfit' | 'furniture' | 'color'
 
 const NPC: Record<ShopKind, { emoji: string; name: string; greet: string }> = {
- outfit: { emoji: '🦔', name: 'Ёж Колюч', greet: 'Привет! Я как раз разложил обновки. Примеришь что-нибудь?' },
- furniture: { emoji: '🐦‍⬛', name: 'Соро́ка из «БУДКЕА»', greet: 'Заходи-заходи! Натащила тебе блестящих штучек для домика.' },
- color: { emoji: '🦎', name: 'Хамелеон Тео', greet: 'О, новые краски подоспели! Подберём питомцу настроение?' },
+ outfit: { emoji: '🦔', name: "Ёж Колюч", greet: "Привет! Я как раз разложил обновки. Примеришь что-нибудь?" },
+ furniture: { emoji: '🐦‍⬛', name: "Соро́ка из «БУДКЕА»", greet: "Заходи-заходи! Натащила тебе блестящих штучек для домика." },
+ color: { emoji: '🦎', name: "Хамелеон Тео", greet: "О, новые краски подоспели! Подберём питомцу настроение?" },
 }
 
 export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) {
@@ -108,7 +109,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  >
  <span className="swatch" style={{ width: 40, height: 40, borderRadius: 12, background: data.discount.hex, flexShrink: 0 }} />
  <div style={{ flex: 1 }}>
- <b>{t('−50% сегодня:')} {data.discount.ru}</b>
+ <b>{t('−50% сегодня:')} {displayText(data.discount.ru)}</b>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{data.discount.colorRu}</div>
  </div>
  <b>{data.discount.sold ? t('КУПЛЕНО') : `${data.discount.price} G`}</b>
@@ -150,7 +151,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  {data.everyday.map(it => (
  <button key={it.id} className="goal-row" style={{ width: '100%', cursor: 'pointer', textAlign: 'left' }} onClick={() => { setEverydaySheet(it); setPickedColor(null) }}>
  <span style={{ fontSize: 22 }}>{shop === 'outfit' ? '👕' : '🛋️'}</span>
- <span style={{ flex: 1, fontWeight: 800 }}>{it.ru}</span>
+ <span style={{ flex: 1, fontWeight: 800 }}>{displayText(it.ru)}</span>
  <b>{it.price} G</b>
  </button>
  ))}
@@ -191,7 +192,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  <div className="card" style={{ width: '100%', borderRadius: '26px 26px 0 0', margin: 0, paddingBottom: 'calc(20px + var(--safe-bottom))' }} onClick={e => e.stopPropagation()}>
  <div style={{ textAlign: 'center' }}>
  <span className="swatch" style={{ display: 'inline-block', width: 64, height: 64, borderRadius: 18, background: sheet.listing.hex }} />
- <h2 style={{ marginTop: 8 }}>{sheet.listing.ru}</h2>
+ <h2 style={{ marginTop: 8 }}>{displayText(sheet.listing.ru)}</h2>
  <p style={{ color: 'var(--ink-soft)', margin: '4px 0 2px' }}>
  {sheet.listing.colorRu}{sheet.listing.location ? ` · 📍 ${t('из локации «')}${data?.locationRu}»` : ''}
  </p>
@@ -227,7 +228,7 @@ export function ShopFront({ shop, onBack }: { shop: ShopKind; onBack(): void }) 
  {everydaySheet && data && (
  <div style={{ position: 'fixed', inset: 0, background: 'rgba(60,40,20,0.45)', zIndex: 44, display: 'flex', alignItems: 'flex-end' }} onClick={() => setEverydaySheet(null)}>
  <div className="card" style={{ width: '100%', borderRadius: '26px 26px 0 0', margin: 0, paddingBottom: 'calc(20px + var(--safe-bottom))' }} onClick={e => e.stopPropagation()}>
- <h2 style={{ textAlign: 'center' }}>{everydaySheet.ru}</h2>
+ <h2 style={{ textAlign: 'center' }}>{displayText(everydaySheet.ru)}</h2>
  <p style={{ textAlign: 'center', color: 'var(--ink-soft)', margin: '4px 0 10px' }}>{t('Выбери цвет')}</p>
  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center', marginBottom: 14 }}>
  {data.palette.map(p => {
@@ -265,7 +266,7 @@ function SlotCard({ l, onTap }: { l: ListingDto; onTap(): void }) {
  {l.location && <span className="slot-badge" style={{ top: 8, left: 8 }}>📍</span>}
  {l.locked && <span className="slot-badge" style={{ top: 8, right: 8 }}>🔒</span>}
  <span className="swatch" style={{ display: 'inline-block', width: 44, height: 44, borderRadius: 14, background: l.hex, filter: l.locked ? 'grayscale(0.7)' : undefined }} />
- <div style={{ fontWeight: 800, fontSize: 13, minHeight: 34, marginTop: 6 }}>{l.ru}</div>
+ <div style={{ fontWeight: 800, fontSize: 13, minHeight: 34, marginTop: 6 }}>{displayText(l.ru)}</div>
  <div style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{l.colorRu}</div>
  <div style={{ fontWeight: 800, marginTop: 4 }}>
  {l.sold ? t('КУПЛЕНО') : l.locked ? t('Плюс ⭐') : `${l.price} G`}

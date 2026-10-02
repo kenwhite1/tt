@@ -5,7 +5,7 @@ import { Loading, Sub } from '../ui'
 import type { ScasDto } from '../types'
 import { t } from '../../../i18n'
 
-const WEEK_RU = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
+const WEEK_RU = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
 
 function weekDates(monday: string): string[] {
  const base = new Date(`${monday}T12:00:00Z`)

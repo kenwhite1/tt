@@ -1,3 +1,4 @@
+import { displayText } from "../../i18n"
 // Микропитомцы: playland scene + Лаборатория профессора Овса + Микропедия.
 // Rendered inside the Bag tab. Built by the micropets module agent.
 import { useCallback, useEffect, useState } from 'react'
@@ -27,7 +28,7 @@ export interface MicropetsDto {
  ownedSpecies: number; speciesTotal: number; playlandMax: number
 }
 
-const PRONOUN_RU: Record<string, string> = { he: 'он', she: 'она', they: 'они' }
+const PRONOUN_RU: Record<string, string> = { he: "он", she: "она", they: "они" }
 
 const ROAM_CSS = `
 @keyframes mp-roam {
@@ -201,7 +202,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
  }}
  >
  <span style={{ fontSize: 22 }}>{g.emoji}</span>
- <span style={{ flex: 1, fontWeight: 800 }}>{g.title}</span>
+ <span style={{ flex: 1, fontWeight: 800 }}>{displayText(g.title)}</span>
  {linked && <span style={{ fontWeight: 800, color: 'var(--accent-deep)' }}>{t('🎁 привязано')}</span>}
  </button>
  )
@@ -209,7 +210,7 @@ export function MicropetsSection({ onBack }: { onBack(): void }) {
 
  {pendingGoal && (
  <div className="card" style={{ background: '#fdeceb' }}>
- <b>{t('Перепривязать коробочку к «')}{pendingGoal.title}{t('»?')}</b>
+ <b>{t('Перепривязать коробочку к «')}{displayText(pendingGoal.title)}{t('»?')}</b>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '6px 0 10px' }}>
  {t('Прогресс коробочки сбросится до 0 /')} {egg.target}.
  </div>

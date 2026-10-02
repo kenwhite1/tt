@@ -1,3 +1,4 @@
+import { displayText } from "../../i18n"
 import { useState } from 'react'
 import { C } from '@shared/constants'
 import { haptic } from '../../telegram'
@@ -83,7 +84,7 @@ export function ChallengeSection({ challenges, onJoin, onCheck }: Props) {
  textDecoration: done ? 'line-through' : 'none', opacity: done ? 0.55 : 1,
  }}
  >
- {g.ru}
+ {displayText(g.ru)}
  </span>
  </div>
  )

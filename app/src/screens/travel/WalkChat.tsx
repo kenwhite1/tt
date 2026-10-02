@@ -15,7 +15,7 @@ const CAT_EMOJI: Record<string, string> = {
  food: '🍩', drinks: '🍹', music: '🎵', books: '📚', films: '🎬', activities: '🎈',
 }
 const CAT_RU: Record<string, string> = {
- food: 'Еда', drinks: 'Напитки', music: 'Музыка', books: 'Книги', films: 'Фильмы', activities: 'Занятия',
+ food: "Еда", drinks: "Напитки", music: "Музыка", books: "Книги", films: "Фильмы", activities: "Занятия",
 }
 
 export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void }) {
@@ -145,7 +145,7 @@ export function WalkChat({ walkId, onDone }: { walkId: number; onDone(): void })
  {result.discovery.liked ? `${petName} ${t('в восторге! 💙')}` : `${petName} ${t('не оценил… ❤️‍🩹')}`}
  </div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)', marginTop: 4 }}>
- {t(CAT_RU[result.discovery.category] ?? 'Открытие')} · {t('записано в дневник открытий')}
+ {t(CAT_RU[result.discovery.category] ?? t("Открытие"))} · {t('записано в дневник открытий')}
  </div>
  </div>
  ) : (

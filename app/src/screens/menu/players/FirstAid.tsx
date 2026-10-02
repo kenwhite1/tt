@@ -1,3 +1,4 @@
+import { displayText } from "../../../i18n"
 // Аптечка: always-free crisis toolkit, grounding + calming breathing shortcuts, SOS
 // reflections, and helplines as tel: links. Red-tinted, gentle, never gated.
 import { useState } from 'react'
@@ -95,7 +96,7 @@ export function FirstAid({ onBack }: { onBack(): void }) {
  {fa.sosPrompts.map(p => (
  <button key={p.id} className="goal-row" style={{ width: '100%', border: 'none', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', fontSize: 16 }} onClick={() => setSos(p)}>
  <span style={{ fontSize: 22 }}>📝</span>
- <span style={{ flex: 1, fontWeight: 800 }}>{p.title}</span>
+ <span style={{ flex: 1, fontWeight: 800 }}>{displayText(p.title)}</span>
  <span style={{ color: 'var(--ink-soft)', fontWeight: 800 }}>›</span>
  </button>
  ))}

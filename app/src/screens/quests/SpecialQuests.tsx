@@ -1,3 +1,4 @@
+import { displayText } from "../../i18n"
 import { t } from '../../i18n'
 import type { SpecialDto } from './types'
 
@@ -24,7 +25,7 @@ export function SpecialQuests({ special, onClaim }: Props) {
  <div key={track.id} className="card" style={{ padding: '12px 14px' }}>
  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
  <span style={{ fontSize: 22 }}>{METRIC_EMOJI[track.metric] ?? '⭐'}</span>
- <div style={{ flex: 1, fontWeight: 800, fontSize: 15 }}>{track.ru}</div>
+ <div style={{ flex: 1, fontWeight: 800, fontSize: 15 }}>{displayText(track.ru)}</div>
  {track.claimable && (
  <button
  className="btn accent"

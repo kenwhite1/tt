@@ -1,3 +1,4 @@
+import { displayText } from "../../i18n"
 // Heart inbox: incoming vibes grouped by sender + friend requests + buddy invites.
 // Answer a vibe (pick one back, optionally invite «в гости на час»), clear one / clear all.
 import { useEffect, useState } from 'react'
@@ -95,7 +96,7 @@ export function InboxSheet({ data, onClose, reload }:
             <div key={b.mailId} className="goal-row">
               <span style={{ fontSize: 24 }}>{b.emoji || '🤝'}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 800 }}>{b.title}</div>
+                <div style={{ fontWeight: 800 }}>{displayText(b.title)}</div>
                 <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{b.fromName} {t('зовёт к общей цели')}</div>
               </div>
               <button className="btn" style={{ padding: '8px 12px' }} onClick={() => void buddyAccept(b.mailId)}>✓</button>

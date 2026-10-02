@@ -1,3 +1,4 @@
+import { displayText } from "../../i18n"
 // Friend page (sub-view): their puppy in their room, ❤ friendship level, Send Good Vibes,
 // shared-goal streak strips, last-4-events feed, buddy/share goal, ⋯ menu.
 import { useState, useEffect } from 'react'
@@ -11,10 +12,10 @@ import { t } from '../../i18n'
 
 const EMOJI_CHOICES = ['🐶', '🐱', '🐰', '🦊', '🐻', '🐼', '🦄', '🌸', '⭐', '💛', '🌳', '🍀']
 const REPORT_REASONS = [
- { id: 'spam', ru: 'Спам или реклама' },
- { id: 'rude', ru: 'Грубость или травля' },
- { id: 'inappropriate', ru: 'Неприемлемое поведение' },
- { id: 'other', ru: 'Другое' },
+ { id: 'spam', ru: "Спам или реклама" },
+ { id: 'rude', ru: "Грубость или травля" },
+ { id: 'inappropriate', ru: "Неприемлемое поведение" },
+ { id: 'other', ru: "Другое" },
 ]
 
 export function FriendPage({ data, friend, onBack, reload }:
@@ -169,7 +170,7 @@ export function FriendPage({ data, friend, onBack, reload }:
  <div key={`${g.kind}-${g.goalId}`} className="goal-row">
  <span style={{ fontSize: 26 }}>{g.emoji || '⭐'}</span>
  <div style={{ flex: 1 }}>
- <div style={{ fontWeight: 800 }}>{g.title}</div>
+ <div style={{ fontWeight: 800 }}>{displayText(g.title)}</div>
  <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
  🔥 {g.streak} {g.kind === 'buddy' ? t('· напарники') : t('· у друга')} {g.doneToday ? t('· сегодня ✓') : ''}
  </div>
@@ -216,7 +217,7 @@ export function FriendPage({ data, friend, onBack, reload }:
  ) : goals.map(g => (
  <button key={g.id} className="goal-row" style={{ width: '100%', border: 'none', cursor: 'pointer', textAlign: 'left' }} onClick={() => void doShare(g.id)}>
  <span style={{ fontSize: 24 }}>{g.emoji}</span>
- <span style={{ flex: 1, fontWeight: 800 }}>{g.title}</span>
+ <span style={{ flex: 1, fontWeight: 800 }}>{displayText(g.title)}</span>
  <span style={{ color: 'var(--accent-deep)', fontWeight: 800 }}>›</span>
  </button>
  ))}

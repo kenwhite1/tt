@@ -1,3 +1,4 @@
+import { displayText } from "../../i18n"
 // Размышления: prompted reflections by tab, free-form journal, history list.
 import { useEffect, useState } from 'react'
 import { req } from '../../api'
@@ -7,8 +8,8 @@ import type { PromptFull, ReflectionsDto } from './types'
 import { t } from '../../i18n'
 
 const TAB_RU: Record<string, string> = {
- SOS: 'SOS', Calm: 'Спокойствие', Morning: 'Утро', DeepDives: 'Глубокие темы',
- Night: 'Вечер', BigPicture: 'Картина целиком', Energize: 'Заряд',
+ SOS: 'SOS', Calm: "Спокойствие", Morning: "Утро", DeepDives: "Глубокие темы",
+ Night: "Вечер", BigPicture: "Картина целиком", Energize: "Заряд",
 }
 const TAB_ORDER = ['Morning', 'Calm', 'Night', 'Energize', 'DeepDives', 'BigPicture', 'SOS']
 
@@ -64,7 +65,7 @@ export function Reflections({ onBack }: { onBack(): void }) {
  <span>{fmtDay(h.day)}</span>
  <span>{h.valence !== null ? VALENCE_EMOJI[String(h.valence)] : ''}</span>
  </div>
- <b>{h.title}</b>
+ <b>{displayText(h.title)}</b>
  <div style={{ fontSize: 14, color: 'var(--ink-soft)', whiteSpace: 'pre-line' }}>{h.snippet}{h.snippet.length >= 140 ? '…' : ''}</div>
  </div>
  ))
@@ -80,7 +81,7 @@ export function Reflections({ onBack }: { onBack(): void }) {
  onClick={() => { if (!locked) { setEditing(p); setOpen(true) } }}
  >
  <span style={{ flex: 1 }}>
- <span style={{ fontWeight: 800, display: 'block' }}>{p.title}{locked ? ' 🔒' : ''}</span>
+ <span style={{ fontWeight: 800, display: 'block' }}>{displayText(p.title)}{locked ? ' 🔒' : ''}</span>
  <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{p.steps.length > 1 ? `${p.steps.length} ${t('шагов')}` : t('один вопрос')}</span>
  </span>
  <span style={{ fontWeight: 800 }}>⚡ {p.energy}</span>

@@ -1,3 +1,4 @@
+import { displayText } from "../../../i18n"
 // История: day picker (← →) + that day's goals, moods, reflections, activities, walk.
 import { useEffect, useState } from 'react'
 import { req } from '../../../api'
@@ -6,9 +7,9 @@ import type { HistoryDto } from '../types'
 import { t } from '../../../i18n'
 
 const KIND_RU: Record<string, string> = {
-  breathing: '🫧 Дыхание', meditation: '🧘 Медитация', focus: '🎯 Фокус', movement: '🤸 Движение',
-  grounding: '🌿 Заземление', emotion: '💭 Эмоция', kindness: '🤝 Доброе дело', affirmation: '💛 Тёплые слова',
-  quiz: '📋 Викторина', reflection: '📝 Размышление',
+  breathing: "🫧 Дыхание", meditation: "🧘 Медитация", focus: "🎯 Фокус", movement: "🤸 Движение",
+  grounding: "🌿 Заземление", emotion: "💭 Эмоция", kindness: "🤝 Доброе дело", affirmation: "💛 Тёплые слова",
+  quiz: "📋 Викторина", reflection: "📝 Размышление",
 }
 
 export function History({ onBack }: { onBack(): void }) {
@@ -58,7 +59,7 @@ export function History({ onBack }: { onBack(): void }) {
               <h2 style={{ marginBottom: 8 }}>{t('Цели')}</h2>
               {data.completions.map((g, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '3px 0' }}>
-                  <span>{g.emoji}</span><span style={{ flex: 1 }}>{g.title}</span>
+                  <span>{g.emoji}</span><span style={{ flex: 1 }}>{displayText(g.title)}</span>
                   <span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>{fmtTime(g.ts)}</span>
                 </div>
               ))}
@@ -71,7 +72,7 @@ export function History({ onBack }: { onBack(): void }) {
               {data.reflections.map(r => (
                 <div key={r.id} style={{ padding: '4px 0' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <b>{r.title}</b><span>{r.valence !== null ? VALENCE_EMOJI[String(r.valence)] : ''}</span>
+                    <b>{displayText(r.title)}</b><span>{r.valence !== null ? VALENCE_EMOJI[String(r.valence)] : ''}</span>
                   </div>
                   <div style={{ fontSize: 14, color: 'var(--ink-soft)', whiteSpace: 'pre-line' }}>{r.snippet}</div>
                 </div>

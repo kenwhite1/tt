@@ -1,3 +1,4 @@
+import { displayText } from "../../../i18n"
 // Мои цели: list active/paused/archived goals + an edit sheet (rename/emoji/sca/timesPerDay/
 // pause/archive/delete). Add still happens on Home / Идеи целей via the core endpoint.
 import { useEffect, useState } from 'react'
@@ -129,7 +130,7 @@ export function MyGoals({ onBack }: { onBack(): void }) {
  <button key={g.id} className="goal-row" style={{ width: '100%', border: 'none', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', fontSize: 16, opacity: g.archived ? 0.6 : 1 }} onClick={() => { haptic('tap'); setEditing(g) }}>
  <span style={{ fontSize: 24 }}>{g.emoji}</span>
  <span style={{ flex: 1 }}>
- <span style={{ fontWeight: 800, display: 'block' }}>{g.title}</span>
+ <span style={{ fontWeight: 800, display: 'block' }}>{displayText(g.title)}</span>
  <span style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
  {g.timesPerDay > 1 ? `${g.doneToday}/${g.timesPerDay} ${t('сегодня')}` : (g.doneToday > 0 ? t('сделано сегодня') : t('раз в день'))}
  </span>

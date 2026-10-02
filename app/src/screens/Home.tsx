@@ -1,3 +1,4 @@
+import { displayText } from "../i18n"
 import { useEffect, useRef, useState } from 'react'
 import { C } from '@shared/constants'
 import { req } from '../api'
@@ -187,7 +188,7 @@ export function Home() {
               <span className="goal-icon">{g.emoji}</span>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div className="goal-title" style={{ textDecoration: done ? 'line-through' : 'none', opacity: done ? 0.5 : 1 }}>
-                  {g.title} {g.isGoalOfDay ? '⭐' : ''}
+                  {displayText(g.title)} {g.isGoalOfDay ? '⭐' : ''}
                 </div>
                 {g.timesPerDay > 1 && <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{g.doneToday} / {g.timesPerDay}</div>}
               </div>

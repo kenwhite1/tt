@@ -1,3 +1,4 @@
+import { displayText } from "../../../i18n"
 // Викторины: gentle self-check quizzes. Scaled options → sum score → band result card.
 import { useState } from 'react'
 import { req } from '../../../api'
@@ -35,7 +36,7 @@ function Player({ quiz, scale, onDone }: { quiz: QuizDef; scale: { ru: string; s
     return (
       <div className="card" style={{ textAlign: 'center', padding: '24px 18px' }}>
         <div style={{ fontSize: 44 }}>🌤️</div>
-        <h2 style={{ margin: '6px 0' }}>{result.band.title}</h2>
+        <h2 style={{ margin: '6px 0' }}>{displayText(result.band.title)}</h2>
         <p style={{ lineHeight: 1.5 }}>{result.band.text}</p>
         <p style={{ fontSize: 12, color: 'var(--ink-soft)', marginTop: 14, fontStyle: 'italic' }}>{result.disclaimer}</p>
         <button className="btn" style={{ marginTop: 8 }} onClick={onDone}>{t('Готово')}</button>
@@ -53,7 +54,7 @@ function Player({ quiz, scale, onDone }: { quiz: QuizDef; scale: { ru: string; s
             key={opt.score} disabled={busy}
             onClick={() => void answer(opt.score)}
             className="btn ghost" style={{ width: '100%', justifyContent: 'flex-start' }}
-          >{opt.ru}</button>
+          >{displayText(opt.ru)}</button>
         ))}
       </div>
     </div>
