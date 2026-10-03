@@ -1042,3 +1042,5 @@ export const EN: Record<string, string> = {
   'G. Вещь уйдёт из сумки.': 'G. The item will leave your bag.',
   '🪪 Показать мой код': '🪪 Show my code',
 }
+
+Object.assign(EN, {"Летняя бандана": "Summer bandana", "Янтарный ошейник": "Amber collar", "Жёлудь-талисман": "Acorn charm", "Снежный шарф": "Snow scarf", "Весенний цветок": "Spring flower"})
