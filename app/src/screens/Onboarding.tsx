@@ -253,6 +253,7 @@ export function Onboarding() {
             <button className="onb-btn" onClick={next}>{t('Завести питомца')}</button>
             <p className="onb-fine">{t('Шарик это развлекательное приложение для заботы о себе в игровой форме. Это не медицинская или психологическая услуга, и оно не заменяет консультацию специалиста. Если тебе тяжело, пожалуйста, обратись за профессиональной помощью.')}</p>
           </>}>
+          <div data-gg-pregame />
           <Pet species={species} size={150} state="happy" />
           <h1 className="onb-h1" style={{ fontSize: 34 }}>{t('Шарик')}</h1>
           <p className="onb-sub">{t('Твой новый друг для заботы о себе.')}</p>
@@ -572,4 +573,3 @@ function Progress({ sec, within, count }: { sec: number; within: number; count: 
     </div>
   )
 }
-

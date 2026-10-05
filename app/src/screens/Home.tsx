@@ -100,6 +100,7 @@ export function Home() {
 
   return (
     <>
+      <div data-gg-pregame />
       <div className="scroll" style={{ paddingTop: 'calc(var(--safe-top) + 4px)' }}>
         {/* room hero with floating controls */}
         <div style={{ position: 'relative', marginBottom: 18 }}>
