@@ -1,3 +1,4 @@
+import { GameVolumeButton } from '../../../GameVolumeButton'
 // Настройки: profile, day mode (wake/sleep), pet, notifications, quizzes, seasonal, celebration.
 import { useEffect, useState } from 'react'
 import { req } from '../../../api'
@@ -150,8 +151,10 @@ export function Settings({ onBack }: { onBack(): void }) {
       {/* sound + theme (client-side, stored locally) */}
       <div className="card">
         <h2 style={{ marginBottom: 6 }}>{t('Звук и тема')}</h2>
-        <Toggle label={t('Звуки')} sub={t('Тихие звуки заботы о Шарике')} value={soundOn}
-          onChange={v => { setSoundOn(v); setSoundOnState(v); if (v) playSfx('complete') }} />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+          <div><b>{t('Звуки')}</b><p>{t('Тихие звуки заботы о Шарике')}</p></div>
+          <GameVolumeButton className="btn ghost" />
+        </div>
         <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink-soft)', margin: '10px 2px 6px' }}>{t('Тема оформления')}</div>
         <div style={{ display: 'flex', gap: 6 }}>
           {THEMES.map(([v, ru]) => (
