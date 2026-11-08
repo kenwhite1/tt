@@ -5,7 +5,7 @@ import { haptic } from './telegram'
 import { t } from './i18n'
 
 export type Tab = 'home' | 'quests' | 'shop' | 'friends' | 'bag' | 'pet'
-type Phase = 'loading' | 'onboarding' | 'ready' | 'error'
+type Phase = 'loading' | 'ready' | 'error'
 
 interface Store {
   phase: Phase
@@ -14,14 +14,10 @@ interface Store {
   toast: string | null
   tgName: string
   menuOpen: boolean
-  retaking: boolean
   setMenuOpen(open: boolean): void
   refresh(): Promise<void>
   setTab(tab: Tab): void
   boot(): Promise<void>
-  finishOnboarding(data: { petName: string; pronouns: string; trait: string; species?: string; userName: string; areas?: string[] }): Promise<void>
-  restartOnboarding(): void
-  enterApp(): void
   completeGoal(id: number): Promise<RewardDto>
   addGoal(title: string, emoji?: string): Promise<void>
   startWalk(): Promise<void>
@@ -31,6 +27,8 @@ interface Store {
 }
 
 let toastTimer: ReturnType<typeof setTimeout> | undefined
+
+const DEFAULT_PET_NAMES = ['Бублик', 'Тоша', 'Кнопа', 'Шуня', 'Барни', 'Соня', 'Пирожок', 'Луна', 'Персик', 'Марс']
 
 // G earning happens server-side only: every ledger entry is proxied to the hub
 // wallet (/api/sdk/earn|spend) with an idempotency key, and /state reconciles
@@ -59,7 +57,6 @@ export const useStore = create<Store>((set, get) => ({
   toast: null,
   tgName: '',
   menuOpen: false,
-  retaking: false,
 
   setMenuOpen: menuOpen => set({ menuOpen }),
 
@@ -80,7 +77,13 @@ export const useStore = create<Store>((set, get) => ({
     try {
       const r = await api.auth()
       set({ tgName: r.tg.name })
-      if (!r.registered) { set({ phase: 'onboarding' }); return }
+      // No onboarding: new players get a pet with default settings straight away.
+      if (!r.registered) {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+        const petName = DEFAULT_PET_NAMES[Math.floor(Math.random() * DEFAULT_PET_NAMES.length)]
+        const userName = (r.tg.name || '').trim().slice(0, 40) || 'Друг'
+        await api.onboard({ petName, pronouns: 'he', trait: 'curiosity', species: 'dog', userName, tz })
+      }
       const { state } = await api.state()
       set({ state, phase: 'ready' })
       armAutoRefresh()
@@ -88,28 +91,6 @@ export const useStore = create<Store>((set, get) => ({
       console.error(e)
       set({ phase: 'error' })
     }
-  },
-
-  // Creates the account/pet/starter-goals and stores state, but STAYS in onboarding
-  // so the post-creation beats (first goal, reminders, invite) can run. enterApp() finishes.
-  async finishOnboarding(data) {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-    // Retake (already registered) updates the existing pet; first run creates it.
-    const { state } = get().retaking
-      ? await api.onboardRetake({ ...data, tz })
-      : await api.onboard({ ...data, tz })
-    haptic('success')
-    set({ state })
-  },
-
-  // Re-run the onboarding quiz from Settings (keeps all progress).
-  restartOnboarding() {
-    haptic('tap')
-    set({ phase: 'onboarding', retaking: true, menuOpen: false })
-  },
-
-  enterApp() {
-    set({ phase: 'ready', retaking: false })
   },
 
   async completeGoal(id) {

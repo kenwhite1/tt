@@ -7,7 +7,6 @@ import { track } from './analytics'
 import { TabIcons } from './art/icons'
 import { t, useLang } from './i18n'
 import { Home } from './screens/Home'
-import { Onboarding } from './screens/Onboarding'
 import { Quests } from './screens/Quests'
 import { Shop } from './screens/Shop'
 import { Friends } from './screens/Friends'
@@ -83,8 +82,6 @@ export function App() {
       </div>
     )
   }
-
-  if (phase === 'onboarding') return <Onboarding />
 
   return (
     <div className={`screen tab-${tab}`}>

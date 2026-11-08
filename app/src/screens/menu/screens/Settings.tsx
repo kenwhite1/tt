@@ -158,17 +158,6 @@ export function Settings({ onBack }: { onBack(): void }) {
         </div>
       </div>
 
-      {/* retake the onboarding quiz (keeps all progress) */}
-      <div className="card">
-        <h2 style={{ marginBottom: 6 }}>{t('Знакомство')}</h2>
-        <button className="btn ghost" style={{ width: '100%' }} onClick={() => useStore.getState().restartOnboarding()}>
-          {t('🔄 Пройти знакомство заново')}
-        </button>
-        <p style={{ fontSize: 12.5, color: 'var(--ink-soft)', margin: '8px 2px 0' }}>
-          {t('Заново выбрать питомца и ответить на вопросы. Весь прогресс сохранится.')}
-        </p>
-      </div>
-
       <p style={{ fontSize: 11.5, lineHeight: 1.45, color: 'var(--ink-soft)', textAlign: 'center', margin: '6px 8px 4px' }}>
         {t('Шарик это развлекательное приложение для заботы о себе. Не является медицинской или психологической услугой и не заменяет консультацию специалиста.')}
       </p>
